@@ -1,0 +1,3 @@
+com.stonewu.aifusion.framework.mq.redis.config.YudaoRedisMQProducerAutoConfiguration
+com.stonewu.aifusion.framework.mq.redis.config.YudaoRedisMQConsumerAutoConfiguration
+com.stonewu.aifusion.framework.mq.rabbitmq.config.YudaoRabbitMQAutoConfiguration

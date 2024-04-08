@@ -1,0 +1,28 @@
+package com.stonewu.aifusion.module.infra.dal.mysql.demo;
+
+import java.util.*;
+
+import pojo.com.stonewu.aifusion.framework.common.PageResult;
+import pojo.com.stonewu.aifusion.framework.common.PageParam;
+import query.core.mybatis.com.stonewu.aifusion.framework.LambdaQueryWrapperX;
+import mapper.core.mybatis.com.stonewu.aifusion.framework.BaseMapperX;
+import com.stonewu.aifusion.module.infra.dal.dataobject.demo.InfraStudentTeacherDO;
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ * 学生班主任 Mapper
+ *
+ * @author 芋道源码
+ */
+@Mapper
+public interface InfraStudentTeacherMapper extends BaseMapperX<InfraStudentTeacherDO> {
+
+    default InfraStudentTeacherDO selectByStudentId(Long studentId) {
+        return selectOne(InfraStudentTeacherDO::getStudentId, studentId);
+    }
+
+    default int deleteByStudentId(Long studentId) {
+        return delete(InfraStudentTeacherDO::getStudentId, studentId);
+    }
+
+}

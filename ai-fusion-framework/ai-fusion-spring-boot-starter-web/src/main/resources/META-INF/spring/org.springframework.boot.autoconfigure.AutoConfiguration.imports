@@ -1,0 +1,7 @@
+com.stonewu.aifusion.framework.apilog.config.YudaoApiLogAutoConfiguration
+com.stonewu.aifusion.framework.jackson.config.YudaoJacksonAutoConfiguration
+com.stonewu.aifusion.framework.swagger.config.YudaoSwaggerAutoConfiguration
+com.stonewu.aifusion.framework.web.config.YudaoWebAutoConfiguration
+com.stonewu.aifusion.framework.xss.config.YudaoXssAutoConfiguration
+com.stonewu.aifusion.framework.banner.config.YudaoBannerAutoConfiguration
+com.stonewu.aifusion.framework.errorcode.config.YudaoErrorCodeAutoConfiguration

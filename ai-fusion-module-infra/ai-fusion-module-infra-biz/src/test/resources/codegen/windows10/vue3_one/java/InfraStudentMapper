@@ -1,0 +1,30 @@
+package com.stonewu.aifusion.module.infra.dal.mysql.demo;
+
+import java.util.*;
+
+import pojo.com.stonewu.aifusion.framework.common.PageResult;
+import query.core.mybatis.com.stonewu.aifusion.framework.LambdaQueryWrapperX;
+import mapper.core.mybatis.com.stonewu.aifusion.framework.BaseMapperX;
+import com.stonewu.aifusion.module.infra.dal.dataobject.demo.InfraStudentDO;
+import org.apache.ibatis.annotations.Mapper;
+import com.stonewu.aifusion.module.infra.controller.admin.demo.vo.*;
+
+/**
+ * 学生 Mapper
+ *
+ * @author 芋道源码
+ */
+@Mapper
+public interface InfraStudentMapper extends BaseMapperX<InfraStudentDO> {
+
+    default PageResult<InfraStudentDO> selectPage(InfraStudentPageReqVO reqVO) {
+        return selectPage(reqVO, new LambdaQueryWrapperX<InfraStudentDO>()
+                .likeIfPresent(InfraStudentDO::getName, reqVO.getName())
+                .eqIfPresent(InfraStudentDO::getBirthday, reqVO.getBirthday())
+                .eqIfPresent(InfraStudentDO::getSex, reqVO.getSex())
+                .eqIfPresent(InfraStudentDO::getEnabled, reqVO.getEnabled())
+                .betweenIfPresent(InfraStudentDO::getCreateTime, reqVO.getCreateTime())
+                .orderByDesc(InfraStudentDO::getId));
+    }
+
+}

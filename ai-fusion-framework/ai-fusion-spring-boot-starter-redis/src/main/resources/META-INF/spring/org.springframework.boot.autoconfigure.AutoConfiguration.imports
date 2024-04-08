@@ -1,0 +1,2 @@
+com.stonewu.aifusion.framework.redis.config.YudaoRedisAutoConfiguration
+com.stonewu.aifusion.framework.redis.config.YudaoCacheAutoConfiguration

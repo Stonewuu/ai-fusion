@@ -1,0 +1,3 @@
+com.stonewu.aifusion.framework.security.config.YudaoSecurityAutoConfiguration
+com.stonewu.aifusion.framework.security.config.YudaoWebSecurityConfigurerAdapter
+com.stonewu.aifusion.framework.operatelog.config.YudaoOperateLogV2Configuration

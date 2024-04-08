@@ -1,0 +1,3 @@
+com.stonewu.aifusion.framework.datasource.config.YudaoDataSourceAutoConfiguration
+com.stonewu.aifusion.framework.mybatis.config.YudaoMybatisAutoConfiguration
+com.stonewu.aifusion.framework.translate.config.YudaoTranslateAutoConfiguration

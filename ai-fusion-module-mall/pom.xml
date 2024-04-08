@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>ai-fusion</artifactId>
+        <groupId>com.stonewu.boot</groupId>
+        <version>${revision}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>ai-fusion-module-mall</artifactId>
+    <packaging>pom</packaging>
+
+    <name>${project.artifactId}</name>
+
+    <description>
+        商城大模块，由 product 商品、promotion 营销、trade 交易、statistics 统计等组成
+    </description>
+    <modules>
+        <module>ai-fusion-module-promotion-api</module>
+        <module>ai-fusion-module-promotion-biz</module>
+        <module>ai-fusion-module-product-api</module>
+        <module>ai-fusion-module-product-biz</module>
+        <module>ai-fusion-module-trade-api</module>
+        <module>ai-fusion-module-trade-biz</module>
+        <module>ai-fusion-module-statistics-api</module>
+        <module>ai-fusion-module-statistics-biz</module>
+    </modules>
+
+</project>

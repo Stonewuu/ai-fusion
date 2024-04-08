@@ -1,0 +1,2 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+  com.stonewu.aifusion.framework.mybatis.config.IdTypeEnvironmentPostProcessor

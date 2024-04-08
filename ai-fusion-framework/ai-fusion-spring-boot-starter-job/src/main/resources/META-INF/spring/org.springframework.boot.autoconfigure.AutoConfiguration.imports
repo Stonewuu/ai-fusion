@@ -1,0 +1,2 @@
+com.stonewu.aifusion.framework.quartz.config.YudaoQuartzAutoConfiguration
+com.stonewu.aifusion.framework.quartz.config.YudaoAsyncAutoConfiguration
