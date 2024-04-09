@@ -20,7 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @AutoConfiguration
 @EnableConfigurationProperties(XssProperties.class)
-@ConditionalOnProperty(prefix = "yudao.xss", name = "enable", havingValue = "true", matchIfMissing = true) // 设置为 false 时，禁用
+@ConditionalOnProperty(prefix = "aifusion.xss", name = "enable", havingValue = "true", matchIfMissing = true) // 设置为 false 时，禁用
 public class AiFusionXssAutoConfiguration implements WebMvcConfigurer {
 
     /**
@@ -42,7 +42,7 @@ public class AiFusionXssAutoConfiguration implements WebMvcConfigurer {
     @Bean
     @ConditionalOnMissingBean(name = "xssJacksonCustomizer")
     @ConditionalOnBean(ObjectMapper.class)
-    @ConditionalOnProperty(value = "yudao.xss.enable", havingValue = "true")
+    @ConditionalOnProperty(value = "aifusion.xss.enable", havingValue = "true")
     public Jackson2ObjectMapperBuilderCustomizer xssJacksonCustomizer(XssProperties properties,
                                                                       PathMatcher pathMatcher,
                                                                       XssCleaner xssCleaner) {

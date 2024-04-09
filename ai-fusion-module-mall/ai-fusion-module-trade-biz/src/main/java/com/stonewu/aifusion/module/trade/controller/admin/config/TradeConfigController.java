@@ -26,7 +26,7 @@ public class TradeConfigController {
     @Resource
     private TradeConfigService tradeConfigService;
 
-    @Value("${yudao.tencent-lbs-key}")
+    @Value("${aifusion.tencent-lbs-key}")
     private String tencentLbsKey;
 
     @PutMapping("/save")
