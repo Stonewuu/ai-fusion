@@ -11,7 +11,7 @@ import java.util.Set;
  *
  * @author 芋道源码
  */
-@ConfigurationProperties(prefix = "yudao.tenant")
+@ConfigurationProperties(prefix = "aifusion.tenant")
 @Data
 public class TenantProperties {
 

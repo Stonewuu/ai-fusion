@@ -2,9 +2,9 @@ package com.stonewu.aifusion.framework.test.core.ut;
 
 import com.alibaba.druid.spring.boot3.autoconfigure.DruidDataSourceAutoConfigure;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
-import com.stonewu.aifusion.framework.datasource.config.YudaoDataSourceAutoConfiguration;
-import com.stonewu.aifusion.framework.mybatis.config.YudaoMybatisAutoConfiguration;
-import com.stonewu.aifusion.framework.redis.config.YudaoRedisAutoConfiguration;
+import com.stonewu.aifusion.framework.datasource.config.AiFusionDataSourceAutoConfiguration;
+import com.stonewu.aifusion.framework.mybatis.config.AiFusionMybatisAutoConfiguration;
+import com.stonewu.aifusion.framework.redis.config.AiFusionRedisAutoConfiguration;
 import com.stonewu.aifusion.framework.test.config.RedisTestConfiguration;
 import com.stonewu.aifusion.framework.test.config.SqlInitializationTestConfiguration;
 import org.redisson.spring.starter.RedissonAutoConfiguration;
@@ -30,18 +30,18 @@ public class BaseDbAndRedisUnitTest {
 
     @Import({
             // DB 配置类
-            YudaoDataSourceAutoConfiguration.class, // 自己的 DB 配置类
+            AiFusionDataSourceAutoConfiguration.class, // 自己的 DB 配置类
             DataSourceAutoConfiguration.class, // Spring DB 自动配置类
             DataSourceTransactionManagerAutoConfiguration.class, // Spring 事务自动配置类
             DruidDataSourceAutoConfigure.class, // Druid 自动配置类
             SqlInitializationTestConfiguration.class, // SQL 初始化
             // MyBatis 配置类
-            YudaoMybatisAutoConfiguration.class, // 自己的 MyBatis 配置类
+            AiFusionMybatisAutoConfiguration.class, // 自己的 MyBatis 配置类
             MybatisPlusAutoConfiguration.class, // MyBatis 的自动配置类
 
             // Redis 配置类
             RedisTestConfiguration.class, // Redis 测试配置类，用于启动 RedisServer
-            YudaoRedisAutoConfiguration.class, // 自己的 Redis 配置类
+            AiFusionRedisAutoConfiguration.class, // 自己的 Redis 配置类
             RedisAutoConfiguration.class, // Spring Redis 自动配置类
             RedissonAutoConfiguration.class, // Redisson 自动高配置类
     })

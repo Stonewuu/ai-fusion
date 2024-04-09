@@ -18,6 +18,9 @@ import com.stonewu.aifusion.module.infra.dal.mysql.demo.InfraStudentMapper;
 import com.stonewu.aifusion.module.infra.dal.mysql.demo.InfraStudentContactMapper;
 import com.stonewu.aifusion.module.infra.dal.mysql.demo.InfraStudentTeacherMapper;
 
+import static com.stonewu.aifusion.framework.common.util.date.LocalDateTimeUtils.*;
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
+import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static util.exception.com.stonewu.aifusion.framework.common.ServiceExceptionUtil.exception;
 import static enums.infra.com.stonewu.aifusion.module.ErrorCodeConstants.*;
 

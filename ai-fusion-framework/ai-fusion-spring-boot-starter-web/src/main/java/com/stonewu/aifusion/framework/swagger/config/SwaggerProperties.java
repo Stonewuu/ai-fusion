@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * @author 芋道源码
  */
-@ConfigurationProperties("yudao.swagger")
+@ConfigurationProperties("aifusion.swagger")
 @Data
 public class SwaggerProperties {
 

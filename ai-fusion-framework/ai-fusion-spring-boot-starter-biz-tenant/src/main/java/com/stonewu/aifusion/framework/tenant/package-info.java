@@ -8,10 +8,10 @@
  * 6. MQ：在 Producer 发送消息时，Header 带上 tenant-id 租户编号；在 Consumer 消费消息时，将 Header 的 tenant-id 租户编号，添加到租户上下文。
  * 7. Async：异步需要保证 ThreadLocal 的传递性，通过使用阿里开源的 TransmittableThreadLocal 实现。相关的改造点，可见：
  *      1）Spring Async：
- *          {@link com.stonewu.aifusion.framework.quartz.config.YudaoAsyncAutoConfiguration#threadPoolTaskExecutorBeanPostProcessor()}
+ *          {@link com.stonewu.aifusion.framework.quartz.config.AiFusionAsyncAutoConfiguration#threadPoolTaskExecutorBeanPostProcessor()}
  *      2）Spring Security：
  *          TransmittableThreadLocalSecurityContextHolderStrategy
- *          和 YudaoSecurityAutoConfiguration#securityContextHolderMethodInvokingFactoryBean() 方法
+ *          和 AiFusionSecurityAutoConfiguration#securityContextHolderMethodInvokingFactoryBean() 方法
  *
  */
 package com.stonewu.aifusion.framework.tenant;

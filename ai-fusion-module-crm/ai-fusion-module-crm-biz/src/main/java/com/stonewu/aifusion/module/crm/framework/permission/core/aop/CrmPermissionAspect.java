@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 import static com.stonewu.aifusion.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
 import static com.stonewu.aifusion.framework.common.util.json.JsonUtils.toJsonString;
 import static com.stonewu.aifusion.module.crm.enums.ErrorCodeConstants.CRM_PERMISSION_DENIED;
 

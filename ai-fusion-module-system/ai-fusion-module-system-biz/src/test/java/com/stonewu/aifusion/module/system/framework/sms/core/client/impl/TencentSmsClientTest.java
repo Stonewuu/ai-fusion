@@ -25,8 +25,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static com.stonewu.aifusion.framework.common.util.json.JsonUtils.toJsonString;
+import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.when;

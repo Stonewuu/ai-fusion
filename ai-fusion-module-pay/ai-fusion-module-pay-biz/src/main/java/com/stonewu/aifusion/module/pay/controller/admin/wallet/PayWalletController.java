@@ -28,6 +28,7 @@ import java.util.Map;
 
 import static com.stonewu.aifusion.framework.common.enums.UserTypeEnum.MEMBER;
 import static com.stonewu.aifusion.framework.common.pojo.CommonResult.success;
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
 
 @Tag(name = "管理后台 - 用户钱包")
 @RestController

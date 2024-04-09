@@ -11,7 +11,7 @@ import org.springframework.validation.annotation.Validated;
  *
  * @author xingyu4j
  */
-@ConfigurationProperties("yudao.websocket")
+@ConfigurationProperties("aifusion.websocket")
 @Data
 @Validated
 public class WebSocketProperties {

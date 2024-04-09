@@ -20,12 +20,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static cn.hutool.core.util.RandomUtil.randomEle;
 import static com.stonewu.aifusion.framework.common.util.date.LocalDateTimeUtils.buildBetweenTime;
 import static com.stonewu.aifusion.framework.common.util.date.LocalDateTimeUtils.buildTime;
 import static com.stonewu.aifusion.framework.common.util.object.ObjectUtils.cloneIgnoreId;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertPojoEquals;
+import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**

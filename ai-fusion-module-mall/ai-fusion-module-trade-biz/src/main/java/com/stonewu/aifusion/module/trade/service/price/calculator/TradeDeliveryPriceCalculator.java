@@ -25,8 +25,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
 import static com.stonewu.aifusion.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
 import static com.stonewu.aifusion.module.trade.enums.ErrorCodeConstants.PICK_UP_STORE_NOT_EXISTS;
 import static com.stonewu.aifusion.module.trade.enums.ErrorCodeConstants.PRICE_CALCULATE_DELIVERY_PRICE_TEMPLATE_NOT_FOUND;
 

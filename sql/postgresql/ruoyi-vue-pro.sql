@@ -1452,7 +1452,7 @@ INSERT INTO "infra_config" ("id", "category", "type", "name", "config_key", "val
 VALUES (5, 'xxx', 2, 'xxx', 'xxx', 'xxx', '1', 'xxx', '', '2021-02-09 20:06:47', '', '2021-02-09 20:06:47', 0);
 INSERT INTO "infra_config" ("id", "category", "type", "name", "config_key", "value", "visible", "remark", "creator",
                             "create_time", "updater", "update_time", "deleted")
-VALUES (6, 'biz', 2, '登陆验证码的开关', 'yudao.captcha.enable', 'true', '1', NULL, '1', '2022-02-17 00:03:11', '1',
+VALUES (6, 'biz', 2, '登陆验证码的开关', 'aifusion.captcha.enable', 'true', '1', NULL, '1', '2022-02-17 00:03:11', '1',
         '2022-04-04 12:51:40', 0);
 COMMIT;
 

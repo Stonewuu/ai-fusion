@@ -23,8 +23,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
 import static com.stonewu.aifusion.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.convertList;
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.diffList;
 import static com.stonewu.aifusion.module.trade.convert.delivery.DeliveryExpressTemplateConvert.INSTANCE;
 import static com.stonewu.aifusion.module.trade.enums.ErrorCodeConstants.EXPRESS_TEMPLATE_NAME_DUPLICATE;
 import static com.stonewu.aifusion.module.trade.enums.ErrorCodeConstants.EXPRESS_TEMPLATE_NOT_EXISTS;

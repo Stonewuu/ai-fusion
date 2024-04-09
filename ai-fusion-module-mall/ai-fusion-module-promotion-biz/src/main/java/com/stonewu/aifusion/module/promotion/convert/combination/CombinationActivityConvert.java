@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
 import static com.stonewu.aifusion.framework.common.util.collection.MapUtils.findAndThen;
 
 /**

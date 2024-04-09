@@ -1,7 +1,7 @@
 package com.stonewu.aifusion.module.bpm.framework.web.config;
 
 import com.stonewu.aifusion.framework.common.enums.WebFilterOrderEnum;
-import com.stonewu.aifusion.framework.swagger.config.YudaoSwaggerAutoConfiguration;
+import com.stonewu.aifusion.framework.swagger.config.AiFusionSwaggerAutoConfiguration;
 import com.stonewu.aifusion.module.bpm.framework.web.core.FlowableWebFilter;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -21,7 +21,7 @@ public class BpmWebConfiguration {
      */
     @Bean
     public GroupedOpenApi bpmGroupedOpenApi() {
-        return YudaoSwaggerAutoConfiguration.buildGroupedOpenApi("bpm");
+        return AiFusionSwaggerAutoConfiguration.buildGroupedOpenApi("bpm");
     }
 
     /**

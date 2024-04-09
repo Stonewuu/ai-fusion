@@ -61,8 +61,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
 import static com.stonewu.aifusion.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
 import static com.stonewu.aifusion.framework.common.util.date.LocalDateTimeUtils.minusTime;
 import static com.stonewu.aifusion.framework.common.util.servlet.ServletUtils.getClientIP;
 import static com.stonewu.aifusion.framework.web.core.util.WebFrameworkUtils.getTerminal;

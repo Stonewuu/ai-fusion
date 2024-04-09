@@ -24,6 +24,7 @@ import java.util.List;
 
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertPojoEquals;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertServiceException;
+import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static com.stonewu.aifusion.module.pay.enums.ErrorCodeConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;

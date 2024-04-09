@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.stonewu.aifusion.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
 import static com.stonewu.aifusion.module.product.enums.ErrorCodeConstants.SKU_NOT_EXISTS;
 import static com.stonewu.aifusion.module.product.enums.ErrorCodeConstants.SPU_NOT_EXISTS;
 import static com.stonewu.aifusion.module.promotion.enums.ErrorCodeConstants.*;

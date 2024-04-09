@@ -1,2 +1,2 @@
-com.stonewu.aifusion.framework.idempotent.config.YudaoIdempotentConfiguration
-com.stonewu.aifusion.framework.lock4j.config.YudaoLock4jConfiguration
+com.stonewu.aifusion.framework.idempotent.config.AiFusionIdempotentConfiguration
+com.stonewu.aifusion.framework.lock4j.config.AiFusionLock4jConfiguration

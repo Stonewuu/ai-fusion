@@ -1,7 +1,7 @@
-com.stonewu.aifusion.framework.apilog.config.YudaoApiLogAutoConfiguration
-com.stonewu.aifusion.framework.jackson.config.YudaoJacksonAutoConfiguration
-com.stonewu.aifusion.framework.swagger.config.YudaoSwaggerAutoConfiguration
-com.stonewu.aifusion.framework.web.config.YudaoWebAutoConfiguration
-com.stonewu.aifusion.framework.xss.config.YudaoXssAutoConfiguration
-com.stonewu.aifusion.framework.banner.config.YudaoBannerAutoConfiguration
-com.stonewu.aifusion.framework.errorcode.config.YudaoErrorCodeAutoConfiguration
+com.stonewu.aifusion.framework.apilog.config.AiFusionApiLogAutoConfiguration
+com.stonewu.aifusion.framework.jackson.config.AiFusionJacksonAutoConfiguration
+com.stonewu.aifusion.framework.swagger.config.AiFusionSwaggerAutoConfiguration
+com.stonewu.aifusion.framework.web.config.AiFusionWebAutoConfiguration
+com.stonewu.aifusion.framework.xss.config.AiFusionXssAutoConfiguration
+com.stonewu.aifusion.framework.banner.config.AiFusionBannerAutoConfiguration
+com.stonewu.aifusion.framework.errorcode.config.AiFusionErrorCodeAutoConfiguration

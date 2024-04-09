@@ -14,9 +14,9 @@ import org.mockito.Mock;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static cn.hutool.core.util.RandomUtil.randomEle;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertServiceException;
+import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static com.stonewu.aifusion.module.system.enums.ErrorCodeConstants.NOTICE_NOT_FOUND;
 import static com.stonewu.aifusion.module.system.enums.ErrorCodeConstants.NOTIFY_SEND_TEMPLATE_PARAM_MISS;
 import static org.junit.jupiter.api.Assertions.assertEquals;

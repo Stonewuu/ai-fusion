@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.stonewu.aifusion.framework.common.pojo.CommonResult.success;
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
 import static com.stonewu.aifusion.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
 @Tag(name = "管理后台 - CRM 商机状态")

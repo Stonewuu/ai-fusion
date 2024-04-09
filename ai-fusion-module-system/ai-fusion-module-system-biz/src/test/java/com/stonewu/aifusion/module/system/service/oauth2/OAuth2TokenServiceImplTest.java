@@ -25,10 +25,10 @@ import org.springframework.context.annotation.Import;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static com.stonewu.aifusion.framework.common.util.object.ObjectUtils.cloneIgnoreId;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertPojoEquals;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertServiceException;
+import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;

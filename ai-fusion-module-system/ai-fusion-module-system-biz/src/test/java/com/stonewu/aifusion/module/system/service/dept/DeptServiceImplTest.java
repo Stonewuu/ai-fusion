@@ -15,9 +15,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertPojoEquals;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertServiceException;
+import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static com.stonewu.aifusion.module.system.enums.ErrorCodeConstants.*;
 import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.*;

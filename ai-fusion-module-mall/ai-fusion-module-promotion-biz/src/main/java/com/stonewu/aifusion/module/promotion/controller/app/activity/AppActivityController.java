@@ -33,6 +33,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.stonewu.aifusion.framework.common.pojo.CommonResult.success;
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
 
 @Tag(name = "用户 APP - 营销活动") // 用于提供跨多个活动的 HTTP 接口
 @RestController

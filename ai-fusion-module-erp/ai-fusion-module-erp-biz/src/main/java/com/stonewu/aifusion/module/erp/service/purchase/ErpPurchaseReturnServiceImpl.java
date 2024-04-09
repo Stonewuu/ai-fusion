@@ -34,6 +34,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
+
 // TODO 芋艿：记录操作日志
 
 /**

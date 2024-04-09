@@ -12,8 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * @author 芋道源码
  */
-@SuppressWarnings("SpringComponentScan") // 忽略 IDEA 无法识别 ${yudao.info.base-package}
-@SpringBootApplication(scanBasePackages = {"${yudao.info.base-package}.server", "${yudao.info.base-package}.module"})
+@SuppressWarnings("SpringComponentScan") // 忽略 IDEA 无法识别 ${aifusion.info.base-package}
+@SpringBootApplication(scanBasePackages = {"${aifusion.info.base-package}.server", "${aifusion.info.base-package}.module"})
 public class AiFusionServerApplication {
 
     public static void main(String[] args) {
@@ -22,7 +22,7 @@ public class AiFusionServerApplication {
         // 如果你碰到启动的问题，请认真阅读 https://doc.iocoder.cn/quick-start/ 文章
 
         SpringApplication.run(AiFusionServerApplication.class, args);
-//        new SpringApplicationBuilder(YudaoServerApplication.class)
+//        new SpringApplicationBuilder(AiFusionServerApplication.class)
 //                .applicationStartup(new BufferingApplicationStartup(20480))
 //                .run(args);
 

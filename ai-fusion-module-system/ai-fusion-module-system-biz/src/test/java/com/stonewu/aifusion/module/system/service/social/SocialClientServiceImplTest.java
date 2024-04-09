@@ -32,11 +32,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
-import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static cn.hutool.core.util.RandomUtil.randomEle;
 import static com.stonewu.aifusion.framework.common.util.object.ObjectUtils.cloneIgnoreId;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertPojoEquals;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertServiceException;
+import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static com.stonewu.aifusion.module.system.enums.ErrorCodeConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

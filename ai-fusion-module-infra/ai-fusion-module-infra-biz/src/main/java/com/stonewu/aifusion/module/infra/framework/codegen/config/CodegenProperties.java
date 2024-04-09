@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 
 import java.util.Collection;
 
-@ConfigurationProperties(prefix = "yudao.codegen")
+@ConfigurationProperties(prefix = "aifusion.codegen")
 @Validated
 @Data
 public class CodegenProperties {

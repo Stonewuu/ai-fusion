@@ -46,6 +46,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static com.stonewu.aifusion.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
 import static com.stonewu.aifusion.module.crm.enums.ErrorCodeConstants.*;
 import static com.stonewu.aifusion.module.crm.enums.LogRecordConstants.*;
 import static com.stonewu.aifusion.module.crm.util.CrmAuditStatusUtils.convertBpmResultToAuditStatus;

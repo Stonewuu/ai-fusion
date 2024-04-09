@@ -23,6 +23,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
+
 /**
  * ERP 产品 Service 实现类
  *

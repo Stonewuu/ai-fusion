@@ -1,6 +1,6 @@
 package com.stonewu.aifusion.module.member.framework.web.config;
 
-import com.stonewu.aifusion.framework.swagger.config.YudaoSwaggerAutoConfiguration;
+import com.stonewu.aifusion.framework.swagger.config.AiFusionSwaggerAutoConfiguration;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ public class MemberWebConfiguration {
      */
     @Bean
     public GroupedOpenApi memberGroupedOpenApi() {
-        return YudaoSwaggerAutoConfiguration.buildGroupedOpenApi("member");
+        return AiFusionSwaggerAutoConfiguration.buildGroupedOpenApi("member");
     }
 
 }

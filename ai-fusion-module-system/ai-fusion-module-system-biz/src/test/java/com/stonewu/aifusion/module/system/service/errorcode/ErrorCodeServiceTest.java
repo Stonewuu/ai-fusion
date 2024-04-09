@@ -19,13 +19,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static cn.hutool.core.util.RandomUtil.randomEle;
 import static com.stonewu.aifusion.framework.common.util.date.LocalDateTimeUtils.buildBetweenTime;
 import static com.stonewu.aifusion.framework.common.util.date.LocalDateTimeUtils.buildTime;
 import static com.stonewu.aifusion.framework.common.util.object.ObjectUtils.cloneIgnoreId;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertPojoEquals;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertServiceException;
+import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static com.stonewu.aifusion.module.system.enums.ErrorCodeConstants.ERROR_CODE_DUPLICATE;
 import static com.stonewu.aifusion.module.system.enums.ErrorCodeConstants.ERROR_CODE_NOT_EXISTS;
 import static org.junit.jupiter.api.Assertions.*;

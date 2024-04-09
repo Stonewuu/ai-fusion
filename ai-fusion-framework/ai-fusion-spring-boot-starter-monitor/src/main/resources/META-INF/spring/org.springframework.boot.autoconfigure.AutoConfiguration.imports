@@ -1,2 +1,2 @@
-com.stonewu.aifusion.framework.tracer.config.YudaoTracerAutoConfiguration
-com.stonewu.aifusion.framework.tracer.config.YudaoMetricsAutoConfiguration
+com.stonewu.aifusion.framework.tracer.config.AiFusionTracerAutoConfiguration
+com.stonewu.aifusion.framework.tracer.config.AiFusionMetricsAutoConfiguration

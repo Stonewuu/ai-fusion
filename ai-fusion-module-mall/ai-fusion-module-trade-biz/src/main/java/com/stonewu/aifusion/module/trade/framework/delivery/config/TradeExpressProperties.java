@@ -15,7 +15,7 @@ import org.springframework.validation.annotation.Validated;
  * @author jason
  */
 @Component
-@ConfigurationProperties(prefix = "yudao.trade.express")
+@ConfigurationProperties(prefix = "aifusion.trade.express")
 @Data
 @Validated
 public class TradeExpressProperties {

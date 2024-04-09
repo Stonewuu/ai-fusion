@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Import;
 import static com.stonewu.aifusion.framework.common.util.object.ObjectUtils.cloneIgnoreId;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertPojoEquals;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertServiceException;
+import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static com.stonewu.aifusion.module.report.enums.ErrorCodeConstants.GO_VIEW_PROJECT_NOT_EXISTS;
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -40,17 +40,17 @@
         </dependency>
 
         <!-- 数据报表。默认注释，保证编译速度 -->
-<!--        <dependency>-->
-<!--            <groupId>com.stonewu.boot</groupId>-->
-<!--            <artifactId>ai-fusion-module-report-biz</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
+        <!--<dependency>
+            <groupId>com.stonewu.boot</groupId>
+            <artifactId>ai-fusion-module-report-biz</artifactId>
+            <version>${revision}</version>
+        </dependency>-->
         <!-- 工作流。默认注释，保证编译速度 -->
-<!--        <dependency>-->
-<!--            <groupId>com.stonewu.boot</groupId>-->
-<!--            <artifactId>ai-fusion-module-bpm-biz</artifactId>-->
-<!--            <version>${revision}</version>-->
-<!--        </dependency>-->
+        <!--<dependency>
+            <groupId>com.stonewu.boot</groupId>
+            <artifactId>ai-fusion-module-bpm-biz</artifactId>
+            <version>${revision}</version>
+        </dependency>-->
         <!-- 支付服务。默认注释，保证编译速度 -->
         <dependency>
             <groupId>com.stonewu.boot</groupId>

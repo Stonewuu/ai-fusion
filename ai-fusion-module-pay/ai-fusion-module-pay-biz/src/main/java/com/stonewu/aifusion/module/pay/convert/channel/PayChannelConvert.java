@@ -20,8 +20,9 @@ public interface PayChannelConvert {
     @Mapping(target = "config",ignore = true)
     PayChannelDO convert(PayChannelUpdateReqVO bean);
 
-    @Mapping(target = "config",expression = "java(json.util.com.stonewu.aifusion.framework.common.JsonUtils.toJsonString(bean.getConfig()))")
+    @Mapping(target = "config",expression = "java(com.stonewu.aifusion.framework.common.util.json.JsonUtils.toJsonString(bean.getConfig()))")
     PayChannelRespVO convert(PayChannelDO bean);
+
 
     PageResult<PayChannelRespVO> convertPage(PageResult<PayChannelDO> page);
 

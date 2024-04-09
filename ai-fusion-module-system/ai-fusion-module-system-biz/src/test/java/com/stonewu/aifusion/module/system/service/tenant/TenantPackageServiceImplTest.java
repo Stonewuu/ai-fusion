@@ -15,12 +15,12 @@ import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
-import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static com.stonewu.aifusion.framework.common.util.date.LocalDateTimeUtils.buildBetweenTime;
 import static com.stonewu.aifusion.framework.common.util.date.LocalDateTimeUtils.buildTime;
 import static com.stonewu.aifusion.framework.common.util.object.ObjectUtils.cloneIgnoreId;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertPojoEquals;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertServiceException;
+import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static com.stonewu.aifusion.module.system.enums.ErrorCodeConstants.*;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.*;

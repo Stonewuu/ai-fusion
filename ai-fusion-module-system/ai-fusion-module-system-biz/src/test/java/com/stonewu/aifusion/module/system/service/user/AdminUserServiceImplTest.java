@@ -47,6 +47,7 @@ import static com.stonewu.aifusion.framework.common.util.date.LocalDateTimeUtils
 import static com.stonewu.aifusion.framework.common.util.object.ObjectUtils.cloneIgnoreId;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertPojoEquals;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertServiceException;
+import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static com.stonewu.aifusion.module.system.enums.ErrorCodeConstants.*;
 import static java.util.Collections.singleton;
 import static java.util.Collections.singletonList;

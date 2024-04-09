@@ -3,7 +3,7 @@ package com.stonewu.aifusion.module.member.service.user;
 import cn.hutool.core.util.RandomUtil;
 import com.stonewu.aifusion.framework.common.enums.CommonStatusEnum;
 import com.stonewu.aifusion.framework.common.util.collection.ArrayUtils;
-import com.stonewu.aifusion.framework.redis.config.YudaoRedisAutoConfiguration;
+import com.stonewu.aifusion.framework.redis.config.AiFusionRedisAutoConfiguration;
 import com.stonewu.aifusion.framework.test.core.ut.BaseDbAndRedisUnitTest;
 import com.stonewu.aifusion.module.infra.api.file.FileApi;
 import com.stonewu.aifusion.module.member.controller.app.user.vo.AppMemberUserUpdateMobileReqVO;
@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author 宋天
  */
 @Disabled
-@Import({MemberUserServiceImpl.class, YudaoRedisAutoConfiguration.class})
+@Import({MemberUserServiceImpl.class, AiFusionRedisAutoConfiguration.class})
 public class MemberUserServiceImplTest extends BaseDbAndRedisUnitTest {
 
     @Resource

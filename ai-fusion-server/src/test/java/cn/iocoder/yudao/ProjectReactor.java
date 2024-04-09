@@ -25,8 +25,8 @@ import static java.io.File.separator;
 @Slf4j
 public class ProjectReactor {
 
-    private static final String GROUP_ID = "cn.iocoder.boot";
-    private static final String ARTIFACT_ID = "yudao";
+    private static final String GROUP_ID = "com.stonewu.boot";
+    private static final String ARTIFACT_ID = "ai-fusion";
     private static final String PACKAGE_NAME = "com.stonewu.aifusion";
     private static final String TITLE = "芋道管理系统";
 

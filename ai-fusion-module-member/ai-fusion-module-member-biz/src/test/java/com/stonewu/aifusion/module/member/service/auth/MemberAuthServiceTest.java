@@ -2,7 +2,7 @@ package com.stonewu.aifusion.module.member.service.auth;
 
 import com.stonewu.aifusion.framework.common.enums.CommonStatusEnum;
 import com.stonewu.aifusion.framework.common.util.collection.ArrayUtils;
-import com.stonewu.aifusion.framework.redis.config.YudaoRedisAutoConfiguration;
+import com.stonewu.aifusion.framework.redis.config.AiFusionRedisAutoConfiguration;
 import com.stonewu.aifusion.framework.test.core.ut.BaseDbAndRedisUnitTest;
 import com.stonewu.aifusion.module.member.dal.dataobject.user.MemberUserDO;
 import com.stonewu.aifusion.module.member.dal.mysql.user.MemberUserMapper;
@@ -28,7 +28,7 @@ import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.randomSt
  *
  * @author 宋天
  */
-@Import({MemberAuthServiceImpl.class, YudaoRedisAutoConfiguration.class})
+@Import({MemberAuthServiceImpl.class, AiFusionRedisAutoConfiguration.class})
 public class MemberAuthServiceTest extends BaseDbAndRedisUnitTest {
 
     // TODO @芋艿：登录相关的单测，待补全

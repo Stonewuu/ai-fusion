@@ -3,7 +3,7 @@ package com.stonewu.aifusion.module.system.service.sms;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import com.stonewu.aifusion.framework.common.enums.UserTypeEnum;
-import com.stonewu.aifusion.framework.sms.config.YudaoSmsAutoConfiguration;
+import com.stonewu.aifusion.framework.sms.config.AiFusionSmsAutoConfiguration;
 import com.stonewu.aifusion.module.system.test.BaseDbAndRedisIntegrationTest;
 import com.stonewu.aifusion.module.system.mq.consumer.sms.SmsSendConsumer;
 import com.stonewu.aifusion.module.system.mq.producer.sms.SmsProducer;
@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 // TODO @芋艿：需要迁移
-@Import({YudaoSmsAutoConfiguration.class,
+@Import({AiFusionSmsAutoConfiguration.class,
         SmsChannelServiceImpl.class, SmsSendServiceImpl.class, SmsTemplateServiceImpl.class, SmsLogServiceImpl.class,
         SmsProducer.class, SmsSendConsumer.class})
 public class SmsServiceIntegrationTest extends BaseDbAndRedisIntegrationTest {

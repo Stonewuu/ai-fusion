@@ -2492,7 +2492,7 @@ GO
 INSERT INTO [dbo].[infra_config] ([id], [category], [type], [name], [config_key], [value], [visible], [remark], [creator], [create_time], [updater], [update_time], [deleted]) VALUES (N'3', N'ui', N'1', N'主框架页-侧边栏主题', N'sys.index.sideTheme', N'theme-dark', N'0', N'深色主题theme-dark，浅色主题theme-light', N'admin', N'2021-01-05 17:03:48.0000000', N'', N'2021-01-19 03:05:21.0000000', N'0')
 GO
 
-INSERT INTO [dbo].[infra_config] ([id], [category], [type], [name], [config_key], [value], [visible], [remark], [creator], [create_time], [updater], [update_time], [deleted]) VALUES (N'6', N'biz', N'2', N'登陆验证码的开关', N'yudao.captcha.enable', N'true', N'1', NULL, N'1', N'2022-02-17 00:03:11.0000000', N'1', N'2022-04-04 12:51:40.0000000', N'0')
+INSERT INTO [dbo].[infra_config] ([id], [category], [type], [name], [config_key], [value], [visible], [remark], [creator], [create_time], [updater], [update_time], [deleted]) VALUES (N'6', N'biz', N'2', N'登陆验证码的开关', N'aifusion.captcha.enable', N'true', N'1', NULL, N'1', N'2022-02-17 00:03:11.0000000', N'1', N'2022-04-04 12:51:40.0000000', N'0')
 GO
 
 COMMIT

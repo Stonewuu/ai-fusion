@@ -16,6 +16,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import static com.stonewu.aifusion.framework.common.util.date.LocalDateTimeUtils.*;
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
+import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static ${DateUtilsClassName}.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 #break
 #end

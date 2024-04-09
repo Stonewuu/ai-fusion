@@ -4,7 +4,7 @@ import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.stonewu.aifusion.framework.excel.core.annotations.DictFormat;
 import com.stonewu.aifusion.framework.excel.core.convert.DictConvert;
-import com.stonewu.aifusion.module.infra.enums.DictTypeConstants;
+import com.stonewu.aifusion.module.system.enums.DictTypeConstants;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.ToString;
@@ -88,7 +88,7 @@ public class CrmContactRespVO {
 
     @Schema(description = "是否关键决策人")
     @ExcelProperty(value = "是否关键决策人", converter = DictConvert.class, order = 3)
-    @DictFormat(DictTypeConstants.BOOLEAN_STRING)
+    @DictFormat(com.stonewu.aifusion.module.infra.enums.DictTypeConstants.BOOLEAN_STRING)
     private Boolean master;
 
     @Schema(description = "职位")

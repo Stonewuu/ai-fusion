@@ -38,6 +38,7 @@ import java.util.stream.Stream;
 
 import static com.stonewu.aifusion.framework.apilog.core.enums.OperateTypeEnum.EXPORT;
 import static com.stonewu.aifusion.framework.common.pojo.CommonResult.success;
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
 
 @Tag(name = "管理后台 - ERP 付款单")
 @RestController

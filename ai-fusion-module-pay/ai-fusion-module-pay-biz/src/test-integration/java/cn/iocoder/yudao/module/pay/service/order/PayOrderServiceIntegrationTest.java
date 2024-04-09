@@ -6,7 +6,7 @@ import com.stonewu.aifusion.module.pay.service.order.dto.PayOrderCreateReqDTO;
 import com.stonewu.aifusion.module.pay.service.order.dto.PayOrderSubmitReqDTO;
 import com.stonewu.aifusion.module.pay.test.BaseDbIntegrationTest;
 import com.stonewu.aifusion.framework.common.util.date.DateUtils;
-import com.stonewu.aifusion.framework.pay.config.YudaoPayAutoConfiguration;
+import com.stonewu.aifusion.framework.pay.config.AiFusionPayAutoConfiguration;
 import com.stonewu.aifusion.framework.pay.core.enums.PayChannelEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
@@ -15,7 +15,7 @@ import jakarta.annotation.Resource;
 import java.time.Duration;
 
 @Import({PayOrderServiceImpl.class, PayAppServiceImpl.class,
-        PayChannelServiceImpl.class, YudaoPayAutoConfiguration.class})
+        PayChannelServiceImpl.class, AiFusionPayAutoConfiguration.class})
 public class PayOrderServiceIntegrationTest extends BaseDbIntegrationTest {
 
     @Resource

@@ -7,7 +7,7 @@ import org.springframework.validation.annotation.Validated;
 
 import java.time.Duration;
 
-@ConfigurationProperties(prefix = "yudao.sms-code")
+@ConfigurationProperties(prefix = "aifusion.sms-code")
 @Validated
 @Data
 public class SmsCodeProperties {

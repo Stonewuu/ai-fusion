@@ -30,6 +30,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
+
 // TODO 芋艿：记录操作日志
 /**
  * ERP 其它入库单 Service 实现类

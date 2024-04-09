@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import java.util.Collections;
 import java.util.List;
 
-@ConfigurationProperties(prefix = "yudao.security")
+@ConfigurationProperties(prefix = "aifusion.security")
 @Validated
 @Data
 public class SecurityProperties {

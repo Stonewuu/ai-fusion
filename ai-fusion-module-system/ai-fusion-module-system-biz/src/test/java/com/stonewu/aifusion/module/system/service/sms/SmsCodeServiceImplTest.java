@@ -20,7 +20,6 @@ import org.springframework.context.annotation.Import;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static cn.hutool.core.util.RandomUtil.randomEle;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertPojoEquals;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertServiceException;

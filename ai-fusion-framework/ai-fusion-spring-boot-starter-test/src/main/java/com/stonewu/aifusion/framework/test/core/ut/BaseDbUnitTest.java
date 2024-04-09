@@ -3,8 +3,8 @@ package com.stonewu.aifusion.framework.test.core.ut;
 import com.alibaba.druid.spring.boot3.autoconfigure.DruidDataSourceAutoConfigure;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.github.yulichang.autoconfigure.MybatisPlusJoinAutoConfiguration;
-import com.stonewu.aifusion.framework.datasource.config.YudaoDataSourceAutoConfiguration;
-import com.stonewu.aifusion.framework.mybatis.config.YudaoMybatisAutoConfiguration;
+import com.stonewu.aifusion.framework.datasource.config.AiFusionDataSourceAutoConfiguration;
+import com.stonewu.aifusion.framework.mybatis.config.AiFusionMybatisAutoConfiguration;
 import com.stonewu.aifusion.framework.test.config.SqlInitializationTestConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
@@ -27,13 +27,13 @@ public class BaseDbUnitTest {
 
     @Import({
             // DB 配置类
-            YudaoDataSourceAutoConfiguration.class, // 自己的 DB 配置类
+            AiFusionDataSourceAutoConfiguration.class, // 自己的 DB 配置类
             DataSourceAutoConfiguration.class, // Spring DB 自动配置类
             DataSourceTransactionManagerAutoConfiguration.class, // Spring 事务自动配置类
             DruidDataSourceAutoConfigure.class, // Druid 自动配置类
             SqlInitializationTestConfiguration.class, // SQL 初始化
             // MyBatis 配置类
-            YudaoMybatisAutoConfiguration.class, // 自己的 MyBatis 配置类
+            AiFusionMybatisAutoConfiguration.class, // 自己的 MyBatis 配置类
             MybatisPlusAutoConfiguration.class, // MyBatis 的自动配置类
             MybatisPlusJoinAutoConfiguration.class, // MyBatis 的Join配置类
     })

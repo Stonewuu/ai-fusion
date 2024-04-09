@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MemberServiceImpl implements MemberService {
 
-    @Value("${yudao.info.base-package}")
+    @Value("${aifusion.info.base-package}")
     private String basePackage;
 
     private volatile Object memberUserApi;

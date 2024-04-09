@@ -6,7 +6,6 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.stonewu.aifusion.framework.common.enums.CommonStatusEnum;
 import com.stonewu.aifusion.framework.common.pojo.PageResult;
-import com.stonewu.aifusion.framework.common.util.date.LocalDateTimeUtils;
 import com.stonewu.aifusion.module.product.api.sku.ProductSkuApi;
 import com.stonewu.aifusion.module.product.api.sku.dto.ProductSkuRespDTO;
 import com.stonewu.aifusion.module.product.api.spu.ProductSpuApi;
@@ -36,6 +35,8 @@ import java.util.Map;
 
 import static cn.hutool.core.collection.CollUtil.isNotEmpty;
 import static com.stonewu.aifusion.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
+import static com.stonewu.aifusion.framework.common.util.date.LocalDateTimeUtils.isBetween;
 import static com.stonewu.aifusion.module.product.enums.ErrorCodeConstants.SKU_NOT_EXISTS;
 import static com.stonewu.aifusion.module.product.enums.ErrorCodeConstants.SPU_NOT_EXISTS;
 import static com.stonewu.aifusion.module.promotion.enums.ErrorCodeConstants.*;
@@ -298,7 +299,7 @@ public class SeckillActivityServiceImpl implements SeckillActivityService {
             throw exception(SECKILL_JOIN_ACTIVITY_STATUS_CLOSED);
         }
         // 1.2 是否在活动时间范围内
-        if (!LocalDateTimeUtils.isBetween(activity.getStartTime(), activity.getEndTime())) {
+        if (!isBetween(activity.getStartTime(), activity.getEndTime())) {
             throw exception(SECKILL_JOIN_ACTIVITY_TIME_ERROR);
         }
         SeckillConfigDO config = seckillConfigService.getCurrentSeckillConfig();

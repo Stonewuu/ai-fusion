@@ -1,1 +1,1 @@
-com.stonewu.aifusion.framework.websocket.config.YudaoWebSocketAutoConfiguration
+com.stonewu.aifusion.framework.websocket.config.AiFusionWebSocketAutoConfiguration

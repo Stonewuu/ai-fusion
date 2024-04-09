@@ -36,6 +36,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import static com.stonewu.aifusion.framework.common.exception.util.ServiceExceptionUtil.exception;
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
 import static com.stonewu.aifusion.framework.common.util.date.LocalDateTimeUtils.afterNow;
 import static com.stonewu.aifusion.framework.common.util.date.LocalDateTimeUtils.beforeNow;
 import static com.stonewu.aifusion.module.promotion.enums.ErrorCodeConstants.*;

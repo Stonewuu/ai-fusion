@@ -7,6 +7,7 @@ spring:
 
   main:
     allow-circular-references: true # 允许循环依赖，因为项目是三层架构，无法避免这个情况。
+    allow-bean-definition-overriding: true
 
   # Servlet 配置
   servlet:
@@ -74,7 +75,7 @@ mybatis-plus:
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
     banner: false # 关闭控制台的 Banner 打印
-  type-aliases-package: ${yudao.info.base-package}.module.*.dal.dataobject
+  type-aliases-package: ${aifusion.info.base-package}.module.*.dal.dataobject
   encryptor:
     password: XDV71a+xqStEA3WH # 加解密的秘钥，可使用 https://www.imaegoo.com/2020/aes-key-generator/ 网站生成
 
@@ -144,7 +145,7 @@ spring:
 
 --- #################### 芋道相关配置 ####################
 
-yudao:
+aifusion:
   info:
     version: 1.0.0
     base-package: com.stonewu.aifusion
@@ -168,17 +169,17 @@ yudao:
       topic: ${spring.application.name}-websocket # 消息发送的 Kafka Topic
       consumer-group: ${spring.application.name}-websocket-consumer # 消息发送的 Kafka Consumer Group
   swagger:
-    title: 芋道快速开发平台
+    title: AiFusion平台
     description: 提供管理后台、用户 App 的所有功能
-    version: ${yudao.info.version}
-    url: ${yudao.web.admin-ui.url}
+    version: ${aifusion.info.version}
+    url: ${aifusion.web.admin-ui.url}
     email: xingyu4j@vip.qq.com
     license: MIT
     license-url: https://gitee.com/zhijiantianya/ruoyi-vue-pro/blob/master/LICENSE
   captcha:
     enable: true # 验证码的开关，默认为 true
   codegen:
-    base-package: ${yudao.info.base-package}
+    base-package: ${aifusion.info.base-package}
     db-schemas: ${spring.datasource.dynamic.datasource.master.name}
     front-type: 10 # 前端模版的类型，参见 CodegenFrontTypeEnum 枚举类
   error-code: # 错误码相关配置项

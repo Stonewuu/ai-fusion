@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author dlyan
  */
-@ConfigurationProperties("yudao.error-code")
+@ConfigurationProperties("aifusion.error-code")
 @Data
 @Validated
 public class ErrorCodeProperties {

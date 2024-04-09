@@ -13,9 +13,9 @@ import org.mockito.Mock;
 
 import java.util.List;
 
-import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static cn.hutool.core.util.RandomUtil.randomEle;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.assertPojoEquals;
+import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;

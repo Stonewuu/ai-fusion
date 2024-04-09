@@ -43,6 +43,7 @@ import static com.stonewu.aifusion.framework.apilog.core.enums.OperateTypeEnum.E
 import static com.stonewu.aifusion.framework.common.exception.util.ServiceExceptionUtil.exception;
 import static com.stonewu.aifusion.framework.common.pojo.CommonResult.success;
 import static com.stonewu.aifusion.framework.common.pojo.PageParam.PAGE_SIZE_NONE;
+import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
 import static com.stonewu.aifusion.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 import static com.stonewu.aifusion.module.crm.enums.ErrorCodeConstants.CUSTOMER_NOT_EXISTS;
 
