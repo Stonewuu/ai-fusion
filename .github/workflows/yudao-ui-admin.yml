@@ -1,4 +1,4 @@
-name: ai-fusion-ui-admin CI
+name: ai-fusion-admin CI
 
 # 在master分支发生push事件时触发。
 on:
@@ -8,12 +8,12 @@ on:
   #   branches: [ master ]
 env: # 设置环境变量
   TZ: Asia/Shanghai # 时区（设置时区可使页面中的`最近更新时间`使用时区时间）
-  WORK_DIR: ai-fusion-ui-admin #工作目录
+  WORK_DIR: ai-fusion-admin #工作目录
 
 defaults:
   run:
     shell: bash
-    working-directory: ai-fusion-ui-admin
+    working-directory: ai-fusion-admin
 
 jobs:
   build: # 自定义名称
