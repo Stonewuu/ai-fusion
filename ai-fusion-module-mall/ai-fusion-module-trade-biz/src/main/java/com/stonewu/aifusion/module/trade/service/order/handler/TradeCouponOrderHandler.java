@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 优惠劵的 {@link TradeOrderHandler} 实现类
  *
- * @author 芋道源码
+ *
  */
 @Component
 public class TradeCouponOrderHandler implements TradeOrderHandler {

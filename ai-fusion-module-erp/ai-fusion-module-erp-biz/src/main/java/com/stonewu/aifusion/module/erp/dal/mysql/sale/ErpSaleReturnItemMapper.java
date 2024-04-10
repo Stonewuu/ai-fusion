@@ -17,7 +17,7 @@ import static com.stonewu.aifusion.framework.common.util.collection.CollectionUt
 /**
  * ERP 销售退货项 Mapper
  *
- * @author 芋道源码
+ *
  */
 @Mapper
 public interface ErpSaleReturnItemMapper extends BaseMapperX<ErpSaleReturnItemDO> {

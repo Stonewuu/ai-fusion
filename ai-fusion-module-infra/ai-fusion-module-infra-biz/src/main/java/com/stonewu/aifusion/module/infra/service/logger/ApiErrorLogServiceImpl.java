@@ -21,7 +21,7 @@ import static com.stonewu.aifusion.module.infra.enums.ErrorCodeConstants.API_ERR
 /**
  * API 错误日志 Service 实现类
  *
- * @author 芋道源码
+ *
  */
 @Slf4j
 @Service

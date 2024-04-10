@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 /**
  * {@link TradeMemberLevelPriceCalculator} 的单元测试类
  *
- * @author 芋道源码
+ *
  */
 public class TradeMemberLevelPriceCalculatorTest extends BaseMockitoUnitTest {
 

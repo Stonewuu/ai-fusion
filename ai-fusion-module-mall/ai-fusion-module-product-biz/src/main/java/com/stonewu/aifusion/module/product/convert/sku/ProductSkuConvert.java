@@ -15,7 +15,7 @@ import static com.stonewu.aifusion.framework.common.util.collection.CollectionUt
 /**
  * 商品 SKU Convert
  *
- * @author 芋道源码
+ * 
  */
 @Mapper
 public interface ProductSkuConvert {

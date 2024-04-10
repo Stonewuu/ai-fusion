@@ -22,7 +22,7 @@ import static com.stonewu.aifusion.framework.common.util.json.JsonUtils.toJsonSt
  *
  * // TODO 芋艿：未详细测试，因为手头没 App
  *
- * @author 芋道源码
+ *
  */
 @Slf4j
 public class WxAppPayClient extends AbstractWxPayClient {

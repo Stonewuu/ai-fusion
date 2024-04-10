@@ -29,7 +29,7 @@ import me.chanjar.weixin.mp.api.WxMpMessageHandler;
  *
  * @see MpOpenController#handleMessage(String, String, MpOpenHandleMessageReqVO)
  *
- * @author 芋道源码
+ *
  */
 public class MpContextHolder {
 

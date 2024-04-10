@@ -7,7 +7,7 @@ import com.stonewu.aifusion.module.system.enums.social.SocialTypeEnum;
 /**
  * 社交应用的 API 接口
  *
- * @author 芋道源码
+ *
  */
 public interface SocialClientApi {
 

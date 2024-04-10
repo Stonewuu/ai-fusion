@@ -27,7 +27,7 @@ import static com.stonewu.aifusion.module.bpm.enums.ErrorCodeConstants.TASK_CREA
 /**
  * {@link BpmTaskCandidateStrategy} 的调用者，用于调用对应的策略，实现任务的候选人的计算
  *
- * @author 芋道源码
+ *
  */
 @Slf4j
 public class BpmTaskCandidateInvoker {

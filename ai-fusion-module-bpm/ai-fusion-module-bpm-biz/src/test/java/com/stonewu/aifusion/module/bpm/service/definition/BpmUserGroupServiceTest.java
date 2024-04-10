@@ -23,7 +23,7 @@ import static com.stonewu.aifusion.module.bpm.enums.ErrorCodeConstants.USER_GROU
 /**
  * {@link BpmUserGroupServiceImpl} 的单元测试类
  *
- * @author 芋道源码
+ *
  */
 @Import(BpmUserGroupServiceImpl.class)
 public class BpmUserGroupServiceTest extends BaseDbUnitTest {
@@ -101,7 +101,7 @@ public class BpmUserGroupServiceTest extends BaseDbUnitTest {
     public void testGetUserGroupPage() {
        // mock 数据
        BpmUserGroupDO dbUserGroup = RandomUtils.randomPojo(BpmUserGroupDO.class, o -> { // 等会查询到
-           o.setName("芋道源码");
+           o.setName("AiFusion");
            o.setStatus(CommonStatusEnum.ENABLE.getStatus());
            o.setCreateTime(buildTime(2021, 11, 11));
        });

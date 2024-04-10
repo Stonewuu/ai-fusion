@@ -10,7 +10,7 @@ import static com.stonewu.aifusion.framework.web.core.util.WebFrameworkUtils.HEA
 /**
  * 多租户 Util
  *
- * @author 芋道源码
+ *
  */
 public class TenantUtils {
 

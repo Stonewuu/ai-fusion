@@ -8,7 +8,7 @@ import com.stonewu.aifusion.module.infra.dal.dataobject.logger.ApiErrorLogDO;
 /**
  * API 错误日志 Service 接口
  *
- * @author 芋道源码
+ *
  */
 public interface ApiErrorLogService {
 

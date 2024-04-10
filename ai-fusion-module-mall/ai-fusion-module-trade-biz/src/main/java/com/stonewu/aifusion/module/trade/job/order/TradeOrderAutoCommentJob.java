@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * 交易订单的自动评论 Job
  *
- * @author 芋道源码
+ *
  */
 @Component
 public class TradeOrderAutoCommentJob implements JobHandler {

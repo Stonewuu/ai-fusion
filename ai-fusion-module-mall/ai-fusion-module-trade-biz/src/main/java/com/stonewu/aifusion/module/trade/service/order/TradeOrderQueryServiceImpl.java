@@ -37,7 +37,7 @@ import static com.stonewu.aifusion.module.trade.enums.ErrorCodeConstants.ORDER_N
 /**
  * 交易订单【读】 Service 实现类
  *
- * @author 芋道源码
+ *
  */
 @Service
 public class TradeOrderQueryServiceImpl implements TradeOrderQueryService {

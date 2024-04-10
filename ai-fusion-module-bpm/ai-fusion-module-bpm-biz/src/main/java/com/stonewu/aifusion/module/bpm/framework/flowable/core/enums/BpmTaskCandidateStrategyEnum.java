@@ -9,7 +9,7 @@ import lombok.Getter;
  *
  * 例如说：分配给指定人审批
  *
- * @author 芋道源码
+ *
  */
 @Getter
 @AllArgsConstructor

@@ -9,7 +9,7 @@ import lombok.*;
 /**
  * 商品分类 DO
  *
- * @author 芋道源码
+ *
  */
 @TableName("product_category")
 @Data

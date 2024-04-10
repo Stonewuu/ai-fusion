@@ -17,7 +17,7 @@ import static com.stonewu.aifusion.framework.common.util.collection.CollectionUt
 /**
  * ERP 采购入库项 Mapper
  *
- * @author 芋道源码
+ *
  */
 @Mapper
 public interface ErpPurchaseInItemMapper extends BaseMapperX<ErpPurchaseInItemDO> {

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 校验令牌 Response DTO
  *
- * @author 芋道源码
+ *
  */
 @Data
 @NoArgsConstructor

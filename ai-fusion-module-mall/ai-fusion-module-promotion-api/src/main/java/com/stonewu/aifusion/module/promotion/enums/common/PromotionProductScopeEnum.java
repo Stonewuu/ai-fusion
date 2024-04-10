@@ -9,7 +9,7 @@ import java.util.Arrays;
 /**
  * 营销的商品范围枚举
  *
- * @author 芋道源码
+ *
  */
 @Getter
 @AllArgsConstructor

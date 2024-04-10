@@ -11,7 +11,7 @@ import org.mapstruct.factory.Mappers;
 /**
  * 满减送活动 Convert
  *
- * @author 芋道源码
+ *
  */
 @Mapper
 public interface RewardActivityConvert {

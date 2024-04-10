@@ -9,7 +9,7 @@ import jakarta.validation.Valid;
 /**
  * 短信验证码 Service 接口
  *
- * @author 芋道源码
+ *
  */
 public interface SmsCodeService {
 

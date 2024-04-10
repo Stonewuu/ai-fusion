@@ -61,7 +61,7 @@ public class CrmProductRespVO implements VO {
     @Trans(type = TransType.RPC, targetClassName = "com.stonewu.aifusion.module.system.dal.dataobject.user.AdminUserDO",
             fields = "nickname", ref = "ownerUserName")
     private Long ownerUserId;
-    @Schema(description = "负责人的用户昵称", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋道源码")
+    @Schema(description = "负责人的用户昵称", requiredMode = Schema.RequiredMode.REQUIRED, example = "AiFusion")
     @ExcelProperty("负责人")
     private String ownerUserName;
 
@@ -69,7 +69,7 @@ public class CrmProductRespVO implements VO {
     @Trans(type = TransType.RPC, targetClassName = "com.stonewu.aifusion.module.system.dal.dataobject.user.AdminUserDO",
             fields = "nickname", ref = "creatorName")
     private String creator;
-    @Schema(description = "创建人名字", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋道源码")
+    @Schema(description = "创建人名字", requiredMode = Schema.RequiredMode.REQUIRED, example = "AiFusion")
     @ExcelProperty("创建人")
     private String creatorName;
 

@@ -26,7 +26,7 @@ import static com.stonewu.aifusion.framework.common.util.json.JsonUtils.toJsonSt
  *
  * 文档：<a href="https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=9_10&index=1">付款码支付</a>
  *
- * @author 芋道源码
+ *
  */
 @Slf4j
 public class WxBarPayClient extends AbstractWxPayClient {

@@ -29,7 +29,7 @@ import static com.stonewu.aifusion.module.trade.enums.ErrorCodeConstants.PRICE_C
 /**
  * 优惠劵的 {@link TradePriceCalculator} 实现类
  *
- * @author 芋道源码
+ * 
  */
 @Component
 @Order(TradePriceCalculator.ORDER_COUPON)

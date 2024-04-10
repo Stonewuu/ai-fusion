@@ -19,7 +19,7 @@ public class ErpSupplierSaveReqVO {
     @Schema(description = "供应商编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "17791")
     private Long id;
 
-    @Schema(description = "供应商名称", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋道源码")
+    @Schema(description = "供应商名称", requiredMode = Schema.RequiredMode.REQUIRED, example = "AiFusion")
     @NotEmpty(message = "供应商名称不能为空")
     private String name;
 

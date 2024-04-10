@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 /**
  * 支付配置类
  *
- * @author 芋道源码
+ *
  */
 @AutoConfiguration
 public class AiFusionPayAutoConfiguration {

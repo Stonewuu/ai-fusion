@@ -14,7 +14,7 @@ import static com.stonewu.aifusion.framework.common.util.collection.CollectionUt
 /**
  * ERP 产品分类 Service 接口
  *
- * @author 芋道源码
+ *
  */
 public interface ErpProductCategoryService {
 

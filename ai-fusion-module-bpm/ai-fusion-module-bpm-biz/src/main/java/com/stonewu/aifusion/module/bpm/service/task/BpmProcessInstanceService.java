@@ -19,7 +19,7 @@ import static com.stonewu.aifusion.framework.common.util.collection.CollectionUt
 /**
  * 流程实例 Service 接口
  *
- * @author 芋道源码
+ *
  */
 public interface BpmProcessInstanceService {
 

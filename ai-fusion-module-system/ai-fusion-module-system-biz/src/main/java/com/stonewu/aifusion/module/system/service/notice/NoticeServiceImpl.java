@@ -16,7 +16,7 @@ import static com.stonewu.aifusion.module.system.enums.ErrorCodeConstants.NOTICE
 /**
  * 通知公告 Service 实现类
  *
- * @author 芋道源码
+ *
  */
 @Service
 public class NoticeServiceImpl implements NoticeService {

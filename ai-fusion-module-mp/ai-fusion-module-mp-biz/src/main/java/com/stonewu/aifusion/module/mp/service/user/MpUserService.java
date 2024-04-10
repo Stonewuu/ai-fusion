@@ -15,7 +15,7 @@ import static com.stonewu.aifusion.module.mp.enums.ErrorCodeConstants.USER_NOT_E
 /**
  * 公众号粉丝 Service 接口
  *
- * @author 芋道源码
+ *
  */
 public interface MpUserService {
 

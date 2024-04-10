@@ -7,7 +7,7 @@ import lombok.Data;
 /**
  * 登录日志创建 Request DTO
  *
- * @author 芋道源码
+ *
  */
 @Data
 public class LoginLogCreateReqDTO {

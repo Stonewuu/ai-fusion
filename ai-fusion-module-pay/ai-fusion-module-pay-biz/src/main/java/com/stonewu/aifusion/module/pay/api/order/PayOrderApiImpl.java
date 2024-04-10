@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 /**
  * 支付单 API 实现类
  *
- * @author 芋道源码
+ *
  */
 @Service
 public class PayOrderApiImpl implements PayOrderApi {

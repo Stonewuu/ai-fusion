@@ -21,7 +21,7 @@ import static com.stonewu.aifusion.module.mp.enums.ErrorCodeConstants.*;
 /**
  * 公众号统计 Service 实现类
  *
- * @author 芋道源码
+ *
  */
 @Service
 public class MpStatisticsServiceImpl implements MpStatisticsService {

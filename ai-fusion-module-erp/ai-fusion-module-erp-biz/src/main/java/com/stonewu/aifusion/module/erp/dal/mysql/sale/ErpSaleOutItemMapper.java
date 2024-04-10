@@ -17,7 +17,7 @@ import static com.stonewu.aifusion.framework.common.util.collection.CollectionUt
 /**
  * ERP 销售出库项 Mapper
  *
- * @author 芋道源码
+ *
  */
 @Mapper
 public interface ErpSaleOutItemMapper extends BaseMapperX<ErpSaleOutItemDO> {

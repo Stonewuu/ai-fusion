@@ -28,7 +28,7 @@ import static java.util.Arrays.asList;
 /**
  * 满减送活动 Service 实现类
  *
- * @author 芋道源码
+ *
  */
 @Service
 @Validated

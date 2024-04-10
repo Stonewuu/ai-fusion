@@ -10,7 +10,7 @@ import lombok.Data;
 /**
  * 短信验证码的使用 Request DTO
  *
- * @author 芋道源码
+ *
  */
 @Data
 public class SmsCodeUseReqDTO {

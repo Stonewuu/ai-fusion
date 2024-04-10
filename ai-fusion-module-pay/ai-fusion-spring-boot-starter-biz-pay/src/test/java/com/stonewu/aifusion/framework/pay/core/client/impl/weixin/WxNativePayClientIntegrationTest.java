@@ -20,7 +20,7 @@ import static com.stonewu.aifusion.framework.pay.core.client.impl.weixin.Abstrac
 /**
  * {@link WxNativePayClient} 的集成测试，用于快速调试微信扫码支付
  *
- * @author 芋道源码
+ *
  */
 @Disabled
 public class WxNativePayClientIntegrationTest {

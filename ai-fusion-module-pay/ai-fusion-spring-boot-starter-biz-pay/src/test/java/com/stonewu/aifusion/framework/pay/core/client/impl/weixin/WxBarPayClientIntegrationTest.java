@@ -21,7 +21,7 @@ import java.time.Duration;
 /**
  * {@link WxBarPayClient} 的集成测试，用于快速调试微信条码支付
  *
- * @author 芋道源码
+ *
  */
 @Disabled
 public class WxBarPayClientIntegrationTest {

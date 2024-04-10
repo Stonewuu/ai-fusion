@@ -19,7 +19,7 @@ import static com.stonewu.aifusion.framework.common.exception.util.ServiceExcept
 /**
  * OAuth2 授予 Service 实现类
  *
- * @author 芋道源码
+ *
  */
 @Service
 public class OAuth2GrantServiceImpl implements OAuth2GrantService {

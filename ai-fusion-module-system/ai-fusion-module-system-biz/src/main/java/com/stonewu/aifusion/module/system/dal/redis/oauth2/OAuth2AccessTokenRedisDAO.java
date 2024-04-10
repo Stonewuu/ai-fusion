@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * {@link OAuth2AccessTokenDO} 的 RedisDAO
  *
- * @author 芋道源码
+ * 
  */
 @Repository
 public class OAuth2AccessTokenRedisDAO {

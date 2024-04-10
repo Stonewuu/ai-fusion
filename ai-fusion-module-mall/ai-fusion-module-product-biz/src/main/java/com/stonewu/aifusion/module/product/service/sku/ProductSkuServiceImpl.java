@@ -32,7 +32,7 @@ import static com.stonewu.aifusion.module.product.enums.ErrorCodeConstants.*;
 /**
  * 商品 SKU Service 实现类
  *
- * @author 芋道源码
+ *
  */
 @Service
 @Validated

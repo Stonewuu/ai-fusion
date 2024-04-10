@@ -15,7 +15,7 @@ import static com.stonewu.aifusion.framework.common.util.collection.CollectionUt
 /**
  * ERP 结算账户 Service 接口
  *
- * @author 芋道源码
+ *
  */
 public interface ErpAccountService {
 

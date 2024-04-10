@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.URL;
 /**
  * 基于 DB 存储的文件客户端的配置类
  *
- * @author 芋道源码
+ *
  */
 @Data
 public class DBFileClientConfig implements FileClientConfig {

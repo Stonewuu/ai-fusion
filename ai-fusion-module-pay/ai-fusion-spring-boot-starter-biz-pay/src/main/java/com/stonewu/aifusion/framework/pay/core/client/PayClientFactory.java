@@ -5,7 +5,7 @@ import com.stonewu.aifusion.framework.pay.core.enums.channel.PayChannelEnum;
 /**
  * 支付客户端的工厂接口
  *
- * @author 芋道源码
+ *
  */
 public interface PayClientFactory {
 

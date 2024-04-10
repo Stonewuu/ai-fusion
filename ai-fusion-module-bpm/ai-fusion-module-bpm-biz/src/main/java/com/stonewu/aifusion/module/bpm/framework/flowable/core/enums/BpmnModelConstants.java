@@ -3,7 +3,7 @@ package com.stonewu.aifusion.module.bpm.framework.flowable.core.enums;
 /**
  * BPMN XML 常量信息
  *
- * @author 芋道源码
+ *
  */
 public interface BpmnModelConstants {
 

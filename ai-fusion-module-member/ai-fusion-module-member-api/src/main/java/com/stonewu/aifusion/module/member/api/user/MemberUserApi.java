@@ -11,7 +11,7 @@ import static com.stonewu.aifusion.framework.common.util.collection.CollectionUt
 /**
  * 会员用户的 API 接口
  *
- * @author 芋道源码
+ *
  */
 public interface MemberUserApi {
 

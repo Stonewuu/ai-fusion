@@ -18,7 +18,7 @@ import java.util.Objects;
 /**
  * ERP 销售退货 Mapper
  *
- * @author 芋道源码
+ *
  */
 @Mapper
 public interface ErpSaleReturnMapper extends BaseMapperX<ErpSaleReturnDO> {

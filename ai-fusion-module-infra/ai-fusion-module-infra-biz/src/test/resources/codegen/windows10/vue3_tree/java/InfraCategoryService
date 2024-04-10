@@ -10,7 +10,7 @@ import pojo.com.stonewu.aifusion.framework.common.PageParam;
 /**
  * 分类 Service 接口
  *
- * @author 芋道源码
+ *
  */
 public interface InfraCategoryService {
 

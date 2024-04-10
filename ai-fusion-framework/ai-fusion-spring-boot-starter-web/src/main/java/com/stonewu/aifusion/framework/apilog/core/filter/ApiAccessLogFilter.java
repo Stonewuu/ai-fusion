@@ -44,7 +44,7 @@ import static com.stonewu.aifusion.framework.common.util.json.JsonUtils.toJsonSt
  *
  * 目的：记录 API 访问日志到数据库中
  *
- * @author 芋道源码
+ *
  */
 @Slf4j
 public class ApiAccessLogFilter extends ApiRequestFilter {

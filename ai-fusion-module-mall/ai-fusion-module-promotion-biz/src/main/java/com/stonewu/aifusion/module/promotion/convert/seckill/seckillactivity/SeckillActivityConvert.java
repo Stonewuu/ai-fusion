@@ -33,7 +33,7 @@ import static com.stonewu.aifusion.framework.common.util.collection.MapUtils.fin
 /**
  * 秒杀活动 Convert
  *
- * @author 芋道源码
+ *
  */
 @Mapper
 public interface SeckillActivityConvert {

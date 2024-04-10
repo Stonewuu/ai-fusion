@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 /**
  * 取消绑定社交用户 Request DTO
  *
- * @author 芋道源码
+ *
  */
 @Data
 @NoArgsConstructor

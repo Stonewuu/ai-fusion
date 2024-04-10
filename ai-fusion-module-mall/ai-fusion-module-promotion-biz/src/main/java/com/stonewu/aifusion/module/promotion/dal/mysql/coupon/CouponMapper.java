@@ -24,7 +24,7 @@ import static com.stonewu.aifusion.framework.common.util.collection.CollectionUt
 /**
  * 优惠劵 Mapper
  *
- * @author 芋道源码
+ *
  */
 @Mapper
 public interface CouponMapper extends BaseMapperX<CouponDO> {

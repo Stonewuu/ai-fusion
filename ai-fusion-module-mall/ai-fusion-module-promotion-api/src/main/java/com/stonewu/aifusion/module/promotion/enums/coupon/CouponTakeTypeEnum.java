@@ -9,7 +9,7 @@ import java.util.Arrays;
 /**
  * 优惠劵领取方式
  *
- * @author 芋道源码
+ *
  */
 @AllArgsConstructor
 @Getter

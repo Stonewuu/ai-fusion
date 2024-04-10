@@ -42,7 +42,7 @@ import static com.stonewu.aifusion.module.system.enums.ErrorCodeConstants.*;
 /**
  * Auth Service 实现类
  *
- * @author 芋道源码
+ * 
  */
 @Service
 @Slf4j

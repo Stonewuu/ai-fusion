@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 优惠劵使用 Request DTO
  *
- * @author 芋道源码
+ * 
  */
 @Data
 public class CouponValidReqDTO {

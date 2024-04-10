@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 商品 SPU 基础 Response VO
  *
- * @author 芋道源码
+ *
  */
 @Data
 public class AppProductSpuBaseRespVO {

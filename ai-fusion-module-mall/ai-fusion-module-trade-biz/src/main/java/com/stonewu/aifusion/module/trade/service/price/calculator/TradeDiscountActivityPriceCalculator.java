@@ -24,7 +24,7 @@ import static com.stonewu.aifusion.module.trade.service.price.calculator.TradePr
 /**
  * 限时折扣的 {@link TradePriceCalculator} 实现类
  *
- * @author 芋道源码
+ *
  */
 @Component
 @Order(TradePriceCalculator.ORDER_DISCOUNT_ACTIVITY)

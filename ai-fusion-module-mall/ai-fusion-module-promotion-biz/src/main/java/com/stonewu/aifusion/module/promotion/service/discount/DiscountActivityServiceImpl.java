@@ -35,7 +35,7 @@ import static com.stonewu.aifusion.module.promotion.enums.ErrorCodeConstants.*;
 /**
  * 限时折扣 Service 实现类
  *
- * @author 芋道源码
+ *
  */
 @Service
 @Validated

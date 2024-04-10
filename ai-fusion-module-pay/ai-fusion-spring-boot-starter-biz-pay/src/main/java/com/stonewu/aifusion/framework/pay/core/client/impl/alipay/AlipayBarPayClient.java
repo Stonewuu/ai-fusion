@@ -24,7 +24,7 @@ import static com.stonewu.aifusion.framework.common.exception.util.ServiceExcept
  *
  * 文档：<a href="https://opendocs.alipay.com/open/194/105072">当面付</a>
  *
- * @author 芋道源码
+ *
  */
 @Slf4j
 public class AlipayBarPayClient extends AbstractAlipayPayClient {

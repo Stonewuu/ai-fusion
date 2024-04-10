@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * 交易订单的自动过期 Job
  *
- * @author 芋道源码
+ *
  */
 @Component
 public class TradeOrderAutoCancelJob implements JobHandler {

@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.URL;
 /**
  * S3 文件客户端的配置类
  *
- * @author 芋道源码
+ *
  */
 @Data
 public class S3FileClientConfig implements FileClientConfig {

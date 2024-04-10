@@ -24,7 +24,7 @@ import static com.stonewu.aifusion.framework.common.util.collection.CollectionUt
 /**
  * 砍价记录 Convert
  *
- * @author 芋道源码
+ *
  */
 @Mapper
 public interface BargainRecordConvert {

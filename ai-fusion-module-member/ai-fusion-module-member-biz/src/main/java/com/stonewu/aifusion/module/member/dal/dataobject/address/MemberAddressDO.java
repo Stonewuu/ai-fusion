@@ -8,7 +8,7 @@ import lombok.*;
 /**
  * 用户收件地址 DO
  *
- * @author 芋道源码
+ *
  */
 @TableName("member_address")
 @Data

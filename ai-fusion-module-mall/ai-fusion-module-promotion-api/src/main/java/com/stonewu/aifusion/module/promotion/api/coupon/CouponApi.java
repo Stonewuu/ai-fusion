@@ -8,7 +8,7 @@ import jakarta.validation.Valid;
 /**
  * 优惠劵 API 接口
  *
- * @author 芋道源码
+ *
  */
 public interface CouponApi {
 

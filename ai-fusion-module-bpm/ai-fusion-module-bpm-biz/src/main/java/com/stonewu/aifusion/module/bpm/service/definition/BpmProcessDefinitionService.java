@@ -22,7 +22,7 @@ import static com.stonewu.aifusion.framework.common.util.collection.CollectionUt
  *
  * @author yunlong.li
  * @author ZJQ
- * @author 芋道源码
+ *
  */
 public interface BpmProcessDefinitionService {
 

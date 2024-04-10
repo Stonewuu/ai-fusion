@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 支付通知的锁 Redis DAO
  *
- * @author 芋道源码
+ *
  */
 @Repository
 public class PayNotifyLockRedisDAO {

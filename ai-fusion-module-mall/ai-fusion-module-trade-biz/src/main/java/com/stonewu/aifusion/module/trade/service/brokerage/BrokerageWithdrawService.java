@@ -17,7 +17,7 @@ import static com.stonewu.aifusion.framework.common.util.collection.CollectionUt
 /**
  * 佣金提现 Service 接口
  *
- * @author 芋道源码
+ *
  */
 public interface BrokerageWithdrawService {
 

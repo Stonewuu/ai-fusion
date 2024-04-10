@@ -13,7 +13,7 @@ import org.springframework.validation.annotation.Validated;
 /**
  * 社交应用的 API 实现类
  *
- * @author 芋道源码
+ * 
  */
 @Service
 @Validated

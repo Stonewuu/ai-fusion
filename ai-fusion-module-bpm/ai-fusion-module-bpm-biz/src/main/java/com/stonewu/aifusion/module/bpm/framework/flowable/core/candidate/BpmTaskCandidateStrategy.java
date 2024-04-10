@@ -10,7 +10,7 @@ import java.util.Set;
  *
  * 例如说：分配审批人
  *
- * @author 芋道源码
+ *
  */
 public interface BpmTaskCandidateStrategy {
 

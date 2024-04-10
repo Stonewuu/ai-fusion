@@ -36,7 +36,7 @@ import static com.stonewu.aifusion.framework.common.util.collection.CollectionUt
 /**
  * OAuth2.0 Token Service 实现类
  *
- * @author 芋道源码
+ *
  */
 @Service
 public class OAuth2TokenServiceImpl implements OAuth2TokenService {

@@ -6,7 +6,7 @@ import com.stonewu.aifusion.framework.mq.redis.core.message.AbstractRedisMessage
 /**
  * Redis Stream Message 抽象类
  *
- * @author 芋道源码
+ *
  */
 public abstract class AbstractRedisStreamMessage extends AbstractRedisMessage {
 

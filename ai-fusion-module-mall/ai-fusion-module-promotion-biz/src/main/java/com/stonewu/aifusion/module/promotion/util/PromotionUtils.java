@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 /**
  * 活动工具类
  *
- * @author 芋道源码
+ *
  */
 public class PromotionUtils {
 

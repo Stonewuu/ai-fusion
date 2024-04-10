@@ -15,7 +15,7 @@ import static com.stonewu.aifusion.module.mp.enums.ErrorCodeConstants.ACCOUNT_NO
 /**
  * 公众号账号 Service 接口
  *
- * @author 芋道源码
+ *
  */
 public interface MpAccountService {
 

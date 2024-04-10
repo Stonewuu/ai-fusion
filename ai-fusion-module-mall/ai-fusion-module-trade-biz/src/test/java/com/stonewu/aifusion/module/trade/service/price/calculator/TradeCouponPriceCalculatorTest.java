@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 /**
  * {@link TradeCouponPriceCalculator} 的单元测试类
  *
- * @author 芋道源码
+ * 
  */
 public class TradeCouponPriceCalculatorTest extends BaseMockitoUnitTest {
 

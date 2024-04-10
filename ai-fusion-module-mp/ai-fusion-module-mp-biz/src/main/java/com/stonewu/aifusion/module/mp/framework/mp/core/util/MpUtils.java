@@ -9,7 +9,7 @@ import me.chanjar.weixin.common.api.WxConsts;
 /**
  * 公众号工具类
  *
- * @author 芋道源码
+ *
  */
 @Slf4j
 public class MpUtils {

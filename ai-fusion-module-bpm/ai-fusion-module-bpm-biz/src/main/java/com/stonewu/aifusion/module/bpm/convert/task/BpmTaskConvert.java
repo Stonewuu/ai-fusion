@@ -31,7 +31,7 @@ import static com.stonewu.aifusion.framework.common.util.collection.MapUtils.fin
 /**
  * Bpm 任务 Convert
  *
- * @author 芋道源码
+ *
  */
 @Mapper
 public interface BpmTaskConvert {

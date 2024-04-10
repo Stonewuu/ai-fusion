@@ -6,7 +6,7 @@ import com.stonewu.aifusion.framework.common.enums.DocumentEnum;
 /**
  * 多租户上下文 Holder
  *
- * @author 芋道源码
+ *
  */
 public class TenantContextHolder {
 

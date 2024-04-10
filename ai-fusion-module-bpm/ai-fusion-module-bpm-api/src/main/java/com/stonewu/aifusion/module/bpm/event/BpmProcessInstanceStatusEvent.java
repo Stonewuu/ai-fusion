@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationEvent;
 /**
  * 流程实例的状态（结果）发生变化的 Event
  *
- * @author 芋道源码
+ *
  */
 @SuppressWarnings("ALL")
 @Data

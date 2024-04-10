@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
 * {@link RewardActivityServiceImpl} 的单元测试类
 *
-* @author 芋道源码
+*
 */
 @Disabled // TODO 芋艿：后续 fix 补充的单测
 @Import(RewardActivityServiceImpl.class)

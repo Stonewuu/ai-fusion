@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 /**
  * {@link AddressServiceImpl} 的单元测试类
  *
- * @author 芋道源码
+ *
  */
 @Import(AddressServiceImpl.class)
 public class MemberAddressServiceImplTest extends BaseDbUnitTest {

@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * 商品 SPU Service 接口
  *
- * @author 芋道源码
+ * 
  */
 public interface ProductSpuService {
 
