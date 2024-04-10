@@ -23,9 +23,6 @@ import ${basePackage}.module.${table.moduleName}.dal.mysql.${table.businessName}
 import ${basePackage}.module.${subTable.moduleName}.dal.mysql.${subTable.businessName}.${subTable.className}Mapper;
 #end
 
-import static com.stonewu.aifusion.framework.common.util.date.LocalDateTimeUtils.*;
-import static com.stonewu.aifusion.framework.common.util.collection.CollectionUtils.*;
-import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
 import static ${ServiceExceptionUtilClassName}.exception;
 import static ${basePackage}.module.${table.moduleName}.enums.ErrorCodeConstants.*;
 

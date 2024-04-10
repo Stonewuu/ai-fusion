@@ -19,6 +19,7 @@
         <module>ai-fusion-module-bpm</module>
         <module>ai-fusion-module-report</module>
         <module>ai-fusion-module-mp</module>
+        <module>ai-fusion-module-ai</module>
         <module>ai-fusion-module-pay</module>
         <module>ai-fusion-module-mall</module>
         <module>ai-fusion-module-crm</module>

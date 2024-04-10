@@ -1,5 +1,5 @@
-import type {CrudSchema} from '@/hooks/web/useCrudSchemas'
-import {dateFormatter} from '@/utils/formatTime'
+import type { CrudSchema } from '@/hooks/web/useCrudSchemas'
+import { dateFormatter } from '@/utils/formatTime'
 
 // 表单校验
 export const rules = reactive({
