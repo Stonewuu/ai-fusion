@@ -218,6 +218,8 @@ aifusion:
       - system_mail_template
       - system_mail_log
       - system_notify_template
+      - infra_api_access_log
+      - infra_api_error_log
       - infra_codegen_column
       - infra_codegen_table
       - infra_test_demo

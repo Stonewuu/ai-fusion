@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -169,6 +170,21 @@ public class GlobalExceptionHandler {
         log.warn("[noHandlerFoundExceptionHandler]", ex);
         return CommonResult.error(NOT_FOUND.getCode(), String.format("请求地址不存在:%s", ex.getRequestURL()));
     }
+
+
+    /**
+     * 处理请求地址不存在
+     *
+     * @param req
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    public CommonResult<?> noResourceFoundExceptionHandler(HttpServletRequest req, NoResourceFoundException ex) {
+        log.warn("[noResourceFoundExceptionHandler]", ex);
+        return CommonResult.error(NOT_FOUND.getCode(), String.format("请求地址不存在:%s", ex.getResourcePath()));
+    }
+
 
     /**
      * 处理 SpringMVC 请求方法不正确
