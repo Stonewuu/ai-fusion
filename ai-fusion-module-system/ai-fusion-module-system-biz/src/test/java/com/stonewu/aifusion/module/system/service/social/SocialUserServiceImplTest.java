@@ -258,7 +258,7 @@ public class SocialUserServiceImplTest extends BaseDbUnitTest {
         SocialUserDO dbSocialUser = randomPojo(SocialUserDO.class, o -> { // 等会查询到
             o.setType(SocialTypeEnum.GITEE.getType());
             o.setNickname("芋艿");
-            o.setOpenid("yudaoyuanma");
+            o.setOpenid("aifusion");
             o.setCreateTime(buildTime(2020, 1, 15));
         });
         socialUserMapper.insert(dbSocialUser);

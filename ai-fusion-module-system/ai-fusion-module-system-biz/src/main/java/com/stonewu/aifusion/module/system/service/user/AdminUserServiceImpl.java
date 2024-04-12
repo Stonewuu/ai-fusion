@@ -57,7 +57,7 @@ import static com.stonewu.aifusion.module.system.enums.LogRecordConstants.*;
 @Slf4j
 public class AdminUserServiceImpl implements AdminUserService {
 
-    @Value("${sys.user.init-password:yudaoyuanma}")
+    @Value("${sys.user.init-password:aifusion}")
     private String userInitPassword;
 
     @Resource

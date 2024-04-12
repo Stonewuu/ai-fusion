@@ -40,6 +40,11 @@
         </dependency>
 
         <!-- Web 相关 -->
+
+        <dependency>
+            <groupId>com.stonewu.boot</groupId>
+            <artifactId>ai-fusion-spring-boot-starter-web</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.stonewu.boot</groupId>
             <artifactId>ai-fusion-spring-boot-starter-security</artifactId>

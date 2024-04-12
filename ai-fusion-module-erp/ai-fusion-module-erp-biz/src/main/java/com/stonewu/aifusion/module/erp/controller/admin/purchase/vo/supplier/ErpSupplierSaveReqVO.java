@@ -23,7 +23,7 @@ public class ErpSupplierSaveReqVO {
     @NotEmpty(message = "供应商名称不能为空")
     private String name;
 
-    @Schema(description = "联系人", example = "芋艿")
+    @Schema(description = "联系人", example = "aifusion")
     private String contact;
 
     @Schema(description = "手机号码", example = "15601691300")

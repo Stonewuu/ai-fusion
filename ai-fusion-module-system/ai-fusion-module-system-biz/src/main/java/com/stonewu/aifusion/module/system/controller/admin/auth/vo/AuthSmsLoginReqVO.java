@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AuthSmsLoginReqVO {
 
-    @Schema(description = "手机号", requiredMode = Schema.RequiredMode.REQUIRED, example = "yudaoyuanma")
+    @Schema(description = "手机号", requiredMode = Schema.RequiredMode.REQUIRED, example = "aifusion")
     @NotEmpty(message = "手机号不能为空")
     @Mobile
     private String mobile;

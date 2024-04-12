@@ -13,7 +13,7 @@ public class FileUploadReqVO {
     @NotNull(message = "文件附件不能为空")
     private MultipartFile file;
 
-    @Schema(description = "文件附件", example = "yudaoyuanma.png")
+    @Schema(description = "文件附件", example = "aifusion.png")
     private String path;
 
 }

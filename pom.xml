@@ -16,14 +16,14 @@
         <module>ai-fusion-module-system</module>
         <module>ai-fusion-module-infra</module>
         <module>ai-fusion-module-member</module>
-        <module>ai-fusion-module-bpm</module>
-        <module>ai-fusion-module-report</module>
+<!--        <module>ai-fusion-module-bpm</module>-->
+<!--        <module>ai-fusion-module-report</module>-->
         <module>ai-fusion-module-mp</module>
         <module>ai-fusion-module-ai</module>
         <module>ai-fusion-module-pay</module>
         <module>ai-fusion-module-mall</module>
-        <module>ai-fusion-module-crm</module>
-        <module>ai-fusion-module-erp</module>
+<!--        <module>ai-fusion-module-crm</module>-->
+<!--        <module>ai-fusion-module-erp</module>-->
         <!-- 示例项目 -->
         <module>ai-fusion-example</module>
     </modules>
