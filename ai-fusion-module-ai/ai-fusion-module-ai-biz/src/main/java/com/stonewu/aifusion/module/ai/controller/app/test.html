@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/2.0.1/remarkable.js"></script>
+</head>
+<body>
+<div id="app">
+    <div v-html="msgHtml"></div>
+</div>
+
+<script type="text/javascript">
+    var md = new remarkable.Remarkable();
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: '',
+            msgHtml: ''
+        },
+        created: function () {
+            const sse = new EventSource('http://localhost:48080/app-api/ai/gemini/chat?prompt=写一篇至少5个小节的西游记观后感');
+            // 开启
+            sse.onopen = (ev) => {
+                console.log(ev.data);
+            };
+
+            // 更新
+            sse.onmessage = (ev) => {
+                const msg = JSON.parse(ev.data);
+                console.log(JSON.parse(ev.data));
+                if(ev.data){
+                    const tmp = msg.candidates[0].content.parts[0].text;
+                    const _this = this
+
+                    this.message += tmp
+
+                    setTimeout(function () {
+                        var markdown = _this.message;
+                        _this.msgHtml = md.render(markdown);
+                        console.log(this.msgHtml)
+                    }, tmp.length * 10);
+                    // 每隔10毫秒把tmp一个个加入到message中
+                    for (let i = 0; i < tmp.length; i++) {
+                        setTimeout(function () {
+                            _this.msgHtml += tmp[i];
+                        }, i * 10);
+                    }
+
+                }
+            };
+
+            // 关闭
+            sse.onclose = (ev) => {
+                this.console.log(ev.data);
+                sse.close()
+            };
+
+            // 错误
+            sse.onerror = (ev) => {
+                console.log(ev.data);
+                sse.close()
+
+            };
+        }
+    })
+</script>
+</body>
+</html>
