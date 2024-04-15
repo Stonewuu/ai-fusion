@@ -97,7 +97,7 @@ public class CrmContactRespVO {
 
     @Schema(description = "直属上级", example = "23457")
     private Long parentId;
-    @Schema(description = "直属上级名", example = "芋头")
+    @Schema(description = "直属上级名", example = "AI-Fusion")
     @ExcelProperty(value = "直属上级", order = 4)
     private String parentName;
 

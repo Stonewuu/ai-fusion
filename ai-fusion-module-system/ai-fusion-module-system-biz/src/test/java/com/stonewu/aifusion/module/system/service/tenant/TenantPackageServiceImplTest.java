@@ -157,7 +157,7 @@ public class TenantPackageServiceImplTest extends BaseDbUnitTest {
        tenantPackageMapper.insert(cloneIgnoreId(dbTenantPackage, o -> o.setCreateTime(buildTime(2022, 11, 11))));
        // 准备参数
        TenantPackagePageReqVO reqVO = new TenantPackagePageReqVO();
-       reqVO.setName("芋道");
+       reqVO.setName("AI-Fusion");
        reqVO.setStatus(CommonStatusEnum.ENABLE.getStatus());
        reqVO.setRemark("源码");
        reqVO.setCreateTime(buildBetweenTime(2022, 10, 9, 2022, 10, 11));

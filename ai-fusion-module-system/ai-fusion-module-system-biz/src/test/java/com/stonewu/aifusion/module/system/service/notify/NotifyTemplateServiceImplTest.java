@@ -107,7 +107,7 @@ public class NotifyTemplateServiceImplTest extends BaseDbUnitTest {
     public void testGetNotifyTemplatePage() {
         // mock 数据
         NotifyTemplateDO dbNotifyTemplate = randomPojo(NotifyTemplateDO.class, o -> { // 等会查询到
-            o.setName("芋头");
+            o.setName("AI-Fusion");
             o.setCode("test_01");
             o.setStatus(CommonStatusEnum.ENABLE.getStatus());
             o.setCreateTime(buildTime(2022, 2, 3));

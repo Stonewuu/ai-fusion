@@ -16,10 +16,10 @@ public class BpmModelRespVO {
     @Schema(description = "流程标识", requiredMode = Schema.RequiredMode.REQUIRED, example = "process_yudao")
     private String key;
 
-    @Schema(description = "流程名称", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋道")
+    @Schema(description = "流程名称", requiredMode = Schema.RequiredMode.REQUIRED, example = "AI-Fusion")
     private String name;
 
-    @Schema(description = "流程图标", example = "https://www.iocoder.cn/yudao.jpg")
+    @Schema(description = "流程图标", example = "https://www.stonewu.com/yudao.jpg")
     private String icon;
 
     @Schema(description = "流程描述", example = "我是描述")

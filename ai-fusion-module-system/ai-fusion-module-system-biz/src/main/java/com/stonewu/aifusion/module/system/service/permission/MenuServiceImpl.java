@@ -84,14 +84,21 @@ public class MenuServiceImpl implements MenuService {
     @CacheEvict(value = RedisKeyConstants.PERMISSION_MENU_ID_LIST,
             allEntries = true) // allEntries 清空所有缓存，因为此时不知道 id 对应的 permission 是多少。直接清理，简单有效
     public void deleteMenu(Long id) {
-        // 校验是否还有子菜单
-        if (menuMapper.selectCountByParentId(id) > 0) {
-            throw exception(MENU_EXISTS_CHILDREN);
-        }
         // 校验删除的菜单是否存在
         if (menuMapper.selectById(id) == null) {
             throw exception(MENU_NOT_EXISTS);
         }
+
+        // 校验是否还有子菜单
+        List<MenuDO> menuDOS = menuMapper.selectByParentId(id);
+        if (menuDOS != null && !menuDOS.isEmpty()) {
+            menuDOS.forEach(menuDO -> {
+                deleteMenu(menuDO.getId());
+            });
+        }
+//        if (menuMapper.selectCountByParentId(id) > 0) {
+//            throw exception(MENU_EXISTS_CHILDREN);
+//        }
         // 标记删除
         menuMapper.deleteById(id);
         // 删除授予给角色的权限

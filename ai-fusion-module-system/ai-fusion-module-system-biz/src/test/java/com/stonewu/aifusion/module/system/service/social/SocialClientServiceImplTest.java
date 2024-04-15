@@ -81,12 +81,12 @@ public class SocialClientServiceImplTest extends BaseDbUnitTest {
             when(authRequestFactory.get(eq("WECHAT_MP"))).thenReturn(authRequest);
             // mock 方法
             authStateUtilsMock.when(AuthStateUtils::createState).thenReturn("aoteman");
-            when(authRequest.authorize(eq("aoteman"))).thenReturn("https://www.iocoder.cn?redirect_uri=yyy");
+            when(authRequest.authorize(eq("aoteman"))).thenReturn("https://www.stonewu.com?redirect_uri=yyy");
 
             // 调用
             String url = socialClientService.getAuthorizeUrl(socialType, userType, redirectUri);
             // 断言
-            assertEquals("https://www.iocoder.cn?redirect_uri=sss", url);
+            assertEquals("https://www.stonewu.com?redirect_uri=sss", url);
         }
     }
 
@@ -435,7 +435,7 @@ public class SocialClientServiceImplTest extends BaseDbUnitTest {
     public void testGetSocialClientPage() {
         // mock 数据
         SocialClientDO dbSocialClient = randomPojo(SocialClientDO.class, o -> { // 等会查询到
-            o.setName("芋头");
+            o.setName("AI-Fusion");
             o.setSocialType(SocialTypeEnum.GITEE.getType());
             o.setUserType(UserTypeEnum.ADMIN.getValue());
             o.setClientId("yudao");

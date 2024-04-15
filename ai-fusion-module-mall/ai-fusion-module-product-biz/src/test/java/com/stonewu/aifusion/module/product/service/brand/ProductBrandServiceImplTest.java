@@ -119,7 +119,7 @@ public class ProductBrandServiceImplTest extends BaseDbUnitTest {
        brandMapper.insert(cloneIgnoreId(dbBrand, o -> o.setCreateTime(buildTime(2022, 3, 1))));
        // 准备参数
        ProductBrandPageReqVO reqVO = new ProductBrandPageReqVO();
-       reqVO.setName("芋道");
+       reqVO.setName("AI-Fusion");
        reqVO.setStatus(CommonStatusEnum.ENABLE.getStatus());
        reqVO.setCreateTime((new LocalDateTime[]{buildTime(2022, 1, 1), buildTime(2022, 2, 25)}));
 

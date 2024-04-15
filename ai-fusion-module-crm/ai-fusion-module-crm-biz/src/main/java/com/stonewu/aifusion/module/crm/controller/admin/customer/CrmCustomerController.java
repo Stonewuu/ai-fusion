@@ -257,7 +257,7 @@ public class CrmCustomerController {
     public void importTemplate(HttpServletResponse response) throws IOException {
         // 手动创建导出 demo
         List<CrmCustomerImportExcelVO> list = Arrays.asList(
-                CrmCustomerImportExcelVO.builder().name("芋道").industryId(1).level(1).source(1)
+                CrmCustomerImportExcelVO.builder().name("AI-Fusion").industryId(1).level(1).source(1)
                         .mobile("15601691300").telephone("").qq("").wechat("").email("yunai@iocoder.cn")
                         .areaId(null).detailAddress("").remark("").build(),
                 CrmCustomerImportExcelVO.builder().name("源码").industryId(1).level(1).source(1)

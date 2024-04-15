@@ -12,7 +12,7 @@ public class BpmModelPageReqVO extends PageParam {
     @Schema(description = "标识，精准匹配", example = "process1641042089407")
     private String key;
 
-    @Schema(description = "名字，模糊匹配", example = "芋道")
+    @Schema(description = "名字，模糊匹配", example = "AI-Fusion")
     private String name;
 
     @Schema(description = "流程分类", example = "1")

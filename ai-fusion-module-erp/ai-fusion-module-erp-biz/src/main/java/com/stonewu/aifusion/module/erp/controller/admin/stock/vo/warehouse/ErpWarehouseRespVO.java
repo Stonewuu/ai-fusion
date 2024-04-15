@@ -36,7 +36,7 @@ public class ErpWarehouseRespVO {
     @ExcelProperty("备注")
     private String remark;
 
-    @Schema(description = "负责人", example = "芋头")
+    @Schema(description = "负责人", example = "AI-Fusion")
     @ExcelProperty("负责人")
     private String principal;
 

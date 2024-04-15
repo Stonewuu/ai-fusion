@@ -87,7 +87,7 @@ public class CodegenServiceImplTest extends BaseDbUnitTest {
         TableInfo tableInfo = mock(TableInfo.class);
         when(databaseTableService.getTable(eq(1L), eq("t_yunai")))
                 .thenReturn(tableInfo);
-        when(tableInfo.getComment()).thenReturn("芋艿");
+        when(tableInfo.getComment()).thenReturn("AI-Fusion");
         // mock 方法（TableInfo fields）
         TableField field01 = mock(TableField.class);
         when(field01.getComment()).thenReturn("主键");
@@ -99,7 +99,7 @@ public class CodegenServiceImplTest extends BaseDbUnitTest {
         CodegenTableDO table = randomPojo(CodegenTableDO.class);
         when(codegenBuilder.buildTable(same(tableInfo))).thenReturn(table);
         // mock 方法（AdminUserRespDTO）
-        AdminUserRespDTO user = randomPojo(AdminUserRespDTO.class, o -> o.setNickname("芋头"));
+        AdminUserRespDTO user = randomPojo(AdminUserRespDTO.class, o -> o.setNickname("AI-Fusion"));
         when(userApi.getUser(eq(userId))).thenReturn(user);
         // mock 方法（CodegenColumnDO）
         List<CodegenColumnDO> columns = randomPojoList(CodegenColumnDO.class);
@@ -118,7 +118,7 @@ public class CodegenServiceImplTest extends BaseDbUnitTest {
         assertEquals(1L, dbTable.getDataSourceConfigId());
         assertEquals(CodegenSceneEnum.ADMIN.getScene(), dbTable.getScene());
         assertEquals(CodegenFrontTypeEnum.VUE3.getType(), dbTable.getFrontType());
-        assertEquals("芋头", dbTable.getAuthor());
+        assertEquals("AI-Fusion", dbTable.getAuthor());
         // 断言（CodegenColumnDO）
         List<CodegenColumnDO> dbColumns = codegenColumnMapper.selectList();
         assertEquals(columns.size(), dbColumns.size());
@@ -138,7 +138,7 @@ public class CodegenServiceImplTest extends BaseDbUnitTest {
         assertServiceException(() -> codegenService.validateTableInfo(tableInfo),
                 CODEGEN_TABLE_INFO_TABLE_COMMENT_IS_NULL);
         // 情况三
-        when(tableInfo.getComment()).thenReturn("芋艿");
+        when(tableInfo.getComment()).thenReturn("AI-Fusion");
         assertServiceException(() -> codegenService.validateTableInfo(tableInfo),
                 CODEGEN_IMPORT_COLUMNS_NULL);
         // 情况四
@@ -252,7 +252,7 @@ public class CodegenServiceImplTest extends BaseDbUnitTest {
         TableInfo tableInfo = mock(TableInfo.class);
         when(databaseTableService.getTable(eq(1L), eq("t_yunai")))
                 .thenReturn(tableInfo);
-        when(tableInfo.getComment()).thenReturn("芋艿");
+        when(tableInfo.getComment()).thenReturn("AI-Fusion");
         // mock 方法（TableInfo fields）
         TableField field01 = mock(TableField.class);
         when(field01.getComment()).thenReturn("主键");
@@ -327,7 +327,7 @@ public class CodegenServiceImplTest extends BaseDbUnitTest {
         // mock 数据
         CodegenTableDO tableDO = randomPojo(CodegenTableDO.class, o -> {
             o.setTableName("t_yunai");
-            o.setTableComment("芋艿");
+            o.setTableComment("AI-Fusion");
             o.setClassName("SystemYunai");
             o.setCreateTime(buildTime(2021, 3, 10));
         }).setScene(CodegenSceneEnum.ADMIN.getScene());
@@ -534,7 +534,7 @@ public class CodegenServiceImplTest extends BaseDbUnitTest {
         // mock 方法
         TableInfo tableInfo01 = mock(TableInfo.class);
         when(tableInfo01.getName()).thenReturn("t_yunai");
-        when(tableInfo01.getComment()).thenReturn("芋艿");
+        when(tableInfo01.getComment()).thenReturn("AI-Fusion");
         TableInfo tableInfo02 = mock(TableInfo.class);
         when(tableInfo02.getName()).thenReturn("t_yunai_02");
         when(tableInfo02.getComment()).thenReturn("芋艿_02");
@@ -552,7 +552,7 @@ public class CodegenServiceImplTest extends BaseDbUnitTest {
         // 断言
         assertEquals(1, result.size());
         assertEquals("t_yunai", result.get(0).getName());
-        assertEquals("芋艿", result.get(0).getComment());
+        assertEquals("AI-Fusion", result.get(0).getComment());
     }
 
 }

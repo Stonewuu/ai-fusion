@@ -45,7 +45,7 @@ public class ProductSpuRespVO {
     @ExcelProperty("商品品牌编号")
     private Long brandId;
 
-    @Schema(description = "商品封面图", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.iocoder.cn/xx.png")
+    @Schema(description = "商品封面图", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.stonewu.com/xx.png")
     @ExcelProperty("商品封面图")
     private String picUrl;
 

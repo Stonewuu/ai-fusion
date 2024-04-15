@@ -17,7 +17,7 @@ public class InfraStudentSaveReqVO {
     @Schema(description = "编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "1024")
     private Long id;
 
-    @Schema(description = "名字", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋头")
+    @Schema(description = "名字", requiredMode = Schema.RequiredMode.REQUIRED, example = "AI-Fusion")
     @NotEmpty(message = "名字不能为空")
     private String name;
 
@@ -37,11 +37,11 @@ public class InfraStudentSaveReqVO {
     @NotNull(message = "是否有效不能为空")
     private Boolean enabled;
 
-    @Schema(description = "头像", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.iocoder.cn/1.png")
+    @Schema(description = "头像", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.stonewu.com/1.png")
     @NotEmpty(message = "头像不能为空")
     private String avatar;
 
-    @Schema(description = "附件", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.iocoder.cn/1.mp4")
+    @Schema(description = "附件", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.stonewu.com/1.mp4")
     @NotEmpty(message = "附件不能为空")
     private String video;
 

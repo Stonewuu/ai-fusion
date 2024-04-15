@@ -104,7 +104,7 @@ public class BpmCategoryServiceImplTest extends BaseDbUnitTest {
     public void testGetCategoryPage() {
        // mock 数据
        BpmCategoryDO dbCategory = randomPojo(BpmCategoryDO.class, o -> { // 等会查询到
-           o.setName("芋头");
+           o.setName("AI-Fusion");
            o.setCode("xiaodun");
            o.setStatus(CommonStatusEnum.ENABLE.getStatus());
            o.setCreateTime(buildTime(2023, 2, 2));

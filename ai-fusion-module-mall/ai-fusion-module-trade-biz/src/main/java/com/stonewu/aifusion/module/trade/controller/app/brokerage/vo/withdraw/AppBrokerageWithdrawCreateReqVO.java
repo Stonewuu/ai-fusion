@@ -32,7 +32,7 @@ public class AppBrokerageWithdrawCreateReqVO {
 
     // ========== 微信、支付宝 提现相关字段 ==========
 
-    @Schema(description = "收款码的图片", example = "https://www.iocoder.cn/1.png")
+    @Schema(description = "收款码的图片", example = "https://www.stonewu.com/1.png")
     @URL(message = "收款码的图片，必须是一个 URL")
     private String accountQrCodeUrl;
 

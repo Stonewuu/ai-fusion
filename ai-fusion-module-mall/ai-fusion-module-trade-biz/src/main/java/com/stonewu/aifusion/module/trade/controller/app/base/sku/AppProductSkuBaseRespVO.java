@@ -17,7 +17,7 @@ public class AppProductSkuBaseRespVO {
     @Schema(description = "主键", requiredMode = Schema.RequiredMode.REQUIRED, example = "1024")
     private Long id;
 
-    @Schema(description = "图片地址", example = "https://www.iocoder.cn/xx.png")
+    @Schema(description = "图片地址", example = "https://www.stonewu.com/xx.png")
     private String picUrl;
 
     @Schema(description = "销售价格，单位：分", requiredMode = Schema.RequiredMode.REQUIRED, example = "100")

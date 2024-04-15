@@ -12,7 +12,7 @@ import static com.stonewu.aifusion.framework.common.util.date.DateUtils.FORMAT_Y
 @Data
 public class Demo02CategoryListReqVO {
 
-    @Schema(description = "名字", example = "芋艿")
+    @Schema(description = "名字", example = "AI-Fusion")
     private String name;
 
     @Schema(description = "父级编号", example = "6080")

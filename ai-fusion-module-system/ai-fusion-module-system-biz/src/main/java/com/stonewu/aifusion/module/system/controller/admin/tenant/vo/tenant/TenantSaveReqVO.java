@@ -19,11 +19,11 @@ public class TenantSaveReqVO {
     @Schema(description = "租户编号", example = "1024")
     private Long id;
 
-    @Schema(description = "租户名", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋道")
+    @Schema(description = "租户名", requiredMode = Schema.RequiredMode.REQUIRED, example = "AI-Fusion")
     @NotNull(message = "租户名不能为空")
     private String name;
 
-    @Schema(description = "联系人", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋艿")
+    @Schema(description = "联系人", requiredMode = Schema.RequiredMode.REQUIRED, example = "AI-Fusion")
     @NotNull(message = "联系人不能为空")
     private String contactName;
 
@@ -34,7 +34,7 @@ public class TenantSaveReqVO {
     @NotNull(message = "租户状态")
     private Integer status;
 
-    @Schema(description = "绑定域名", example = "https://www.iocoder.cn")
+    @Schema(description = "绑定域名", example = "https://www.stonewu.com")
     private String website;
 
     @Schema(description = "租户套餐编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "1024")

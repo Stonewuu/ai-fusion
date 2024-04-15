@@ -13,7 +13,7 @@ public class BpmUserGroupSaveReqVO {
     @Schema(description = "编号", example = "1024")
     private Long id;
 
-    @Schema(description = "组名", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋道")
+    @Schema(description = "组名", requiredMode = Schema.RequiredMode.REQUIRED, example = "AI-Fusion")
     @NotNull(message = "组名不能为空")
     private String name;
 

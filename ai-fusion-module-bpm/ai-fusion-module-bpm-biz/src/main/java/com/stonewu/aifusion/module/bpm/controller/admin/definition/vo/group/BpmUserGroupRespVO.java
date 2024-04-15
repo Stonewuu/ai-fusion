@@ -13,7 +13,7 @@ public class BpmUserGroupRespVO {
     @Schema(description = "编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "1024")
     private Long id;
 
-    @Schema(description = "组名", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋道")
+    @Schema(description = "组名", requiredMode = Schema.RequiredMode.REQUIRED, example = "AI-Fusion")
     private String name;
 
     @Schema(description = "描述", requiredMode = Schema.RequiredMode.REQUIRED, example = "AiFusion")

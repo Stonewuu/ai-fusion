@@ -179,7 +179,7 @@ public class SmsChannelServiceTest extends BaseDbUnitTest {
        smsChannelMapper.insert(cloneIgnoreId(dbSmsChannel, o -> o.setCreateTime(buildTime(2020, 11, 11))));
        // 准备参数
        SmsChannelPageReqVO reqVO = new SmsChannelPageReqVO();
-       reqVO.setSignature("芋道");
+       reqVO.setSignature("AI-Fusion");
        reqVO.setStatus(CommonStatusEnum.ENABLE.getStatus());
        reqVO.setCreateTime(buildBetweenTime(2020, 12, 1, 2020, 12, 24));
 

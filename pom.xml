@@ -29,8 +29,8 @@
     </modules>
 
     <name>${project.artifactId}</name>
-    <description>芋道项目基础脚手架</description>
-    <url>https://github.com/YunaiV/ruoyi-vue-pro</url>
+    <description>AI-Fusion项目基础脚手架</description>
+    <url>https://github.com/Stonewuu/ai-fusion</url>
 
     <properties>
         <revision>2.0.1-snapshot</revision>

@@ -107,7 +107,7 @@ public class BpmUserGroupServiceTest extends BaseDbUnitTest {
        });
        userGroupMapper.insert(dbUserGroup);
        // 测试 name 不匹配
-       userGroupMapper.insert(cloneIgnoreId(dbUserGroup, o -> o.setName("芋道")));
+       userGroupMapper.insert(cloneIgnoreId(dbUserGroup, o -> o.setName("AI-Fusion")));
        // 测试 status 不匹配
        userGroupMapper.insert(cloneIgnoreId(dbUserGroup, o -> o.setStatus(CommonStatusEnum.DISABLE.getStatus())));
        // 测试 createTime 不匹配

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 public class BpmTaskPageReqVO extends PageParam {
 
-    @Schema(description = "流程任务名", example = "芋道")
+    @Schema(description = "流程任务名", example = "AI-Fusion")
     private String name;
 
     @Schema(description = "创建时间")

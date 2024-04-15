@@ -269,7 +269,7 @@ public class MailSendServiceImplTest extends BaseMockitoUnitTest {
     public void testDoSendMail_success() {
         try (final MockedStatic<MailUtil> mailUtilMock = mockStatic(MailUtil.class)) {
             // 准备参数
-            MailSendMessage message = randomPojo(MailSendMessage.class, o -> o.setNickname("芋艿"));
+            MailSendMessage message = randomPojo(MailSendMessage.class, o -> o.setNickname("AI-Fusion"));
             // mock 方法（获得邮箱账号）
             MailAccountDO account = randomPojo(MailAccountDO.class, o -> o.setMail("7685@qq.com"));
             when(mailAccountService.getMailAccountFromCache(eq(message.getAccountId())))
@@ -301,7 +301,7 @@ public class MailSendServiceImplTest extends BaseMockitoUnitTest {
     public void testDoSendMail_exception() {
         try (MockedStatic<MailUtil> mailUtilMock = mockStatic(MailUtil.class)) {
             // 准备参数
-            MailSendMessage message = randomPojo(MailSendMessage.class, o -> o.setNickname("芋艿"));
+            MailSendMessage message = randomPojo(MailSendMessage.class, o -> o.setNickname("AI-Fusion"));
             // mock 方法（获得邮箱账号）
             MailAccountDO account = randomPojo(MailAccountDO.class, o -> o.setMail("7685@qq.com"));
             when(mailAccountService.getMailAccountFromCache(eq(message.getAccountId())))

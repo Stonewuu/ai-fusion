@@ -15,7 +15,7 @@ import static com.stonewu.aifusion.framework.common.util.date.DateUtils.FORMAT_Y
 @Data
 public class BpmProcessInstancePageReqVO extends PageParam {
 
-    @Schema(description = "流程名称", example = "芋道")
+    @Schema(description = "流程名称", example = "AI-Fusion")
     private String name;
 
     @Schema(description = "流程定义的编号", example = "2048")

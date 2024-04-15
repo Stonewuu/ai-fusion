@@ -145,7 +145,7 @@ public class RewardActivityServiceImplTest extends BaseDbUnitTest {
     public void testGetRewardActivityPage() {
        // mock 数据
        RewardActivityDO dbRewardActivity = randomPojo(RewardActivityDO.class, o -> { // 等会查询到
-           o.setName("芋艿");
+           o.setName("AI-Fusion");
            o.setStatus(PromotionActivityStatusEnum.CLOSE.getStatus());
        });
        rewardActivityMapper.insert(dbRewardActivity);
@@ -155,7 +155,7 @@ public class RewardActivityServiceImplTest extends BaseDbUnitTest {
        rewardActivityMapper.insert(cloneIgnoreId(dbRewardActivity, o -> o.setStatus(PromotionActivityStatusEnum.RUN.getStatus())));
        // 准备参数
        RewardActivityPageReqVO reqVO = new RewardActivityPageReqVO();
-       reqVO.setName("芋艿");
+       reqVO.setName("AI-Fusion");
        reqVO.setStatus(PromotionActivityStatusEnum.CLOSE.getStatus());
 
        // 调用

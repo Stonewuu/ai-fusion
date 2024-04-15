@@ -183,7 +183,7 @@ public class DiscountActivityServiceImplTest extends BaseDbUnitTest {
     public void testGetDiscountActivityPage() {
        // mock 数据
        DiscountActivityDO dbDiscountActivity = randomPojo(DiscountActivityDO.class, o -> { // 等会查询到
-           o.setName("芋艿");
+           o.setName("AI-Fusion");
            o.setStatus(PromotionActivityStatusEnum.WAIT.getStatus());
            o.setCreateTime(buildTime(2021, 1, 15));
        });
@@ -196,7 +196,7 @@ public class DiscountActivityServiceImplTest extends BaseDbUnitTest {
        discountActivityMapper.insert(cloneIgnoreId(dbDiscountActivity, o -> o.setCreateTime(buildTime(2021, 2, 10))));
        // 准备参数
        DiscountActivityPageReqVO reqVO = new DiscountActivityPageReqVO();
-       reqVO.setName("芋艿");
+       reqVO.setName("AI-Fusion");
        reqVO.setStatus(PromotionActivityStatusEnum.WAIT.getStatus());
        reqVO.setCreateTime((new LocalDateTime[]{buildTime(2021, 1, 1), buildTime(2021, 1, 31)}));
 

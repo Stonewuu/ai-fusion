@@ -39,7 +39,7 @@ public class ProductSpuSaveReqVO {
     @NotNull(message = "商品品牌不能为空")
     private Long brandId;
 
-    @Schema(description = "商品封面图", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.iocoder.cn/xx.png")
+    @Schema(description = "商品封面图", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.stonewu.com/xx.png")
     @NotEmpty(message = "商品封面图不能为空")
     private String picUrl;
 

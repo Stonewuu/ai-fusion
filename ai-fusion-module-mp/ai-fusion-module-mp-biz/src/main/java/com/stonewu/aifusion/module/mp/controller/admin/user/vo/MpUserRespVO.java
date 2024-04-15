@@ -26,9 +26,9 @@ public class MpUserRespVO  {
     @Schema(description = "取消关注时间")
     private LocalDateTime unsubscribeTime;
 
-    @Schema(description = "昵称", example = "芋道")
+    @Schema(description = "昵称", example = "AI-Fusion")
     private String nickname;
-    @Schema(description = "头像地址", example = "https://www.iocoder.cn/1.png")
+    @Schema(description = "头像地址", example = "https://www.stonewu.com/1.png")
     private String headImageUrl;
     @Schema(description = "语言", example = "zh_CN")
     private String language;
@@ -38,7 +38,7 @@ public class MpUserRespVO  {
     private String province;
     @Schema(description = "城市", example = "广州市")
     private String city;
-    @Schema(description = "备注", example = "你是一个芋头嘛")
+    @Schema(description = "备注", example = "")
     private String remark;
 
     @Schema(description = "标签编号数组", example = "1,2,3")

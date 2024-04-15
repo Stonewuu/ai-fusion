@@ -13,7 +13,7 @@ import static com.stonewu.aifusion.framework.common.util.date.DateUtils.FORMAT_Y
 @Data
 public class OperateLogPageReqVO extends PageParam {
 
-    @Schema(description = "用户编号", example = "芋道")
+    @Schema(description = "用户编号", example = "AI-Fusion")
     private Long userId;
 
     @Schema(description = "操作模块业务编号", example = "1")

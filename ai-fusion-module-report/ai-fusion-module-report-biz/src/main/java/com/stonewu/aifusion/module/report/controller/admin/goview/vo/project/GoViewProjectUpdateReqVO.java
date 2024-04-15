@@ -24,7 +24,7 @@ public class GoViewProjectUpdateReqVO {
     @Schema(description = "报表内容") // JSON 格式
     private String content;
 
-    @Schema(description = "预览图片 URL", example = "https://www.iocoder.cn")
+    @Schema(description = "预览图片 URL", example = "https://www.stonewu.com")
     private String picUrl;
 
     @Schema(description = "项目备注", example = "你猜")

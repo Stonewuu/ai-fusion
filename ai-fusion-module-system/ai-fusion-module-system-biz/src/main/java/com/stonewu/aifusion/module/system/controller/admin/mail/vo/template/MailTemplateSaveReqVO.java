@@ -24,7 +24,7 @@ public class MailTemplateSaveReqVO {
     @NotNull(message = "发送的邮箱账号编号不能为空")
     private Long accountId;
 
-    @Schema(description = "发送人名称", example = "芋头")
+    @Schema(description = "发送人名称", example = "AI-Fusion")
     private String nickname;
 
     @Schema(description = "标题", requiredMode = Schema.RequiredMode.REQUIRED, example = "注册成功")

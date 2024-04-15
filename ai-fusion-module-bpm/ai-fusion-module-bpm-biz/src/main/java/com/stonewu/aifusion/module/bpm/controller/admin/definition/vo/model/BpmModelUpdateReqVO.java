@@ -15,10 +15,10 @@ public class BpmModelUpdateReqVO {
     @NotEmpty(message = "编号不能为空")
     private String id;
 
-    @Schema(description = "流程名称", example = "芋道")
+    @Schema(description = "流程名称", example = "AI-Fusion")
     private String name;
 
-    @Schema(description = "流程图标", example = "https://www.iocoder.cn/yudao.jpg")
+    @Schema(description = "流程图标", example = "https://www.stonewu.com/yudao.jpg")
     @URL(message = "流程图标格式不正确")
     private String icon;
 

@@ -18,7 +18,7 @@ import static date.util.com.stonewu.aifusion.framework.common.DateUtils.FORMAT_Y
 @ToString(callSuper = true)
 public class InfraStudentPageReqVO extends PageParam {
 
-    @Schema(description = "名字", example = "芋头")
+    @Schema(description = "名字", example = "AI-Fusion")
     private String name;
 
     @Schema(description = "出生日期")

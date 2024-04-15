@@ -9,7 +9,7 @@ import pojo.com.stonewu.aifusion.framework.common.PageParam;
 @Data
 public class InfraCategoryListReqVO {
 
-    @Schema(description = "名字", example = "芋头")
+    @Schema(description = "名字", example = "AI-Fusion")
     private String name;
 
 }

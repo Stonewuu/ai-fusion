@@ -52,7 +52,7 @@ public class PayTransferRespVO {
     @Schema(description = "微信 openId", example = "26589")
     private String openid;
 
-    @Schema(description = "异步通知商户地址", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.iocoder.cn")
+    @Schema(description = "异步通知商户地址", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.stonewu.com")
     private String notifyUrl;
 
     @Schema(description = "用户 IP", requiredMode = Schema.RequiredMode.REQUIRED)

@@ -307,7 +307,7 @@ public class GlobalExceptionHandler {
             return null;
         }
         // 1. 数据报表
-        if (message.contains("report_")) {
+        /*if (message.contains("report_")) {
             log.error("[报表模块 ai-fusion-module-report - 表结构未导入][参考 https://doc.iocoder.cn/report/ 开启]");
             return CommonResult.error(NOT_IMPLEMENTED.getCode(),
                     "[报表模块 ai-fusion-module-report - 表结构未导入][参考 https://doc.iocoder.cn/report/ 开启]");
@@ -317,7 +317,7 @@ public class GlobalExceptionHandler {
             log.error("[工作流模块 ai-fusion-module-bpm - 表结构未导入][参考 https://doc.iocoder.cn/bpm/ 开启]");
             return CommonResult.error(NOT_IMPLEMENTED.getCode(),
                     "[工作流模块 ai-fusion-module-bpm - 表结构未导入][参考 https://doc.iocoder.cn/bpm/ 开启]");
-        }
+        }*/
         // 3. 微信公众号
         if (message.contains("mp_")) {
             log.error("[微信公众号 ai-fusion-module-mp - 表结构未导入][参考 https://doc.iocoder.cn/mp/build/ 开启]");
@@ -330,7 +330,7 @@ public class GlobalExceptionHandler {
             return CommonResult.error(NOT_IMPLEMENTED.getCode(),
                     "[商城系统 ai-fusion-module-mall - 已禁用][参考 https://doc.iocoder.cn/mall/build/ 开启]");
         }
-        // 5. ERP 系统
+        /*// 5. ERP 系统
         if (message.contains("erp_")) {
             log.error("[ERP 系统 ai-fusion-module-erp - 表结构未导入][参考 https://doc.iocoder.cn/erp/build/ 开启]");
             return CommonResult.error(NOT_IMPLEMENTED.getCode(),
@@ -341,7 +341,7 @@ public class GlobalExceptionHandler {
             log.error("[CRM 系统 ai-fusion-module-crm - 表结构未导入][参考 https://doc.iocoder.cn/crm/build/ 开启]");
             return CommonResult.error(NOT_IMPLEMENTED.getCode(),
                     "[CRM 系统 ai-fusion-module-crm - 表结构未导入][参考 https://doc.iocoder.cn/crm/build/ 开启]");
-        }
+        }*/
         // 7. 支付平台
         if (message.contains("pay_")) {
             log.error("[支付模块 ai-fusion-module-pay - 表结构未导入][参考 https://doc.iocoder.cn/pay/build/ 开启]");

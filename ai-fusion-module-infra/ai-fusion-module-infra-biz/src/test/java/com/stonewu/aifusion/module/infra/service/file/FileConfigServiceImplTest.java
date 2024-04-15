@@ -62,7 +62,7 @@ public class FileConfigServiceImplTest extends BaseDbUnitTest {
     public void testCreateFileConfig_success() {
         // 准备参数
         Map<String, Object> config = MapUtil.<String, Object>builder().put("basePath", "/yunai")
-                .put("domain", "https://www.iocoder.cn").build();
+                .put("domain", "https://www.stonewu.com").build();
         FileConfigSaveReqVO reqVO = randomPojo(FileConfigSaveReqVO.class,
                 o -> o.setStorage(FileStorageEnum.LOCAL.getStorage()).setConfig(config))
                 .setId(null); // 避免 id 被赋值
@@ -76,7 +76,7 @@ public class FileConfigServiceImplTest extends BaseDbUnitTest {
         assertPojoEquals(reqVO, fileConfig, "id", "config");
         assertFalse(fileConfig.getMaster());
         assertEquals("/yunai", ((LocalFileClientConfig) fileConfig.getConfig()).getBasePath());
-        assertEquals("https://www.iocoder.cn", ((LocalFileClientConfig) fileConfig.getConfig()).getDomain());
+        assertEquals("https://www.stonewu.com", ((LocalFileClientConfig) fileConfig.getConfig()).getDomain());
         // 验证 cache
         assertNull(fileConfigService.getClientCache().getIfPresent(fileConfigId));
     }
@@ -85,7 +85,7 @@ public class FileConfigServiceImplTest extends BaseDbUnitTest {
     public void testUpdateFileConfig_success() {
         // mock 数据
         FileConfigDO dbFileConfig = randomPojo(FileConfigDO.class, o -> o.setStorage(FileStorageEnum.LOCAL.getStorage())
-                .setConfig(new LocalFileClientConfig().setBasePath("/yunai").setDomain("https://www.iocoder.cn")));
+                .setConfig(new LocalFileClientConfig().setBasePath("/yunai").setDomain("https://www.stonewu.com")));
         fileConfigMapper.insert(dbFileConfig);// @Sql: 先插入出一条存在的数据
         // 准备参数
         FileConfigSaveReqVO reqVO = randomPojo(FileConfigSaveReqVO.class, o -> {
@@ -191,7 +191,7 @@ public class FileConfigServiceImplTest extends BaseDbUnitTest {
         fileConfigMapper.insert(cloneIgnoreId(dbFileConfig, o -> o.setCreateTime(LocalDateTimeUtil.parse("2020-11-23", DatePattern.NORM_DATE_PATTERN))));
         // 准备参数
         FileConfigPageReqVO reqVO = new FileConfigPageReqVO();
-        reqVO.setName("芋道");
+        reqVO.setName("AI-Fusion");
         reqVO.setStorage(FileStorageEnum.LOCAL.getStorage());
         reqVO.setCreateTime((new LocalDateTime[]{buildTime(2020, 1, 1),
                 buildTime(2020, 1, 24)}));
@@ -214,10 +214,10 @@ public class FileConfigServiceImplTest extends BaseDbUnitTest {
         // mock 获得 Client
         FileClient fileClient = mock(FileClient.class);
         when(fileClientFactory.getFileClient(eq(id))).thenReturn(fileClient);
-        when(fileClient.upload(any(), any(), any())).thenReturn("https://www.iocoder.cn");
+        when(fileClient.upload(any(), any(), any())).thenReturn("https://www.stonewu.com");
 
         // 调用，并断言
-        assertEquals("https://www.iocoder.cn", fileConfigService.testFileConfig(id));
+        assertEquals("https://www.stonewu.com", fileConfigService.testFileConfig(id));
     }
 
     @Test

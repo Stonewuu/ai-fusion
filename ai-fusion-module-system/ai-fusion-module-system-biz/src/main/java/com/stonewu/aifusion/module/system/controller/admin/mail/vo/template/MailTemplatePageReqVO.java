@@ -23,7 +23,7 @@ public class MailTemplatePageReqVO extends PageParam {
     @Schema(description = "标识，模糊匹配", example = "code_1024")
     private String code;
 
-    @Schema(description = "名称，模糊匹配", example = "芋头")
+    @Schema(description = "名称，模糊匹配", example = "AI-Fusion")
     private String name;
 
     @Schema(description = "账号编号", example = "2048")

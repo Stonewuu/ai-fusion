@@ -99,7 +99,7 @@ public class TradeOrderUpdateServiceTest extends BaseDbUnitTest {
 //                .setStatus(ProductSpuStatusEnum.ENABLE.getStatus()));
 //        when(productSpuApi.getSpuList(eq(asSet(11L, 21L)))).thenReturn(Arrays.asList(spu01, spu02));
 //        // mock 方法（用户收件地址的校验）
-//        MemberAddressRespDTO addressRespDTO = new MemberAddressRespDTO().setId(10L).setUserId(userId).setName("芋艿")
+//        MemberAddressRespDTO addressRespDTO = new MemberAddressRespDTO().setId(10L).setUserId(userId).setName("AI-Fusion")
 //                .setMobile("15601691300").setAreaId(3306).setDetailAddress("土豆村");
 //        when(addressApi.getAddress(eq(10L), eq(userId))).thenReturn(addressRespDTO);
 //        // mock 方法（价格计算）
@@ -164,7 +164,7 @@ public class TradeOrderUpdateServiceTest extends BaseDbUnitTest {
 //        assertNull(tradeOrderDO.getLogisticsId());
 //        assertNull(tradeOrderDO.getDeliveryTime());
 //        assertNull(tradeOrderDO.getReceiveTime());
-//        assertEquals(tradeOrderDO.getReceiverName(), "芋艿");
+//        assertEquals(tradeOrderDO.getReceiverName(), "AI-Fusion");
 //        assertEquals(tradeOrderDO.getReceiverMobile(), "15601691300");
 //        assertEquals(tradeOrderDO.getReceiverAreaId(), 3306);
 //        assertEquals(tradeOrderDO.getReceiverDetailAddress(), "土豆村");

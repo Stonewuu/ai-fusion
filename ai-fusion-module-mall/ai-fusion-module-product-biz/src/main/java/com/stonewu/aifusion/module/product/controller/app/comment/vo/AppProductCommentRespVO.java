@@ -21,7 +21,7 @@ public class AppProductCommentRespVO {
     @Schema(description = "评价人名称", requiredMode = Schema.RequiredMode.REQUIRED, example = "张三")
     private String userNickname;
 
-    @Schema(description = "评价人头像", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.iocoder.cn/xx.png")
+    @Schema(description = "评价人头像", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.stonewu.com/xx.png")
     private String userAvatar;
 
     @Schema(description = "订单项编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "24965")

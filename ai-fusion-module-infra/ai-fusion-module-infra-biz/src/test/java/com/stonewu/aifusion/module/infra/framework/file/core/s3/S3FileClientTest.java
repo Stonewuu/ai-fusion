@@ -68,7 +68,7 @@ public class S3FileClientTest {
 //        config.setAccessSecret(System.getenv("QINIU_SECRET_KEY"));
         config.setAccessKey("b7yvuhBSAGjmtPhMFcn9iMOxUOY_I06cA_p0ZUx8");
         config.setAccessSecret("kXM1l5ia1RvSX3QaOEcwI3RLz3Y2rmNszWonKZtP");
-        config.setBucket("ruoyi-vue-pro");
+        config.setBucket("ai-fusion");
         config.setDomain("http://test.yudao.iocoder.cn"); // 如果有自定义域名，则可以设置。http://static.yudao.iocoder.cn
         // 默认上海的 endpoint
         config.setEndpoint("s3-cn-south-1.qiniucs.com");

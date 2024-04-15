@@ -117,7 +117,7 @@ public class CouponTemplateServiceImplTest extends BaseDbUnitTest {
     public void testGetCouponTemplatePage() {
        // mock 数据
        CouponTemplateDO dbCouponTemplate = randomPojo(CouponTemplateDO.class, o -> { // 等会查询到
-           o.setName("芋艿");
+           o.setName("AI-Fusion");
            o.setStatus(CommonStatusEnum.ENABLE.getStatus());
            o.setDiscountType(PromotionDiscountTypeEnum.PERCENT.getType());
            o.setCreateTime(buildTime(2022, 2, 2));
@@ -133,7 +133,7 @@ public class CouponTemplateServiceImplTest extends BaseDbUnitTest {
        couponTemplateMapper.insert(cloneIgnoreId(dbCouponTemplate, o -> o.setCreateTime(buildTime(2022, 1, 1))));
        // 准备参数
        CouponTemplatePageReqVO reqVO = new CouponTemplatePageReqVO();
-       reqVO.setName("芋艿");
+       reqVO.setName("AI-Fusion");
        reqVO.setStatus(CommonStatusEnum.ENABLE.getStatus());
        reqVO.setDiscountType(PromotionDiscountTypeEnum.PERCENT.getType());
        reqVO.setCreateTime((new LocalDateTime[]{buildTime(2022, 2, 1), buildTime(2022, 2, 3)}));

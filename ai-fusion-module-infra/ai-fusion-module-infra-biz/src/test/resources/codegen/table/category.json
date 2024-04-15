@@ -31,7 +31,7 @@
     "columnComment" : "名字",
     "javaType" : "String",
     "javaField" : "name",
-    "example" : "芋头",
+    "example" : "AI-Fusion",
     "createOperation" : true,
     "updateOperation" : true,
     "listOperation" : true,

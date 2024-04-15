@@ -28,7 +28,7 @@ public class ProjectReactor {
     private static final String GROUP_ID = "com.stonewu.boot";
     private static final String ARTIFACT_ID = "ai-fusion";
     private static final String PACKAGE_NAME = "com.stonewu.aifusion";
-    private static final String TITLE = "芋道管理系统";
+    private static final String TITLE = "AI-Fusion";
 
     /**
      * 白名单文件，不进行重写，避免出问题

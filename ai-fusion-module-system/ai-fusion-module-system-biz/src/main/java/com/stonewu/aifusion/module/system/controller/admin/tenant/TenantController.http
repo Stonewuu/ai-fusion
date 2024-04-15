@@ -8,11 +8,11 @@ Authorization: Bearer {{token}}
 tenant-id: {{adminTenentId}}
 
 {
-  "name": "芋道",
-  "contactName": "芋艿",
+  "name": "AI-Fusion",
+  "contactName": "AI-Fusion",
   "contactMobile": "15601691300",
   "status": 0,
-  "domain": "https://www.iocoder.cn",
+  "domain": "https://www.stonewu.com",
   "packageId": 110,
   "expireTime": 1699545600000,
   "accountCount": 20,

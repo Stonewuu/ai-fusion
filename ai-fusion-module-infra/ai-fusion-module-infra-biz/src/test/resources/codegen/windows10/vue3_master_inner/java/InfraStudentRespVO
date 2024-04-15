@@ -19,7 +19,7 @@ public class InfraStudentRespVO {
     @ExcelProperty("编号")
     private Long id;
 
-    @Schema(description = "名字", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋头")
+    @Schema(description = "名字", requiredMode = Schema.RequiredMode.REQUIRED, example = "AI-Fusion")
     @ExcelProperty("名字")
     private String name;
 
@@ -41,11 +41,11 @@ public class InfraStudentRespVO {
     @DictFormat("infra_boolean_string") // TODO 代码优化：建议设置到对应的 DictTypeConstants 枚举类中
     private Boolean enabled;
 
-    @Schema(description = "头像", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.iocoder.cn/1.png")
+    @Schema(description = "头像", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.stonewu.com/1.png")
     @ExcelProperty("头像")
     private String avatar;
 
-    @Schema(description = "附件", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.iocoder.cn/1.mp4")
+    @Schema(description = "附件", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.stonewu.com/1.mp4")
     @ExcelProperty("附件")
     private String video;
 

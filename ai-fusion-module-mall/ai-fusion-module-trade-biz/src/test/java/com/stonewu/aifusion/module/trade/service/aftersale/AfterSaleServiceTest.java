@@ -120,7 +120,7 @@ public class AfterSaleServiceTest extends BaseDbUnitTest {
             o.setWay(AfterSaleWayEnum.RETURN_AND_REFUND.getWay());
             o.setType(AfterSaleTypeEnum.IN_SALE.getType());
             o.setOrderNo("202211190847450020500011");
-            o.setSpuName("芋艿");
+            o.setSpuName("AI-Fusion");
             o.setCreateTime(buildTime(2022, 1, 15));
         });
         tradeAfterSaleMapper.insert(dbAfterSale);

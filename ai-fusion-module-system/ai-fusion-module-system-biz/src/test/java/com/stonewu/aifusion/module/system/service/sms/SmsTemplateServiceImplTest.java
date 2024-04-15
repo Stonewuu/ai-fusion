@@ -231,7 +231,7 @@ public class SmsTemplateServiceImplTest extends BaseDbUnitTest {
         reqVO.setType(SmsTemplateTypeEnum.PROMOTION.getType());
         reqVO.setStatus(CommonStatusEnum.ENABLE.getStatus());
         reqVO.setCode("tu");
-        reqVO.setContent("芋道");
+        reqVO.setContent("AI-Fusion");
         reqVO.setApiTemplateId("yu");
         reqVO.setChannelId(1L);
         reqVO.setCreateTime(buildBetweenTime(2021, 11, 1, 2021, 12, 1));

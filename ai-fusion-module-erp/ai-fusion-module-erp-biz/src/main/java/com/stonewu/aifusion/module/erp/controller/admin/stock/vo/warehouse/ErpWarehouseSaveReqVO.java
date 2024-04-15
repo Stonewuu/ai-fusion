@@ -30,7 +30,7 @@ public class ErpWarehouseSaveReqVO {
     @Schema(description = "备注", example = "随便")
     private String remark;
 
-    @Schema(description = "负责人", example = "芋头")
+    @Schema(description = "负责人", example = "AI-Fusion")
     private String principal;
 
     @Schema(description = "仓储费，单位：元", example = "13973")

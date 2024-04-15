@@ -686,7 +686,7 @@ public class AdminUserServiceImplTest extends BaseDbUnitTest {
     @Test
     public void testGetUserListByNickname() {
         // mock 数据
-        AdminUserDO user = randomAdminUserDO(o -> o.setNickname("芋头"));
+        AdminUserDO user = randomAdminUserDO(o -> o.setNickname("AI-Fusion"));
         userMapper.insert(user);
         // 测试 nickname 不匹配
         userMapper.insert(randomAdminUserDO(o -> o.setNickname("源码")));

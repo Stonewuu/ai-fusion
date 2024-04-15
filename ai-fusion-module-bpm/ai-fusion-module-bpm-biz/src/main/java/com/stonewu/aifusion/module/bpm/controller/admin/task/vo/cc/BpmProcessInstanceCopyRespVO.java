@@ -14,7 +14,7 @@ public class BpmProcessInstanceCopyRespVO {
 
     @Schema(description = "发起人编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "888")
     private Long startUserId;
-    @Schema(description = "发起人昵称", requiredMode = Schema.RequiredMode.REQUIRED, example = "芋道")
+    @Schema(description = "发起人昵称", requiredMode = Schema.RequiredMode.REQUIRED, example = "AI-Fusion")
     private String startUserName;
 
     @Schema(description = "流程实例编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "A233")

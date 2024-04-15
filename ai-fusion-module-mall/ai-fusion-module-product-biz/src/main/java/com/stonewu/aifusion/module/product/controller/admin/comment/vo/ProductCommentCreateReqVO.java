@@ -21,7 +21,7 @@ public class ProductCommentCreateReqVO {
     @NotNull(message = "评价人名称不能为空")
     private String userNickname;
 
-    @Schema(description = "评价人头像", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.iocoder.cn/xx.png")
+    @Schema(description = "评价人头像", requiredMode = Schema.RequiredMode.REQUIRED, example = "https://www.stonewu.com/xx.png")
     @NotNull(message = "评价人头像不能为空")
     private String userAvatar;
 
