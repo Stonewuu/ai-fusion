@@ -17,18 +17,20 @@ import java.util.Collections;
 
 @Tag(name = "app - 对话")
 @RestController
-@RequestMapping("/ai/gemini")
+@RequestMapping("/ai")
 @Validated
-public class GeminiController {
+public class ChatController {
 
     @Resource
     private GoogleAiService googleAiService;
 
     @GetMapping("/chat")
-    public Flux<GeminiResponseDTO> chat(String prompt) {
+    public Flux<GeminiResponseDTO> chat(Long senceID, String prompt) {
         Content content = Content.builder().parts(Collections.singletonList(ContentPart.builder().text(prompt).build())).build();
         GeminiRequestDTO requestDTO = GeminiRequestDTO.builder().contents(Collections.singletonList(content)).build();
-        return googleAiService.chat(requestDTO, "gemini-pro", "***");
+        Flux<GeminiResponseDTO> chat = googleAiService.chat(requestDTO, "gemini-pro", "***");
+
+        return chat;
     }
 
 }

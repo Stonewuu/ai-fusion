@@ -4,6 +4,7 @@ public class AiServiceProviderImpl implements AiServiceProvider {
 
     public void getAiService(){
 
+
     }
 
 }
