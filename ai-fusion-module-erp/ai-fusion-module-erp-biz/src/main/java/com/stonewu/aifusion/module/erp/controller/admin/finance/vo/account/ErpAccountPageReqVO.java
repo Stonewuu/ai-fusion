@@ -18,7 +18,7 @@ public class ErpAccountPageReqVO extends PageParam {
     @Schema(description = "账户名称", example = "张三")
     private String name;
 
-    @Schema(description = "备注", example = "随便")
+    @Schema(description = "备注", example = "")
     private String remark;
 
 }

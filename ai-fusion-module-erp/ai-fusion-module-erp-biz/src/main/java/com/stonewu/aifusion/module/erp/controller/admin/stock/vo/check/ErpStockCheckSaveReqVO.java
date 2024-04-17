@@ -21,7 +21,7 @@ public class ErpStockCheckSaveReqVO {
     @NotNull(message = "出库时间不能为空")
     private LocalDateTime checkTime;
 
-    @Schema(description = "备注", example = "随便")
+    @Schema(description = "备注", example = "")
     private String remark;
 
     @Schema(description = "附件 URL", example = "https://www.stonewu.com/1.doc")
@@ -61,7 +61,7 @@ public class ErpStockCheckSaveReqVO {
         @NotNull(message = "盈亏数量不能为空")
         private BigDecimal count;
 
-        @Schema(description = "备注", example = "随便")
+        @Schema(description = "备注", example = "")
         private String remark;
 
     }

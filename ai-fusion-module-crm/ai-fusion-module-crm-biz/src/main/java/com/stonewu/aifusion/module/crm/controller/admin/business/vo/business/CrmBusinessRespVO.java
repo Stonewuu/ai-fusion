@@ -87,7 +87,7 @@ public class CrmBusinessRespVO {
     @ExcelProperty("商机总金额")
     private BigDecimal totalPrice;
 
-    @Schema(description = "备注", example = "随便")
+    @Schema(description = "备注", example = "")
     @ExcelProperty("备注")
     private String remark;
 

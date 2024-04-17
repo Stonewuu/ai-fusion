@@ -35,7 +35,7 @@ public class TradeOrderBaseVO {
     @Schema(description = "用户 IP", requiredMode = Schema.RequiredMode.REQUIRED, example = "127.0.0.1")
     private String userIp;
 
-    @Schema(description = "用户备注", requiredMode = Schema.RequiredMode.REQUIRED, example = "你猜")
+    @Schema(description = "用户备注", requiredMode = Schema.RequiredMode.REQUIRED, example = "")
     private String userRemark;
 
     @Schema(description = "订单状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
@@ -53,7 +53,7 @@ public class TradeOrderBaseVO {
     @Schema(description = "取消类型", example = "10")
     private Integer cancelType;
 
-    @Schema(description = "商家备注", example = "你猜一下")
+    @Schema(description = "商家备注", example = "一下")
     private String remark;
 
     // ========== 价格 + 支付基本信息 ==========

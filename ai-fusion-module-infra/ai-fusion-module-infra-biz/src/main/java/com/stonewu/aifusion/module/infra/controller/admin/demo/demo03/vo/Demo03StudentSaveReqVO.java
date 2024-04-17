@@ -29,7 +29,7 @@ public class Demo03StudentSaveReqVO {
     @NotNull(message = "出生日期不能为空")
     private LocalDateTime birthday;
 
-    @Schema(description = "简介", requiredMode = Schema.RequiredMode.REQUIRED, example = "随便")
+    @Schema(description = "简介", requiredMode = Schema.RequiredMode.REQUIRED, example = "")
     @NotEmpty(message = "简介不能为空")
     private String description;
 

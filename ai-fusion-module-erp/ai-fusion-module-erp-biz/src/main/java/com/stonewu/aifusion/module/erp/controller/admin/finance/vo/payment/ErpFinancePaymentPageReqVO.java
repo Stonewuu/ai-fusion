@@ -39,7 +39,7 @@ public class ErpFinancePaymentPageReqVO extends PageParam {
     @Schema(description = "付款状态", example = "2")
     private Integer status;
 
-    @Schema(description = "备注", example = "你猜")
+    @Schema(description = "备注", example = "")
     private String remark;
 
     @Schema(description = "业务编号", example = "123")

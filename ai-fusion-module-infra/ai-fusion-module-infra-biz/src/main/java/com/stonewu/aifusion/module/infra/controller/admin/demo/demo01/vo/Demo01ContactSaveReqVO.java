@@ -26,7 +26,7 @@ public class Demo01ContactSaveReqVO {
     @NotNull(message = "出生年不能为空")
     private LocalDateTime birthday;
 
-    @Schema(description = "简介", requiredMode = Schema.RequiredMode.REQUIRED, example = "你说的对")
+    @Schema(description = "简介", requiredMode = Schema.RequiredMode.REQUIRED, example = "")
     @NotEmpty(message = "简介不能为空")
     private String description;
 

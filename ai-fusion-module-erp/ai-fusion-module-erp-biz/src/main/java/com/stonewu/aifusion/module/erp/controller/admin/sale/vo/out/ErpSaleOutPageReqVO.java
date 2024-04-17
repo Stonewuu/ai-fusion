@@ -31,7 +31,7 @@ public class ErpSaleOutPageReqVO extends PageParam {
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private LocalDateTime[] outTime;
 
-    @Schema(description = "备注", example = "你猜")
+    @Schema(description = "备注", example = "")
     private String remark;
 
     @Schema(description = "出库状态", example = "2")

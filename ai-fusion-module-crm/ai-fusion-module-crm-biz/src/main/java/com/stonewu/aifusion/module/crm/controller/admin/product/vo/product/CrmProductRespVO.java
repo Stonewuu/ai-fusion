@@ -53,7 +53,7 @@ public class CrmProductRespVO implements VO {
     @ExcelProperty("产品分类")
     private String categoryName;
 
-    @Schema(description = "产品描述", example = "你说的对")
+    @Schema(description = "产品描述", example = "")
     @ExcelProperty("产品描述")
     private String description;
 

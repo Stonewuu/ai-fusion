@@ -88,7 +88,7 @@ public class CrmContactSaveReqVO {
     @DiffLogField(name = "直属上级", function = CrmContactParseFunction.NAME)
     private Long parentId;
 
-    @Schema(description = "备注", example = "你说的对")
+    @Schema(description = "备注", example = "")
     @DiffLogField(name = "备注")
     private String remark;
 

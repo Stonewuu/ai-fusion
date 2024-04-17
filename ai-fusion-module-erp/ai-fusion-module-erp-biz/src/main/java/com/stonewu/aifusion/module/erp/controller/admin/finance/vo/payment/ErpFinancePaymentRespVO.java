@@ -49,7 +49,7 @@ public class ErpFinancePaymentRespVO {
     @Schema(description = "实际价格，单位：元", requiredMode = Schema.RequiredMode.REQUIRED, example = "10000")
     private BigDecimal paymentPrice;
 
-    @Schema(description = "备注", example = "你猜")
+    @Schema(description = "备注", example = "")
     private String remark;
 
     @Schema(description = "创建人", example = "AI-Fusion")
@@ -89,7 +89,7 @@ public class ErpFinancePaymentRespVO {
         @NotNull(message = "本次付款不能为空")
         private BigDecimal paymentPrice;
 
-        @Schema(description = "备注", example = "随便")
+        @Schema(description = "备注", example = "")
         private String remark;
 
     }

@@ -8,19 +8,19 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.stonewu.aifusion.framework.mybatis.core.dataobject.BaseDO;
 
 /**
- * AI模型 DO
+ * AI助手 DO
  *
  * @author AiFusion
  */
-@TableName("ai_model")
-@KeySequence("ai_model_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@TableName("ai_assistant")
+@KeySequence("ai_assistant_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ModelDO extends BaseDO {
+public class AssistantDO extends BaseDO {
 
     /**
      * 编号
@@ -28,23 +28,25 @@ public class ModelDO extends BaseDO {
     @TableId
     private Long id;
     /**
-     * 模型名称
+     * 助手名称
      */
     private String name;
     /**
-     * 模型ApiKey
+     * 初始prompt
      */
-    private String apiKey;
+    private String prompt;
     /**
-     * 官方英文称
+     * AI模型编号
      */
-    private String modelName;
+    private Long modelId;
     /**
-     * 模型类型	1.openai	2.google
-     *
-     * 枚举 {@link TODO ai_model_type 对应的类}
+     * 打招呼语
      */
-    private Integer modelType;
+    private String notice;
+    /**
+     * 对话轮次
+     */
+    private Integer round;
     /**
      * 备注
      */

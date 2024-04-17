@@ -25,7 +25,7 @@ public class AppTradeOrderDetailRespVO {
     @Schema(description = "下单时间", requiredMode = Schema.RequiredMode.REQUIRED)
     private LocalDateTime createTime;
 
-    @Schema(description = "用户备注", requiredMode = Schema.RequiredMode.REQUIRED, example = "你猜")
+    @Schema(description = "用户备注", requiredMode = Schema.RequiredMode.REQUIRED, example = "")
     private String userRemark;
 
     @Schema(description = "订单状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")

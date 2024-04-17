@@ -31,7 +31,7 @@ public class Demo01ContactRespVO {
     @ExcelProperty("出生年")
     private LocalDateTime birthday;
 
-    @Schema(description = "简介", requiredMode = Schema.RequiredMode.REQUIRED, example = "你说的对")
+    @Schema(description = "简介", requiredMode = Schema.RequiredMode.REQUIRED, example = "")
     @ExcelProperty("简介")
     private String description;
 

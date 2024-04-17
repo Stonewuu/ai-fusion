@@ -58,7 +58,7 @@ public class CrmBusinessSaveReqVO {
     @NotNull(message = "整单折扣不能为空")
     private BigDecimal discountPercent;
 
-    @Schema(description = "备注", example = "随便")
+    @Schema(description = "备注", example = "")
     @DiffLogField(name = "备注")
     private String remark;
 

@@ -70,7 +70,7 @@ public class ErpSaleOrderRespVO {
     @ExcelProperty("附件地址")
     private String fileUrl;
 
-    @Schema(description = "备注", example = "你猜")
+    @Schema(description = "备注", example = "")
     @ExcelProperty("备注")
     private String remark;
 
@@ -125,7 +125,7 @@ public class ErpSaleOrderRespVO {
         @Schema(description = "税额，单位：元", example = "100.00")
         private BigDecimal taxPrice;
 
-        @Schema(description = "备注", example = "随便")
+        @Schema(description = "备注", example = "")
         private String remark;
 
         // ========== 销售出库 ==========

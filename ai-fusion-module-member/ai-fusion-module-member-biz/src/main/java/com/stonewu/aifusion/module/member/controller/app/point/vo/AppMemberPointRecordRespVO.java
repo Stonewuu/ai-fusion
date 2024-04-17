@@ -12,10 +12,10 @@ public class AppMemberPointRecordRespVO {
     @Schema(description = "自增主键", requiredMode = Schema.RequiredMode.REQUIRED, example = "31457")
     private Long id;
 
-    @Schema(description = "积分标题", requiredMode = Schema.RequiredMode.REQUIRED, example = "你猜")
+    @Schema(description = "积分标题", requiredMode = Schema.RequiredMode.REQUIRED, example = "")
     private String title;
 
-    @Schema(description = "积分描述", example = "你猜")
+    @Schema(description = "积分描述", example = "")
     private String description;
 
     @Schema(description = "积分", requiredMode = Schema.RequiredMode.REQUIRED, example = "100")

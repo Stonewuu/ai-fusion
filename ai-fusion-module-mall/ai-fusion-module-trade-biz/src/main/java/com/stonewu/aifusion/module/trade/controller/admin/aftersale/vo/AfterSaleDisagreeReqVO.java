@@ -13,7 +13,7 @@ public class AfterSaleDisagreeReqVO {
     @NotNull(message = "售后编号不能为空")
     private Long id;
 
-    @Schema(description = "审批备注", requiredMode = Schema.RequiredMode.REQUIRED, example = "你猜")
+    @Schema(description = "审批备注", requiredMode = Schema.RequiredMode.REQUIRED, example = "")
     @NotEmpty(message = "审批备注不能为空")
     private String auditReason;
 

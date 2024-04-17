@@ -80,12 +80,15 @@ VALUES (
     '', '', '', 0
 );
 
+-- ----------------------------
 DROP TABLE IF EXISTS `ai_assistant`;
 CREATE TABLE `ai_assistant`  (
                                  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
                                  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '助手名称',
-                                 `prompt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '助手的初始prompt',
-                                 `model_id` tinyint NOT NULL COMMENT 'AI模型编号',
+                                 `prompt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '助手的初始prompt',
+                                 `model_id` bigint NOT NULL COMMENT 'AI模型编号',
+                                 `notice` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '默认打招呼语',
+                                 `round` tinyint NOT NULL DEFAULT 10 COMMENT '记忆对话轮次',
                                  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
                                  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
                                  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -95,3 +98,59 @@ CREATE TABLE `ai_assistant`  (
                                  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
                                  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'AI助手表' ROW_FORMAT = Dynamic;
+
+-- 菜单 SQL
+INSERT INTO system_menu(
+    name, permission, type, sort, parent_id,
+    path, icon, component, status, component_name
+)
+VALUES (
+           'AI助手管理', '', 2, 0, 2760,
+           'assistant', '', 'ai/assistant/index', 0, 'Assistant'
+       );
+
+-- 按钮父菜单ID
+-- 暂时只支持 MySQL。如果你是 Oracle、PostgreSQL、SQLServer 的话，需要手动修改 @parentId 的部分的代码
+SELECT @parentId := LAST_INSERT_ID();
+
+-- 按钮 SQL
+INSERT INTO system_menu(
+    name, permission, type, sort, parent_id,
+    path, icon, component, status
+)
+VALUES (
+           'AI助手查询', 'ai:assistant:query', 3, 1, @parentId,
+           '', '', '', 0
+       );
+INSERT INTO system_menu(
+    name, permission, type, sort, parent_id,
+    path, icon, component, status
+)
+VALUES (
+           'AI助手创建', 'ai:assistant:create', 3, 2, @parentId,
+           '', '', '', 0
+       );
+INSERT INTO system_menu(
+    name, permission, type, sort, parent_id,
+    path, icon, component, status
+)
+VALUES (
+           'AI助手更新', 'ai:assistant:update', 3, 3, @parentId,
+           '', '', '', 0
+       );
+INSERT INTO system_menu(
+    name, permission, type, sort, parent_id,
+    path, icon, component, status
+)
+VALUES (
+           'AI助手删除', 'ai:assistant:delete', 3, 4, @parentId,
+           '', '', '', 0
+       );
+INSERT INTO system_menu(
+    name, permission, type, sort, parent_id,
+    path, icon, component, status
+)
+VALUES (
+           'AI助手导出', 'ai:assistant:export', 3, 5, @parentId,
+           '', '', '', 0
+       );

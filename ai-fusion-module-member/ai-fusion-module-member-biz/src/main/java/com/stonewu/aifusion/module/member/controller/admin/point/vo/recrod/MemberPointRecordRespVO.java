@@ -24,10 +24,10 @@ public class MemberPointRecordRespVO {
     @Schema(description = "业务类型", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
     private Integer bizType;
 
-    @Schema(description = "积分标题", requiredMode = Schema.RequiredMode.REQUIRED, example = "你猜")
+    @Schema(description = "积分标题", requiredMode = Schema.RequiredMode.REQUIRED, example = "")
     private String title;
 
-    @Schema(description = "积分描述", example = "你猜")
+    @Schema(description = "积分描述", example = "")
     private String description;
 
     @Schema(description = "积分", requiredMode = Schema.RequiredMode.REQUIRED, example = "100")

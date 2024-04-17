@@ -17,7 +17,7 @@ public class MemberGroupBaseVO {
     @NotNull(message = "名称不能为空")
     private String name;
 
-    @Schema(description = "备注", requiredMode = Schema.RequiredMode.REQUIRED, example = "你猜")
+    @Schema(description = "备注", requiredMode = Schema.RequiredMode.REQUIRED, example = "")
     private String remark;
 
     @Schema(description = "状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")

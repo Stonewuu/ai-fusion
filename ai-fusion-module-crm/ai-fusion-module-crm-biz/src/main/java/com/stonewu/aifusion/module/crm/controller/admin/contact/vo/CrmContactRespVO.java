@@ -101,7 +101,7 @@ public class CrmContactRespVO {
     @ExcelProperty(value = "直属上级", order = 4)
     private String parentName;
 
-    @Schema(description = "备注", example = "你说的对")
+    @Schema(description = "备注", example = "")
     @ExcelProperty(value = "备注", order = 6)
     private String remark;
 

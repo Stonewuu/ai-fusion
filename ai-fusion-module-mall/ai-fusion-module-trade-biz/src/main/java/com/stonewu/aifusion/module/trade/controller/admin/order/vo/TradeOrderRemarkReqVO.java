@@ -13,7 +13,7 @@ public class TradeOrderRemarkReqVO {
     @NotNull(message = "订单编号不能为空")
     private Long id;
 
-    @Schema(description = "商家备注", example = "你猜一下")
+    @Schema(description = "商家备注", example = "一下")
     @NotEmpty(message = "订单备注不能为空")
     private String remark;
 

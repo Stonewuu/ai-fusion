@@ -38,7 +38,7 @@ public class ErpSaleOrderSaveReqVO {
     @Schema(description = "附件地址", example = "https://www.stonewu.com")
     private String fileUrl;
 
-    @Schema(description = "备注", example = "你猜")
+    @Schema(description = "备注", example = "")
     private String remark;
 
     @Schema(description = "订单清单列表")
@@ -68,7 +68,7 @@ public class ErpSaleOrderSaveReqVO {
         @Schema(description = "税率，百分比", example = "99.88")
         private BigDecimal taxPercent;
 
-        @Schema(description = "备注", example = "随便")
+        @Schema(description = "备注", example = "")
         private String remark;
 
     }

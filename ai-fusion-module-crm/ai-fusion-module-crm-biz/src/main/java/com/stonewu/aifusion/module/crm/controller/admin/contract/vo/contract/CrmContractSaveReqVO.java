@@ -77,7 +77,7 @@ public class CrmContractSaveReqVO {
     @DiffLogField(name = "公司签约人", function = SysAdminUserParseFunction.NAME)
     private Long signUserId;
 
-    @Schema(description = "备注", example = "你猜")
+    @Schema(description = "备注", example = "")
     @DiffLogField(name = "备注")
     private String remark;
 

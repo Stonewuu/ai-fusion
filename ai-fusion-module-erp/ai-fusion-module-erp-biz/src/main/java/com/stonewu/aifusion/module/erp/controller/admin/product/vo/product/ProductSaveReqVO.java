@@ -37,7 +37,7 @@ public class ProductSaveReqVO {
     @Schema(description = "产品规格", example = "红色")
     private String standard;
 
-    @Schema(description = "产品备注", example = "你猜")
+    @Schema(description = "产品备注", example = "")
     private String remark;
 
     @Schema(description = "保质期天数", example = "10")

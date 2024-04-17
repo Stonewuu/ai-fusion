@@ -41,7 +41,7 @@ public class AfterSaleBaseVO {
     @NotNull(message = "申请原因不能为空")
     private String applyReason;
 
-    @Schema(description = "补充描述", example = "你说的对")
+    @Schema(description = "补充描述", example = "")
     private String applyDescription;
 
     @Schema(description = "补充凭证图片", example = "https://www.stonewu.com/1.png")

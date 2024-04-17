@@ -27,7 +27,7 @@ public class ErpStockMoveSaveReqVO {
     @NotNull(message = "调拨时间不能为空")
     private LocalDateTime moveTime;
 
-    @Schema(description = "备注", example = "随便")
+    @Schema(description = "备注", example = "")
     private String remark;
 
     @Schema(description = "附件 URL", example = "https://www.stonewu.com/1.doc")
@@ -63,7 +63,7 @@ public class ErpStockMoveSaveReqVO {
         @NotNull(message = "产品数量不能为空")
         private BigDecimal count;
 
-        @Schema(description = "备注", example = "随便")
+        @Schema(description = "备注", example = "")
         private String remark;
 
         @AssertTrue(message = "调出、调仓仓库不能相同")

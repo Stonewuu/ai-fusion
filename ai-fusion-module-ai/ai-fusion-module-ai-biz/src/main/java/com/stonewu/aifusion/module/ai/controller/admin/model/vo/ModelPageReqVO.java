@@ -15,20 +15,14 @@ import static com.stonewu.aifusion.framework.common.util.date.DateUtils.FORMAT_Y
 @ToString(callSuper = true)
 public class ModelPageReqVO extends PageParam {
 
-    @Schema(description = "模型名称", example = "gpt-4模型")
+    @Schema(description = "模型名称", example = "AI-Fusion")
     private String name;
 
-    @Schema(description = "ApiKey")
-    private String apiKey;
-
-    @Schema(description = "官方名称", example = "gpt-4")
+    @Schema(description = "官方英文称", example = "AI-Fusion")
     private String modelName;
 
-    @Schema(description = "模型类型", example = "1")
+    @Schema(description = "模型类型	1.openai	2.google", example = "1")
     private Integer modelType;
-
-    @Schema(description = "备注")
-    private String remark;
 
     @Schema(description = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)

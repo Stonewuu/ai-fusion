@@ -36,7 +36,7 @@ public class MpMessageSendReqVO {
     @NotEmpty(message = "消息内容不能为空", groups = VideoMessageGroup.class)
     private String title;
 
-    @Schema(description = "描述", requiredMode = Schema.RequiredMode.REQUIRED, example = "你猜")
+    @Schema(description = "描述", requiredMode = Schema.RequiredMode.REQUIRED, example = "")
     @NotEmpty(message = "消息描述不能为空", groups = VideoMessageGroup.class)
     private String description;
 

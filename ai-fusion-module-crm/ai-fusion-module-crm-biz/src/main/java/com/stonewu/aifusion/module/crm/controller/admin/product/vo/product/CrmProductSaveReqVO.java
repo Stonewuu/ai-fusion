@@ -45,7 +45,7 @@ public class CrmProductSaveReqVO {
     @DiffLogField(name = "产品分类编号")
     private Long categoryId;
 
-    @Schema(description = "产品描述", example = "你说的对")
+    @Schema(description = "产品描述", example = "")
     @DiffLogField(name = "产品描述")
     private String description;
 

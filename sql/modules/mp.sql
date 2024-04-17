@@ -84,7 +84,7 @@ CREATE TABLE `mp_auto_reply`  (
 -- Records of mp_auto_reply
 -- ----------------------------
 BEGIN;
-INSERT INTO `mp_auto_reply` (`id`, `account_id`, `app_id`, `type`, `request_keyword`, `request_match`, `request_message_type`, `response_message_type`, `response_content`, `response_media_id`, `response_media_url`, `response_title`, `response_description`, `response_thumb_media_id`, `response_thumb_media_url`, `response_articles`, `response_music_url`, `response_hq_music_url`, `creator`, `create_time`, `updater`, `update_time`, `deleted`, `tenant_id`) VALUES (44, 1, 'wx5b23ba7a5589ecbb', 3, '你猜', 1, 'text', 'voice', '', 't1E3ss-niBf29tpzShjljxwaiBoXV_61ln2hzZGDlvAcT3hqLbC9dvl39YwiBWg9', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '2023-01-04 04:40:55', '', '2023-01-16 16:55:48', b'1', 1);
+INSERT INTO `mp_auto_reply` (`id`, `account_id`, `app_id`, `type`, `request_keyword`, `request_match`, `request_message_type`, `response_message_type`, `response_content`, `response_media_id`, `response_media_url`, `response_title`, `response_description`, `response_thumb_media_id`, `response_thumb_media_url`, `response_articles`, `response_music_url`, `response_hq_music_url`, `creator`, `create_time`, `updater`, `update_time`, `deleted`, `tenant_id`) VALUES (44, 1, 'wx5b23ba7a5589ecbb', 3, '', 1, 'text', 'voice', '', 't1E3ss-niBf29tpzShjljxwaiBoXV_61ln2hzZGDlvAcT3hqLbC9dvl39YwiBWg9', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '', '2023-01-04 04:40:55', '', '2023-01-16 16:55:48', b'1', 1);
 COMMIT;
 
 -- ----------------------------

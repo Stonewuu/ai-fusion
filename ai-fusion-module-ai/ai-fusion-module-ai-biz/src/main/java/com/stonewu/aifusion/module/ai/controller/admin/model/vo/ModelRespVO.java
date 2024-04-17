@@ -15,24 +15,20 @@ import com.stonewu.aifusion.framework.excel.core.convert.DictConvert;
 @ExcelIgnoreUnannotated
 public class ModelRespVO {
 
-    @Schema(description = "编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "23418")
+    @Schema(description = "编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "21093")
     @ExcelProperty("编号")
     private Long id;
 
-    @Schema(description = "模型名称", requiredMode = Schema.RequiredMode.REQUIRED, example = "gpt-4模型")
+    @Schema(description = "模型名称", requiredMode = Schema.RequiredMode.REQUIRED, example = "AI-Fusion")
     @ExcelProperty("模型名称")
     private String name;
 
-    @Schema(description = "ApiKey")
-    @ExcelProperty("ApiKey")
-    private String apiKey;
-
-    @Schema(description = "官方名称", requiredMode = Schema.RequiredMode.REQUIRED, example = "gpt-4")
-    @ExcelProperty("官方名称")
+    @Schema(description = "官方英文称", requiredMode = Schema.RequiredMode.REQUIRED, example = "AI-Fusion")
+    @ExcelProperty("官方英文称")
     private String modelName;
 
-    @Schema(description = "模型类型", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
-    @ExcelProperty(value = "模型类型", converter = DictConvert.class)
+    @Schema(description = "模型类型	1.openai	2.google", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
+    @ExcelProperty(value = "模型类型	1.openai	2.google", converter = DictConvert.class)
     @DictFormat("ai_model_type") // TODO 代码优化：建议设置到对应的 DictTypeConstants 枚举类中
     private Integer modelType;
 

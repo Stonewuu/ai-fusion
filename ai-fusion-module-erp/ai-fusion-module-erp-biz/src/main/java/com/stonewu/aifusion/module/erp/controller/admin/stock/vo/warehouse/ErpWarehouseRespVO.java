@@ -32,7 +32,7 @@ public class ErpWarehouseRespVO {
     @ExcelProperty("排序")
     private Long sort;
 
-    @Schema(description = "备注", example = "随便")
+    @Schema(description = "备注", example = "")
     @ExcelProperty("备注")
     private String remark;
 

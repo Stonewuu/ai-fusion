@@ -43,7 +43,7 @@ public class ErpStockCheckRespVO {
     @DictFormat(DictTypeConstants.AUDIT_STATUS)
     private Integer status;
 
-    @Schema(description = "备注", example = "随便")
+    @Schema(description = "备注", example = "")
     @ExcelProperty("备注")
     private String remark;
 
@@ -93,7 +93,7 @@ public class ErpStockCheckRespVO {
         @NotNull(message = "盈亏数量不能为空")
         private BigDecimal count;
 
-        @Schema(description = "备注", example = "随便")
+        @Schema(description = "备注", example = "")
         private String remark;
 
         // ========== 关联字段 ==========

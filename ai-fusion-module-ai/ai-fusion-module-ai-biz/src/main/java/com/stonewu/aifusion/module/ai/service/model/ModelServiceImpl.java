@@ -8,11 +8,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import com.stonewu.aifusion.module.ai.controller.admin.model.vo.*;
 import com.stonewu.aifusion.module.ai.dal.dataobject.model.ModelDO;
+import com.stonewu.aifusion.module.ai.dal.dataobject.model.AssistantDO;
 import com.stonewu.aifusion.framework.common.pojo.PageResult;
 import com.stonewu.aifusion.framework.common.pojo.PageParam;
 import com.stonewu.aifusion.framework.common.util.object.BeanUtils;
 
 import com.stonewu.aifusion.module.ai.dal.mysql.model.ModelMapper;
+import com.stonewu.aifusion.module.ai.dal.mysql.model.AssistantMapper;
 
 import static com.stonewu.aifusion.framework.common.exception.util.ServiceExceptionUtil.exception;
 import static com.stonewu.aifusion.module.ai.enums.ErrorCodeConstants.*;
@@ -28,6 +30,8 @@ public class ModelServiceImpl implements ModelService {
 
     @Resource
     private ModelMapper modelMapper;
+    @Resource
+    private AssistantMapper assistantMapper;
 
     @Override
     public Long createModel(ModelSaveReqVO createReqVO) {
@@ -48,11 +52,15 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteModel(Long id) {
         // 校验存在
         validateModelExists(id);
         // 删除
         modelMapper.deleteById(id);
+
+        // 删除子表
+        deleteAssistantByModelId(id);
     }
 
     private void validateModelExists(Long id) {
@@ -69,6 +77,50 @@ public class ModelServiceImpl implements ModelService {
     @Override
     public PageResult<ModelDO> getModelPage(ModelPageReqVO pageReqVO) {
         return modelMapper.selectPage(pageReqVO);
+    }
+
+    // ==================== 子表（AI助手） ====================
+
+    @Override
+    public PageResult<AssistantDO> getAssistantPage(PageParam pageReqVO, Long modelId) {
+        return assistantMapper.selectPage(pageReqVO, modelId);
+    }
+
+    @Override
+    public Long createAssistant(AssistantDO assistant) {
+        assistantMapper.insert(assistant);
+        return assistant.getId();
+    }
+
+    @Override
+    public void updateAssistant(AssistantDO assistant) {
+        // 校验存在
+        validateAssistantExists(assistant.getId());
+        // 更新
+        assistantMapper.updateById(assistant);
+    }
+
+    @Override
+    public void deleteAssistant(Long id) {
+        // 校验存在
+        validateAssistantExists(id);
+        // 删除
+        assistantMapper.deleteById(id);
+    }
+
+    @Override
+    public AssistantDO getAssistant(Long id) {
+        return assistantMapper.selectById(id);
+    }
+
+    private void validateAssistantExists(Long id) {
+        if (assistantMapper.selectById(id) == null) {
+            throw exception(ASSISTANT_NOT_EXISTS);
+        }
+    }
+
+    private void deleteAssistantByModelId(Long modelId) {
+        assistantMapper.deleteByModelId(modelId);
     }
 
 }

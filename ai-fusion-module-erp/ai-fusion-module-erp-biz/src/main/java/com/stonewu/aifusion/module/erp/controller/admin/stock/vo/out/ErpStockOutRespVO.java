@@ -48,7 +48,7 @@ public class ErpStockOutRespVO {
     @DictFormat(DictTypeConstants.AUDIT_STATUS)
     private Integer status;
 
-    @Schema(description = "备注", example = "随便")
+    @Schema(description = "备注", example = "")
     @ExcelProperty("备注")
     private String remark;
 
@@ -89,7 +89,7 @@ public class ErpStockOutRespVO {
         @Schema(description = "产品数量", requiredMode = Schema.RequiredMode.REQUIRED, example = "100.00")
         private BigDecimal count;
 
-        @Schema(description = "备注", example = "随便")
+        @Schema(description = "备注", example = "")
         private String remark;
 
         // ========== 关联字段 ==========

@@ -62,7 +62,7 @@ public class BrokerageWithdrawBaseVO {
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private LocalDateTime auditTime;
 
-    @Schema(description = "备注", example = "随便")
+    @Schema(description = "备注", example = "")
     private String remark;
 
 }

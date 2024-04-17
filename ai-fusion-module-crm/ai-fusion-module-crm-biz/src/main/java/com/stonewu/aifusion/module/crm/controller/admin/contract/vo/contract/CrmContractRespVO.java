@@ -104,7 +104,7 @@ public class CrmContractRespVO {
     @ExcelProperty("公司签约人")
     private String signUserName;
 
-    @Schema(description = "备注", example = "你猜")
+    @Schema(description = "备注", example = "")
     @ExcelProperty("备注")
     private String remark;
 

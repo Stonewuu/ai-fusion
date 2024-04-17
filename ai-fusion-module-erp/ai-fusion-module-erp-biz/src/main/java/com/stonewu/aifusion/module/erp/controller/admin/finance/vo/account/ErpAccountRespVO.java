@@ -26,7 +26,7 @@ public class ErpAccountRespVO {
     @ExcelProperty("账户编码")
     private String no;
 
-    @Schema(description = "备注", example = "随便")
+    @Schema(description = "备注", example = "")
     @ExcelProperty("备注")
     private String remark;
 

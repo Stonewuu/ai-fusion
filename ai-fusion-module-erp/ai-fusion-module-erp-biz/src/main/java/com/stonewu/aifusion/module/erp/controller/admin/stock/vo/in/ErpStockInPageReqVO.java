@@ -33,7 +33,7 @@ public class ErpStockInPageReqVO extends PageParam {
     @InEnum(ErpAuditStatus.class)
     private Integer status;
 
-    @Schema(description = "备注", example = "随便")
+    @Schema(description = "备注", example = "")
     private String remark;
 
     @Schema(description = "创建者")

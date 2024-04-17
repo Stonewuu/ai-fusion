@@ -23,7 +23,7 @@ public class Demo03StudentPageReqVO extends PageParam {
     @Schema(description = "性别")
     private Integer sex;
 
-    @Schema(description = "简介", example = "随便")
+    @Schema(description = "简介", example = "")
     private String description;
 
     @Schema(description = "创建时间")

@@ -18,7 +18,7 @@ public class BpmCategoryRespVO {
     @Schema(description = "分类标志", requiredMode = Schema.RequiredMode.REQUIRED, example = "OA")
     private String code;
 
-    @Schema(description = "分类描述", requiredMode = Schema.RequiredMode.REQUIRED, example = "你猜")
+    @Schema(description = "分类描述", requiredMode = Schema.RequiredMode.REQUIRED, example = "")
     private String description;
 
     @Schema(description = "分类状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")

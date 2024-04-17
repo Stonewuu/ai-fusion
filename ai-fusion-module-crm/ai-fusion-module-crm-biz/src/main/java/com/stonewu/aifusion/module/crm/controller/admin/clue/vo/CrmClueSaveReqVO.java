@@ -102,7 +102,7 @@ public class CrmClueSaveReqVO {
     @Size(max = 4096, message = "客户描述长度不能超过 4096 个字符")
     private String description;
 
-    @Schema(description = "备注", example = "随便")
+    @Schema(description = "备注", example = "")
     @DiffLogField(name = "备注")
     private String remark;
 

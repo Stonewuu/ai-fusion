@@ -21,7 +21,7 @@ public class ErpAccountSaveReqVO {
     @Schema(description = "账户编码", example = "A88")
     private String no;
 
-    @Schema(description = "备注", example = "随便")
+    @Schema(description = "备注", example = "")
     private String remark;
 
     @Schema(description = "开启状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")

@@ -125,7 +125,7 @@ CREATE TABLE `member_group`  (
 -- Records of member_group
 -- ----------------------------
 BEGIN;
-INSERT INTO `member_group` (`id`, `name`, `status`, `remark`, `creator`, `create_time`, `updater`, `update_time`, `deleted`, `tenant_id`) VALUES (1, '哈哈哈', 0, '你猜', '1', '2023-08-22 21:58:13', '1', '2023-08-22 21:58:13', b'0', 1);
+INSERT INTO `member_group` (`id`, `name`, `status`, `remark`, `creator`, `create_time`, `updater`, `update_time`, `deleted`, `tenant_id`) VALUES (1, '哈哈哈', 0, '', '1', '2023-08-22 21:58:13', '1', '2023-08-22 21:58:13', b'0', 1);
 COMMIT;
 
 -- ----------------------------

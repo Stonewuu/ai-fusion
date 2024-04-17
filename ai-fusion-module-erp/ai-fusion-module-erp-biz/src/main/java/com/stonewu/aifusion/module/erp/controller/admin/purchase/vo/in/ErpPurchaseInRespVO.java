@@ -74,7 +74,7 @@ public class ErpPurchaseInRespVO {
     @ExcelProperty("附件地址")
     private String fileUrl;
 
-    @Schema(description = "备注", example = "你猜")
+    @Schema(description = "备注", example = "")
     @ExcelProperty("备注")
     private String remark;
 
@@ -125,7 +125,7 @@ public class ErpPurchaseInRespVO {
         @Schema(description = "税额，单位：元", example = "100.00")
         private BigDecimal taxPrice;
 
-        @Schema(description = "备注", example = "随便")
+        @Schema(description = "备注", example = "")
         private String remark;
 
         // ========== 关联字段 ==========

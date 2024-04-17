@@ -33,7 +33,7 @@ public class ErpCustomerSaveReqVO {
     @Schema(description = "传真", example = "20 7123 4567")
     private String fax;
 
-    @Schema(description = "备注", example = "你猜")
+    @Schema(description = "备注", example = "")
     private String remark;
 
     @Schema(description = "开启状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")

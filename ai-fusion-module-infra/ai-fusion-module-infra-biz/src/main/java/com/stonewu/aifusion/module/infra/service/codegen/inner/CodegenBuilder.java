@@ -213,7 +213,7 @@ public class CodegenBuilder {
         }
         // description、memo、remark
         if (StrUtil.endWithAnyIgnoreCase(column.getColumnName(), "description", "memo", "remark")) {
-            column.setExample(randomEle(new String[]{"你猜", "随便", "你说的对"}));
+            column.setExample(randomEle(new String[]{"", "", ""}));
             return;
         }
     }

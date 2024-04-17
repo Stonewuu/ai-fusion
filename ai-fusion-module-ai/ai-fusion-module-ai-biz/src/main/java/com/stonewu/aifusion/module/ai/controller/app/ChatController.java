@@ -25,7 +25,7 @@ public class ChatController {
     private GoogleAiService googleAiService;
 
     @GetMapping("/chat")
-    public Flux<GeminiResponseDTO> chat(Long senceID, String prompt) {
+    public Flux<GeminiResponseDTO> chat(Long assistantID, String prompt) {
         Content content = Content.builder().parts(Collections.singletonList(ContentPart.builder().text(prompt).build())).build();
         GeminiRequestDTO requestDTO = GeminiRequestDTO.builder().contents(Collections.singletonList(content)).build();
         Flux<GeminiResponseDTO> chat = googleAiService.chat(requestDTO, "gemini-pro", "***");

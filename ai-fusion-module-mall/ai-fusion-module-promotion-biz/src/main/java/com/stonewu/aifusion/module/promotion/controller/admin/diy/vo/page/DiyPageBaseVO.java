@@ -20,7 +20,7 @@ public class DiyPageBaseVO {
     @NotNull(message = "页面名称不能为空")
     private String name;
 
-    @Schema(description = "备注", example = "随便")
+    @Schema(description = "备注", example = "")
     private String remark;
 
     @Schema(description = "预览图")

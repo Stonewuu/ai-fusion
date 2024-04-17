@@ -18,10 +18,11 @@ import org.springframework.context.annotation.Import;
 import java.util.*;
 import java.time.LocalDateTime;
 
-import static com.stonewu.aifusion.framework.common.util.date.LocalDateTimeUtils.*;
-import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
+import static cn.hutool.core.util.RandomUtil.*;
 import static com.stonewu.aifusion.module.ai.enums.ErrorCodeConstants.*;
 import static com.stonewu.aifusion.framework.test.core.util.AssertUtils.*;
+import static com.stonewu.aifusion.framework.test.core.util.RandomUtils.*;
+import static com.stonewu.aifusion.framework.common.util.date.LocalDateTimeUtils.*;
 import static com.stonewu.aifusion.framework.common.util.object.ObjectUtils.*;
 import static com.stonewu.aifusion.framework.common.util.date.DateUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -110,32 +111,24 @@ public class ModelServiceImplTest extends BaseDbUnitTest {
        // mock 数据
        ModelDO dbModel = randomPojo(ModelDO.class, o -> { // 等会查询到
            o.setName(null);
-           o.setApiKey(null);
            o.setModelName(null);
            o.setModelType(null);
-           o.setRemark(null);
            o.setCreateTime(null);
        });
        modelMapper.insert(dbModel);
        // 测试 name 不匹配
        modelMapper.insert(cloneIgnoreId(dbModel, o -> o.setName(null)));
-       // 测试 apiKey 不匹配
-       modelMapper.insert(cloneIgnoreId(dbModel, o -> o.setApiKey(null)));
        // 测试 modelName 不匹配
        modelMapper.insert(cloneIgnoreId(dbModel, o -> o.setModelName(null)));
        // 测试 modelType 不匹配
        modelMapper.insert(cloneIgnoreId(dbModel, o -> o.setModelType(null)));
-       // 测试 remark 不匹配
-       modelMapper.insert(cloneIgnoreId(dbModel, o -> o.setRemark(null)));
        // 测试 createTime 不匹配
        modelMapper.insert(cloneIgnoreId(dbModel, o -> o.setCreateTime(null)));
        // 准备参数
        ModelPageReqVO reqVO = new ModelPageReqVO();
        reqVO.setName(null);
-       reqVO.setApiKey(null);
        reqVO.setModelName(null);
        reqVO.setModelType(null);
-       reqVO.setRemark(null);
        reqVO.setCreateTime(buildBetweenTime(2023, 2, 1, 2023, 2, 28));
 
        // 调用

@@ -107,7 +107,7 @@ public class CrmClueRespVO {
     @DictFormat(com.stonewu.aifusion.module.crm.enums.DictTypeConstants.CRM_CUSTOMER_SOURCE)
     private Integer source;
 
-    @Schema(description = "备注", example = "随便")
+    @Schema(description = "备注", example = "")
     @ExcelProperty("备注")
     private String remark;
 

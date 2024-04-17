@@ -24,7 +24,7 @@ public class ErpStockInSaveReqVO {
     @NotNull(message = "入库时间不能为空")
     private LocalDateTime inTime;
 
-    @Schema(description = "备注", example = "随便")
+    @Schema(description = "备注", example = "")
     private String remark;
 
     @Schema(description = "附件 URL", example = "https://www.stonewu.com/1.doc")
@@ -56,7 +56,7 @@ public class ErpStockInSaveReqVO {
         @NotNull(message = "产品数量不能为空")
         private BigDecimal count;
 
-        @Schema(description = "备注", example = "随便")
+        @Schema(description = "备注", example = "")
         private String remark;
 
     }

@@ -36,7 +36,7 @@ public class ErpFinanceReceiptSaveReqVO {
     @NotNull(message = "优惠金额不能为空")
     private BigDecimal discountPrice;
 
-    @Schema(description = "备注", example = "你猜")
+    @Schema(description = "备注", example = "")
     private String remark;
 
     @Schema(description = "收款项列表", requiredMode = Schema.RequiredMode.REQUIRED)
@@ -66,7 +66,7 @@ public class ErpFinanceReceiptSaveReqVO {
         @NotNull(message = "本次收款不能为空")
         private BigDecimal receiptPrice;
 
-        @Schema(description = "备注", example = "随便")
+        @Schema(description = "备注", example = "")
         private String remark;
 
     }

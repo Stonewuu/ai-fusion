@@ -24,7 +24,7 @@ public class GoViewProjectRespVO {
     @Schema(description = "预览图片 URL", example = "https://www.stonewu.com")
     private String picUrl;
 
-    @Schema(description = "项目备注", example = "你猜")
+    @Schema(description = "项目备注", example = "")
     private String remark;
 
     @Schema(description = "创建人编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "1024")

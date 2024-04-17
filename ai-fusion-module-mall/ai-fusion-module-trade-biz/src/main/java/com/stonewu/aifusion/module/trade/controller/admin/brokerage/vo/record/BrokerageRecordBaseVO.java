@@ -41,7 +41,7 @@ public class BrokerageRecordBaseVO {
     @NotNull(message = "当前总佣金不能为空")
     private Integer totalPrice;
 
-    @Schema(description = "说明", requiredMode = Schema.RequiredMode.REQUIRED, example = "你说的对")
+    @Schema(description = "说明", requiredMode = Schema.RequiredMode.REQUIRED, example = "")
     @NotNull(message = "说明不能为空")
     private String description;
 

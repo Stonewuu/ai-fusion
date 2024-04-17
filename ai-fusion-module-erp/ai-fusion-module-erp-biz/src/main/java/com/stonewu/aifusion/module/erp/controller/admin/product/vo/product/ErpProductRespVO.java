@@ -45,7 +45,7 @@ public class ErpProductRespVO {
     @ExcelProperty("产品规格")
     private String standard;
 
-    @Schema(description = "产品备注", example = "你猜")
+    @Schema(description = "产品备注", example = "")
     @ExcelProperty("产品备注")
     private String remark;
 

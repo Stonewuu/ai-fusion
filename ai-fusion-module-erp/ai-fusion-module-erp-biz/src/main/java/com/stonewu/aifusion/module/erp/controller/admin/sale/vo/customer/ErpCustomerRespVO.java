@@ -43,7 +43,7 @@ public class ErpCustomerRespVO {
     @ExcelProperty("传真")
     private String fax;
 
-    @Schema(description = "备注", example = "你猜")
+    @Schema(description = "备注", example = "")
     @ExcelProperty("备注")
     private String remark;
 

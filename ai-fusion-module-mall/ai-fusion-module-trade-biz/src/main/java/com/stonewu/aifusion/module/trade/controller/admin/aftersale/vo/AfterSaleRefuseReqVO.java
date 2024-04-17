@@ -12,7 +12,7 @@ public class AfterSaleRefuseReqVO {
     @NotNull(message = "售后编号不能为空")
     private Long id;
 
-    @Schema(description = "收货备注", requiredMode = Schema.RequiredMode.REQUIRED, example = "你猜")
+    @Schema(description = "收货备注", requiredMode = Schema.RequiredMode.REQUIRED, example = "")
     @NotNull(message = "收货备注不能为空")
     private String refuseMemo;
 

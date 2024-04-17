@@ -27,7 +27,7 @@ public class ErpWarehouseSaveReqVO {
     @NotNull(message = "排序不能为空")
     private Long sort;
 
-    @Schema(description = "备注", example = "随便")
+    @Schema(description = "备注", example = "")
     private String remark;
 
     @Schema(description = "负责人", example = "AI-Fusion")

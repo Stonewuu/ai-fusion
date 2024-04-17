@@ -20,10 +20,8 @@ public interface ModelMapper extends BaseMapperX<ModelDO> {
     default PageResult<ModelDO> selectPage(ModelPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<ModelDO>()
                 .likeIfPresent(ModelDO::getName, reqVO.getName())
-                .eqIfPresent(ModelDO::getApiKey, reqVO.getApiKey())
                 .likeIfPresent(ModelDO::getModelName, reqVO.getModelName())
                 .eqIfPresent(ModelDO::getModelType, reqVO.getModelType())
-                .eqIfPresent(ModelDO::getRemark, reqVO.getRemark())
                 .betweenIfPresent(ModelDO::getCreateTime, reqVO.getCreateTime())
                 .orderByDesc(ModelDO::getId));
     }
