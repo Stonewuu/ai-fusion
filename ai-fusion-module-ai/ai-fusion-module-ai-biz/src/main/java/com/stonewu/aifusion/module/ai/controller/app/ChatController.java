@@ -4,6 +4,8 @@ import com.stonewu.aifusion.module.ai.api.google.dto.Content;
 import com.stonewu.aifusion.module.ai.api.google.dto.ContentPart;
 import com.stonewu.aifusion.module.ai.api.google.dto.GeminiRequestDTO;
 import com.stonewu.aifusion.module.ai.api.google.dto.GeminiResponseDTO;
+import com.stonewu.aifusion.module.ai.api.openai.dto.Message;
+import com.stonewu.aifusion.module.ai.service.ai.AiServiceProvider;
 import com.stonewu.aifusion.module.ai.service.ai.GoogleAiService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 import java.util.Collections;
+import java.util.List;
 
 @Tag(name = "app - 对话")
 @RestController
@@ -24,13 +27,12 @@ public class ChatController {
     @Resource
     private GoogleAiService googleAiService;
 
-    @GetMapping("/chat")
-    public Flux<GeminiResponseDTO> chat(Long assistantID, String prompt) {
-        Content content = Content.builder().parts(Collections.singletonList(ContentPart.builder().text(prompt).build())).build();
-        GeminiRequestDTO requestDTO = GeminiRequestDTO.builder().contents(Collections.singletonList(content)).build();
-        Flux<GeminiResponseDTO> chat = googleAiService.chat(requestDTO, "gemini-pro", "***");
+    private AiServiceProvider aiServiceProvider;
 
-        return chat;
+    @GetMapping("/chat")
+    public Flux<Message> chat(Long assistantID, List<Message> messages) {
+
+        return aiServiceProvider.chat(assistantID, messages);
     }
 
 }

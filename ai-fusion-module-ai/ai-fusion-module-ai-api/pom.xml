@@ -21,6 +21,11 @@
             <groupId>com.stonewu.boot</groupId>
             <artifactId>ai-fusion-common</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.stonewu.boot</groupId>
+            <artifactId>ai-fusion-spring-boot-starter-web</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
