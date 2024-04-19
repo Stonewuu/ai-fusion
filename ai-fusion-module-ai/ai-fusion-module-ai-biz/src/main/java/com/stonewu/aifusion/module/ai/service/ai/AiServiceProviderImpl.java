@@ -30,19 +30,20 @@ public class AiServiceProviderImpl implements AiServiceProvider {
     public Flux<Message> chat(Long assistantID, List<Message> messages){
         AssistantDO assistant = modelService.getAssistant(assistantID);
         if (assistant == null) {
-            return Flux.empty();
+            return null;
         }
         ModelDO model = modelService.getModel(assistant.getModelId());
         if (model == null) {
-            return Flux.empty();
+            return null;
         }
         String apiKey = model.getApiKey();
         Integer modelType = model.getModelType();
         if (modelType == 1) {
             // openai
-            OpenAiRequestDTO openAiRequestDTO = new OpenAiRequestDTO();
-            openAiRequestDTO.setModel("gpt-3.5-turbo");
-            openAiRequestDTO.setMessages(messages);
+            OpenAiRequestDTO openAiRequestDTO = OpenAiRequestDTO.builder()
+                    .messages(messages)
+                    .model(model.getModelName())
+                    .build();
             Flux<OpenAiResponseDTO> chat = openAiService.chat(openAiRequestDTO, apiKey);
             return chat.map(openAiResponseDTO -> {
                 Message message = new Message();
@@ -71,7 +72,7 @@ public class AiServiceProviderImpl implements AiServiceProvider {
             });
         }
 
-        return Flux.empty();
+        return null;
     }
 
 }

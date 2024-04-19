@@ -1,5 +1,7 @@
 package com.stonewu.aifusion.module.ai.controller.app;
 
+import com.stonewu.aifusion.framework.common.exception.enums.GlobalErrorCodeConstants;
+import com.stonewu.aifusion.framework.common.pojo.CommonResult;
 import com.stonewu.aifusion.module.ai.api.google.dto.Content;
 import com.stonewu.aifusion.module.ai.api.google.dto.ContentPart;
 import com.stonewu.aifusion.module.ai.api.google.dto.GeminiRequestDTO;
@@ -17,6 +19,9 @@ import reactor.core.publisher.Flux;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
+
+import static com.stonewu.aifusion.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
 @Tag(name = "app - 对话")
 @RestController
@@ -30,9 +35,15 @@ public class ChatController {
     private AiServiceProvider aiServiceProvider;
 
     @GetMapping("/chat")
-    public Flux<Message> chat(Long assistantID, List<Message> messages) {
+    public Flux<CommonResult<Message>> chat(Long assistantID, List<Message> messages) {
+        Long loginUserId = getLoginUserId();
 
-        return aiServiceProvider.chat(assistantID, messages);
+
+        Flux<Message> chat = aiServiceProvider.chat(assistantID, messages);
+        if (chat == null) {
+            return Flux.fromStream(Stream.of(CommonResult.error(GlobalErrorCodeConstants.BAD_REQUEST.getCode(), "未找到匹配的模型")));
+        }
+        return chat.map(message -> CommonResult.success(message));
     }
 
 }
