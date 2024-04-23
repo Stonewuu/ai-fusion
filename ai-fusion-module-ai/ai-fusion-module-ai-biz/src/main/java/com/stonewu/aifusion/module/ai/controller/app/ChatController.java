@@ -11,14 +11,14 @@ import com.stonewu.aifusion.module.ai.api.google.dto.GeminiResponseDTO;
 import com.stonewu.aifusion.module.ai.api.openai.dto.Message;
 import com.stonewu.aifusion.module.ai.service.ai.AiServiceProvider;
 import com.stonewu.aifusion.module.ai.service.ai.GoogleAiService;
+import com.stonewu.aifusion.module.member.api.user.MemberUserApi;
+import com.stonewu.aifusion.module.member.api.user.dto.MemberUserRespDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 import java.util.Collections;
@@ -35,22 +35,25 @@ import static com.stonewu.aifusion.framework.security.core.util.SecurityFramewor
 public class ChatController {
 
     @Resource
-    private GoogleAiService googleAiService;
-
     private AiServiceProvider aiServiceProvider;
 
-    @GetMapping("/chat")
+    @Resource
+    private MemberUserApi memberUserApi;
+
+
+    @PostMapping("/chat")
     @Operation(summary = "流式对话")
     @PreAuthenticated
-    public Flux<CommonResult<MessageResponse>> chat(Long assistantID, List<Message> messages) {
-        Long loginUserId = getLoginUserId();
-
+    public Flux<MessageResponse> chat(Long assistantID, @RequestBody List<Message> messages) {
+        Long loginId = getLoginUserId();
+        MemberUserRespDTO user = memberUserApi.getUser(loginId);
+        Integer point = user.getPoint();
 
         Flux<MessageResponse> chat = aiServiceProvider.chat(assistantID, messages);
         if (chat == null) {
-            return Flux.fromStream(Stream.of(CommonResult.error(GlobalErrorCodeConstants.BAD_REQUEST.getCode(), "未找到匹配的模型")));
+            return Flux.fromStream(Stream.of(MessageResponse.builder().code(GlobalErrorCodeConstants.BAD_REQUEST.getCode()).build()));
         }
-        return chat.map(CommonResult::success);
+        return chat;
     }
 
 }

@@ -14,11 +14,13 @@ import com.stonewu.aifusion.module.ai.dal.dataobject.model.ModelDO;
 import com.stonewu.aifusion.module.ai.enums.ErrorCodeConstants;
 import com.stonewu.aifusion.module.ai.service.model.ModelService;
 import jakarta.annotation.Resource;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 @Service
@@ -41,7 +43,11 @@ public class AiServiceProviderImpl implements AiServiceProvider {
             return Flux.fromStream(Stream.of(MessageResponse.builder().code(ErrorCodeConstants.MODEL_NOT_EXISTS.getCode()).build()));
         }
         String apiKey = model.getApiKey();
+        if(StringUtils.isEmpty(apiKey)){
+            return Flux.fromStream(Stream.of(MessageResponse.builder().code(ErrorCodeConstants.MODEL_NO_KEYS.getCode()).build()));
+        }
         Integer modelType = model.getModelType();
+        AtomicInteger contentLength = new AtomicInteger();
         if (modelType == 1) {
             // openai
             OpenAiRequestDTO openAiRequestDTO = OpenAiRequestDTO.builder()
@@ -49,11 +55,15 @@ public class AiServiceProviderImpl implements AiServiceProvider {
                     .model(model.getModelName())
                     .build();
             Flux<OpenAiResponseDTO> chat = openAiService.chat(openAiRequestDTO, apiKey);
-            return chat.map(openAiResponseDTO -> {
+            Flux<MessageResponse> responseFlux = chat.map(openAiResponseDTO -> {
+                String content = openAiResponseDTO.getChoices().getFirst().getMessage().getContent();
+                contentLength.addAndGet(content.length());
                 Message message = Message.builder().role("assistant")
-                        .content(openAiResponseDTO.getChoices().getFirst().getMessage().getContent()).build();
-                return MessageResponse.builder().message(message).code(GlobalErrorCodeConstants.SUCCESS.getCode()).build();
+                        .content(content).build();
+                MessageResponse build = MessageResponse.builder().message(message).code(GlobalErrorCodeConstants.SUCCESS.getCode()).build();
+                return build;
             });
+            return responseFlux;
 
         } else if (modelType == 2) {
             // google gemini
@@ -66,12 +76,14 @@ public class AiServiceProviderImpl implements AiServiceProvider {
             ).toList();
             geminiRequestDTO.setContents(contents);
             Flux<GeminiResponseDTO> chat = googleAiService.chat(geminiRequestDTO, model.getModelName(), apiKey);
-            return chat.map(geminiResponseDTO -> {
+            Flux<MessageResponse> responseFlux = chat.map(geminiResponseDTO -> {
+                String text = geminiResponseDTO.getCandidates().getFirst().getContent().getParts().getFirst().getText();
                 Message message = Message.builder().role("model")
-                        .content(geminiResponseDTO.getCandidates().getFirst().getContent().getParts().getFirst().getText())
+                        .content(text)
                         .build();
                 return MessageResponse.builder().message(message).code(GlobalErrorCodeConstants.SUCCESS.getCode()).build();
             });
+            return responseFlux;
         }
         return Flux.fromStream(Stream.of(MessageResponse.builder().code(ErrorCodeConstants.MODEL_NO_SUCH_TYPE.getCode()).build()));
     }
