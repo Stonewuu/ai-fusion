@@ -7,5 +7,5 @@ import reactor.core.publisher.Flux;
 import java.util.List;
 
 public interface AiServiceProvider {
-    Flux<MessageResponse> chat(Long assistantID, List<Message> messages);
+    Flux<MessageResponse> streamChat(Long assistantID, List<Message> messages);
 }

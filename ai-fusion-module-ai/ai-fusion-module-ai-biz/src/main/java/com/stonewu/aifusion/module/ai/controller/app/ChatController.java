@@ -1,16 +1,10 @@
 package com.stonewu.aifusion.module.ai.controller.app;
 
 import com.stonewu.aifusion.framework.common.exception.enums.GlobalErrorCodeConstants;
-import com.stonewu.aifusion.framework.common.pojo.CommonResult;
 import com.stonewu.aifusion.framework.security.core.annotations.PreAuthenticated;
 import com.stonewu.aifusion.module.ai.api.ai.dto.MessageResponse;
-import com.stonewu.aifusion.module.ai.api.google.dto.Content;
-import com.stonewu.aifusion.module.ai.api.google.dto.ContentPart;
-import com.stonewu.aifusion.module.ai.api.google.dto.GeminiRequestDTO;
-import com.stonewu.aifusion.module.ai.api.google.dto.GeminiResponseDTO;
 import com.stonewu.aifusion.module.ai.api.openai.dto.Message;
 import com.stonewu.aifusion.module.ai.service.ai.AiServiceProvider;
-import com.stonewu.aifusion.module.ai.service.ai.GoogleAiService;
 import com.stonewu.aifusion.module.member.api.user.MemberUserApi;
 import com.stonewu.aifusion.module.member.api.user.dto.MemberUserRespDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,7 +15,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -49,7 +42,7 @@ public class ChatController {
         MemberUserRespDTO user = memberUserApi.getUser(loginId);
         Integer point = user.getPoint();
 
-        Flux<MessageResponse> chat = aiServiceProvider.chat(assistantID, messages);
+        Flux<MessageResponse> chat = aiServiceProvider.streamChat(assistantID, messages);
         if (chat == null) {
             return Flux.fromStream(Stream.of(MessageResponse.builder().code(GlobalErrorCodeConstants.BAD_REQUEST.getCode()).build()));
         }

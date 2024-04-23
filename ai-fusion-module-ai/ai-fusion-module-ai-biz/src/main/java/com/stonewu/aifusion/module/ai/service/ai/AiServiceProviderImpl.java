@@ -33,7 +33,7 @@ public class AiServiceProviderImpl implements AiServiceProvider {
     private GoogleAiService googleAiService;
 
     @Override
-    public Flux<MessageResponse> chat(Long assistantID, List<Message> messages){
+    public Flux<MessageResponse> streamChat(Long assistantID, List<Message> messages){
         AssistantDO assistant = modelService.getAssistant(assistantID);
         if (assistant == null) {
             return Flux.fromStream(Stream.of(MessageResponse.builder().code(ErrorCodeConstants.ASSISTANT_NOT_EXISTS.getCode()).build()));
@@ -52,6 +52,7 @@ public class AiServiceProviderImpl implements AiServiceProvider {
             // openai
             OpenAiRequestDTO openAiRequestDTO = OpenAiRequestDTO.builder()
                     .messages(messages)
+                    .stream(true)
                     .model(model.getModelName())
                     .build();
             Flux<OpenAiResponseDTO> chat = openAiService.chat(openAiRequestDTO, apiKey);
