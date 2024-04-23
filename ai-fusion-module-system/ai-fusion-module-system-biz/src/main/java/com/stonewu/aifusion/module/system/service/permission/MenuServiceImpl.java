@@ -12,6 +12,7 @@ import com.stonewu.aifusion.module.system.enums.permission.MenuTypeEnum;
 import com.stonewu.aifusion.module.system.service.tenant.TenantService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.compress.utils.Lists;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Lazy;
@@ -136,7 +137,10 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<MenuDO> getMenuList(Collection<Long> ids) {
+    public List<MenuDO> getMenuList(Collection<Long> ids) {// 当ids为空时，返回一个空的实例对象
+        if (CollUtil.isEmpty(ids)) {
+            return Lists.newArrayList();
+        }
         return menuMapper.selectBatchIds(ids);
     }
 

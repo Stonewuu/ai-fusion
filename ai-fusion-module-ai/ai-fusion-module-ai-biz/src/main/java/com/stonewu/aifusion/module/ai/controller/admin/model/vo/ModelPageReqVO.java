@@ -4,6 +4,7 @@ import lombok.*;
 import java.util.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import com.stonewu.aifusion.framework.common.pojo.PageParam;
+import java.math.BigDecimal;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 
@@ -15,13 +16,13 @@ import static com.stonewu.aifusion.framework.common.util.date.DateUtils.FORMAT_Y
 @ToString(callSuper = true)
 public class ModelPageReqVO extends PageParam {
 
-    @Schema(description = "模型名称", example = "AI-Fusion")
+    @Schema(description = "模型名称", example = "赵六")
     private String name;
 
-    @Schema(description = "官方英文称", example = "AI-Fusion")
+    @Schema(description = "英文名称", example = "王五")
     private String modelName;
 
-    @Schema(description = "模型类型	1.openai	2.google", example = "1")
+    @Schema(description = "模型类型", example = "2")
     private Integer modelType;
 
     @Schema(description = "创建时间")

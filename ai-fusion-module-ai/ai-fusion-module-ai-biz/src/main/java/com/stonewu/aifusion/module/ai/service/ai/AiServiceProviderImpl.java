@@ -1,5 +1,7 @@
 package com.stonewu.aifusion.module.ai.service.ai;
 
+import com.stonewu.aifusion.framework.common.exception.enums.GlobalErrorCodeConstants;
+import com.stonewu.aifusion.module.ai.api.ai.dto.MessageResponse;
 import com.stonewu.aifusion.module.ai.api.google.dto.Content;
 import com.stonewu.aifusion.module.ai.api.google.dto.ContentPart;
 import com.stonewu.aifusion.module.ai.api.google.dto.GeminiRequestDTO;
@@ -9,6 +11,7 @@ import com.stonewu.aifusion.module.ai.api.openai.dto.OpenAiRequestDTO;
 import com.stonewu.aifusion.module.ai.api.openai.dto.OpenAiResponseDTO;
 import com.stonewu.aifusion.module.ai.dal.dataobject.model.AssistantDO;
 import com.stonewu.aifusion.module.ai.dal.dataobject.model.ModelDO;
+import com.stonewu.aifusion.module.ai.enums.ErrorCodeConstants;
 import com.stonewu.aifusion.module.ai.service.model.ModelService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,7 @@ import reactor.core.publisher.Flux;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class AiServiceProviderImpl implements AiServiceProvider {
@@ -27,14 +31,14 @@ public class AiServiceProviderImpl implements AiServiceProvider {
     private GoogleAiService googleAiService;
 
     @Override
-    public Flux<Message> chat(Long assistantID, List<Message> messages){
+    public Flux<MessageResponse> chat(Long assistantID, List<Message> messages){
         AssistantDO assistant = modelService.getAssistant(assistantID);
         if (assistant == null) {
-            return null;
+            return Flux.fromStream(Stream.of(MessageResponse.builder().code(ErrorCodeConstants.ASSISTANT_NOT_EXISTS.getCode()).build()));
         }
         ModelDO model = modelService.getModel(assistant.getModelId());
         if (model == null) {
-            return null;
+            return Flux.fromStream(Stream.of(MessageResponse.builder().code(ErrorCodeConstants.MODEL_NOT_EXISTS.getCode()).build()));
         }
         String apiKey = model.getApiKey();
         Integer modelType = model.getModelType();
@@ -46,12 +50,10 @@ public class AiServiceProviderImpl implements AiServiceProvider {
                     .build();
             Flux<OpenAiResponseDTO> chat = openAiService.chat(openAiRequestDTO, apiKey);
             return chat.map(openAiResponseDTO -> {
-                Message message = new Message();
-                message.setRole("assistant");
-                message.setContent(openAiResponseDTO.getChoices().getFirst().getMessage().getContent());
-                return message;
+                Message message = Message.builder().role("assistant")
+                        .content(openAiResponseDTO.getChoices().getFirst().getMessage().getContent()).build();
+                return MessageResponse.builder().message(message).code(GlobalErrorCodeConstants.SUCCESS.getCode()).build();
             });
-
 
         } else if (modelType == 2) {
             // google gemini
@@ -65,14 +67,13 @@ public class AiServiceProviderImpl implements AiServiceProvider {
             geminiRequestDTO.setContents(contents);
             Flux<GeminiResponseDTO> chat = googleAiService.chat(geminiRequestDTO, model.getModelName(), apiKey);
             return chat.map(geminiResponseDTO -> {
-                Message message = new Message();
-                message.setRole("model");
-                message.setContent(geminiResponseDTO.getCandidates().getFirst().getContent().getParts().getFirst().getText());
-                return message;
+                Message message = Message.builder().role("model")
+                        .content(geminiResponseDTO.getCandidates().getFirst().getContent().getParts().getFirst().getText())
+                        .build();
+                return MessageResponse.builder().message(message).code(GlobalErrorCodeConstants.SUCCESS.getCode()).build();
             });
         }
-
-        return null;
+        return Flux.fromStream(Stream.of(MessageResponse.builder().code(ErrorCodeConstants.MODEL_NO_SUCH_TYPE.getCode()).build()));
     }
 
 }

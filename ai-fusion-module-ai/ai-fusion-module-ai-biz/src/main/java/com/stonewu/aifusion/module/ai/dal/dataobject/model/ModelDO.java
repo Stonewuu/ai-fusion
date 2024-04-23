@@ -2,6 +2,7 @@ package com.stonewu.aifusion.module.ai.dal.dataobject.model;
 
 import lombok.*;
 import java.util.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.*;
@@ -36,15 +37,19 @@ public class ModelDO extends BaseDO {
      */
     private String apiKey;
     /**
-     * 官方英文称
+     * 英文名称
      */
     private String modelName;
     /**
-     * 模型类型	1.openai	2.google
+     * 模型类型
      *
      * 枚举 {@link TODO ai_model_type 对应的类}
      */
     private Integer modelType;
+    /**
+     * 模型价格
+     */
+    private BigDecimal modelPrice;
     /**
      * 备注
      */

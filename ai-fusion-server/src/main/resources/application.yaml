@@ -173,7 +173,7 @@ aifusion:
     description: 提供管理后台、用户 App 的所有功能
     version: ${aifusion.info.version}
     url: ${aifusion.web.admin-ui.url}
-    email: xingyu4j@vip.qq.com
+    email: me@stonewu.com
     license: MIT
     license-url: https://github.com/Stonewuu/ai-fusion/blob/master/LICENSE
   captcha:
