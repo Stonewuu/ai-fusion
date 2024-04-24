@@ -19,7 +19,6 @@
         本质上来说，它就是个空壳（容器）！
     </description>
     <url>https://github.com/Stonewuu/ai-fusion</url>
-
     <dependencies>
         <dependency>
             <groupId>com.stonewu.boot</groupId>
@@ -119,7 +118,14 @@
             <groupId>com.stonewu.boot</groupId>
             <artifactId>ai-fusion-spring-boot-starter-protection</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-mysql</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

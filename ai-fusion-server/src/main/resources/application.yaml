@@ -29,13 +29,33 @@ spring:
       write-durations-as-timestamps: true # 设置 Duration 的格式，使用时间戳
       fail-on-empty-beans: false # 允许序列化无属性的 Bean
 
+  # Spring Data Redis 配置
+  data:
+    redis:
+      repositories:
+        enabled: false # 项目未使用到 Spring Data Redis 的 Repository，所以直接禁用，保证启动速度
   # Cache 配置项
   cache:
     type: REDIS
     redis:
       time-to-live: 1h # 设置过期时间为 1 小时
-
---- #################### 接口文档配置 ####################
+  flyway:
+    # flyway 开启/关闭
+    enabled: true
+#    # 当迁移时发现目标schema非空，而且带有没有元数据的表时，是否自动执行基准迁移，默认false.
+#    baseline-on-migrate: true
+#    # 是否允许无序的迁移，默认false.
+#    out-of-order: true
+#    # 迁移时是否校验，默认为true
+#    validate-on-migrate: false
+#    # 迁移脚本的位置，默认db/migration.
+#    locations: classpath:sql
+#    # flyway 基线版本号
+#    baseline-version: 0
+#    # flyway 执行记录表
+#    table: demo_flyway_schema_history
+#
+ #################### 接口文档配置 ####################
 
 springdoc:
   api-docs:
@@ -86,12 +106,6 @@ mybatis-plus-join:
   table-alias: t # 表别名(默认 t)
   logic-del-type: on # 副表逻辑删除条件的位置，支持 WHERE、ON，默认 ON
 
-# Spring Data Redis 配置
-spring:
-  data:
-    redis:
-      repositories:
-        enabled: false # 项目未使用到 Spring Data Redis 的 Repository，所以直接禁用，保证启动速度
 
 # VO 转换（数据翻译）相关
 easy-trans:

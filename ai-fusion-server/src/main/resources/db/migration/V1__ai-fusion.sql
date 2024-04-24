@@ -11,7 +11,7 @@
  Target Server Version : 80036 (8.0.36)
  File Encoding         : 65001
 
- Date: 18/04/2024 17:05:40
+ Date: 24/04/2024 18:01:15
 */
 
 SET NAMES utf8mb4;
@@ -22,649 +22,126 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `ai_assistant`;
 CREATE TABLE `ai_assistant`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '助手名称',
-  `prompt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '助手的初始prompt',
-  `model_id` bigint NOT NULL COMMENT 'AI模型编号',
-  `notice` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '默认打招呼语',
-  `round` tinyint NOT NULL DEFAULT 10 COMMENT '记忆对话轮次',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'AI助手表' ROW_FORMAT = Dynamic;
+                                 `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                 `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '助手名称',
+                                 `prompt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '助手的初始prompt',
+                                 `model_id` bigint NOT NULL COMMENT 'AI模型编号',
+                                 `notice` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '默认打招呼语',
+                                 `round` tinyint NOT NULL DEFAULT 10 COMMENT '记忆对话轮次',
+                                 `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                                 `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                 `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                 `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                 `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                 `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                 PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'AI助手表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ai_assistant
 -- ----------------------------
-INSERT INTO `ai_assistant` VALUES (1, '代码管家', NULL, 1, NULL, 1, NULL, '1', '2024-04-17 17:44:21', '1', '2024-04-17 17:44:21', b'0', 1);
+INSERT INTO `ai_assistant` VALUES (1, '代码管家', '你是一个代码助手，可以针对代码提出修改建议', 1, NULL, 10, NULL, '1', '2024-04-17 17:44:21', '1', '2024-04-17 17:44:21', b'0', 1);
 
 -- ----------------------------
 -- Table structure for ai_model
 -- ----------------------------
 DROP TABLE IF EXISTS `ai_model`;
 CREATE TABLE `ai_model`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '模型名称',
-  `api_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '模型ApiKey',
-  `model_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '模型官方英文名称，例：gpt-4、gpt-3.5-turbo',
-  `model_type` tinyint NOT NULL COMMENT '模型类型\r\n1.openai\r\n2.google',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = 'AI模型表' ROW_FORMAT = Dynamic;
+                             `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                             `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '模型名称',
+                             `api_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '模型ApiKey',
+                             `model_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '模型官方英文名称，例：gpt-4、gpt-3.5-turbo',
+                             `model_type` tinyint NOT NULL COMMENT '模型类型\r\n1.openai\r\n2.google',
+                             `model_price` decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '模型价格/1000 token',
+                             `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                             `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                             `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                             `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                             `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                             `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                             `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                             PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'AI模型表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ai_model
 -- ----------------------------
-INSERT INTO `ai_model` VALUES (1, 'GPT3.5', NULL, 'GPT3.5', 1, NULL, '1', '2024-04-10 17:44:21', '1', '2024-04-10 17:44:21', b'0', 1);
+INSERT INTO `ai_model` VALUES (1, 'gemini-pro', '', 'gemini-pro', 2, 0.00, NULL, '1', '2024-04-10 17:44:21', '1', '2024-04-24 09:51:48', b'0', 1);
 
 -- ----------------------------
 -- Table structure for infra_api_access_log
 -- ----------------------------
 DROP TABLE IF EXISTS `infra_api_access_log`;
 CREATE TABLE `infra_api_access_log`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志主键',
-  `trace_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '链路追踪编号',
-  `user_id` bigint NOT NULL DEFAULT 0 COMMENT '用户编号',
-  `user_type` tinyint NOT NULL DEFAULT 0 COMMENT '用户类型',
-  `application_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用名',
-  `request_method` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '请求方法名',
-  `request_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '请求地址',
-  `request_params` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '请求参数',
-  `response_body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '响应结果',
-  `user_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户 IP',
-  `user_agent` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '浏览器 UA',
-  `operate_module` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '操作模块',
-  `operate_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '操作名',
-  `operate_type` tinyint NULL DEFAULT 0 COMMENT '操作分类',
-  `begin_time` datetime NOT NULL COMMENT '开始请求时间',
-  `end_time` datetime NOT NULL COMMENT '结束请求时间',
-  `duration` int NOT NULL COMMENT '执行时长',
-  `result_code` int NOT NULL DEFAULT 0 COMMENT '结果码',
-  `result_msg` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '结果提示',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_create_time`(`create_time` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 36458 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'API 访问日志表' ROW_FORMAT = Dynamic;
+                                         `id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志主键',
+                                         `trace_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '链路追踪编号',
+                                         `user_id` bigint NOT NULL DEFAULT 0 COMMENT '用户编号',
+                                         `user_type` tinyint NOT NULL DEFAULT 0 COMMENT '用户类型',
+                                         `application_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用名',
+                                         `request_method` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '请求方法名',
+                                         `request_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '请求地址',
+                                         `request_params` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '请求参数',
+                                         `response_body` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '响应结果',
+                                         `user_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户 IP',
+                                         `user_agent` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '浏览器 UA',
+                                         `operate_module` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '操作模块',
+                                         `operate_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '操作名',
+                                         `operate_type` tinyint NULL DEFAULT 0 COMMENT '操作分类',
+                                         `begin_time` datetime NOT NULL COMMENT '开始请求时间',
+                                         `end_time` datetime NOT NULL COMMENT '结束请求时间',
+                                         `duration` int NOT NULL COMMENT '执行时长',
+                                         `result_code` int NOT NULL DEFAULT 0 COMMENT '结果码',
+                                         `result_msg` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '结果提示',
+                                         `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                         `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                         `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                         `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                         `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                         `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                         PRIMARY KEY (`id`) USING BTREE,
+                                         INDEX `idx_create_time`(`create_time` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 36868 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'API 访问日志表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infra_api_access_log
 -- ----------------------------
-INSERT INTO `infra_api_access_log` VALUES (35934, '', 0, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-data/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, NULL, 0, '2024-04-15 15:48:33', '2024-04-15 15:48:33', 190, 0, '', NULL, '2024-04-15 15:48:33', NULL, '2024-04-15 15:48:33', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35935, '', 0, 2, 'ai-fusion-server', 'POST', '/admin-api/system/auth/refresh-token', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 认证', '刷新令牌', 2, '2024-04-15 15:48:33', '2024-04-15 15:48:33', 138, 400, '无效的刷新令牌', NULL, '2024-04-15 15:48:33', NULL, '2024-04-15 15:48:33', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35936, '', 0, 2, 'ai-fusion-server', 'GET', '/admin-api/system/tenant/get-by-website', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 租户', '使用域名，获得租户信息', 1, '2024-04-15 15:48:38', '2024-04-15 15:48:38', 34, 0, '', NULL, '2024-04-15 15:48:38', NULL, '2024-04-15 15:48:38', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35937, '', 0, 2, 'ai-fusion-server', 'POST', '/admin-api/system/captcha/get', '{\"query\":\"{}\",\"body\":\"{\\\"captchaType\\\":\\\"blockPuzzle\\\"}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 验证码', '获得验证码', 2, '2024-04-15 15:48:38', '2024-04-15 15:48:38', 260, 0, '', NULL, '2024-04-15 15:48:38', NULL, '2024-04-15 15:48:38', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35938, '', 0, 2, 'ai-fusion-server', 'GET', '/admin-api/system/tenant/get-id-by-name', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 租户', '使用租户名，获得租户编号', 1, '2024-04-15 15:48:40', '2024-04-15 15:48:40', 25, 0, '', NULL, '2024-04-15 15:48:40', NULL, '2024-04-15 15:48:40', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35939, '', 0, 2, 'ai-fusion-server', 'POST', '/admin-api/system/auth/login', '{\"query\":\"{}\",\"body\":\"{\\\"tenantName\\\":\\\"aifusion\\\",\\\"username\\\":\\\"admin\\\",\\\"rememberMe\\\":true}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 认证', '使用账号密码登录', 2, '2024-04-15 15:48:40', '2024-04-15 15:48:40', 321, 0, '', NULL, '2024-04-15 15:48:40', NULL, '2024-04-15 15:48:40', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35940, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-data/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典数据', '获得全部字典数据列表', 1, '2024-04-15 15:48:40', '2024-04-15 15:48:40', 109, 0, '', NULL, '2024-04-15 15:48:40', NULL, '2024-04-15 15:48:40', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35941, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/auth/get-permission-info', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 认证', '获取登录用户的权限信息', 1, '2024-04-15 15:48:40', '2024-04-15 15:48:41', 840, 0, '', NULL, '2024-04-15 15:48:41', NULL, '2024-04-15 15:48:41', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35942, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-15 15:48:53', '2024-04-15 15:48:53', 150, 0, '', NULL, '2024-04-15 15:48:53', NULL, '2024-04-15 15:48:53', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35943, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/config/get-value-by-key', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 参数配置', '根据参数键名查询参数值', 1, '2024-04-15 15:48:58', '2024-04-15 15:48:58', 31, 0, '', NULL, '2024-04-15 15:48:58', NULL, '2024-04-15 15:48:58', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35944, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-15 15:49:05', '2024-04-15 15:49:05', 92, 0, '', NULL, '2024-04-15 15:49:05', NULL, '2024-04-15 15:49:05', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35945, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-15 15:49:05', '2024-04-15 15:49:05', 61, 0, '', NULL, '2024-04-15 15:49:05', NULL, '2024-04-15 15:49:05', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35946, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 15:49:40', '2024-04-15 15:49:40', 240, 0, '', NULL, '2024-04-15 15:49:40', NULL, '2024-04-15 15:49:40', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35947, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/db-doc/export-html', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据库文档', '导出 html 格式的数据文档', 1, '2024-04-15 15:50:07', '2024-04-15 15:50:07', 350, 0, '', NULL, '2024-04-15 15:50:07', NULL, '2024-04-15 15:50:07', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35948, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/config/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 参数配置', '获取参数配置分页', 1, '2024-04-15 15:50:10', '2024-04-15 15:50:10', 58, 0, '', NULL, '2024-04-15 15:50:10', NULL, '2024-04-15 15:50:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35949, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/config/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 参数配置', '获取参数配置分页', 1, '2024-04-15 15:50:13', '2024-04-15 15:50:13', 27, 0, '', NULL, '2024-04-15 15:50:13', NULL, '2024-04-15 15:50:13', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35950, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-15 15:50:19', '2024-04-15 15:50:19', 22, 0, '', NULL, '2024-04-15 15:50:19', NULL, '2024-04-15 15:50:19', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35951, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/config/get-value-by-key', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 参数配置', '根据参数键名查询参数值', 1, '2024-04-15 15:50:28', '2024-04-15 15:50:28', 14, 0, '', NULL, '2024-04-15 15:50:28', NULL, '2024-04-15 15:50:28', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35952, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-15 15:50:33', '2024-04-15 15:50:33', 35, 0, '', NULL, '2024-04-15 15:50:33', NULL, '2024-04-15 15:50:33', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35953, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-15 15:50:33', '2024-04-15 15:50:33', 16, 0, '', NULL, '2024-04-15 15:50:33', NULL, '2024-04-15 15:50:33', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35954, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo01-contact/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 示例联系人', '获得示例联系人分页', 1, '2024-04-15 15:50:36', '2024-04-15 15:50:36', 61, 0, '', NULL, '2024-04-15 15:50:36', NULL, '2024-04-15 15:50:36', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35955, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo02-category/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 示例分类', '获得示例分类列表', 1, '2024-04-15 15:50:38', '2024-04-15 15:50:38', 56, 0, '', NULL, '2024-04-15 15:50:38', NULL, '2024-04-15 15:50:38', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35956, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生分页', 1, '2024-04-15 15:50:39', '2024-04-15 15:50:39', 58, 0, '', NULL, '2024-04-15 15:50:39', NULL, '2024-04-15 15:50:39', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35957, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生分页', 1, '2024-04-15 15:50:40', '2024-04-15 15:50:40', 32, 0, '', NULL, '2024-04-15 15:50:40', NULL, '2024-04-15 15:50:40', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35958, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生分页', 1, '2024-04-15 15:50:43', '2024-04-15 15:50:43', 26, 0, '', NULL, '2024-04-15 15:50:43', NULL, '2024-04-15 15:50:43', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35959, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/tenant/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 租户', '获得租户分页', 1, '2024-04-15 15:50:54', '2024-04-15 15:50:54', 58, 0, '', NULL, '2024-04-15 15:50:54', NULL, '2024-04-15 15:50:54', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35960, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/tenant-package/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 租户套餐', '获取租户套餐精简信息列表', 1, '2024-04-15 15:50:54', '2024-04-15 15:50:54', 18, 0, '', NULL, '2024-04-15 15:50:54', NULL, '2024-04-15 15:50:54', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35961, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 15:50:56', '2024-04-15 15:50:57', 258, 0, '', NULL, '2024-04-15 15:50:57', NULL, '2024-04-15 15:50:57', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35962, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-data/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典数据', '获得全部字典数据列表', 1, '2024-04-15 15:51:03', '2024-04-15 15:51:04', 37, 0, '', NULL, '2024-04-15 15:51:04', NULL, '2024-04-15 15:51:04', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35963, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/auth/get-permission-info', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 认证', '获取登录用户的权限信息', 1, '2024-04-15 15:51:04', '2024-04-15 15:51:04', 328, 0, '', NULL, '2024-04-15 15:51:04', NULL, '2024-04-15 15:51:04', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35964, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 15:51:05', '2024-04-15 15:51:05', 182, 0, '', NULL, '2024-04-15 15:51:05', NULL, '2024-04-15 15:51:05', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35965, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/role/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 角色', '获得角色分页', 1, '2024-04-15 15:51:42', '2024-04-15 15:51:42', 62, 0, '', NULL, '2024-04-15 15:51:42', NULL, '2024-04-15 15:51:42', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35966, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-15 15:51:47', '2024-04-15 15:51:48', 107, 0, '', NULL, '2024-04-15 15:51:48', NULL, '2024-04-15 15:51:48', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35967, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/permission/list-role-menus', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 权限', '获得角色拥有的菜单编号', 1, '2024-04-15 15:51:48', '2024-04-15 15:51:48', 61, 0, '', NULL, '2024-04-15 15:51:48', NULL, '2024-04-15 15:51:48', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35968, '', 1, 2, 'ai-fusion-server', 'POST', '/admin-api/system/permission/assign-role-menu', '{\"query\":\"{}\",\"body\":\"{\\\"roleId\\\":1,\\\"menuIds\\\":[2701,2702,1282,2153,2156,2154,2155,2157,2158,2404,2405,2406,2407,2408,2409,1,1224,1138,1139,1140,1141,1142,1143,1225,1226,1227,1228,1229,100,1001,1002,1003,1004,1005,1006,1007,101,1008,1009,1010,1011,1012,1063,1064,1065,102,1013,1014,1015,1016,103,1017,1018,1019,1020,104,1021,1022,1023,1024,1025,105,1026,1027,1028,1029,1030,107,1036,1037,1038,1039,108,500,1040,1042,501,1043,1045,1261,1263,1264,1265,1266,1267,109,1046,1048,2447,2448,2449,2450,2451,2452,2453,1093,1094,1095,1096,1097,1098,1100,1101,1102,1103,1104,1105,1106,1107,1108,1109,2130,2131,2132,2133,2134,2135,2136,2137,2138,2139,2140,2143,2141,2142,2144,2145,2146,2147,2148,2149,2150,2151,2152,1110,1111,1112,1113,1114,1115,1247,1248,1249,1250,1251,1252,2083,1186,1193,1194,1195,1196,1197,1198,1199,1215,1216,1217,1218,1187,1188,1189,1190,1191,1192,2714,2715,2716,2717,2718,1209,1210,1211,1212,1213,2726,2727,2728,2729,2730,2731,2732,2733,2734,2735,2721,2722,2723,2724,2725,2391,2392,2393,2394,2395,2396,2562,2602,2666,2667,2668,2669,2670,2671,2672,2673,2674,2675,2676,2677,2678,2679,2680,2681,2682,2683,2684,2685,2686,2603,2604,2605,2606,2607,2608,2760,2761,2762,2763,2764,2765,2766,2,115,1056,1058,1057,1059,1060,1070,2478,2479,2480,2481,2482,2483,2484,2485,2486,2487,2488,2489,2490,2491,2492,2493,2494,2495,2497,2472,1255,1256,1257,1258,1259,1260,114,116,1076,1243,1237,1238,1239,1240,1241,1242,1090,1091,1092,106,1031,1032,1033,1034,1035,110,1087,1050,1051,1052,1053,1054,1075,2525,1083,1078,1088,1082,1084,1089,1085,1086,111,113,1066,1067,112,1077,1200,2720,1201,1202,1219,1220,1207,1221,1222,1208,2713,2416,2417,2418,2419,2420,2421,2543,2544,2617,2638,2639,2640,2641,2642,2643,2644,2652,2653,2654,2655,2656,2657,2658,2659,2660,2661,2662,2663,2664,2665,2618,2619,2620,2621,2622,2623,1117,1126,1127,1128,1129,1132,1133,1134,1135,1136,1137,1150,1130,1173,1174,1175,1176,1177,1178,1161,1162,1163,1164,1165,1166,2559,2551,2557,2558,2552,2553,2554,2555,2556,2301,2302,2161,2549,2550,2546,2583,2584,2585,2586,2587,2588,2589,2590,2591,2592,2593,2594,2595,2596,2597,2598,2599,2600,2601,2609,2610,2611,2612,2613,2614,2615,2616,2624,2625,2626,2627,2628,2629,2630,2631,2632,2633,2634,2635,2636,2637,5,1118,1119,1120,2410,2411,2412,2413,2414,2415,2564,2565,2566,2567,2568,2569,2570,2571,2572,2573,2574,2575,2576,2577,2578,2579,2580,2581,2582,2398,2399,2400,2401,2402,2403,2645,2687,2688,2689,2690,2691,2692,2693,2694,2695,2696,2697,2698,2699,2700,2646,2647,2648,2649,2650,2651,2262,2275,2276,2277,2317,2318,2319,2335,2363,2364,2320,2321,2322,2323,2324,2325,2326,2327,2328,2329,2330,2331,2332,2333,2334,2287,2288,2300,2281,2282,2283,2284,2285,2293,2294,2297,2362,2388,2000,2014,2015,2016,2017,2018,2162,2002,2003,2004,2005,2006,2008,2009,2010,2011,2012,2019,2020,2021,2022,2023,2336,2337,2338,2339,2340,2072,2342,2343,2344,2076,2547,2548,2376,2073,2074,2164,2165,2167,2168,2169,2170,2171,2172,2173,2174,2175,2176,2177,2178,2166,2179,2180,2181,2182,2183,2184,2389,2345,2346,2347,2348,2349,2350,2351,2352,2353,2354,2355,2356,2357,2030,2387,2377,2378,2379,2380,2381,2382,2383,2384,2385,2386,2025,2026,2027,2028,2029,2365,2032,2033,2034,2035,2036,2038,2039,2341,2040,2209,2066,2067,2068,2069,2070,2059,2060,2061,2062,2063,2075,2303,2304,2305,2306,2307,2308,2309,2369,2310,2311,2312,2313,2314,2315,2316,2366,2367,2368,2435,2436,2437,2438,2439,2440,2441,2442,2443,2444,2445,2446,2390,2047,2048,2049,2050,2051,2052,2041,2042,2043,2044,2045,2046,2358,2374,2375,2545,2359,2360,2361,2422,2423,2424,2425,2426,2427,2428,2429,2430,2431,2432,2433,2526,2527,2528,2529,2530,2531,2084,2085,2088,2086,2087,2089,2090,2091,2092,2093,2094,2095,2096,2097,2098,2099,2100,2101,2102,2103,2128,2129,2119,2125,2126,2127,2120,2121,2122,2123,2124,2113,2114,2115,2116,2117,2118,2108,2111,2109,2110,2112,2104,2105,2106,2107,2560,2712,2561,2736,2737,2524,2516,2517,2709,2518,2519,2520,2521,2522,2523,2532,2533,2534,2535,2536,2703,2704,2705,2706,2707,2708,2710,2711]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 权限', '赋予角色菜单', 2, '2024-04-15 15:51:52', '2024-04-15 15:51:52', 292, 0, '', NULL, '2024-04-15 15:51:52', NULL, '2024-04-15 15:51:52', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35969, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/role/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 角色', '获得角色分页', 1, '2024-04-15 15:51:52', '2024-04-15 15:51:52', 37, 0, '', NULL, '2024-04-15 15:51:52', NULL, '2024-04-15 15:51:52', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35970, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门精简信息列表', 1, '2024-04-15 15:51:55', '2024-04-15 15:51:55', 36, 0, '', NULL, '2024-04-15 15:51:55', NULL, '2024-04-15 15:51:55', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35971, '', 1, 2, 'ai-fusion-server', 'POST', '/admin-api/system/permission/assign-role-data-scope', '{\"query\":\"{}\",\"body\":\"{\\\"roleId\\\":1,\\\"dataScope\\\":1,\\\"dataScopeDeptIds\\\":[]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 权限', '赋予角色数据权限', 2, '2024-04-15 15:51:59', '2024-04-15 15:51:59', 50, 1002002003, '不能操作类型为系统内置的角色', NULL, '2024-04-15 15:51:59', NULL, '2024-04-15 15:51:59', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35972, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门精简信息列表', 1, '2024-04-15 15:52:18', '2024-04-15 15:52:18', 59, 0, '', NULL, '2024-04-15 15:52:18', NULL, '2024-04-15 15:52:18', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35973, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 15:52:18', '2024-04-15 15:52:18', 148, 0, '', NULL, '2024-04-15 15:52:18', NULL, '2024-04-15 15:52:18', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35974, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 15:52:21', '2024-04-15 15:52:21', 175, 0, '', NULL, '2024-04-15 15:52:21', NULL, '2024-04-15 15:52:21', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35975, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 15:52:24', '2024-04-15 15:52:24', 133, 0, '', NULL, '2024-04-15 15:52:24', NULL, '2024-04-15 15:52:24', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35976, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 15:52:26', '2024-04-15 15:52:26', 105, 0, '', NULL, '2024-04-15 15:52:26', NULL, '2024-04-15 15:52:26', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35977, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 15:52:26', '2024-04-15 15:52:26', 87, 0, '', NULL, '2024-04-15 15:52:26', NULL, '2024-04-15 15:52:26', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35978, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 15:52:26', '2024-04-15 15:52:27', 106, 0, '', NULL, '2024-04-15 15:52:27', NULL, '2024-04-15 15:52:27', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35979, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 15:52:27', '2024-04-15 15:52:27', 110, 0, '', NULL, '2024-04-15 15:52:27', NULL, '2024-04-15 15:52:27', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35980, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 15:52:27', '2024-04-15 15:52:27', 82, 0, '', NULL, '2024-04-15 15:52:27', NULL, '2024-04-15 15:52:27', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35981, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 15:52:27', '2024-04-15 15:52:28', 82, 0, '', NULL, '2024-04-15 15:52:28', NULL, '2024-04-15 15:52:28', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35982, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 15:52:28', '2024-04-15 15:52:28', 127, 0, '', NULL, '2024-04-15 15:52:28', NULL, '2024-04-15 15:52:28', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35983, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 15:52:29', '2024-04-15 15:52:29', 104, 0, '', NULL, '2024-04-15 15:52:29', NULL, '2024-04-15 15:52:29', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35984, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 15:52:29', '2024-04-15 15:52:29', 84, 0, '', NULL, '2024-04-15 15:52:29', NULL, '2024-04-15 15:52:29', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35985, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 15:52:29', '2024-04-15 15:52:30', 107, 0, '', NULL, '2024-04-15 15:52:30', NULL, '2024-04-15 15:52:30', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35986, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 15:52:30', '2024-04-15 15:52:30', 158, 0, '', NULL, '2024-04-15 15:52:30', NULL, '2024-04-15 15:52:30', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35987, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-data/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典数据', '获得全部字典数据列表', 1, '2024-04-15 15:52:40', '2024-04-15 15:52:41', 50, 0, '', NULL, '2024-04-15 15:52:41', NULL, '2024-04-15 15:52:41', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35988, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/auth/get-permission-info', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 认证', '获取登录用户的权限信息', 1, '2024-04-15 15:52:41', '2024-04-15 15:53:04', 23229, 0, '', NULL, '2024-04-15 15:53:04', NULL, '2024-04-15 15:53:04', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35989, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 15:53:04', '2024-04-15 15:53:05', 192, 0, '', NULL, '2024-04-15 15:53:05', NULL, '2024-04-15 15:53:05', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35990, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单信息', 1, '2024-04-15 15:53:18', '2024-04-15 15:53:18', 34, 0, '', NULL, '2024-04-15 15:53:18', NULL, '2024-04-15 15:53:18', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35991, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-15 15:53:18', '2024-04-15 15:53:18', 127, 0, '', NULL, '2024-04-15 15:53:18', NULL, '2024-04-15 15:53:18', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35992, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/system/menu/update', '{\"query\":\"{}\",\"body\":\"{\\\"id\\\":2397,\\\"name\\\":\\\"CRM 系统\\\",\\\"permission\\\":\\\"\\\",\\\"type\\\":1,\\\"sort\\\":200,\\\"parentId\\\":0,\\\"path\\\":\\\"/crm\\\",\\\"icon\\\":\\\"ep:avatar\\\",\\\"component\\\":\\\"\\\",\\\"componentName\\\":\\\"\\\",\\\"status\\\":0,\\\"visible\\\":true,\\\"keepAlive\\\":true,\\\"alwaysShow\\\":true,\\\"createTime\\\":1698570510000}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '修改菜单', 3, '2024-04-15 15:53:23', '2024-04-15 15:53:23', 106, 0, '', NULL, '2024-04-15 15:53:23', NULL, '2024-04-15 15:53:23', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35993, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 15:53:23', '2024-04-15 15:53:23', 239, 0, '', NULL, '2024-04-15 15:53:23', NULL, '2024-04-15 15:53:23', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35994, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单信息', 1, '2024-04-15 15:53:37', '2024-04-15 15:53:37', 24, 0, '', NULL, '2024-04-15 15:53:37', NULL, '2024-04-15 15:53:37', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35995, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-15 15:53:37', '2024-04-15 15:53:37', 125, 0, '', NULL, '2024-04-15 15:53:37', NULL, '2024-04-15 15:53:37', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35996, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/system/menu/update', '{\"query\":\"{}\",\"body\":\"{\\\"id\\\":2397,\\\"name\\\":\\\"CRM 系统\\\",\\\"permission\\\":\\\"\\\",\\\"type\\\":1,\\\"sort\\\":200,\\\"parentId\\\":0,\\\"path\\\":\\\"/crm\\\",\\\"icon\\\":\\\"ep:avatar\\\",\\\"component\\\":\\\"\\\",\\\"componentName\\\":\\\"\\\",\\\"status\\\":1,\\\"visible\\\":true,\\\"keepAlive\\\":true,\\\"alwaysShow\\\":true,\\\"createTime\\\":1698570510000}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '修改菜单', 3, '2024-04-15 15:53:41', '2024-04-15 15:53:41', 68, 0, '', NULL, '2024-04-15 15:53:41', NULL, '2024-04-15 15:53:41', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35997, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 15:53:41', '2024-04-15 15:53:41', 251, 0, '', NULL, '2024-04-15 15:53:41', NULL, '2024-04-15 15:53:41', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35998, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 15:53:57', '2024-04-15 15:53:57', 58, 1002001004, '存在子菜单，无法删除', NULL, '2024-04-15 15:53:57', NULL, '2024-04-15 15:53:57', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (35999, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 15:54:02', '2024-04-15 15:54:02', 59, 0, '', NULL, '2024-04-15 15:54:02', NULL, '2024-04-15 15:54:02', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36000, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 15:54:02', '2024-04-15 15:54:02', 244, 0, '', NULL, '2024-04-15 15:54:02', NULL, '2024-04-15 15:54:02', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36001, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 15:54:08', '2024-04-15 15:54:08', 33, 1002001004, '存在子菜单，无法删除', NULL, '2024-04-15 15:54:08', NULL, '2024-04-15 15:54:08', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36002, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 15:57:09', '2024-04-15 15:57:09', 60, 0, '', NULL, '2024-04-15 15:57:09', NULL, '2024-04-15 15:57:09', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36003, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 15:57:09', '2024-04-15 15:57:09', 248, 0, '', NULL, '2024-04-15 15:57:09', NULL, '2024-04-15 15:57:09', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36004, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 15:57:13', '2024-04-15 15:57:13', 74, 0, '', NULL, '2024-04-15 15:57:13', NULL, '2024-04-15 15:57:13', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36005, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 15:57:13', '2024-04-15 15:57:13', 242, 0, '', NULL, '2024-04-15 15:57:13', NULL, '2024-04-15 15:57:13', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36006, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 15:57:16', '2024-04-15 15:57:16', 65, 0, '', NULL, '2024-04-15 15:57:16', NULL, '2024-04-15 15:57:16', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36007, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 15:57:16', '2024-04-15 15:57:16', 243, 0, '', NULL, '2024-04-15 15:57:16', NULL, '2024-04-15 15:57:16', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36008, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 15:57:19', '2024-04-15 15:57:19', 65, 0, '', NULL, '2024-04-15 15:57:19', NULL, '2024-04-15 15:57:19', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36009, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 15:57:19', '2024-04-15 15:57:19', 251, 0, '', NULL, '2024-04-15 15:57:19', NULL, '2024-04-15 15:57:19', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36010, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 15:57:22', '2024-04-15 15:57:22', 72, 0, '', NULL, '2024-04-15 15:57:22', NULL, '2024-04-15 15:57:22', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36011, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 15:57:22', '2024-04-15 15:57:23', 246, 0, '', NULL, '2024-04-15 15:57:23', NULL, '2024-04-15 15:57:23', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36012, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 15:57:25', '2024-04-15 15:57:25', 67, 0, '', NULL, '2024-04-15 15:57:25', NULL, '2024-04-15 15:57:25', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36013, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 15:57:25', '2024-04-15 15:57:26', 261, 0, '', NULL, '2024-04-15 15:57:26', NULL, '2024-04-15 15:57:26', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36014, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 15:57:29', '2024-04-15 15:57:29', 77, 0, '', NULL, '2024-04-15 15:57:29', NULL, '2024-04-15 15:57:29', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36015, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 15:57:29', '2024-04-15 15:57:29', 251, 0, '', NULL, '2024-04-15 15:57:29', NULL, '2024-04-15 15:57:29', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36016, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 15:57:34', '2024-04-15 15:57:34', 65, 0, '', NULL, '2024-04-15 15:57:34', NULL, '2024-04-15 15:57:34', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36017, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 15:57:34', '2024-04-15 15:57:34', 232, 0, '', NULL, '2024-04-15 15:57:34', NULL, '2024-04-15 15:57:34', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36018, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 15:57:43', '2024-04-15 15:57:43', 68, 0, '', NULL, '2024-04-15 15:57:43', NULL, '2024-04-15 15:57:43', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36019, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 15:57:43', '2024-04-15 15:57:43', 237, 0, '', NULL, '2024-04-15 15:57:43', NULL, '2024-04-15 15:57:43', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36020, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 15:57:50', '2024-04-15 15:57:50', 31, 1002001004, '存在子菜单，无法删除', NULL, '2024-04-15 15:57:50', NULL, '2024-04-15 15:57:50', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36021, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 15:57:59', '2024-04-15 15:57:59', 58, 0, '', NULL, '2024-04-15 15:57:59', NULL, '2024-04-15 15:57:59', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36022, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 15:57:59', '2024-04-15 15:57:59', 216, 0, '', NULL, '2024-04-15 15:57:59', NULL, '2024-04-15 15:57:59', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36023, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 15:58:03', '2024-04-15 15:58:03', 32, 1002001004, '存在子菜单，无法删除', NULL, '2024-04-15 15:58:03', NULL, '2024-04-15 15:58:03', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36024, '', 0, 2, 'ai-fusion-server', 'GET', '/admin-api/system/notify-message/get-unread-count', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, NULL, 0, '2024-04-15 16:19:56', '2024-04-15 16:19:57', 34, 0, '', NULL, '2024-04-15 16:19:57', NULL, '2024-04-15 16:19:57', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36025, '', 0, 2, 'ai-fusion-server', 'POST', '/admin-api/system/auth/refresh-token', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 认证', '刷新令牌', 2, '2024-04-15 16:19:57', '2024-04-15 16:19:57', 146, 0, '', NULL, '2024-04-15 16:19:57', NULL, '2024-04-15 16:19:57', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36026, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-data/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典数据', '获得全部字典数据列表', 1, '2024-04-15 16:20:18', '2024-04-15 16:20:18', 96, 0, '', NULL, '2024-04-15 16:20:18', NULL, '2024-04-15 16:20:18', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36027, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 16:20:18', '2024-04-15 16:20:19', 336, 0, '', NULL, '2024-04-15 16:20:19', NULL, '2024-04-15 16:20:19', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36028, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 16:20:24', '2024-04-15 16:20:27', 2802, 0, '', NULL, '2024-04-15 16:20:27', NULL, '2024-04-15 16:20:27', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36029, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 16:20:27', '2024-04-15 16:20:27', 216, 0, '', NULL, '2024-04-15 16:20:27', NULL, '2024-04-15 16:20:27', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36030, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 16:20:30', '2024-04-15 16:20:35', 4776, 0, '', NULL, '2024-04-15 16:20:35', NULL, '2024-04-15 16:20:35', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36031, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 16:20:35', '2024-04-15 16:20:35', 192, 0, '', NULL, '2024-04-15 16:20:35', NULL, '2024-04-15 16:20:35', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36032, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-15 16:20:48', '2024-04-15 16:20:50', 2153, 0, '', NULL, '2024-04-15 16:20:50', NULL, '2024-04-15 16:20:50', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36033, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 16:20:50', '2024-04-15 16:20:50', 150, 0, '', NULL, '2024-04-15 16:20:50', NULL, '2024-04-15 16:20:50', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36034, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/auth/get-permission-info', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 认证', '获取登录用户的权限信息', 1, '2024-04-15 16:20:56', '2024-04-15 16:20:57', 591, 0, '', NULL, '2024-04-15 16:20:57', NULL, '2024-04-15 16:20:57', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36035, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-15 16:20:57', '2024-04-15 16:20:57', 138, 0, '', NULL, '2024-04-15 16:20:57', NULL, '2024-04-15 16:20:57', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36036, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/role/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 角色', '获得角色分页', 1, '2024-04-15 16:40:28', '2024-04-15 16:40:28', 73, 0, '', NULL, '2024-04-15 16:40:28', NULL, '2024-04-15 16:40:28', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36037, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/role/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 角色', '删除角色', 4, '2024-04-15 16:40:33', '2024-04-15 16:40:33', 79, 1002002003, '不能操作类型为系统内置的角色', NULL, '2024-04-15 16:40:33', NULL, '2024-04-15 16:40:33', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36038, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/role/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 角色', '获得角色信息', 1, '2024-04-15 16:40:38', '2024-04-15 16:40:38', 20, 0, '', NULL, '2024-04-15 16:40:38', NULL, '2024-04-15 16:40:38', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36039, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-15 16:40:45', '2024-04-15 16:40:46', 74, 0, '', NULL, '2024-04-15 16:40:46', NULL, '2024-04-15 16:40:46', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36040, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/permission/list-role-menus', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 权限', '获得角色拥有的菜单编号', 1, '2024-04-15 16:40:46', '2024-04-15 16:40:46', 45, 0, '', NULL, '2024-04-15 16:40:46', NULL, '2024-04-15 16:40:46', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36041, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/role/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 角色', '获得角色信息', 1, '2024-04-15 16:40:57', '2024-04-15 16:40:57', 30, 0, '', NULL, '2024-04-15 16:40:57', NULL, '2024-04-15 16:40:57', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36042, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/role/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 角色', '删除角色', 4, '2024-04-15 16:41:02', '2024-04-15 16:41:03', 58, 0, '', NULL, '2024-04-15 16:41:03', NULL, '2024-04-15 16:41:03', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36043, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/role/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 角色', '获得角色分页', 1, '2024-04-15 16:41:03', '2024-04-15 16:41:03', 37, 0, '', NULL, '2024-04-15 16:41:03', NULL, '2024-04-15 16:41:03', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36044, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门精简信息列表', 1, '2024-04-15 16:41:10', '2024-04-15 16:41:10', 58, 0, '', NULL, '2024-04-15 16:41:10', NULL, '2024-04-15 16:41:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36045, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:41:10', '2024-04-15 16:41:10', 140, 0, '', NULL, '2024-04-15 16:41:10', NULL, '2024-04-15 16:41:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36046, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/user/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '删除用户', 4, '2024-04-15 16:41:52', '2024-04-15 16:41:52', 106, 0, '', NULL, '2024-04-15 16:41:52', NULL, '2024-04-15 16:41:52', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36047, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:41:52', '2024-04-15 16:41:52', 73, 0, '', NULL, '2024-04-15 16:41:52', NULL, '2024-04-15 16:41:52', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36048, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/user/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '删除用户', 4, '2024-04-15 16:41:57', '2024-04-15 16:41:57', 64, 0, '', NULL, '2024-04-15 16:41:57', NULL, '2024-04-15 16:41:57', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36049, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:41:57', '2024-04-15 16:41:57', 69, 0, '', NULL, '2024-04-15 16:41:57', NULL, '2024-04-15 16:41:57', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36050, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/user/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '删除用户', 4, '2024-04-15 16:41:59', '2024-04-15 16:41:59', 78, 0, '', NULL, '2024-04-15 16:41:59', NULL, '2024-04-15 16:41:59', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36051, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:41:59', '2024-04-15 16:41:59', 69, 0, '', NULL, '2024-04-15 16:41:59', NULL, '2024-04-15 16:41:59', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36052, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/user/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '删除用户', 4, '2024-04-15 16:42:01', '2024-04-15 16:42:02', 79, 0, '', NULL, '2024-04-15 16:42:02', NULL, '2024-04-15 16:42:02', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36053, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:42:02', '2024-04-15 16:42:02', 67, 0, '', NULL, '2024-04-15 16:42:02', NULL, '2024-04-15 16:42:02', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36054, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/user/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '删除用户', 4, '2024-04-15 16:42:04', '2024-04-15 16:42:04', 69, 0, '', NULL, '2024-04-15 16:42:04', NULL, '2024-04-15 16:42:04', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36055, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:42:04', '2024-04-15 16:42:04', 66, 0, '', NULL, '2024-04-15 16:42:04', NULL, '2024-04-15 16:42:04', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36056, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/user/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '删除用户', 4, '2024-04-15 16:42:06', '2024-04-15 16:42:06', 76, 0, '', NULL, '2024-04-15 16:42:06', NULL, '2024-04-15 16:42:06', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36057, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:42:06', '2024-04-15 16:42:06', 69, 0, '', NULL, '2024-04-15 16:42:06', NULL, '2024-04-15 16:42:06', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36058, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/user/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '删除用户', 4, '2024-04-15 16:42:10', '2024-04-15 16:42:10', 76, 0, '', NULL, '2024-04-15 16:42:10', NULL, '2024-04-15 16:42:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36059, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:42:10', '2024-04-15 16:42:11', 67, 0, '', NULL, '2024-04-15 16:42:11', NULL, '2024-04-15 16:42:11', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36060, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/permission/list-user-roles', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 权限', '获得管理员拥有的角色编号列表', 1, '2024-04-15 16:42:13', '2024-04-15 16:42:13', 38, 0, '', NULL, '2024-04-15 16:42:13', NULL, '2024-04-15 16:42:13', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36061, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/role/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 角色', '获取角色精简信息列表', 1, '2024-04-15 16:42:13', '2024-04-15 16:42:13', 13, 0, '', NULL, '2024-04-15 16:42:13', NULL, '2024-04-15 16:42:13', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36062, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:42:17', '2024-04-15 16:42:17', 80, 0, '', NULL, '2024-04-15 16:42:17', NULL, '2024-04-15 16:42:17', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36063, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门列表', 1, '2024-04-15 16:42:19', '2024-04-15 16:42:20', 69, 0, '', NULL, '2024-04-15 16:42:20', NULL, '2024-04-15 16:42:20', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36064, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获取用户精简信息列表', 1, '2024-04-15 16:42:20', '2024-04-15 16:42:20', 57, 0, '', NULL, '2024-04-15 16:42:20', NULL, '2024-04-15 16:42:20', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36065, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/dept/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '删除部门', 4, '2024-04-15 16:42:25', '2024-04-15 16:42:25', 64, 1002004003, '存在子部门，无法删除', NULL, '2024-04-15 16:42:25', NULL, '2024-04-15 16:42:25', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36066, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/dept/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '删除部门', 4, '2024-04-15 16:42:28', '2024-04-15 16:42:28', 66, 0, '', NULL, '2024-04-15 16:42:28', NULL, '2024-04-15 16:42:28', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36067, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门列表', 1, '2024-04-15 16:42:28', '2024-04-15 16:42:28', 36, 0, '', NULL, '2024-04-15 16:42:28', NULL, '2024-04-15 16:42:28', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36068, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/dept/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '删除部门', 4, '2024-04-15 16:42:29', '2024-04-15 16:42:29', 68, 0, '', NULL, '2024-04-15 16:42:29', NULL, '2024-04-15 16:42:29', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36069, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门列表', 1, '2024-04-15 16:42:29', '2024-04-15 16:42:29', 35, 0, '', NULL, '2024-04-15 16:42:29', NULL, '2024-04-15 16:42:29', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36070, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/dept/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '删除部门', 4, '2024-04-15 16:42:31', '2024-04-15 16:42:31', 57, 0, '', NULL, '2024-04-15 16:42:31', NULL, '2024-04-15 16:42:31', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36071, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门列表', 1, '2024-04-15 16:42:31', '2024-04-15 16:42:31', 35, 0, '', NULL, '2024-04-15 16:42:31', NULL, '2024-04-15 16:42:31', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36072, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/dept/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '删除部门', 4, '2024-04-15 16:42:32', '2024-04-15 16:42:33', 64, 0, '', NULL, '2024-04-15 16:42:33', NULL, '2024-04-15 16:42:33', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36073, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门列表', 1, '2024-04-15 16:42:33', '2024-04-15 16:42:33', 34, 0, '', NULL, '2024-04-15 16:42:33', NULL, '2024-04-15 16:42:33', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36074, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/dept/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '删除部门', 4, '2024-04-15 16:42:35', '2024-04-15 16:42:35', 55, 0, '', NULL, '2024-04-15 16:42:35', NULL, '2024-04-15 16:42:35', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36075, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门列表', 1, '2024-04-15 16:42:35', '2024-04-15 16:42:35', 35, 0, '', NULL, '2024-04-15 16:42:35', NULL, '2024-04-15 16:42:35', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36076, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/dept/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '删除部门', 4, '2024-04-15 16:42:37', '2024-04-15 16:42:37', 62, 0, '', NULL, '2024-04-15 16:42:37', NULL, '2024-04-15 16:42:37', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36077, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门列表', 1, '2024-04-15 16:42:37', '2024-04-15 16:42:37', 34, 0, '', NULL, '2024-04-15 16:42:37', NULL, '2024-04-15 16:42:37', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36078, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/dept/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '删除部门', 4, '2024-04-15 16:42:38', '2024-04-15 16:42:38', 59, 0, '', NULL, '2024-04-15 16:42:38', NULL, '2024-04-15 16:42:38', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36079, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门列表', 1, '2024-04-15 16:42:38', '2024-04-15 16:42:38', 32, 0, '', NULL, '2024-04-15 16:42:38', NULL, '2024-04-15 16:42:38', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36080, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/dept/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '删除部门', 4, '2024-04-15 16:42:42', '2024-04-15 16:42:42', 55, 0, '', NULL, '2024-04-15 16:42:42', NULL, '2024-04-15 16:42:42', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36081, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门列表', 1, '2024-04-15 16:42:42', '2024-04-15 16:42:42', 36, 0, '', NULL, '2024-04-15 16:42:42', NULL, '2024-04-15 16:42:42', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36082, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/dept/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '删除部门', 4, '2024-04-15 16:42:43', '2024-04-15 16:42:43', 68, 0, '', NULL, '2024-04-15 16:42:43', NULL, '2024-04-15 16:42:43', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36083, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门列表', 1, '2024-04-15 16:42:43', '2024-04-15 16:42:44', 33, 0, '', NULL, '2024-04-15 16:42:44', NULL, '2024-04-15 16:42:44', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36084, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获得部门信息', 1, '2024-04-15 16:42:45', '2024-04-15 16:42:45', 32, 0, '', NULL, '2024-04-15 16:42:45', NULL, '2024-04-15 16:42:45', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36085, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获取用户精简信息列表', 1, '2024-04-15 16:42:45', '2024-04-15 16:42:45', 50, 0, '', NULL, '2024-04-15 16:42:45', NULL, '2024-04-15 16:42:45', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36086, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门精简信息列表', 1, '2024-04-15 16:42:45', '2024-04-15 16:42:45', 32, 0, '', NULL, '2024-04-15 16:42:45', NULL, '2024-04-15 16:42:45', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36087, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/system/dept/update', '{\"query\":\"{}\",\"body\":\"{\\\"id\\\":101,\\\"name\\\":\\\"测试公司\\\",\\\"parentId\\\":100,\\\"sort\\\":1,\\\"leaderUserId\\\":104,\\\"phone\\\":\\\"15888888888\\\",\\\"email\\\":\\\"\\\",\\\"status\\\":0,\\\"createTime\\\":1609837427000}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '更新部门', 3, '2024-04-15 16:42:57', '2024-04-15 16:42:58', 140, 0, '', NULL, '2024-04-15 16:42:58', NULL, '2024-04-15 16:42:58', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36088, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门列表', 1, '2024-04-15 16:42:58', '2024-04-15 16:42:58', 33, 0, '', NULL, '2024-04-15 16:42:58', NULL, '2024-04-15 16:42:58', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36089, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获得部门信息', 1, '2024-04-15 16:43:02', '2024-04-15 16:43:02', 46, 0, '', NULL, '2024-04-15 16:43:02', NULL, '2024-04-15 16:43:02', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36090, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获取用户精简信息列表', 1, '2024-04-15 16:43:02', '2024-04-15 16:43:02', 49, 0, '', NULL, '2024-04-15 16:43:02', NULL, '2024-04-15 16:43:02', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36091, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门精简信息列表', 1, '2024-04-15 16:43:02', '2024-04-15 16:43:02', 33, 0, '', NULL, '2024-04-15 16:43:02', NULL, '2024-04-15 16:43:02', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36092, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/system/dept/update', '{\"query\":\"{}\",\"body\":\"{\\\"id\\\":101,\\\"name\\\":\\\"测试公司\\\",\\\"parentId\\\":100,\\\"sort\\\":1,\\\"leaderUserId\\\":1,\\\"phone\\\":\\\"15888888888\\\",\\\"email\\\":\\\"\\\",\\\"status\\\":0,\\\"createTime\\\":1609837427000}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '更新部门', 3, '2024-04-15 16:43:07', '2024-04-15 16:43:07', 89, 0, '', NULL, '2024-04-15 16:43:07', NULL, '2024-04-15 16:43:07', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36093, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门列表', 1, '2024-04-15 16:43:07', '2024-04-15 16:43:07', 33, 0, '', NULL, '2024-04-15 16:43:07', NULL, '2024-04-15 16:43:07', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36094, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:43:20', '2024-04-15 16:43:20', 92, 0, '', NULL, '2024-04-15 16:43:20', NULL, '2024-04-15 16:43:20', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36095, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:43:21', '2024-04-15 16:43:21', 74, 0, '', NULL, '2024-04-15 16:43:21', NULL, '2024-04-15 16:43:21', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36096, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:43:22', '2024-04-15 16:43:22', 89, 0, '', NULL, '2024-04-15 16:43:22', NULL, '2024-04-15 16:43:22', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36097, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:43:22', '2024-04-15 16:43:22', 60, 0, '', NULL, '2024-04-15 16:43:22', NULL, '2024-04-15 16:43:22', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36098, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:43:22', '2024-04-15 16:43:22', 62, 0, '', NULL, '2024-04-15 16:43:22', NULL, '2024-04-15 16:43:22', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36099, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:43:23', '2024-04-15 16:43:23', 74, 0, '', NULL, '2024-04-15 16:43:23', NULL, '2024-04-15 16:43:23', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36100, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dept/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 部门', '获取部门精简信息列表', 1, '2024-04-15 16:43:29', '2024-04-15 16:43:29', 32, 0, '', NULL, '2024-04-15 16:43:29', NULL, '2024-04-15 16:43:29', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36101, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/post/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 岗位', '获取岗位全列表', 1, '2024-04-15 16:43:29', '2024-04-15 16:43:29', 19, 0, '', NULL, '2024-04-15 16:43:29', NULL, '2024-04-15 16:43:29', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36102, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:43:44', '2024-04-15 16:43:44', 90, 0, '', NULL, '2024-04-15 16:43:44', NULL, '2024-04-15 16:43:44', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36103, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:43:45', '2024-04-15 16:43:45', 77, 0, '', NULL, '2024-04-15 16:43:45', NULL, '2024-04-15 16:43:45', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36104, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:43:46', '2024-04-15 16:43:46', 62, 0, '', NULL, '2024-04-15 16:43:46', NULL, '2024-04-15 16:43:46', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36105, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:43:46', '2024-04-15 16:43:46', 61, 0, '', NULL, '2024-04-15 16:43:46', NULL, '2024-04-15 16:43:46', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36106, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:43:46', '2024-04-15 16:43:47', 64, 0, '', NULL, '2024-04-15 16:43:47', NULL, '2024-04-15 16:43:47', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36107, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:43:47', '2024-04-15 16:43:47', 79, 0, '', NULL, '2024-04-15 16:43:47', NULL, '2024-04-15 16:43:47', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36108, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:43:47', '2024-04-15 16:43:47', 62, 0, '', NULL, '2024-04-15 16:43:47', NULL, '2024-04-15 16:43:47', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36109, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:43:48', '2024-04-15 16:43:48', 81, 0, '', NULL, '2024-04-15 16:43:48', NULL, '2024-04-15 16:43:48', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36110, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:44:00', '2024-04-15 16:44:00', 103, 0, '', NULL, '2024-04-15 16:44:00', NULL, '2024-04-15 16:44:00', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36111, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:44:01', '2024-04-15 16:44:01', 76, 0, '', NULL, '2024-04-15 16:44:01', NULL, '2024-04-15 16:44:01', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36112, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户', '获得用户分页列表', 1, '2024-04-15 16:44:03', '2024-04-15 16:44:03', 95, 0, '', NULL, '2024-04-15 16:44:03', NULL, '2024-04-15 16:44:03', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36113, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/member/config/get', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 会员设置', '获得会员配置', 1, '2024-04-15 16:44:08', '2024-04-15 16:44:08', 40, 0, '', NULL, '2024-04-15 16:44:08', NULL, '2024-04-15 16:44:08', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36114, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/member/tag/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 会员标签', '获取会员标签精简信息列表', 1, '2024-04-15 16:44:10', '2024-04-15 16:44:10', 32, 0, '', NULL, '2024-04-15 16:44:10', NULL, '2024-04-15 16:44:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36115, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/member/group/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户分组', '获取会员分组精简信息列表', 1, '2024-04-15 16:44:10', '2024-04-15 16:44:10', 36, 0, '', NULL, '2024-04-15 16:44:10', NULL, '2024-04-15 16:44:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36116, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/member/level/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 会员等级', '获取会员等级精简信息列表', 1, '2024-04-15 16:44:10', '2024-04-15 16:44:10', 42, 0, '', NULL, '2024-04-15 16:44:10', NULL, '2024-04-15 16:44:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36117, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/member/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 会员用户', '获得会员用户分页', 1, '2024-04-15 16:44:10', '2024-04-15 16:44:10', 132, 0, '', NULL, '2024-04-15 16:44:10', NULL, '2024-04-15 16:44:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36118, '', 0, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/file/4/get/59a1d52ebd38cc843fb5fafc30bce85f15d6ac22c8227dc3fe775d064f71ca6e.png', '{\"query\":\"{}\",\"body\":null}', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 文件存储', '下载文件', 1, '2024-04-15 16:44:10', '2024-04-15 16:44:10', 79, 0, '', NULL, '2024-04-15 16:44:10', NULL, '2024-04-15 16:44:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36119, '', 0, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/file/4/get/439a9e188bc2342d79803b2ff1a4872a98a9545a108013f9c0550b7fc604f3d2.png', '{\"query\":\"{}\",\"body\":null}', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 文件存储', '下载文件', 1, '2024-04-15 16:44:10', '2024-04-15 16:44:10', 71, 0, '', NULL, '2024-04-15 16:44:10', NULL, '2024-04-15 16:44:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36120, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/member/group/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户分组', '获取会员分组精简信息列表', 1, '2024-04-15 16:44:37', '2024-04-15 16:44:37', 10, 0, '', NULL, '2024-04-15 16:44:37', NULL, '2024-04-15 16:44:37', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36121, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/member/tag/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 会员标签', '获取会员标签精简信息列表', 1, '2024-04-15 16:44:37', '2024-04-15 16:44:37', 10, 0, '', NULL, '2024-04-15 16:44:37', NULL, '2024-04-15 16:44:37', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36122, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/member/user/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 会员用户', '获得会员用户', 1, '2024-04-15 16:44:37', '2024-04-15 16:44:37', 33, 0, '', NULL, '2024-04-15 16:44:37', NULL, '2024-04-15 16:44:37', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36123, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/area/tree', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 地区', '获得地区树', 1, '2024-04-15 16:44:37', '2024-04-15 16:44:37', 406, 0, '', NULL, '2024-04-15 16:44:37', NULL, '2024-04-15 16:44:37', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36124, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/member/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 会员用户', '获得会员用户分页', 1, '2024-04-15 16:44:45', '2024-04-15 16:44:45', 33, 0, '', NULL, '2024-04-15 16:44:45', NULL, '2024-04-15 16:44:45', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36125, '', 0, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/file/4/get/49009b73d392657c85bed2e82e22b09720e7c68466b8565c8b2f6c00e03b705e.jpg', '{\"query\":\"{}\",\"body\":null}', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 文件存储', '下载文件', 1, '2024-04-15 16:44:45', '2024-04-15 16:44:45', 10, 0, '', NULL, '2024-04-15 16:44:45', NULL, '2024-04-15 16:44:45', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36126, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/member/user/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 会员用户', '获得会员用户分页', 1, '2024-04-15 16:44:47', '2024-04-15 16:44:47', 74, 0, '', NULL, '2024-04-15 16:44:47', NULL, '2024-04-15 16:44:47', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36127, '', 0, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/file/4/get/f341ff4f7838c29a4978421d0de39ac5d9e18016af124e7ef94a29cb4e8e5a15.jpeg', '{\"query\":\"{}\",\"body\":null}', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 文件存储', '下载文件', 1, '2024-04-15 16:44:47', '2024-04-15 16:44:47', 8, 0, '', NULL, '2024-04-15 16:44:47', NULL, '2024-04-15 16:44:47', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36128, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/member/tag/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 会员标签', '获得会员标签分页', 1, '2024-04-15 16:44:51', '2024-04-15 16:44:51', 41, 0, '', NULL, '2024-04-15 16:44:51', NULL, '2024-04-15 16:44:51', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36129, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/member/level/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 会员等级', '获得会员等级列表', 1, '2024-04-15 16:44:54', '2024-04-15 16:44:54', 42, 0, '', NULL, '2024-04-15 16:44:54', NULL, '2024-04-15 16:44:54', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36130, '', 0, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/file/4/get/59a1d52ebd38cc843fb5fafc30bce85f15d6ac22c8227dc3fe775d064f71ca6e.png', '{\"query\":\"{}\",\"body\":null}', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 文件存储', '下载文件', 1, '2024-04-15 16:44:54', '2024-04-15 16:44:54', 13, 0, '', NULL, '2024-04-15 16:44:54', NULL, '2024-04-15 16:44:54', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36131, '', 0, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/file/4/get/439a9e188bc2342d79803b2ff1a4872a98a9545a108013f9c0550b7fc604f3d2.png', '{\"query\":\"{}\",\"body\":null}', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 文件存储', '下载文件', 1, '2024-04-15 16:44:54', '2024-04-15 16:44:54', 13, 0, '', NULL, '2024-04-15 16:44:54', NULL, '2024-04-15 16:44:54', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36132, '', 0, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/file/4/get/179e45b487daad722fa8bccf382fa35a80caa0a6e6633ca4da961bfbefd9d68a.jpg', '{\"query\":\"{}\",\"body\":null}', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 文件存储', '下载文件', 1, '2024-04-15 16:44:54', '2024-04-15 16:44:54', 13, 0, '', NULL, '2024-04-15 16:44:54', NULL, '2024-04-15 16:44:54', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36133, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/member/group/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 用户分组', '获得用户分组分页', 1, '2024-04-15 16:44:55', '2024-04-15 16:44:55', 66, 0, '', NULL, '2024-04-15 16:44:55', NULL, '2024-04-15 16:44:55', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36134, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/member/point/record/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 签到记录', '获得用户积分记录分页', 1, '2024-04-15 16:44:59', '2024-04-15 16:44:59', 85, 0, '', NULL, '2024-04-15 16:44:59', NULL, '2024-04-15 16:44:59', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36135, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/member/sign-in/config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 签到规则', '获得签到规则列表', 1, '2024-04-15 16:45:06', '2024-04-15 16:45:06', 50, 0, '', NULL, '2024-04-15 16:45:06', NULL, '2024-04-15 16:45:06', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36136, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/member/sign-in/record/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 签到记录', '获得签到记录分页', 1, '2024-04-15 16:45:07', '2024-04-15 16:45:07', 85, 0, '', NULL, '2024-04-15 16:45:07', NULL, '2024-04-15 16:45:07', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36137, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/member/tag/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 会员标签', '获得会员标签分页', 1, '2024-04-15 16:45:30', '2024-04-15 16:45:30', 21, 0, '', NULL, '2024-04-15 16:45:30', NULL, '2024-04-15 16:45:30', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36138, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/pay/app/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 支付应用信息', '获得支付应用信息分页', 1, '2024-04-15 16:45:33', '2024-04-15 16:45:34', 81, 0, '', NULL, '2024-04-15 16:45:34', NULL, '2024-04-15 16:45:34', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36139, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/pay/app/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 支付应用信息', '获得支付应用信息', 1, '2024-04-15 16:45:40', '2024-04-15 16:45:40', 21, 0, '', NULL, '2024-04-15 16:45:40', NULL, '2024-04-15 16:45:40', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36140, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/pay/channel/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 支付渠道', '获得支付渠道', 1, '2024-04-15 16:45:44', '2024-04-15 16:45:44', 35, 0, '', NULL, '2024-04-15 16:45:44', NULL, '2024-04-15 16:45:44', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36141, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/pay/channel/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 支付渠道', '获得支付渠道', 1, '2024-04-15 16:46:06', '2024-04-15 16:46:06', 26, 0, '', NULL, '2024-04-15 16:46:06', NULL, '2024-04-15 16:46:06', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36142, '', 1, 2, 'ai-fusion-server', 'POST', '/admin-api/pay/channel/create', '{\"query\":\"{}\",\"body\":\"{\\\"appId\\\":8,\\\"code\\\":\\\"mock\\\",\\\"status\\\":0,\\\"remark\\\":\\\"\\\",\\\"feeRate\\\":0,\\\"config\\\":\\\"{\\\\\\\"name\\\\\\\":\\\\\\\"mock-conf\\\\\\\"}\\\"}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 支付渠道', '创建支付渠道 ', 2, '2024-04-15 16:46:11', '2024-04-15 16:46:11', 58, 0, '', NULL, '2024-04-15 16:46:11', NULL, '2024-04-15 16:46:11', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36143, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/pay/app/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 支付应用信息', '获得支付应用信息分页', 1, '2024-04-15 16:46:11', '2024-04-15 16:46:11', 32, 0, '', NULL, '2024-04-15 16:46:11', NULL, '2024-04-15 16:46:11', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36144, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/pay/channel/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 支付渠道', '获得支付渠道', 1, '2024-04-15 16:46:12', '2024-04-15 16:46:12', 18, 0, '', NULL, '2024-04-15 16:46:12', NULL, '2024-04-15 16:46:12', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36145, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/pay/channel/update', '{\"query\":\"{}\",\"body\":\"{\\\"status\\\":1,\\\"remark\\\":\\\"\\\",\\\"feeRate\\\":0,\\\"appId\\\":8,\\\"id\\\":38,\\\"createTime\\\":1713170771000,\\\"code\\\":\\\"mock\\\",\\\"config\\\":\\\"{\\\\\\\"@class\\\\\\\":\\\\\\\"com.stonewu.aifusion.framework.pay.core.client.impl.NonePayClientConfig\\\\\\\",\\\\\\\"name\\\\\\\":\\\\\\\"mock-conf\\\\\\\"}\\\"}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 支付渠道', '更新支付渠道 ', 3, '2024-04-15 16:46:14', '2024-04-15 16:46:14', 64, 0, '', NULL, '2024-04-15 16:46:14', NULL, '2024-04-15 16:46:14', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36146, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/pay/app/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 支付应用信息', '获得支付应用信息分页', 1, '2024-04-15 16:46:14', '2024-04-15 16:46:14', 33, 0, '', NULL, '2024-04-15 16:46:14', NULL, '2024-04-15 16:46:14', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36147, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/pay/demo-order/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 示例订单', '获得示例订单分页', 1, '2024-04-15 16:46:34', '2024-04-15 16:46:34', 37, 0, '', NULL, '2024-04-15 16:46:34', NULL, '2024-04-15 16:46:34', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36148, '', 1, 2, 'ai-fusion-server', 'POST', '/admin-api/pay/demo-order/create', '{\"query\":\"{}\",\"body\":\"{\\\"spuId\\\":1}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 示例订单', '创建示例订单', 2, '2024-04-15 16:46:39', '2024-04-15 16:46:39', 116, 0, '', NULL, '2024-04-15 16:46:39', NULL, '2024-04-15 16:46:39', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36149, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/pay/demo-order/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 示例订单', '获得示例订单分页', 1, '2024-04-15 16:46:39', '2024-04-15 16:46:39', 24, 0, '', NULL, '2024-04-15 16:46:39', NULL, '2024-04-15 16:46:39', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36150, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/pay/order/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 支付订单', '获得支付订单', 1, '2024-04-15 16:46:41', '2024-04-15 16:46:42', 60, 0, '', NULL, '2024-04-15 16:46:42', NULL, '2024-04-15 16:46:42', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36151, '', 1, 2, 'ai-fusion-server', 'POST', '/admin-api/pay/order/submit', '{\"query\":\"{}\",\"body\":\"{\\\"id\\\":\\\"394\\\",\\\"channelCode\\\":\\\"alipay_pc\\\",\\\"returnUrl\\\":\\\"http://localhost/pay/cashier?id=394&returnUrl=%252Fpay%252Fdemo-order%253Fid%253D180\\\"}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 支付订单', '提交支付订单', 2, '2024-04-15 16:46:44', '2024-04-15 16:46:44', 57, 1007001000, '支付渠道的配置不存在', NULL, '2024-04-15 16:46:44', NULL, '2024-04-15 16:46:44', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36152, '', 1, 2, 'ai-fusion-server', 'POST', '/admin-api/pay/order/submit', '{\"query\":\"{}\",\"body\":\"{\\\"id\\\":\\\"394\\\",\\\"channelCode\\\":\\\"mock\\\",\\\"returnUrl\\\":\\\"http://localhost/pay/cashier?id=394&returnUrl=%252Fpay%252Fdemo-order%253Fid%253D180\\\"}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 支付订单', '提交支付订单', 2, '2024-04-15 16:46:48', '2024-04-15 16:46:48', 42, 1007001000, '支付渠道的配置不存在', NULL, '2024-04-15 16:46:48', NULL, '2024-04-15 16:46:48', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36153, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/pay/demo-transfer/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 示例转账单', '获得示例转账订单分页', 1, '2024-04-15 16:46:54', '2024-04-15 16:46:54', 34, 0, '', NULL, '2024-04-15 16:46:54', NULL, '2024-04-15 16:46:54', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36154, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/pay/transfer/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 转账单', '获得转账订单分页', 1, '2024-04-15 16:47:05', '2024-04-15 16:47:05', 82, 0, '', NULL, '2024-04-15 16:47:05', NULL, '2024-04-15 16:47:05', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36155, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-15 16:47:22', '2024-04-15 16:47:22', 69, 0, '', NULL, '2024-04-15 16:47:22', NULL, '2024-04-15 16:47:22', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36156, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo01-contact/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 示例联系人', '获得示例联系人分页', 1, '2024-04-15 16:47:32', '2024-04-15 16:47:32', 53, 0, '', NULL, '2024-04-15 16:47:32', NULL, '2024-04-15 16:47:32', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36157, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-15 16:47:33', '2024-04-15 16:47:33', 89, 0, '', NULL, '2024-04-15 16:47:33', NULL, '2024-04-15 16:47:33', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36158, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-15 16:47:33', '2024-04-15 16:47:33', 47, 0, '', NULL, '2024-04-15 16:47:33', NULL, '2024-04-15 16:47:33', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36159, '', 0, 2, 'ai-fusion-server', 'GET', '/admin-api/system/notify-message/get-unread-count', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, NULL, 0, '2024-04-15 16:50:57', '2024-04-15 16:50:57', 12, 0, '', NULL, '2024-04-15 16:50:57', NULL, '2024-04-15 16:50:57', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36160, '', 0, 2, 'ai-fusion-server', 'POST', '/admin-api/system/auth/refresh-token', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 认证', '刷新令牌', 2, '2024-04-15 16:50:57', '2024-04-15 16:50:58', 100, 0, '', NULL, '2024-04-15 16:50:58', NULL, '2024-04-15 16:50:58', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36161, '', 0, 2, 'ai-fusion-server', 'GET', '/admin-api/system/notify-message/get-unread-count', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, NULL, 0, '2024-04-15 17:21:56', '2024-04-15 17:21:56', 10, 0, '', NULL, '2024-04-15 17:21:56', NULL, '2024-04-15 17:21:56', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36162, '', 0, 2, 'ai-fusion-server', 'POST', '/admin-api/system/auth/refresh-token', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 认证', '刷新令牌', 2, '2024-04-15 17:21:56', '2024-04-15 17:21:57', 71, 0, '', NULL, '2024-04-15 17:21:57', NULL, '2024-04-15 17:21:57', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36163, '', 0, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-data/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, NULL, 0, '2024-04-17 16:31:28', '2024-04-17 16:31:28', 219, 0, '', NULL, '2024-04-17 16:31:28', NULL, '2024-04-17 16:31:28', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36164, '', 0, 2, 'ai-fusion-server', 'POST', '/admin-api/system/auth/refresh-token', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 认证', '刷新令牌', 2, '2024-04-17 16:31:28', '2024-04-17 16:31:29', 311, 0, '', NULL, '2024-04-17 16:31:29', NULL, '2024-04-17 16:31:29', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36165, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-data/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典数据', '获得全部字典数据列表', 1, '2024-04-17 16:31:29', '2024-04-17 16:31:29', 123, 0, '', NULL, '2024-04-17 16:31:29', NULL, '2024-04-17 16:31:29', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36166, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-17 16:31:43', '2024-04-17 16:31:43', 231, 0, '', NULL, '2024-04-17 16:31:43', NULL, '2024-04-17 16:31:43', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36167, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-17 16:31:43', '2024-04-17 16:31:43', 90, 0, '', NULL, '2024-04-17 16:31:43', NULL, '2024-04-17 16:31:43', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36168, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-17 16:31:45', '2024-04-17 16:31:45', 32, 0, '', NULL, '2024-04-17 16:31:45', NULL, '2024-04-17 16:31:45', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36169, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/db/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得数据库自带的表定义列表', 1, '2024-04-17 16:31:45', '2024-04-17 16:31:46', 857, 0, '', NULL, '2024-04-17 16:31:46', NULL, '2024-04-17 16:31:46', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36170, '', 1, 2, 'ai-fusion-server', 'POST', '/admin-api/infra/codegen/create-list', '{\"query\":\"{}\",\"body\":\"{\\\"dataSourceConfigId\\\":0,\\\"tableNames\\\":[\\\"ai_assistant\\\"]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '基于数据库的表结构，创建代码生成器的表和字段定义', 2, '2024-04-17 16:31:49', '2024-04-17 16:31:49', 197, 0, '', NULL, '2024-04-17 16:31:49', NULL, '2024-04-17 16:31:49', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36171, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-17 16:31:49', '2024-04-17 16:31:49', 54, 0, '', NULL, '2024-04-17 16:31:49', NULL, '2024-04-17 16:31:49', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36172, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 16:31:51', '2024-04-17 16:31:51', 40, 0, '', NULL, '2024-04-17 16:31:51', NULL, '2024-04-17 16:31:51', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36173, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 16:31:51', '2024-04-17 16:31:51', 102, 0, '', NULL, '2024-04-17 16:31:51', NULL, '2024-04-17 16:31:51', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36174, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 16:31:51', '2024-04-17 16:31:51', 130, 0, '', NULL, '2024-04-17 16:31:51', NULL, '2024-04-17 16:31:51', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36175, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:31:52', '2024-04-17 16:31:52', 29, 0, '', NULL, '2024-04-17 16:31:52', NULL, '2024-04-17 16:31:52', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36176, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/infra/codegen/sync-from-db', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '基于数据库的表结构，同步数据库的表和字段定义', 3, '2024-04-17 16:42:10', '2024-04-17 16:42:10', 132, 0, '', NULL, '2024-04-17 16:42:10', NULL, '2024-04-17 16:42:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36177, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 16:42:13', '2024-04-17 16:42:13', 32, 0, '', NULL, '2024-04-17 16:42:13', NULL, '2024-04-17 16:42:13', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36178, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 16:42:13', '2024-04-17 16:42:13', 72, 0, '', NULL, '2024-04-17 16:42:13', NULL, '2024-04-17 16:42:13', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36179, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 16:42:13', '2024-04-17 16:42:13', 115, 0, '', NULL, '2024-04-17 16:42:13', NULL, '2024-04-17 16:42:13', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36180, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:42:13', '2024-04-17 16:42:13', 31, 0, '', NULL, '2024-04-17 16:42:13', NULL, '2024-04-17 16:42:13', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36181, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/infra/codegen/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '删除数据库的表和字段定义', 4, '2024-04-17 16:42:21', '2024-04-17 16:42:21', 90, 0, '', NULL, '2024-04-17 16:42:21', NULL, '2024-04-17 16:42:21', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36182, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-17 16:42:21', '2024-04-17 16:42:21', 37, 0, '', NULL, '2024-04-17 16:42:21', NULL, '2024-04-17 16:42:21', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36183, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-17 16:42:22', '2024-04-17 16:42:22', 20, 0, '', NULL, '2024-04-17 16:42:22', NULL, '2024-04-17 16:42:22', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36184, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/db/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得数据库自带的表定义列表', 1, '2024-04-17 16:42:22', '2024-04-17 16:42:23', 642, 0, '', NULL, '2024-04-17 16:42:23', NULL, '2024-04-17 16:42:23', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36185, '', 1, 2, 'ai-fusion-server', 'POST', '/admin-api/infra/codegen/create-list', '{\"query\":\"{}\",\"body\":\"{\\\"dataSourceConfigId\\\":0,\\\"tableNames\\\":[\\\"ai_assistant\\\"]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '基于数据库的表结构，创建代码生成器的表和字段定义', 2, '2024-04-17 16:42:25', '2024-04-17 16:42:25', 137, 0, '', NULL, '2024-04-17 16:42:25', NULL, '2024-04-17 16:42:25', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36186, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-17 16:42:25', '2024-04-17 16:42:25', 44, 0, '', NULL, '2024-04-17 16:42:25', NULL, '2024-04-17 16:42:25', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36187, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 16:42:27', '2024-04-17 16:42:27', 25, 0, '', NULL, '2024-04-17 16:42:27', NULL, '2024-04-17 16:42:27', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36188, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 16:42:27', '2024-04-17 16:42:27', 60, 0, '', NULL, '2024-04-17 16:42:27', NULL, '2024-04-17 16:42:27', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36189, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 16:42:27', '2024-04-17 16:42:27', 111, 0, '', NULL, '2024-04-17 16:42:27', NULL, '2024-04-17 16:42:27', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36190, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:42:27', '2024-04-17 16:42:27', 29, 0, '', NULL, '2024-04-17 16:42:27', NULL, '2024-04-17 16:42:27', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36191, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:42:43', '2024-04-17 16:42:43', 29, 0, '', NULL, '2024-04-17 16:42:43', NULL, '2024-04-17 16:42:43', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36192, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:42:46', '2024-04-17 16:42:46', 28, 0, '', NULL, '2024-04-17 16:42:46', NULL, '2024-04-17 16:42:46', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36193, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:42:57', '2024-04-17 16:42:57', 24, 0, '', NULL, '2024-04-17 16:42:57', NULL, '2024-04-17 16:42:57', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36194, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:43:01', '2024-04-17 16:43:01', 28, 0, '', NULL, '2024-04-17 16:43:01', NULL, '2024-04-17 16:43:01', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36195, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:43:04', '2024-04-17 16:43:04', 33, 0, '', NULL, '2024-04-17 16:43:04', NULL, '2024-04-17 16:43:04', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36196, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:43:07', '2024-04-17 16:43:07', 30, 0, '', NULL, '2024-04-17 16:43:07', NULL, '2024-04-17 16:43:07', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36197, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:43:09', '2024-04-17 16:43:09', 26, 0, '', NULL, '2024-04-17 16:43:09', NULL, '2024-04-17 16:43:09', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36198, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:43:10', '2024-04-17 16:43:10', 29, 0, '', NULL, '2024-04-17 16:43:10', NULL, '2024-04-17 16:43:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36199, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:43:16', '2024-04-17 16:43:16', 27, 0, '', NULL, '2024-04-17 16:43:16', NULL, '2024-04-17 16:43:16', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36200, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-17 16:43:34', '2024-04-17 16:43:34', 17, 0, '', NULL, '2024-04-17 16:43:34', NULL, '2024-04-17 16:43:34', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36201, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/db/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得数据库自带的表定义列表', 1, '2024-04-17 16:43:34', '2024-04-17 16:43:35', 632, 0, '', NULL, '2024-04-17 16:43:35', NULL, '2024-04-17 16:43:35', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36202, '', 1, 2, 'ai-fusion-server', 'POST', '/admin-api/infra/codegen/create-list', '{\"query\":\"{}\",\"body\":\"{\\\"dataSourceConfigId\\\":0,\\\"tableNames\\\":[\\\"ai_model\\\"]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '基于数据库的表结构，创建代码生成器的表和字段定义', 2, '2024-04-17 16:43:39', '2024-04-17 16:43:39', 141, 0, '', NULL, '2024-04-17 16:43:39', NULL, '2024-04-17 16:43:39', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36203, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-17 16:43:39', '2024-04-17 16:43:39', 40, 0, '', NULL, '2024-04-17 16:43:39', NULL, '2024-04-17 16:43:39', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36204, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 16:43:41', '2024-04-17 16:43:41', 23, 0, '', NULL, '2024-04-17 16:43:41', NULL, '2024-04-17 16:43:41', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36205, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 16:43:41', '2024-04-17 16:43:41', 70, 0, '', NULL, '2024-04-17 16:43:41', NULL, '2024-04-17 16:43:41', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36206, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 16:43:41', '2024-04-17 16:43:41', 122, 0, '', NULL, '2024-04-17 16:43:41', NULL, '2024-04-17 16:43:41', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36207, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:43:42', '2024-04-17 16:43:42', 28, 0, '', NULL, '2024-04-17 16:43:42', NULL, '2024-04-17 16:43:42', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36208, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 16:43:55', '2024-04-17 16:43:55', 26, 0, '', NULL, '2024-04-17 16:43:55', NULL, '2024-04-17 16:43:55', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36209, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 16:43:55', '2024-04-17 16:43:55', 53, 0, '', NULL, '2024-04-17 16:43:55', NULL, '2024-04-17 16:43:55', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36210, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 16:43:55', '2024-04-17 16:43:55', 116, 0, '', NULL, '2024-04-17 16:43:55', NULL, '2024-04-17 16:43:55', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36211, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:43:55', '2024-04-17 16:43:55', 45, 0, '', NULL, '2024-04-17 16:43:55', NULL, '2024-04-17 16:43:55', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36212, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:43:58', '2024-04-17 16:43:58', 38, 0, '', NULL, '2024-04-17 16:43:58', NULL, '2024-04-17 16:43:58', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36213, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/infra/codegen/update', '{\"query\":\"{}\",\"body\":\"{\\\"table\\\":{\\\"id\\\":178,\\\"scene\\\":1,\\\"tableName\\\":\\\"ai_model\\\",\\\"tableComment\\\":\\\"AI模型表\\\",\\\"remark\\\":null,\\\"moduleName\\\":\\\"ai\\\",\\\"businessName\\\":\\\"model\\\",\\\"className\\\":\\\"Model\\\",\\\"classComment\\\":\\\"AI模型\\\",\\\"author\\\":\\\"AiFusion\\\",\\\"templateType\\\":1,\\\"frontType\\\":20,\\\"parentMenuId\\\":null,\\\"masterTableId\\\":null,\\\"subJoinColumnId\\\":null,\\\"subJoinMany\\\":null,\\\"treeParentColumnId\\\":null,\\\"treeNameColumnId\\\":null,\\\"dataSourceConfigId\\\":0,\\\"createTime\\\":1713343419000,\\\"updateTime\\\":1713343419000},\\\"columns\\\":[{\\\"id\\\":2333,\\\"tableId\\\":178,\\\"columnName\\\":\\\"id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":true,\\\"autoIncrement\\\":true,\\\"ordinalPosition\\\":1,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"id\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"21093\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2334,\\\"tableId\\\":178,\\\"columnName\\\":\\\"name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型名称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":2,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"name\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"AI-Fusion\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2335,\\\"tableId\\\":178,\\\"columnName\\\":\\\"api_key\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型ApiKey\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":3,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"apiKey\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2336,\\\"tableId\\\":178,\\\"columnName\\\":\\\"model_name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型官方英文名称，例：gpt-4、gpt-3.5-turbo\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":4,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"modelName\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"AI-Fusion\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2337,\\\"tableId\\\":178,\\\"columnName\\\":\\\"model_type\\\",\\\"dataType\\\":\\\"TINYINT\\\",\\\"columnComment\\\":\\\"模型类型\\\\t1.openai\\\\t2.google\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":5,\\\"javaType\\\":\\\"Integer\\\",\\\"javaField\\\":\\\"modelType\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"1\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"select\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2338,\\\"tableId\\\":178,\\\"columnName\\\":\\\"remark\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"备注\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":6,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"remark\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"你说的对\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2339,\\\"tableId\\\":178,\\\"columnName\\\":\\\"creator\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"创建者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":7,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"creator\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2340,\\\"tableId\\\":178,\\\"columnName\\\":\\\"create_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"创建时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":8,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"createTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2341,\\\"tableId\\\":178,\\\"columnName\\\":\\\"updater\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"更新者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":9,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"updater\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2342,\\\"tableId\\\":178,\\\"columnName\\\":\\\"update_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"更新时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":10,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"updateTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2343,\\\"tableId\\\":178,\\\"columnName\\\":\\\"deleted\\\",\\\"dataType\\\":\\\"BIT\\\",\\\"columnComment\\\":\\\"是否删除\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":11,\\\"javaType\\\":\\\"Boolean\\\",\\\"javaField\\\":\\\"deleted\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"radio\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2344,\\\"tableId\\\":178,\\\"columnName\\\":\\\"tenant_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"租户编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":12,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"tenantId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"31386\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000}]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '更新数据库的表和字段定义', 3, '2024-04-17 16:43:59', '2024-04-17 16:43:59', 82, 400, '请求参数不正确:上级菜单不能为空，请前往 [修改生成配置 -> 生成信息] 界面，设置“上级菜单”字段', NULL, '2024-04-17 16:43:59', NULL, '2024-04-17 16:43:59', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36214, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:44:05', '2024-04-17 16:44:06', 34, 0, '', NULL, '2024-04-17 16:44:06', NULL, '2024-04-17 16:44:06', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36215, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/infra/codegen/update', '{\"query\":\"{}\",\"body\":\"{\\\"table\\\":{\\\"id\\\":178,\\\"scene\\\":1,\\\"tableName\\\":\\\"ai_model\\\",\\\"tableComment\\\":\\\"AI模型表\\\",\\\"remark\\\":null,\\\"moduleName\\\":\\\"ai\\\",\\\"businessName\\\":\\\"model\\\",\\\"className\\\":\\\"Model\\\",\\\"classComment\\\":\\\"AI模型\\\",\\\"author\\\":\\\"AiFusion\\\",\\\"templateType\\\":1,\\\"frontType\\\":20,\\\"parentMenuId\\\":2760,\\\"masterTableId\\\":null,\\\"subJoinColumnId\\\":null,\\\"subJoinMany\\\":null,\\\"treeParentColumnId\\\":null,\\\"treeNameColumnId\\\":null,\\\"dataSourceConfigId\\\":0,\\\"createTime\\\":1713343419000,\\\"updateTime\\\":1713343419000},\\\"columns\\\":[{\\\"id\\\":2333,\\\"tableId\\\":178,\\\"columnName\\\":\\\"id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":true,\\\"autoIncrement\\\":true,\\\"ordinalPosition\\\":1,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"id\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"21093\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2334,\\\"tableId\\\":178,\\\"columnName\\\":\\\"name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型名称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":2,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"name\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"AI-Fusion\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2335,\\\"tableId\\\":178,\\\"columnName\\\":\\\"api_key\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型ApiKey\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":3,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"apiKey\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2336,\\\"tableId\\\":178,\\\"columnName\\\":\\\"model_name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型官方英文名称，例：gpt-4、gpt-3.5-turbo\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":4,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"modelName\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"AI-Fusion\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2337,\\\"tableId\\\":178,\\\"columnName\\\":\\\"model_type\\\",\\\"dataType\\\":\\\"TINYINT\\\",\\\"columnComment\\\":\\\"模型类型\\\\t1.openai\\\\t2.google\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":5,\\\"javaType\\\":\\\"Integer\\\",\\\"javaField\\\":\\\"modelType\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"1\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"select\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2338,\\\"tableId\\\":178,\\\"columnName\\\":\\\"remark\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"备注\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":6,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"remark\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"你说的对\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2339,\\\"tableId\\\":178,\\\"columnName\\\":\\\"creator\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"创建者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":7,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"creator\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2340,\\\"tableId\\\":178,\\\"columnName\\\":\\\"create_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"创建时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":8,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"createTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2341,\\\"tableId\\\":178,\\\"columnName\\\":\\\"updater\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"更新者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":9,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"updater\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2342,\\\"tableId\\\":178,\\\"columnName\\\":\\\"update_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"更新时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":10,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"updateTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2343,\\\"tableId\\\":178,\\\"columnName\\\":\\\"deleted\\\",\\\"dataType\\\":\\\"BIT\\\",\\\"columnComment\\\":\\\"是否删除\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":11,\\\"javaType\\\":\\\"Boolean\\\",\\\"javaField\\\":\\\"deleted\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"radio\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2344,\\\"tableId\\\":178,\\\"columnName\\\":\\\"tenant_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"租户编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":12,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"tenantId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"31386\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000}]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '更新数据库的表和字段定义', 3, '2024-04-17 16:44:08', '2024-04-17 16:44:08', 107, 0, '', NULL, '2024-04-17 16:44:08', NULL, '2024-04-17 16:44:08', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36216, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 16:44:10', '2024-04-17 16:44:10', 26, 0, '', NULL, '2024-04-17 16:44:10', NULL, '2024-04-17 16:44:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36217, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 16:44:10', '2024-04-17 16:44:10', 56, 0, '', NULL, '2024-04-17 16:44:10', NULL, '2024-04-17 16:44:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36218, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 16:44:10', '2024-04-17 16:44:10', 110, 0, '', NULL, '2024-04-17 16:44:10', NULL, '2024-04-17 16:44:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36219, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:44:10', '2024-04-17 16:44:10', 27, 0, '', NULL, '2024-04-17 16:44:10', NULL, '2024-04-17 16:44:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36220, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得字典类型的分页列表', 1, '2024-04-17 16:45:39', '2024-04-17 16:45:39', 75, 0, '', NULL, '2024-04-17 16:45:39', NULL, '2024-04-17 16:45:39', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36221, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得字典类型的分页列表', 1, '2024-04-17 16:45:42', '2024-04-17 16:45:42', 27, 0, '', NULL, '2024-04-17 16:45:42', NULL, '2024-04-17 16:45:42', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36222, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得字典类型的分页列表', 1, '2024-04-17 16:45:44', '2024-04-17 16:45:44', 29, 0, '', NULL, '2024-04-17 16:45:44', NULL, '2024-04-17 16:45:44', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36223, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得字典类型的分页列表', 1, '2024-04-17 16:47:05', '2024-04-17 16:47:05', 21, 0, '', NULL, '2024-04-17 16:47:05', NULL, '2024-04-17 16:47:05', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36224, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得字典类型的分页列表', 1, '2024-04-17 16:47:07', '2024-04-17 16:47:07', 28, 0, '', NULL, '2024-04-17 16:47:07', NULL, '2024-04-17 16:47:07', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36225, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得字典类型的分页列表', 1, '2024-04-17 16:47:13', '2024-04-17 16:47:13', 33, 0, '', NULL, '2024-04-17 16:47:13', NULL, '2024-04-17 16:47:13', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36226, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得字典类型的分页列表', 1, '2024-04-17 16:47:18', '2024-04-17 16:47:18', 23, 0, '', NULL, '2024-04-17 16:47:18', NULL, '2024-04-17 16:47:18', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36227, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得字典类型的分页列表', 1, '2024-04-17 16:48:18', '2024-04-17 16:48:18', 30, 0, '', NULL, '2024-04-17 16:48:18', NULL, '2024-04-17 16:48:18', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36228, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 16:48:20', '2024-04-17 16:48:20', 23, 0, '', NULL, '2024-04-17 16:48:20', NULL, '2024-04-17 16:48:20', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36229, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 16:48:20', '2024-04-17 16:48:20', 62, 0, '', NULL, '2024-04-17 16:48:20', NULL, '2024-04-17 16:48:20', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36230, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 16:48:20', '2024-04-17 16:48:20', 117, 0, '', NULL, '2024-04-17 16:48:20', NULL, '2024-04-17 16:48:20', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36231, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:48:21', '2024-04-17 16:48:21', 21, 0, '', NULL, '2024-04-17 16:48:21', NULL, '2024-04-17 16:48:21', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36232, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/infra/codegen/update', '{\"query\":\"{}\",\"body\":\"{\\\"table\\\":{\\\"id\\\":178,\\\"scene\\\":1,\\\"tableName\\\":\\\"ai_model\\\",\\\"tableComment\\\":\\\"AI模型表\\\",\\\"remark\\\":null,\\\"moduleName\\\":\\\"ai\\\",\\\"businessName\\\":\\\"model\\\",\\\"className\\\":\\\"Model\\\",\\\"classComment\\\":\\\"AI模型\\\",\\\"author\\\":\\\"AiFusion\\\",\\\"templateType\\\":1,\\\"frontType\\\":20,\\\"parentMenuId\\\":2760,\\\"masterTableId\\\":null,\\\"subJoinColumnId\\\":null,\\\"subJoinMany\\\":null,\\\"treeParentColumnId\\\":null,\\\"treeNameColumnId\\\":null,\\\"dataSourceConfigId\\\":0,\\\"createTime\\\":1713343419000,\\\"updateTime\\\":1713343448000},\\\"columns\\\":[{\\\"id\\\":2333,\\\"tableId\\\":178,\\\"columnName\\\":\\\"id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":true,\\\"autoIncrement\\\":true,\\\"ordinalPosition\\\":1,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"id\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"21093\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2334,\\\"tableId\\\":178,\\\"columnName\\\":\\\"name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型名称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":2,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"name\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"AI-Fusion\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2335,\\\"tableId\\\":178,\\\"columnName\\\":\\\"api_key\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型ApiKey\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":3,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"apiKey\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":\\\"false\\\",\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":\\\"false\\\",\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2336,\\\"tableId\\\":178,\\\"columnName\\\":\\\"model_name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"官方英文称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":4,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"modelName\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"AI-Fusion\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2337,\\\"tableId\\\":178,\\\"columnName\\\":\\\"model_type\\\",\\\"dataType\\\":\\\"TINYINT\\\",\\\"columnComment\\\":\\\"模型类型\\\\t1.openai\\\\t2.google\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":5,\\\"javaType\\\":\\\"Integer\\\",\\\"javaField\\\":\\\"modelType\\\",\\\"dictType\\\":\\\"ai_model_type\\\",\\\"example\\\":\\\"1\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"select\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2338,\\\"tableId\\\":178,\\\"columnName\\\":\\\"remark\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"备注\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":6,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"remark\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":\\\"false\\\",\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2339,\\\"tableId\\\":178,\\\"columnName\\\":\\\"creator\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"创建者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":7,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"creator\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2340,\\\"tableId\\\":178,\\\"columnName\\\":\\\"create_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"创建时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":8,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"createTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2341,\\\"tableId\\\":178,\\\"columnName\\\":\\\"updater\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"更新者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":9,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"updater\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2342,\\\"tableId\\\":178,\\\"columnName\\\":\\\"update_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"更新时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":10,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"updateTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2343,\\\"tableId\\\":178,\\\"columnName\\\":\\\"deleted\\\",\\\"dataType\\\":\\\"BIT\\\",\\\"columnComment\\\":\\\"是否删除\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":11,\\\"javaType\\\":\\\"Boolean\\\",\\\"javaField\\\":\\\"deleted\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"radio\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2344,\\\"tableId\\\":178,\\\"columnName\\\":\\\"tenant_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"租户编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":12,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"tenantId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"31386\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000}]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '更新数据库的表和字段定义', 3, '2024-04-17 16:49:21', '2024-04-17 16:49:21', 93, 0, '', NULL, '2024-04-17 16:49:21', NULL, '2024-04-17 16:49:21', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36233, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 16:49:23', '2024-04-17 16:49:23', 16, 0, '', NULL, '2024-04-17 16:49:23', NULL, '2024-04-17 16:49:23', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36234, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 16:49:23', '2024-04-17 16:49:23', 41, 0, '', NULL, '2024-04-17 16:49:23', NULL, '2024-04-17 16:49:23', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36235, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 16:49:23', '2024-04-17 16:49:23', 75, 0, '', NULL, '2024-04-17 16:49:23', NULL, '2024-04-17 16:49:23', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36236, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:49:23', '2024-04-17 16:49:23', 20, 0, '', NULL, '2024-04-17 16:49:23', NULL, '2024-04-17 16:49:23', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36237, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:49:31', '2024-04-17 16:49:31', 17, 0, '', NULL, '2024-04-17 16:49:31', NULL, '2024-04-17 16:49:31', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36238, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/infra/codegen/update', '{\"query\":\"{}\",\"body\":\"{\\\"table\\\":{\\\"id\\\":178,\\\"scene\\\":1,\\\"tableName\\\":\\\"ai_model\\\",\\\"tableComment\\\":\\\"AI模型表\\\",\\\"remark\\\":null,\\\"moduleName\\\":\\\"ai\\\",\\\"businessName\\\":\\\"model\\\",\\\"className\\\":\\\"Model\\\",\\\"classComment\\\":\\\"AI模型\\\",\\\"author\\\":\\\"AiFusion\\\",\\\"templateType\\\":10,\\\"frontType\\\":20,\\\"parentMenuId\\\":2760,\\\"masterTableId\\\":null,\\\"subJoinColumnId\\\":null,\\\"subJoinMany\\\":null,\\\"treeParentColumnId\\\":null,\\\"treeNameColumnId\\\":null,\\\"dataSourceConfigId\\\":0,\\\"createTime\\\":1713343419000,\\\"updateTime\\\":1713343761000},\\\"columns\\\":[{\\\"id\\\":2333,\\\"tableId\\\":178,\\\"columnName\\\":\\\"id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":true,\\\"autoIncrement\\\":true,\\\"ordinalPosition\\\":1,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"id\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"21093\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2334,\\\"tableId\\\":178,\\\"columnName\\\":\\\"name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型名称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":2,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"name\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"AI-Fusion\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2335,\\\"tableId\\\":178,\\\"columnName\\\":\\\"api_key\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型ApiKey\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":3,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"apiKey\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2336,\\\"tableId\\\":178,\\\"columnName\\\":\\\"model_name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"官方英文称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":4,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"modelName\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"AI-Fusion\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2337,\\\"tableId\\\":178,\\\"columnName\\\":\\\"model_type\\\",\\\"dataType\\\":\\\"TINYINT\\\",\\\"columnComment\\\":\\\"模型类型\\\\t1.openai\\\\t2.google\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":5,\\\"javaType\\\":\\\"Integer\\\",\\\"javaField\\\":\\\"modelType\\\",\\\"dictType\\\":\\\"ai_model_type\\\",\\\"example\\\":\\\"1\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"select\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2338,\\\"tableId\\\":178,\\\"columnName\\\":\\\"remark\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"备注\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":6,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"remark\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2339,\\\"tableId\\\":178,\\\"columnName\\\":\\\"creator\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"创建者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":7,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"creator\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2340,\\\"tableId\\\":178,\\\"columnName\\\":\\\"create_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"创建时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":8,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"createTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2341,\\\"tableId\\\":178,\\\"columnName\\\":\\\"updater\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"更新者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":9,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"updater\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2342,\\\"tableId\\\":178,\\\"columnName\\\":\\\"update_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"更新时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":10,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"updateTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2343,\\\"tableId\\\":178,\\\"columnName\\\":\\\"deleted\\\",\\\"dataType\\\":\\\"BIT\\\",\\\"columnComment\\\":\\\"是否删除\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":11,\\\"javaType\\\":\\\"Boolean\\\",\\\"javaField\\\":\\\"deleted\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"radio\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2344,\\\"tableId\\\":178,\\\"columnName\\\":\\\"tenant_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"租户编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":12,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"tenantId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"31386\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000}]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '更新数据库的表和字段定义', 3, '2024-04-17 16:49:39', '2024-04-17 16:49:39', 76, 0, '', NULL, '2024-04-17 16:49:39', NULL, '2024-04-17 16:49:39', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36239, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 16:50:25', '2024-04-17 16:50:25', 25, 0, '', NULL, '2024-04-17 16:50:25', NULL, '2024-04-17 16:50:25', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36240, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 16:50:25', '2024-04-17 16:50:25', 52, 0, '', NULL, '2024-04-17 16:50:25', NULL, '2024-04-17 16:50:25', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36241, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 16:50:25', '2024-04-17 16:50:25', 90, 0, '', NULL, '2024-04-17 16:50:25', NULL, '2024-04-17 16:50:25', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36242, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:50:25', '2024-04-17 16:50:25', 20, 0, '', NULL, '2024-04-17 16:50:25', NULL, '2024-04-17 16:50:25', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36243, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/download', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '下载生成代码', 1, '2024-04-17 16:50:45', '2024-04-17 16:50:45', 70, 1001004012, '主表生成代码失败，原因：它没有子表', NULL, '2024-04-17 16:50:45', NULL, '2024-04-17 16:50:45', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36244, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 16:50:49', '2024-04-17 16:50:49', 16, 0, '', NULL, '2024-04-17 16:50:49', NULL, '2024-04-17 16:50:49', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36245, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 16:50:49', '2024-04-17 16:50:49', 43, 0, '', NULL, '2024-04-17 16:50:49', NULL, '2024-04-17 16:50:49', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36246, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 16:50:49', '2024-04-17 16:50:49', 78, 0, '', NULL, '2024-04-17 16:50:49', NULL, '2024-04-17 16:50:49', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36247, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:50:49', '2024-04-17 16:50:49', 21, 0, '', NULL, '2024-04-17 16:50:49', NULL, '2024-04-17 16:50:49', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36248, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:50:52', '2024-04-17 16:50:52', 20, 0, '', NULL, '2024-04-17 16:50:52', NULL, '2024-04-17 16:50:52', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36249, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:50:55', '2024-04-17 16:50:55', 23, 0, '', NULL, '2024-04-17 16:50:55', NULL, '2024-04-17 16:50:55', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36250, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:50:57', '2024-04-17 16:50:57', 20, 0, '', NULL, '2024-04-17 16:50:57', NULL, '2024-04-17 16:50:57', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36251, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:50:59', '2024-04-17 16:50:59', 21, 0, '', NULL, '2024-04-17 16:50:59', NULL, '2024-04-17 16:50:59', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36252, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:51:05', '2024-04-17 16:51:05', 19, 0, '', NULL, '2024-04-17 16:51:05', NULL, '2024-04-17 16:51:05', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36253, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/infra/codegen/update', '{\"query\":\"{}\",\"body\":\"{\\\"table\\\":{\\\"id\\\":177,\\\"scene\\\":1,\\\"tableName\\\":\\\"ai_assistant\\\",\\\"tableComment\\\":\\\"AI助手表\\\",\\\"remark\\\":null,\\\"moduleName\\\":\\\"ai\\\",\\\"businessName\\\":\\\"assistant\\\",\\\"className\\\":\\\"Assistant\\\",\\\"classComment\\\":\\\"AI助手\\\",\\\"author\\\":\\\"AiFusion\\\",\\\"templateType\\\":15,\\\"frontType\\\":10,\\\"parentMenuId\\\":null,\\\"masterTableId\\\":178,\\\"subJoinColumnId\\\":2323,\\\"subJoinMany\\\":true,\\\"treeParentColumnId\\\":null,\\\"treeNameColumnId\\\":null,\\\"dataSourceConfigId\\\":0,\\\"createTime\\\":1713343345000,\\\"updateTime\\\":1713343345000},\\\"columns\\\":[{\\\"id\\\":2320,\\\"tableId\\\":177,\\\"columnName\\\":\\\"id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":true,\\\"autoIncrement\\\":true,\\\"ordinalPosition\\\":1,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"id\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"14878\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2321,\\\"tableId\\\":177,\\\"columnName\\\":\\\"name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"助手名称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":2,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"name\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"张三\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2322,\\\"tableId\\\":177,\\\"columnName\\\":\\\"prompt\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"助手的初始prompt\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":3,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"prompt\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2323,\\\"tableId\\\":177,\\\"columnName\\\":\\\"model_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"AI模型编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":4,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"modelId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"13287\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2324,\\\"tableId\\\":177,\\\"columnName\\\":\\\"notice\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"默认打招呼语\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":5,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"notice\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2325,\\\"tableId\\\":177,\\\"columnName\\\":\\\"round\\\",\\\"dataType\\\":\\\"TINYINT\\\",\\\"columnComment\\\":\\\"记忆对话轮次\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":6,\\\"javaType\\\":\\\"Integer\\\",\\\"javaField\\\":\\\"round\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2326,\\\"tableId\\\":177,\\\"columnName\\\":\\\"remark\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"备注\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":7,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"remark\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"你说的对\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2327,\\\"tableId\\\":177,\\\"columnName\\\":\\\"creator\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"创建者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":8,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"creator\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2328,\\\"tableId\\\":177,\\\"columnName\\\":\\\"create_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"创建时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":9,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"createTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2329,\\\"tableId\\\":177,\\\"columnName\\\":\\\"updater\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"更新者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":10,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"updater\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2330,\\\"tableId\\\":177,\\\"columnName\\\":\\\"update_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"更新时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":11,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"updateTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2331,\\\"tableId\\\":177,\\\"columnName\\\":\\\"deleted\\\",\\\"dataType\\\":\\\"BIT\\\",\\\"columnComment\\\":\\\"是否删除\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":12,\\\"javaType\\\":\\\"Boolean\\\",\\\"javaField\\\":\\\"deleted\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"radio\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2332,\\\"tableId\\\":177,\\\"columnName\\\":\\\"tenant_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"租户编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":13,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"tenantId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"16461\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000}]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '更新数据库的表和字段定义', 3, '2024-04-17 16:51:08', '2024-04-17 16:51:08', 5, 400, '请求参数不正确:上级菜单不能为空，请前往 [修改生成配置 -> 生成信息] 界面，设置“上级菜单”字段', NULL, '2024-04-17 16:51:08', NULL, '2024-04-17 16:51:08', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36254, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/infra/codegen/update', '{\"query\":\"{}\",\"body\":\"{\\\"table\\\":{\\\"id\\\":177,\\\"scene\\\":1,\\\"tableName\\\":\\\"ai_assistant\\\",\\\"tableComment\\\":\\\"AI助手表\\\",\\\"remark\\\":null,\\\"moduleName\\\":\\\"ai\\\",\\\"businessName\\\":\\\"assistant\\\",\\\"className\\\":\\\"Assistant\\\",\\\"classComment\\\":\\\"AI助手\\\",\\\"author\\\":\\\"AiFusion\\\",\\\"templateType\\\":15,\\\"frontType\\\":10,\\\"parentMenuId\\\":null,\\\"masterTableId\\\":178,\\\"subJoinColumnId\\\":2323,\\\"subJoinMany\\\":true,\\\"treeParentColumnId\\\":null,\\\"treeNameColumnId\\\":null,\\\"dataSourceConfigId\\\":0,\\\"createTime\\\":1713343345000,\\\"updateTime\\\":1713343345000},\\\"columns\\\":[{\\\"id\\\":2320,\\\"tableId\\\":177,\\\"columnName\\\":\\\"id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":true,\\\"autoIncrement\\\":true,\\\"ordinalPosition\\\":1,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"id\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"14878\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2321,\\\"tableId\\\":177,\\\"columnName\\\":\\\"name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"助手名称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":2,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"name\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"张三\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2322,\\\"tableId\\\":177,\\\"columnName\\\":\\\"prompt\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"助手的初始prompt\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":3,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"prompt\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2323,\\\"tableId\\\":177,\\\"columnName\\\":\\\"model_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"AI模型编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":4,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"modelId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"13287\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2324,\\\"tableId\\\":177,\\\"columnName\\\":\\\"notice\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"默认打招呼语\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":5,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"notice\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2325,\\\"tableId\\\":177,\\\"columnName\\\":\\\"round\\\",\\\"dataType\\\":\\\"TINYINT\\\",\\\"columnComment\\\":\\\"记忆对话轮次\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":6,\\\"javaType\\\":\\\"Integer\\\",\\\"javaField\\\":\\\"round\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2326,\\\"tableId\\\":177,\\\"columnName\\\":\\\"remark\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"备注\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":7,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"remark\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"你说的对\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2327,\\\"tableId\\\":177,\\\"columnName\\\":\\\"creator\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"创建者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":8,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"creator\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2328,\\\"tableId\\\":177,\\\"columnName\\\":\\\"create_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"创建时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":9,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"createTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2329,\\\"tableId\\\":177,\\\"columnName\\\":\\\"updater\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"更新者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":10,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"updater\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2330,\\\"tableId\\\":177,\\\"columnName\\\":\\\"update_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"更新时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":11,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"updateTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2331,\\\"tableId\\\":177,\\\"columnName\\\":\\\"deleted\\\",\\\"dataType\\\":\\\"BIT\\\",\\\"columnComment\\\":\\\"是否删除\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":12,\\\"javaType\\\":\\\"Boolean\\\",\\\"javaField\\\":\\\"deleted\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"radio\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2332,\\\"tableId\\\":177,\\\"columnName\\\":\\\"tenant_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"租户编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":13,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"tenantId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"16461\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000}]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '更新数据库的表和字段定义', 3, '2024-04-17 16:51:14', '2024-04-17 16:51:14', 5, 400, '请求参数不正确:上级菜单不能为空，请前往 [修改生成配置 -> 生成信息] 界面，设置“上级菜单”字段', NULL, '2024-04-17 16:51:14', NULL, '2024-04-17 16:51:14', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36255, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:51:17', '2024-04-17 16:51:17', 19, 0, '', NULL, '2024-04-17 16:51:17', NULL, '2024-04-17 16:51:17', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36256, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/infra/codegen/update', '{\"query\":\"{}\",\"body\":\"{\\\"table\\\":{\\\"id\\\":177,\\\"scene\\\":1,\\\"tableName\\\":\\\"ai_assistant\\\",\\\"tableComment\\\":\\\"AI助手表\\\",\\\"remark\\\":null,\\\"moduleName\\\":\\\"ai\\\",\\\"businessName\\\":\\\"assistant\\\",\\\"className\\\":\\\"Assistant\\\",\\\"classComment\\\":\\\"AI助手\\\",\\\"author\\\":\\\"AiFusion\\\",\\\"templateType\\\":15,\\\"frontType\\\":10,\\\"parentMenuId\\\":2760,\\\"masterTableId\\\":178,\\\"subJoinColumnId\\\":2323,\\\"subJoinMany\\\":true,\\\"treeParentColumnId\\\":null,\\\"treeNameColumnId\\\":null,\\\"dataSourceConfigId\\\":0,\\\"createTime\\\":1713343345000,\\\"updateTime\\\":1713343345000},\\\"columns\\\":[{\\\"id\\\":2320,\\\"tableId\\\":177,\\\"columnName\\\":\\\"id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":true,\\\"autoIncrement\\\":true,\\\"ordinalPosition\\\":1,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"id\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"14878\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2321,\\\"tableId\\\":177,\\\"columnName\\\":\\\"name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"助手名称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":2,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"name\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"张三\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2322,\\\"tableId\\\":177,\\\"columnName\\\":\\\"prompt\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"助手的初始prompt\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":3,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"prompt\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2323,\\\"tableId\\\":177,\\\"columnName\\\":\\\"model_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"AI模型编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":4,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"modelId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"13287\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2324,\\\"tableId\\\":177,\\\"columnName\\\":\\\"notice\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"默认打招呼语\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":5,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"notice\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2325,\\\"tableId\\\":177,\\\"columnName\\\":\\\"round\\\",\\\"dataType\\\":\\\"TINYINT\\\",\\\"columnComment\\\":\\\"记忆对话轮次\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":6,\\\"javaType\\\":\\\"Integer\\\",\\\"javaField\\\":\\\"round\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2326,\\\"tableId\\\":177,\\\"columnName\\\":\\\"remark\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"备注\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":7,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"remark\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"你说的对\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2327,\\\"tableId\\\":177,\\\"columnName\\\":\\\"creator\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"创建者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":8,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"creator\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2328,\\\"tableId\\\":177,\\\"columnName\\\":\\\"create_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"创建时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":9,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"createTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2329,\\\"tableId\\\":177,\\\"columnName\\\":\\\"updater\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"更新者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":10,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"updater\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2330,\\\"tableId\\\":177,\\\"columnName\\\":\\\"update_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"更新时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":11,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"updateTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2331,\\\"tableId\\\":177,\\\"columnName\\\":\\\"deleted\\\",\\\"dataType\\\":\\\"BIT\\\",\\\"columnComment\\\":\\\"是否删除\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":12,\\\"javaType\\\":\\\"Boolean\\\",\\\"javaField\\\":\\\"deleted\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"radio\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2332,\\\"tableId\\\":177,\\\"columnName\\\":\\\"tenant_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"租户编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":13,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"tenantId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"16461\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000}]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '更新数据库的表和字段定义', 3, '2024-04-17 16:51:18', '2024-04-17 16:51:18', 97, 0, '', NULL, '2024-04-17 16:51:18', NULL, '2024-04-17 16:51:18', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36257, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 16:51:20', '2024-04-17 16:51:20', 18, 0, '', NULL, '2024-04-17 16:51:20', NULL, '2024-04-17 16:51:20', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36258, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 16:51:20', '2024-04-17 16:51:20', 50, 0, '', NULL, '2024-04-17 16:51:20', NULL, '2024-04-17 16:51:20', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36259, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 16:51:20', '2024-04-17 16:51:20', 78, 0, '', NULL, '2024-04-17 16:51:20', NULL, '2024-04-17 16:51:20', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36260, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:51:21', '2024-04-17 16:51:21', 22, 0, '', NULL, '2024-04-17 16:51:21', NULL, '2024-04-17 16:51:21', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36261, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/infra/codegen/update', '{\"query\":\"{}\",\"body\":\"{\\\"table\\\":{\\\"id\\\":177,\\\"scene\\\":1,\\\"tableName\\\":\\\"ai_assistant\\\",\\\"tableComment\\\":\\\"AI助手表\\\",\\\"remark\\\":null,\\\"moduleName\\\":\\\"ai\\\",\\\"businessName\\\":\\\"assistant\\\",\\\"className\\\":\\\"Assistant\\\",\\\"classComment\\\":\\\"AI助手\\\",\\\"author\\\":\\\"AiFusion\\\",\\\"templateType\\\":15,\\\"frontType\\\":10,\\\"parentMenuId\\\":2760,\\\"masterTableId\\\":178,\\\"subJoinColumnId\\\":2323,\\\"subJoinMany\\\":true,\\\"treeParentColumnId\\\":null,\\\"treeNameColumnId\\\":null,\\\"dataSourceConfigId\\\":0,\\\"createTime\\\":1713343345000,\\\"updateTime\\\":1713343878000},\\\"columns\\\":[{\\\"id\\\":2320,\\\"tableId\\\":177,\\\"columnName\\\":\\\"id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":true,\\\"autoIncrement\\\":true,\\\"ordinalPosition\\\":1,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"id\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"14878\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2321,\\\"tableId\\\":177,\\\"columnName\\\":\\\"name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"助手名称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":2,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"name\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"张三\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2322,\\\"tableId\\\":177,\\\"columnName\\\":\\\"prompt\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"助手的初始prompt\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":3,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"prompt\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":\\\"false\\\",\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2323,\\\"tableId\\\":177,\\\"columnName\\\":\\\"model_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"AI模型编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":4,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"modelId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"13287\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2324,\\\"tableId\\\":177,\\\"columnName\\\":\\\"notice\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"默认打招呼语\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":5,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"notice\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":\\\"false\\\",\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":\\\"true\\\",\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2325,\\\"tableId\\\":177,\\\"columnName\\\":\\\"round\\\",\\\"dataType\\\":\\\"TINYINT\\\",\\\"columnComment\\\":\\\"记忆对话轮次\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":6,\\\"javaType\\\":\\\"Integer\\\",\\\"javaField\\\":\\\"round\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":\\\"false\\\",\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2326,\\\"tableId\\\":177,\\\"columnName\\\":\\\"remark\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"备注\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":7,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"remark\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":\\\"false\\\",\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2327,\\\"tableId\\\":177,\\\"columnName\\\":\\\"creator\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"创建者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":8,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"creator\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2328,\\\"tableId\\\":177,\\\"columnName\\\":\\\"create_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"创建时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":9,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"createTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2329,\\\"tableId\\\":177,\\\"columnName\\\":\\\"updater\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"更新者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":10,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"updater\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2330,\\\"tableId\\\":177,\\\"columnName\\\":\\\"update_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"更新时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":11,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"updateTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2331,\\\"tableId\\\":177,\\\"columnName\\\":\\\"deleted\\\",\\\"dataType\\\":\\\"BIT\\\",\\\"columnComment\\\":\\\"是否删除\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":12,\\\"javaType\\\":\\\"Boolean\\\",\\\"javaField\\\":\\\"deleted\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"radio\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2332,\\\"tableId\\\":177,\\\"columnName\\\":\\\"tenant_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"租户编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":13,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"tenantId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"16461\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000}]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '更新数据库的表和字段定义', 3, '2024-04-17 16:51:53', '2024-04-17 16:51:53', 84, 0, '', NULL, '2024-04-17 16:51:53', NULL, '2024-04-17 16:51:53', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36262, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 16:53:45', '2024-04-17 16:53:45', 14, 0, '', NULL, '2024-04-17 16:53:45', NULL, '2024-04-17 16:53:45', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36263, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 16:53:45', '2024-04-17 16:53:45', 39, 0, '', NULL, '2024-04-17 16:53:45', NULL, '2024-04-17 16:53:45', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36264, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 16:53:45', '2024-04-17 16:53:45', 84, 0, '', NULL, '2024-04-17 16:53:45', NULL, '2024-04-17 16:53:45', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36265, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:53:45', '2024-04-17 16:53:45', 20, 0, '', NULL, '2024-04-17 16:53:45', NULL, '2024-04-17 16:53:45', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36266, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/download', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '下载生成代码', 1, '2024-04-17 16:53:50', '2024-04-17 16:53:51', 398, 0, '', NULL, '2024-04-17 16:53:51', NULL, '2024-04-17 16:53:51', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36267, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/download', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '下载生成代码', 1, '2024-04-17 16:56:11', '2024-04-17 16:56:11', 95, 0, '', NULL, '2024-04-17 16:56:11', NULL, '2024-04-17 16:56:11', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36268, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 16:57:59', '2024-04-17 16:57:59', 20, 0, '', NULL, '2024-04-17 16:57:59', NULL, '2024-04-17 16:57:59', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36269, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 16:57:59', '2024-04-17 16:57:59', 48, 0, '', NULL, '2024-04-17 16:57:59', NULL, '2024-04-17 16:57:59', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36270, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 16:57:59', '2024-04-17 16:57:59', 98, 0, '', NULL, '2024-04-17 16:57:59', NULL, '2024-04-17 16:57:59', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36271, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:57:59', '2024-04-17 16:57:59', 22, 0, '', NULL, '2024-04-17 16:57:59', NULL, '2024-04-17 16:57:59', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36272, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 16:58:03', '2024-04-17 16:58:03', 22, 0, '', NULL, '2024-04-17 16:58:03', NULL, '2024-04-17 16:58:03', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36273, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/infra/codegen/update', '{\"query\":\"{}\",\"body\":\"{\\\"table\\\":{\\\"id\\\":177,\\\"scene\\\":1,\\\"tableName\\\":\\\"ai_assistant\\\",\\\"tableComment\\\":\\\"AI助手表\\\",\\\"remark\\\":null,\\\"moduleName\\\":\\\"ai\\\",\\\"businessName\\\":\\\"assistant\\\",\\\"className\\\":\\\"Assistant\\\",\\\"classComment\\\":\\\"AI助手\\\",\\\"author\\\":\\\"AiFusion\\\",\\\"templateType\\\":15,\\\"frontType\\\":20,\\\"parentMenuId\\\":2760,\\\"masterTableId\\\":178,\\\"subJoinColumnId\\\":2323,\\\"subJoinMany\\\":true,\\\"treeParentColumnId\\\":null,\\\"treeNameColumnId\\\":null,\\\"dataSourceConfigId\\\":0,\\\"createTime\\\":1713343345000,\\\"updateTime\\\":1713343913000},\\\"columns\\\":[{\\\"id\\\":2320,\\\"tableId\\\":177,\\\"columnName\\\":\\\"id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":true,\\\"autoIncrement\\\":true,\\\"ordinalPosition\\\":1,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"id\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"14878\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2321,\\\"tableId\\\":177,\\\"columnName\\\":\\\"name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"助手名称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":2,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"name\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"张三\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2322,\\\"tableId\\\":177,\\\"columnName\\\":\\\"prompt\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"助手的初始prompt\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":3,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"prompt\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2323,\\\"tableId\\\":177,\\\"columnName\\\":\\\"model_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"AI模型编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":4,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"modelId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"13287\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2324,\\\"tableId\\\":177,\\\"columnName\\\":\\\"notice\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"默认打招呼语\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":5,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"notice\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2325,\\\"tableId\\\":177,\\\"columnName\\\":\\\"round\\\",\\\"dataType\\\":\\\"TINYINT\\\",\\\"columnComment\\\":\\\"记忆对话轮次\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":6,\\\"javaType\\\":\\\"Integer\\\",\\\"javaField\\\":\\\"round\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2326,\\\"tableId\\\":177,\\\"columnName\\\":\\\"remark\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"备注\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":7,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"remark\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2327,\\\"tableId\\\":177,\\\"columnName\\\":\\\"creator\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"创建者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":8,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"creator\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2328,\\\"tableId\\\":177,\\\"columnName\\\":\\\"create_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"创建时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":9,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"createTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2329,\\\"tableId\\\":177,\\\"columnName\\\":\\\"updater\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"更新者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":10,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"updater\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2330,\\\"tableId\\\":177,\\\"columnName\\\":\\\"update_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"更新时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":11,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"updateTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2331,\\\"tableId\\\":177,\\\"columnName\\\":\\\"deleted\\\",\\\"dataType\\\":\\\"BIT\\\",\\\"columnComment\\\":\\\"是否删除\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":12,\\\"javaType\\\":\\\"Boolean\\\",\\\"javaField\\\":\\\"deleted\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"radio\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2332,\\\"tableId\\\":177,\\\"columnName\\\":\\\"tenant_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"租户编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":13,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"tenantId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"16461\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000}]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '更新数据库的表和字段定义', 3, '2024-04-17 16:58:04', '2024-04-17 16:58:04', 97, 0, '', NULL, '2024-04-17 16:58:04', NULL, '2024-04-17 16:58:04', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36274, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/download', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '下载生成代码', 1, '2024-04-17 16:58:06', '2024-04-17 16:58:06', 60, 0, '', NULL, '2024-04-17 16:58:06', NULL, '2024-04-17 16:58:06', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36275, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-data/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典数据', '获得全部字典数据列表', 1, '2024-04-17 16:58:21', '2024-04-17 16:58:21', 43, 0, '', NULL, '2024-04-17 16:58:21', NULL, '2024-04-17 16:58:21', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36276, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-17 16:58:22', '2024-04-17 16:58:22', 44, 0, '', NULL, '2024-04-17 16:58:22', NULL, '2024-04-17 16:58:22', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36277, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-17 16:58:22', '2024-04-17 16:58:23', 20, 0, '', NULL, '2024-04-17 16:58:23', NULL, '2024-04-17 16:58:23', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36278, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-17 16:58:50', '2024-04-17 16:58:50', 37, 0, '', NULL, '2024-04-17 16:58:50', NULL, '2024-04-17 16:58:50', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36279, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-17 16:58:50', '2024-04-17 16:58:50', 21, 0, '', NULL, '2024-04-17 16:58:50', NULL, '2024-04-17 16:58:50', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36280, '', 0, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, NULL, 0, '2024-04-17 17:02:06', '2024-04-17 17:02:06', 13, 0, '', NULL, '2024-04-17 17:02:06', NULL, '2024-04-17 17:02:06', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36281, '', 0, 2, 'ai-fusion-server', 'POST', '/admin-api/system/auth/refresh-token', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 认证', '刷新令牌', 2, '2024-04-17 17:02:06', '2024-04-17 17:02:06', 75, 0, '', NULL, '2024-04-17 17:02:06', NULL, '2024-04-17 17:02:06', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36282, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-17 17:02:06', '2024-04-17 17:02:06', 144, 0, '', NULL, '2024-04-17 17:02:06', NULL, '2024-04-17 17:02:06', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36283, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-data/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典数据', '获得全部字典数据列表', 1, '2024-04-17 17:02:13', '2024-04-17 17:02:13', 41, 0, '', NULL, '2024-04-17 17:02:13', NULL, '2024-04-17 17:02:13', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36284, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/auth/get-permission-info', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 认证', '获取登录用户的权限信息', 1, '2024-04-17 17:02:13', '2024-04-17 17:02:13', 376, 0, '', NULL, '2024-04-17 17:02:13', NULL, '2024-04-17 17:02:13', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36285, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-17 17:02:14', '2024-04-17 17:02:14', 107, 0, '', NULL, '2024-04-17 17:02:14', NULL, '2024-04-17 17:02:14', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36286, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/assistant/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, NULL, 0, '2024-04-17 17:02:17', '2024-04-17 17:02:17', 15, 404, '请求地址不存在:admin-api/ai/assistant/page', NULL, '2024-04-17 17:02:17', NULL, '2024-04-17 17:02:17', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36287, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:02:20', '2024-04-17 17:02:20', 63, 0, '', NULL, '2024-04-17 17:02:20', NULL, '2024-04-17 17:02:20', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36288, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型', 1, '2024-04-17 17:02:22', '2024-04-17 17:02:22', 20, 0, '', NULL, '2024-04-17 17:02:22', NULL, '2024-04-17 17:02:22', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36289, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-17 17:02:44', '2024-04-17 17:02:44', 35, 0, '', NULL, '2024-04-17 17:02:44', NULL, '2024-04-17 17:02:44', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36290, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-17 17:02:44', '2024-04-17 17:02:44', 14, 0, '', NULL, '2024-04-17 17:02:44', NULL, '2024-04-17 17:02:44', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36291, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 17:02:46', '2024-04-17 17:02:46', 21, 0, '', NULL, '2024-04-17 17:02:46', NULL, '2024-04-17 17:02:46', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36292, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 17:02:46', '2024-04-17 17:02:46', 38, 0, '', NULL, '2024-04-17 17:02:46', NULL, '2024-04-17 17:02:46', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36293, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 17:02:46', '2024-04-17 17:02:46', 78, 0, '', NULL, '2024-04-17 17:02:46', NULL, '2024-04-17 17:02:46', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36294, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 17:02:46', '2024-04-17 17:02:46', 20, 0, '', NULL, '2024-04-17 17:02:46', NULL, '2024-04-17 17:02:46', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36295, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 17:02:50', '2024-04-17 17:02:50', 13, 0, '', NULL, '2024-04-17 17:02:50', NULL, '2024-04-17 17:02:50', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36296, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 17:02:50', '2024-04-17 17:02:50', 44, 0, '', NULL, '2024-04-17 17:02:50', NULL, '2024-04-17 17:02:50', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36297, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 17:02:50', '2024-04-17 17:02:50', 93, 0, '', NULL, '2024-04-17 17:02:50', NULL, '2024-04-17 17:02:50', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36298, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 17:02:50', '2024-04-17 17:02:50', 20, 0, '', NULL, '2024-04-17 17:02:50', NULL, '2024-04-17 17:02:50', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36299, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/infra/codegen/update', '{\"query\":\"{}\",\"body\":\"{\\\"table\\\":{\\\"id\\\":177,\\\"scene\\\":1,\\\"tableName\\\":\\\"ai_assistant\\\",\\\"tableComment\\\":\\\"AI助手表\\\",\\\"remark\\\":null,\\\"moduleName\\\":\\\"ai\\\",\\\"businessName\\\":\\\"assistant\\\",\\\"className\\\":\\\"Assistant\\\",\\\"classComment\\\":\\\"AI助手\\\",\\\"author\\\":\\\"AiFusion\\\",\\\"templateType\\\":15,\\\"frontType\\\":20,\\\"parentMenuId\\\":2760,\\\"masterTableId\\\":178,\\\"subJoinColumnId\\\":2323,\\\"subJoinMany\\\":true,\\\"treeParentColumnId\\\":null,\\\"treeNameColumnId\\\":null,\\\"dataSourceConfigId\\\":0,\\\"createTime\\\":1713343345000,\\\"updateTime\\\":1713344284000},\\\"columns\\\":[{\\\"id\\\":2320,\\\"tableId\\\":177,\\\"columnName\\\":\\\"id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":true,\\\"autoIncrement\\\":true,\\\"ordinalPosition\\\":1,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"id\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"14878\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2321,\\\"tableId\\\":177,\\\"columnName\\\":\\\"name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"助手名称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":2,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"name\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"张三\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2322,\\\"tableId\\\":177,\\\"columnName\\\":\\\"prompt\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"初始prompt\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":3,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"prompt\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2323,\\\"tableId\\\":177,\\\"columnName\\\":\\\"model_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"AI模型编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":4,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"modelId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"13287\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2324,\\\"tableId\\\":177,\\\"columnName\\\":\\\"notice\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"打招呼语\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":5,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"notice\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2325,\\\"tableId\\\":177,\\\"columnName\\\":\\\"round\\\",\\\"dataType\\\":\\\"TINYINT\\\",\\\"columnComment\\\":\\\"对话轮次\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":6,\\\"javaType\\\":\\\"Integer\\\",\\\"javaField\\\":\\\"round\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2326,\\\"tableId\\\":177,\\\"columnName\\\":\\\"remark\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"备注\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":7,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"remark\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2327,\\\"tableId\\\":177,\\\"columnName\\\":\\\"creator\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"创建者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":8,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"creator\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2328,\\\"tableId\\\":177,\\\"columnName\\\":\\\"create_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"创建时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":9,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"createTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2329,\\\"tableId\\\":177,\\\"columnName\\\":\\\"updater\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"更新者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":10,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"updater\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2330,\\\"tableId\\\":177,\\\"columnName\\\":\\\"update_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"更新时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":11,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"updateTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2331,\\\"tableId\\\":177,\\\"columnName\\\":\\\"deleted\\\",\\\"dataType\\\":\\\"BIT\\\",\\\"columnComment\\\":\\\"是否删除\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":12,\\\"javaType\\\":\\\"Boolean\\\",\\\"javaField\\\":\\\"deleted\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"radio\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2332,\\\"tableId\\\":177,\\\"columnName\\\":\\\"tenant_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"租户编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":13,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"tenantId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"16461\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000}]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '更新数据库的表和字段定义', 3, '2024-04-17 17:03:23', '2024-04-17 17:03:23', 108, 0, '', NULL, '2024-04-17 17:03:23', NULL, '2024-04-17 17:03:23', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36300, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/download', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '下载生成代码', 1, '2024-04-17 17:03:25', '2024-04-17 17:03:25', 64, 0, '', NULL, '2024-04-17 17:03:25', NULL, '2024-04-17 17:03:25', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36301, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-data/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典数据', '获得全部字典数据列表', 1, '2024-04-17 17:03:39', '2024-04-17 17:03:39', 35, 0, '', NULL, '2024-04-17 17:03:39', NULL, '2024-04-17 17:03:39', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36302, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-17 17:03:40', '2024-04-17 17:03:40', 31, 0, '', NULL, '2024-04-17 17:03:40', NULL, '2024-04-17 17:03:40', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36303, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-17 17:03:40', '2024-04-17 17:03:40', 13, 0, '', NULL, '2024-04-17 17:03:40', NULL, '2024-04-17 17:03:40', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36304, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-data/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典数据', '获得全部字典数据列表', 1, '2024-04-17 17:25:13', '2024-04-17 17:25:13', 345, 0, '', NULL, '2024-04-17 17:25:13', NULL, '2024-04-17 17:25:13', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36305, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-17 17:25:14', '2024-04-17 17:25:14', 139, 0, '', NULL, '2024-04-17 17:25:14', NULL, '2024-04-17 17:25:14', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36306, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-17 17:25:14', '2024-04-17 17:25:14', 30, 0, '', NULL, '2024-04-17 17:25:14', NULL, '2024-04-17 17:25:14', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36307, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 17:25:16', '2024-04-17 17:25:16', 44, 0, '', NULL, '2024-04-17 17:25:16', NULL, '2024-04-17 17:25:16', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36308, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 17:25:16', '2024-04-17 17:25:16', 109, 0, '', NULL, '2024-04-17 17:25:16', NULL, '2024-04-17 17:25:16', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36309, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 17:25:16', '2024-04-17 17:25:17', 152, 0, '', NULL, '2024-04-17 17:25:17', NULL, '2024-04-17 17:25:17', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36310, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 17:25:17', '2024-04-17 17:25:17', 29, 0, '', NULL, '2024-04-17 17:25:17', NULL, '2024-04-17 17:25:17', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36311, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 17:25:23', '2024-04-17 17:25:23', 23, 0, '', NULL, '2024-04-17 17:25:23', NULL, '2024-04-17 17:25:23', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36312, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 17:25:23', '2024-04-17 17:25:23', 49, 0, '', NULL, '2024-04-17 17:25:23', NULL, '2024-04-17 17:25:23', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36313, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 17:25:23', '2024-04-17 17:25:23', 83, 0, '', NULL, '2024-04-17 17:25:23', NULL, '2024-04-17 17:25:23', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36314, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 17:25:24', '2024-04-17 17:25:24', 26, 0, '', NULL, '2024-04-17 17:25:24', NULL, '2024-04-17 17:25:24', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36315, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 17:25:29', '2024-04-17 17:25:29', 24, 0, '', NULL, '2024-04-17 17:25:29', NULL, '2024-04-17 17:25:29', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36316, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/infra/codegen/update', '{\"query\":\"{}\",\"body\":\"{\\\"table\\\":{\\\"id\\\":178,\\\"scene\\\":1,\\\"tableName\\\":\\\"ai_model\\\",\\\"tableComment\\\":\\\"AI模型表\\\",\\\"remark\\\":null,\\\"moduleName\\\":\\\"ai\\\",\\\"businessName\\\":\\\"model\\\",\\\"className\\\":\\\"Model\\\",\\\"classComment\\\":\\\"AI模型\\\",\\\"author\\\":\\\"AiFusion\\\",\\\"templateType\\\":11,\\\"frontType\\\":20,\\\"parentMenuId\\\":2760,\\\"masterTableId\\\":null,\\\"subJoinColumnId\\\":null,\\\"subJoinMany\\\":null,\\\"treeParentColumnId\\\":null,\\\"treeNameColumnId\\\":null,\\\"dataSourceConfigId\\\":0,\\\"createTime\\\":1713343419000,\\\"updateTime\\\":1713343779000},\\\"columns\\\":[{\\\"id\\\":2333,\\\"tableId\\\":178,\\\"columnName\\\":\\\"id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":true,\\\"autoIncrement\\\":true,\\\"ordinalPosition\\\":1,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"id\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"21093\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2334,\\\"tableId\\\":178,\\\"columnName\\\":\\\"name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型名称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":2,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"name\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"AI-Fusion\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2335,\\\"tableId\\\":178,\\\"columnName\\\":\\\"api_key\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型ApiKey\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":3,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"apiKey\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2336,\\\"tableId\\\":178,\\\"columnName\\\":\\\"model_name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"官方英文称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":4,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"modelName\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"AI-Fusion\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2337,\\\"tableId\\\":178,\\\"columnName\\\":\\\"model_type\\\",\\\"dataType\\\":\\\"TINYINT\\\",\\\"columnComment\\\":\\\"模型类型\\\\t1.openai\\\\t2.google\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":5,\\\"javaType\\\":\\\"Integer\\\",\\\"javaField\\\":\\\"modelType\\\",\\\"dictType\\\":\\\"ai_model_type\\\",\\\"example\\\":\\\"1\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"select\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2338,\\\"tableId\\\":178,\\\"columnName\\\":\\\"remark\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"备注\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":6,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"remark\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2339,\\\"tableId\\\":178,\\\"columnName\\\":\\\"creator\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"创建者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":7,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"creator\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2340,\\\"tableId\\\":178,\\\"columnName\\\":\\\"create_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"创建时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":8,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"createTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2341,\\\"tableId\\\":178,\\\"columnName\\\":\\\"updater\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"更新者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":9,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"updater\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2342,\\\"tableId\\\":178,\\\"columnName\\\":\\\"update_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"更新时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":10,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"updateTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2343,\\\"tableId\\\":178,\\\"columnName\\\":\\\"deleted\\\",\\\"dataType\\\":\\\"BIT\\\",\\\"columnComment\\\":\\\"是否删除\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":11,\\\"javaType\\\":\\\"Boolean\\\",\\\"javaField\\\":\\\"deleted\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"radio\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2344,\\\"tableId\\\":178,\\\"columnName\\\":\\\"tenant_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"租户编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":12,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"tenantId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"31386\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000}]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '更新数据库的表和字段定义', 3, '2024-04-17 17:26:18', '2024-04-17 17:26:18', 154, 0, '', NULL, '2024-04-17 17:26:18', NULL, '2024-04-17 17:26:18', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36317, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 17:26:20', '2024-04-17 17:26:20', 20, 0, '', NULL, '2024-04-17 17:26:20', NULL, '2024-04-17 17:26:20', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36318, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 17:26:20', '2024-04-17 17:26:20', 45, 0, '', NULL, '2024-04-17 17:26:20', NULL, '2024-04-17 17:26:20', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36319, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 17:26:20', '2024-04-17 17:26:20', 84, 0, '', NULL, '2024-04-17 17:26:20', NULL, '2024-04-17 17:26:20', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36320, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 17:26:21', '2024-04-17 17:26:21', 23, 0, '', NULL, '2024-04-17 17:26:21', NULL, '2024-04-17 17:26:21', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36321, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 17:26:23', '2024-04-17 17:26:23', 22, 0, '', NULL, '2024-04-17 17:26:23', NULL, '2024-04-17 17:26:23', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36322, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/infra/codegen/update', '{\"query\":\"{}\",\"body\":\"{\\\"table\\\":{\\\"id\\\":177,\\\"scene\\\":1,\\\"tableName\\\":\\\"ai_assistant\\\",\\\"tableComment\\\":\\\"AI助手表\\\",\\\"remark\\\":null,\\\"moduleName\\\":\\\"ai\\\",\\\"businessName\\\":\\\"model\\\",\\\"className\\\":\\\"Assistant\\\",\\\"classComment\\\":\\\"AI助手\\\",\\\"author\\\":\\\"AiFusion\\\",\\\"templateType\\\":15,\\\"frontType\\\":20,\\\"parentMenuId\\\":2760,\\\"masterTableId\\\":178,\\\"subJoinColumnId\\\":2323,\\\"subJoinMany\\\":true,\\\"treeParentColumnId\\\":null,\\\"treeNameColumnId\\\":null,\\\"dataSourceConfigId\\\":0,\\\"createTime\\\":1713343345000,\\\"updateTime\\\":1713344603000},\\\"columns\\\":[{\\\"id\\\":2320,\\\"tableId\\\":177,\\\"columnName\\\":\\\"id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":true,\\\"autoIncrement\\\":true,\\\"ordinalPosition\\\":1,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"id\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"14878\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2321,\\\"tableId\\\":177,\\\"columnName\\\":\\\"name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"助手名称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":2,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"name\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"张三\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2322,\\\"tableId\\\":177,\\\"columnName\\\":\\\"prompt\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"初始prompt\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":3,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"prompt\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2323,\\\"tableId\\\":177,\\\"columnName\\\":\\\"model_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"AI模型编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":4,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"modelId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"13287\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2324,\\\"tableId\\\":177,\\\"columnName\\\":\\\"notice\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"打招呼语\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":5,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"notice\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2325,\\\"tableId\\\":177,\\\"columnName\\\":\\\"round\\\",\\\"dataType\\\":\\\"TINYINT\\\",\\\"columnComment\\\":\\\"对话轮次\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":6,\\\"javaType\\\":\\\"Integer\\\",\\\"javaField\\\":\\\"round\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2326,\\\"tableId\\\":177,\\\"columnName\\\":\\\"remark\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"备注\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":7,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"remark\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2327,\\\"tableId\\\":177,\\\"columnName\\\":\\\"creator\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"创建者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":8,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"creator\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2328,\\\"tableId\\\":177,\\\"columnName\\\":\\\"create_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"创建时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":9,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"createTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2329,\\\"tableId\\\":177,\\\"columnName\\\":\\\"updater\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"更新者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":10,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"updater\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2330,\\\"tableId\\\":177,\\\"columnName\\\":\\\"update_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"更新时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":11,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"updateTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2331,\\\"tableId\\\":177,\\\"columnName\\\":\\\"deleted\\\",\\\"dataType\\\":\\\"BIT\\\",\\\"columnComment\\\":\\\"是否删除\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":12,\\\"javaType\\\":\\\"Boolean\\\",\\\"javaField\\\":\\\"deleted\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"radio\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2332,\\\"tableId\\\":177,\\\"columnName\\\":\\\"tenant_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"租户编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":13,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"tenantId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"16461\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000}]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '更新数据库的表和字段定义', 3, '2024-04-17 17:26:33', '2024-04-17 17:26:33', 107, 0, '', NULL, '2024-04-17 17:26:33', NULL, '2024-04-17 17:26:33', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36323, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/download', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '下载生成代码', 1, '2024-04-17 17:26:47', '2024-04-17 17:26:47', 279, 0, '', NULL, '2024-04-17 17:26:47', NULL, '2024-04-17 17:26:47', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36324, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/download', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '下载生成代码', 1, '2024-04-17 17:26:48', '2024-04-17 17:26:48', 76, 0, '', NULL, '2024-04-17 17:26:48', NULL, '2024-04-17 17:26:48', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36325, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-data/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典数据', '获得全部字典数据列表', 1, '2024-04-17 17:27:20', '2024-04-17 17:27:20', 72, 0, '', NULL, '2024-04-17 17:27:20', NULL, '2024-04-17 17:27:20', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36326, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-17 17:27:21', '2024-04-17 17:27:21', 48, 0, '', NULL, '2024-04-17 17:27:21', NULL, '2024-04-17 17:27:21', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36327, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-17 17:27:22', '2024-04-17 17:27:22', 23, 0, '', NULL, '2024-04-17 17:27:22', NULL, '2024-04-17 17:27:22', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36328, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-17 17:27:46', '2024-04-17 17:27:46', 44, 0, '', NULL, '2024-04-17 17:27:46', NULL, '2024-04-17 17:27:46', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36329, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-17 17:27:46', '2024-04-17 17:27:46', 18, 0, '', NULL, '2024-04-17 17:27:46', NULL, '2024-04-17 17:27:46', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36330, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 17:28:08', '2024-04-17 17:28:08', 20, 0, '', NULL, '2024-04-17 17:28:08', NULL, '2024-04-17 17:28:08', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36331, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 17:28:08', '2024-04-17 17:28:08', 49, 0, '', NULL, '2024-04-17 17:28:08', NULL, '2024-04-17 17:28:08', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36332, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 17:28:08', '2024-04-17 17:28:08', 87, 0, '', NULL, '2024-04-17 17:28:08', NULL, '2024-04-17 17:28:08', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36333, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 17:28:09', '2024-04-17 17:28:09', 23, 0, '', NULL, '2024-04-17 17:28:09', NULL, '2024-04-17 17:28:09', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36334, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 17:32:01', '2024-04-17 17:32:01', 19, 0, '', NULL, '2024-04-17 17:32:01', NULL, '2024-04-17 17:32:01', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36335, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 17:32:01', '2024-04-17 17:32:01', 85, 0, '', NULL, '2024-04-17 17:32:01', NULL, '2024-04-17 17:32:01', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36336, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 17:32:01', '2024-04-17 17:32:01', 135, 0, '', NULL, '2024-04-17 17:32:01', NULL, '2024-04-17 17:32:01', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36337, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 17:32:02', '2024-04-17 17:32:02', 22, 0, '', NULL, '2024-04-17 17:32:02', NULL, '2024-04-17 17:32:02', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36338, '', 0, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, NULL, 0, '2024-04-17 17:32:11', '2024-04-17 17:32:11', 29, 0, '', NULL, '2024-04-17 17:32:11', NULL, '2024-04-17 17:32:11', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36339, '', 0, 2, 'ai-fusion-server', 'POST', '/admin-api/system/auth/refresh-token', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 认证', '刷新令牌', 2, '2024-04-17 17:32:11', '2024-04-17 17:32:11', 123, 0, '', NULL, '2024-04-17 17:32:11', NULL, '2024-04-17 17:32:11', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36340, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 17:32:11', '2024-04-17 17:32:11', 18, 0, '', NULL, '2024-04-17 17:32:11', NULL, '2024-04-17 17:32:11', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36341, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/infra/codegen/update', '{\"query\":\"{}\",\"body\":\"{\\\"table\\\":{\\\"id\\\":178,\\\"scene\\\":1,\\\"tableName\\\":\\\"ai_model\\\",\\\"tableComment\\\":\\\"AI模型表\\\",\\\"remark\\\":null,\\\"moduleName\\\":\\\"ai\\\",\\\"businessName\\\":\\\"model\\\",\\\"className\\\":\\\"Model\\\",\\\"classComment\\\":\\\"AI模型\\\",\\\"author\\\":\\\"AiFusion\\\",\\\"templateType\\\":10,\\\"frontType\\\":20,\\\"parentMenuId\\\":2760,\\\"masterTableId\\\":null,\\\"subJoinColumnId\\\":null,\\\"subJoinMany\\\":null,\\\"treeParentColumnId\\\":null,\\\"treeNameColumnId\\\":null,\\\"dataSourceConfigId\\\":0,\\\"createTime\\\":1713343419000,\\\"updateTime\\\":1713345978000},\\\"columns\\\":[{\\\"id\\\":2333,\\\"tableId\\\":178,\\\"columnName\\\":\\\"id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":true,\\\"autoIncrement\\\":true,\\\"ordinalPosition\\\":1,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"id\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"21093\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2334,\\\"tableId\\\":178,\\\"columnName\\\":\\\"name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型名称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":2,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"name\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"AI-Fusion\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2335,\\\"tableId\\\":178,\\\"columnName\\\":\\\"api_key\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型ApiKey\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":3,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"apiKey\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2336,\\\"tableId\\\":178,\\\"columnName\\\":\\\"model_name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"官方英文称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":4,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"modelName\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"AI-Fusion\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2337,\\\"tableId\\\":178,\\\"columnName\\\":\\\"model_type\\\",\\\"dataType\\\":\\\"TINYINT\\\",\\\"columnComment\\\":\\\"模型类型\\\\t1.openai\\\\t2.google\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":5,\\\"javaType\\\":\\\"Integer\\\",\\\"javaField\\\":\\\"modelType\\\",\\\"dictType\\\":\\\"ai_model_type\\\",\\\"example\\\":\\\"1\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"select\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2338,\\\"tableId\\\":178,\\\"columnName\\\":\\\"remark\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"备注\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":6,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"remark\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2339,\\\"tableId\\\":178,\\\"columnName\\\":\\\"creator\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"创建者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":7,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"creator\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2340,\\\"tableId\\\":178,\\\"columnName\\\":\\\"create_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"创建时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":8,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"createTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2341,\\\"tableId\\\":178,\\\"columnName\\\":\\\"updater\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"更新者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":9,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"updater\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2342,\\\"tableId\\\":178,\\\"columnName\\\":\\\"update_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"更新时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":10,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"updateTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2343,\\\"tableId\\\":178,\\\"columnName\\\":\\\"deleted\\\",\\\"dataType\\\":\\\"BIT\\\",\\\"columnComment\\\":\\\"是否删除\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":11,\\\"javaType\\\":\\\"Boolean\\\",\\\"javaField\\\":\\\"deleted\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"radio\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2344,\\\"tableId\\\":178,\\\"columnName\\\":\\\"tenant_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"租户编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":12,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"tenantId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"31386\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000}]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '更新数据库的表和字段定义', 3, '2024-04-17 17:32:12', '2024-04-17 17:32:12', 83, 0, '', NULL, '2024-04-17 17:32:12', NULL, '2024-04-17 17:32:12', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36342, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/download', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '下载生成代码', 1, '2024-04-17 17:32:15', '2024-04-17 17:32:15', 111, 0, '', NULL, '2024-04-17 17:32:15', NULL, '2024-04-17 17:32:15', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36343, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-data/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典数据', '获得全部字典数据列表', 1, '2024-04-17 17:34:44', '2024-04-17 17:34:45', 446, 0, '', NULL, '2024-04-17 17:34:45', NULL, '2024-04-17 17:34:45', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36344, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-17 17:34:45', '2024-04-17 17:34:46', 174, 0, '', NULL, '2024-04-17 17:34:46', NULL, '2024-04-17 17:34:46', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36345, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-17 17:34:46', '2024-04-17 17:34:46', 121, 0, '', NULL, '2024-04-17 17:34:46', NULL, '2024-04-17 17:34:46', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36346, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/assistant/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, NULL, 0, '2024-04-17 17:34:48', '2024-04-17 17:34:48', 34, 404, '请求地址不存在:admin-api/ai/assistant/page', NULL, '2024-04-17 17:34:48', NULL, '2024-04-17 17:34:48', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36347, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/assistant/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, NULL, 0, '2024-04-17 17:34:54', '2024-04-17 17:34:54', 13, 404, '请求地址不存在:admin-api/ai/assistant/page', NULL, '2024-04-17 17:34:54', NULL, '2024-04-17 17:34:54', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36348, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/assistant/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, NULL, 0, '2024-04-17 17:34:56', '2024-04-17 17:34:56', 15, 404, '请求地址不存在:admin-api/ai/assistant/page', NULL, '2024-04-17 17:34:56', NULL, '2024-04-17 17:34:56', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36349, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/assistant/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, NULL, 0, '2024-04-17 17:35:10', '2024-04-17 17:35:10', 11, 404, '请求地址不存在:admin-api/ai/assistant/page', NULL, '2024-04-17 17:35:10', NULL, '2024-04-17 17:35:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36350, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-data/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典数据', '获得全部字典数据列表', 1, '2024-04-17 17:35:48', '2024-04-17 17:35:48', 53, 0, '', NULL, '2024-04-17 17:35:48', NULL, '2024-04-17 17:35:48', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36351, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:35:48', '2024-04-17 17:35:48', 46, 0, '', NULL, '2024-04-17 17:35:48', NULL, '2024-04-17 17:35:48', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36352, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生分页', 1, '2024-04-17 17:36:40', '2024-04-17 17:36:40', 89, 0, '', NULL, '2024-04-17 17:36:40', NULL, '2024-04-17 17:36:40', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36353, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-grade/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生班级分页', 1, '2024-04-17 17:36:45', '2024-04-17 17:36:45', 56, 0, '', NULL, '2024-04-17 17:36:45', NULL, '2024-04-17 17:36:45', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36354, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-course/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生课程分页', 1, '2024-04-17 17:36:45', '2024-04-17 17:36:45', 56, 0, '', NULL, '2024-04-17 17:36:45', NULL, '2024-04-17 17:36:45', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36355, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-course/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生课程分页', 1, '2024-04-17 17:36:45', '2024-04-17 17:36:45', 35, 0, '', NULL, '2024-04-17 17:36:45', NULL, '2024-04-17 17:36:45', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36356, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-grade/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生班级分页', 1, '2024-04-17 17:36:45', '2024-04-17 17:36:45', 35, 0, '', NULL, '2024-04-17 17:36:45', NULL, '2024-04-17 17:36:45', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36357, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-course/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生课程分页', 1, '2024-04-17 17:36:46', '2024-04-17 17:36:46', 34, 0, '', NULL, '2024-04-17 17:36:46', NULL, '2024-04-17 17:36:46', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36358, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-grade/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生班级分页', 1, '2024-04-17 17:36:46', '2024-04-17 17:36:46', 34, 0, '', NULL, '2024-04-17 17:36:46', NULL, '2024-04-17 17:36:46', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36359, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-course/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生课程分页', 1, '2024-04-17 17:36:48', '2024-04-17 17:36:48', 35, 0, '', NULL, '2024-04-17 17:36:48', NULL, '2024-04-17 17:36:48', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36360, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-grade/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生班级分页', 1, '2024-04-17 17:36:48', '2024-04-17 17:36:48', 35, 0, '', NULL, '2024-04-17 17:36:48', NULL, '2024-04-17 17:36:48', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36361, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-course/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生课程分页', 1, '2024-04-17 17:36:49', '2024-04-17 17:36:49', 35, 0, '', NULL, '2024-04-17 17:36:49', NULL, '2024-04-17 17:36:49', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36362, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-grade/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生班级分页', 1, '2024-04-17 17:36:49', '2024-04-17 17:36:49', 35, 0, '', NULL, '2024-04-17 17:36:49', NULL, '2024-04-17 17:36:49', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36363, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生分页', 1, '2024-04-17 17:36:51', '2024-04-17 17:36:51', 35, 0, '', NULL, '2024-04-17 17:36:51', NULL, '2024-04-17 17:36:51', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36364, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生', 1, '2024-04-17 17:36:56', '2024-04-17 17:36:56', 30, 0, '', NULL, '2024-04-17 17:36:56', NULL, '2024-04-17 17:36:56', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36365, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-course/list-by-student-id', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生课程列表', 1, '2024-04-17 17:36:56', '2024-04-17 17:36:56', 27, 0, '', NULL, '2024-04-17 17:36:56', NULL, '2024-04-17 17:36:56', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36366, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-grade/get-by-student-id', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生班级', 1, '2024-04-17 17:36:56', '2024-04-17 17:36:56', 27, 0, '', NULL, '2024-04-17 17:36:56', NULL, '2024-04-17 17:36:56', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36367, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生分页', 1, '2024-04-17 17:36:59', '2024-04-17 17:36:59', 30, 0, '', NULL, '2024-04-17 17:36:59', NULL, '2024-04-17 17:36:59', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36368, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生', 1, '2024-04-17 17:37:04', '2024-04-17 17:37:04', 22, 0, '', NULL, '2024-04-17 17:37:04', NULL, '2024-04-17 17:37:04', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36369, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-grade/get-by-student-id', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生班级', 1, '2024-04-17 17:37:04', '2024-04-17 17:37:04', 24, 0, '', NULL, '2024-04-17 17:37:04', NULL, '2024-04-17 17:37:04', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36370, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-course/list-by-student-id', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生课程列表', 1, '2024-04-17 17:37:04', '2024-04-17 17:37:04', 24, 0, '', NULL, '2024-04-17 17:37:04', NULL, '2024-04-17 17:37:04', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36371, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生分页', 1, '2024-04-17 17:37:10', '2024-04-17 17:37:10', 41, 0, '', NULL, '2024-04-17 17:37:10', NULL, '2024-04-17 17:37:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36372, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生', 1, '2024-04-17 17:37:11', '2024-04-17 17:37:11', 20, 0, '', NULL, '2024-04-17 17:37:11', NULL, '2024-04-17 17:37:11', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36373, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-grade/get-by-student-id', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生班级', 1, '2024-04-17 17:37:11', '2024-04-17 17:37:11', 23, 0, '', NULL, '2024-04-17 17:37:11', NULL, '2024-04-17 17:37:11', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36374, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-course/list-by-student-id', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生课程列表', 1, '2024-04-17 17:37:11', '2024-04-17 17:37:11', 24, 0, '', NULL, '2024-04-17 17:37:11', NULL, '2024-04-17 17:37:11', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36375, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生分页', 1, '2024-04-17 17:37:14', '2024-04-17 17:37:14', 36, 0, '', NULL, '2024-04-17 17:37:14', NULL, '2024-04-17 17:37:14', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36376, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-course/list-by-student-id', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生课程列表', 1, '2024-04-17 17:37:27', '2024-04-17 17:37:27', 20, 0, '', NULL, '2024-04-17 17:37:27', NULL, '2024-04-17 17:37:27', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36377, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-grade/get-by-student-id', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生班级', 1, '2024-04-17 17:37:27', '2024-04-17 17:37:27', 20, 0, '', NULL, '2024-04-17 17:37:27', NULL, '2024-04-17 17:37:27', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36378, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生分页', 1, '2024-04-17 17:37:38', '2024-04-17 17:37:38', 30, 0, '', NULL, '2024-04-17 17:37:38', NULL, '2024-04-17 17:37:38', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36379, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo01-contact/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 示例联系人', '获得示例联系人分页', 1, '2024-04-17 17:37:47', '2024-04-17 17:37:47', 86, 0, '', NULL, '2024-04-17 17:37:47', NULL, '2024-04-17 17:37:47', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36380, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo02-category/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 示例分类', '获得示例分类列表', 1, '2024-04-17 17:37:50', '2024-04-17 17:37:50', 69, 0, '', NULL, '2024-04-17 17:37:50', NULL, '2024-04-17 17:37:50', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36381, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生分页', 1, '2024-04-17 17:37:59', '2024-04-17 17:37:59', 30, 0, '', NULL, '2024-04-17 17:37:59', NULL, '2024-04-17 17:37:59', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36382, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生分页', 1, '2024-04-17 17:38:03', '2024-04-17 17:38:03', 31, 0, '', NULL, '2024-04-17 17:38:03', NULL, '2024-04-17 17:38:03', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36383, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生分页', 1, '2024-04-17 17:38:06', '2024-04-17 17:38:06', 33, 0, '', NULL, '2024-04-17 17:38:06', NULL, '2024-04-17 17:38:06', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36384, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-grade/get-by-student-id', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生班级', 1, '2024-04-17 17:38:07', '2024-04-17 17:38:07', 23, 0, '', NULL, '2024-04-17 17:38:07', NULL, '2024-04-17 17:38:07', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36385, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-course/list-by-student-id', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生课程列表', 1, '2024-04-17 17:38:07', '2024-04-17 17:38:07', 23, 0, '', NULL, '2024-04-17 17:38:07', NULL, '2024-04-17 17:38:07', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36386, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生分页', 1, '2024-04-17 17:38:09', '2024-04-17 17:38:09', 34, 0, '', NULL, '2024-04-17 17:38:09', NULL, '2024-04-17 17:38:09', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36387, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生', 1, '2024-04-17 17:38:10', '2024-04-17 17:38:10', 19, 0, '', NULL, '2024-04-17 17:38:10', NULL, '2024-04-17 17:38:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36388, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-course/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生课程分页', 1, '2024-04-17 17:38:10', '2024-04-17 17:38:10', 35, 0, '', NULL, '2024-04-17 17:38:10', NULL, '2024-04-17 17:38:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36389, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-grade/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生班级分页', 1, '2024-04-17 17:38:10', '2024-04-17 17:38:10', 35, 0, '', NULL, '2024-04-17 17:38:10', NULL, '2024-04-17 17:38:10', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36390, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-grade/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生班级分页', 1, '2024-04-17 17:38:14', '2024-04-17 17:38:14', 34, 0, '', NULL, '2024-04-17 17:38:14', NULL, '2024-04-17 17:38:14', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36391, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-course/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生课程分页', 1, '2024-04-17 17:38:14', '2024-04-17 17:38:14', 34, 0, '', NULL, '2024-04-17 17:38:14', NULL, '2024-04-17 17:38:14', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36392, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-course/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生课程分页', 1, '2024-04-17 17:38:15', '2024-04-17 17:38:15', 33, 0, '', NULL, '2024-04-17 17:38:15', NULL, '2024-04-17 17:38:15', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36393, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/demo03-student/demo03-grade/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 学生', '获得学生班级分页', 1, '2024-04-17 17:38:15', '2024-04-17 17:38:15', 33, 0, '', NULL, '2024-04-17 17:38:15', NULL, '2024-04-17 17:38:15', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36394, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-17 17:40:21', '2024-04-17 17:40:21', 50, 0, '', NULL, '2024-04-17 17:40:21', NULL, '2024-04-17 17:40:21', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36395, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-17 17:40:21', '2024-04-17 17:40:21', 19, 0, '', NULL, '2024-04-17 17:40:21', NULL, '2024-04-17 17:40:21', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36396, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 17:40:26', '2024-04-17 17:40:26', 42, 0, '', NULL, '2024-04-17 17:40:26', NULL, '2024-04-17 17:40:26', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36397, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 17:40:26', '2024-04-17 17:40:26', 109, 0, '', NULL, '2024-04-17 17:40:26', NULL, '2024-04-17 17:40:26', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36398, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 17:40:26', '2024-04-17 17:40:26', 136, 0, '', NULL, '2024-04-17 17:40:26', NULL, '2024-04-17 17:40:26', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36399, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 17:40:27', '2024-04-17 17:40:27', 27, 0, '', NULL, '2024-04-17 17:40:27', NULL, '2024-04-17 17:40:27', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36400, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 17:40:30', '2024-04-17 17:40:30', 28, 0, '', NULL, '2024-04-17 17:40:30', NULL, '2024-04-17 17:40:30', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36401, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/infra/codegen/update', '{\"query\":\"{}\",\"body\":\"{\\\"table\\\":{\\\"id\\\":178,\\\"scene\\\":1,\\\"tableName\\\":\\\"ai_model\\\",\\\"tableComment\\\":\\\"AI模型表\\\",\\\"remark\\\":null,\\\"moduleName\\\":\\\"ai\\\",\\\"businessName\\\":\\\"model\\\",\\\"className\\\":\\\"Model\\\",\\\"classComment\\\":\\\"AI模型\\\",\\\"author\\\":\\\"AiFusion\\\",\\\"templateType\\\":11,\\\"frontType\\\":20,\\\"parentMenuId\\\":2760,\\\"masterTableId\\\":null,\\\"subJoinColumnId\\\":null,\\\"subJoinMany\\\":null,\\\"treeParentColumnId\\\":null,\\\"treeNameColumnId\\\":null,\\\"dataSourceConfigId\\\":0,\\\"createTime\\\":1713343419000,\\\"updateTime\\\":1713346332000},\\\"columns\\\":[{\\\"id\\\":2333,\\\"tableId\\\":178,\\\"columnName\\\":\\\"id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":true,\\\"autoIncrement\\\":true,\\\"ordinalPosition\\\":1,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"id\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"21093\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2334,\\\"tableId\\\":178,\\\"columnName\\\":\\\"name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型名称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":2,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"name\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"AI-Fusion\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2335,\\\"tableId\\\":178,\\\"columnName\\\":\\\"api_key\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型ApiKey\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":3,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"apiKey\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2336,\\\"tableId\\\":178,\\\"columnName\\\":\\\"model_name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"官方英文称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":4,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"modelName\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"AI-Fusion\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2337,\\\"tableId\\\":178,\\\"columnName\\\":\\\"model_type\\\",\\\"dataType\\\":\\\"TINYINT\\\",\\\"columnComment\\\":\\\"模型类型\\\\t1.openai\\\\t2.google\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":5,\\\"javaType\\\":\\\"Integer\\\",\\\"javaField\\\":\\\"modelType\\\",\\\"dictType\\\":\\\"ai_model_type\\\",\\\"example\\\":\\\"1\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"select\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2338,\\\"tableId\\\":178,\\\"columnName\\\":\\\"remark\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"备注\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":6,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"remark\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2339,\\\"tableId\\\":178,\\\"columnName\\\":\\\"creator\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"创建者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":7,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"creator\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2340,\\\"tableId\\\":178,\\\"columnName\\\":\\\"create_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"创建时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":8,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"createTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2341,\\\"tableId\\\":178,\\\"columnName\\\":\\\"updater\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"更新者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":9,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"updater\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2342,\\\"tableId\\\":178,\\\"columnName\\\":\\\"update_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"更新时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":10,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"updateTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2343,\\\"tableId\\\":178,\\\"columnName\\\":\\\"deleted\\\",\\\"dataType\\\":\\\"BIT\\\",\\\"columnComment\\\":\\\"是否删除\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":11,\\\"javaType\\\":\\\"Boolean\\\",\\\"javaField\\\":\\\"deleted\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"radio\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2344,\\\"tableId\\\":178,\\\"columnName\\\":\\\"tenant_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"租户编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":12,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"tenantId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"31386\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000}]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '更新数据库的表和字段定义', 3, '2024-04-17 17:40:31', '2024-04-17 17:40:31', 170, 0, '', NULL, '2024-04-17 17:40:31', NULL, '2024-04-17 17:40:31', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36402, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 17:40:34', '2024-04-17 17:40:34', 27, 0, '', NULL, '2024-04-17 17:40:34', NULL, '2024-04-17 17:40:34', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36403, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 17:40:34', '2024-04-17 17:40:34', 65, 0, '', NULL, '2024-04-17 17:40:34', NULL, '2024-04-17 17:40:34', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36404, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 17:40:34', '2024-04-17 17:40:34', 106, 0, '', NULL, '2024-04-17 17:40:34', NULL, '2024-04-17 17:40:34', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36405, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 17:40:35', '2024-04-17 17:40:35', 27, 0, '', NULL, '2024-04-17 17:40:35', NULL, '2024-04-17 17:40:35', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36406, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/infra/codegen/update', '{\"query\":\"{}\",\"body\":\"{\\\"table\\\":{\\\"id\\\":177,\\\"scene\\\":1,\\\"tableName\\\":\\\"ai_assistant\\\",\\\"tableComment\\\":\\\"AI助手表\\\",\\\"remark\\\":null,\\\"moduleName\\\":\\\"ai\\\",\\\"businessName\\\":\\\"model\\\",\\\"className\\\":\\\"Assistant\\\",\\\"classComment\\\":\\\"AI助手\\\",\\\"author\\\":\\\"AiFusion\\\",\\\"templateType\\\":15,\\\"frontType\\\":20,\\\"parentMenuId\\\":2760,\\\"masterTableId\\\":178,\\\"subJoinColumnId\\\":2323,\\\"subJoinMany\\\":true,\\\"treeParentColumnId\\\":null,\\\"treeNameColumnId\\\":null,\\\"dataSourceConfigId\\\":0,\\\"createTime\\\":1713343345000,\\\"updateTime\\\":1713345993000},\\\"columns\\\":[{\\\"id\\\":2320,\\\"tableId\\\":177,\\\"columnName\\\":\\\"id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":true,\\\"autoIncrement\\\":true,\\\"ordinalPosition\\\":1,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"id\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"14878\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2321,\\\"tableId\\\":177,\\\"columnName\\\":\\\"name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"助手名称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":2,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"name\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"张三\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2322,\\\"tableId\\\":177,\\\"columnName\\\":\\\"prompt\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"初始prompt\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":3,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"prompt\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2323,\\\"tableId\\\":177,\\\"columnName\\\":\\\"model_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"AI模型编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":4,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"modelId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"13287\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2324,\\\"tableId\\\":177,\\\"columnName\\\":\\\"notice\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"打招呼语\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":5,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"notice\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2325,\\\"tableId\\\":177,\\\"columnName\\\":\\\"round\\\",\\\"dataType\\\":\\\"TINYINT\\\",\\\"columnComment\\\":\\\"对话轮次\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":6,\\\"javaType\\\":\\\"Integer\\\",\\\"javaField\\\":\\\"round\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2326,\\\"tableId\\\":177,\\\"columnName\\\":\\\"remark\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"备注\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":7,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"remark\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2327,\\\"tableId\\\":177,\\\"columnName\\\":\\\"creator\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"创建者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":8,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"creator\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2328,\\\"tableId\\\":177,\\\"columnName\\\":\\\"create_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"创建时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":9,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"createTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2329,\\\"tableId\\\":177,\\\"columnName\\\":\\\"updater\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"更新者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":10,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"updater\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2330,\\\"tableId\\\":177,\\\"columnName\\\":\\\"update_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"更新时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":11,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"updateTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2331,\\\"tableId\\\":177,\\\"columnName\\\":\\\"deleted\\\",\\\"dataType\\\":\\\"BIT\\\",\\\"columnComment\\\":\\\"是否删除\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":12,\\\"javaType\\\":\\\"Boolean\\\",\\\"javaField\\\":\\\"deleted\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"radio\\\",\\\"createTime\\\":1713343345000},{\\\"id\\\":2332,\\\"tableId\\\":177,\\\"columnName\\\":\\\"tenant_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"租户编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":13,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"tenantId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"16461\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343345000}]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '更新数据库的表和字段定义', 3, '2024-04-17 17:40:55', '2024-04-17 17:40:55', 115, 0, '', NULL, '2024-04-17 17:40:55', NULL, '2024-04-17 17:40:55', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36407, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/download', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '下载生成代码', 1, '2024-04-17 17:41:29', '2024-04-17 17:41:30', 325, 0, '', NULL, '2024-04-17 17:41:30', NULL, '2024-04-17 17:41:30', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36408, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-data/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典数据', '获得全部字典数据列表', 1, '2024-04-17 17:42:56', '2024-04-17 17:42:57', 367, 0, '', NULL, '2024-04-17 17:42:57', NULL, '2024-04-17 17:42:57', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36409, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-17 17:42:58', '2024-04-17 17:42:58', 214, 0, '', NULL, '2024-04-17 17:42:58', NULL, '2024-04-17 17:42:58', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36410, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-17 17:42:58', '2024-04-17 17:42:58', 40, 0, '', NULL, '2024-04-17 17:42:58', NULL, '2024-04-17 17:42:58', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36411, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义分页', 1, '2024-04-17 17:43:06', '2024-04-17 17:43:06', 41, 0, '', NULL, '2024-04-17 17:43:06', NULL, '2024-04-17 17:43:06', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36412, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/data-source-config/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 数据源配置', '获得数据源配置列表', 1, '2024-04-17 17:43:06', '2024-04-17 17:43:06', 27, 0, '', NULL, '2024-04-17 17:43:06', NULL, '2024-04-17 17:43:06', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36413, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:43:08', '2024-04-17 17:43:08', 48, 0, '', NULL, '2024-04-17 17:43:08', NULL, '2024-04-17 17:43:08', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36414, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/assistant/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI助手分页', 1, '2024-04-17 17:43:12', '2024-04-17 17:43:12', 41, 0, '', NULL, '2024-04-17 17:43:12', NULL, '2024-04-17 17:43:12', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36415, '', 1, 2, 'ai-fusion-server', 'POST', '/admin-api/ai/model/assistant/create', '{\"query\":\"{}\",\"body\":\"{\\\"name\\\":\\\"代码管家\\\",\\\"modelId\\\":1,\\\"round\\\":\\\"1\\\"}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '创建AI助手', 2, '2024-04-17 17:44:21', '2024-04-17 17:44:21', 93, 0, '', NULL, '2024-04-17 17:44:21', NULL, '2024-04-17 17:44:21', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36416, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/assistant/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI助手分页', 1, '2024-04-17 17:44:21', '2024-04-17 17:44:21', 29, 0, '', NULL, '2024-04-17 17:44:21', NULL, '2024-04-17 17:44:21', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36417, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/assistant/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI助手', 1, '2024-04-17 17:44:24', '2024-04-17 17:44:24', 28, 0, '', NULL, '2024-04-17 17:44:25', NULL, '2024-04-17 17:44:25', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36418, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:44:28', '2024-04-17 17:44:28', 26, 0, '', NULL, '2024-04-17 17:44:28', NULL, '2024-04-17 17:44:28', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36419, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-type/list-all-simple', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典类型', '获得全部字典类型列表', 1, '2024-04-17 17:44:48', '2024-04-17 17:44:48', 37, 0, '', NULL, '2024-04-17 17:44:48', NULL, '2024-04-17 17:44:48', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36420, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/detail', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表和字段的明细', 1, '2024-04-17 17:44:48', '2024-04-17 17:44:48', 78, 0, '', NULL, '2024-04-17 17:44:48', NULL, '2024-04-17 17:44:48', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36421, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单精简信息列表', 1, '2024-04-17 17:44:48', '2024-04-17 17:44:48', 102, 0, '', NULL, '2024-04-17 17:44:48', NULL, '2024-04-17 17:44:48', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36422, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/table/list', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '获得表定义列表', 1, '2024-04-17 17:44:49', '2024-04-17 17:44:49', 23, 0, '', NULL, '2024-04-17 17:44:49', NULL, '2024-04-17 17:44:49', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36423, '', 1, 2, 'ai-fusion-server', 'PUT', '/admin-api/infra/codegen/update', '{\"query\":\"{}\",\"body\":\"{\\\"table\\\":{\\\"id\\\":178,\\\"scene\\\":1,\\\"tableName\\\":\\\"ai_model\\\",\\\"tableComment\\\":\\\"AI模型表\\\",\\\"remark\\\":null,\\\"moduleName\\\":\\\"ai\\\",\\\"businessName\\\":\\\"model\\\",\\\"className\\\":\\\"Model\\\",\\\"classComment\\\":\\\"AI模型\\\",\\\"author\\\":\\\"AiFusion\\\",\\\"templateType\\\":11,\\\"frontType\\\":20,\\\"parentMenuId\\\":2760,\\\"masterTableId\\\":null,\\\"subJoinColumnId\\\":null,\\\"subJoinMany\\\":null,\\\"treeParentColumnId\\\":null,\\\"treeNameColumnId\\\":null,\\\"dataSourceConfigId\\\":0,\\\"createTime\\\":1713343419000,\\\"updateTime\\\":1713346831000},\\\"columns\\\":[{\\\"id\\\":2333,\\\"tableId\\\":178,\\\"columnName\\\":\\\"id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":true,\\\"autoIncrement\\\":true,\\\"ordinalPosition\\\":1,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"id\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"21093\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2334,\\\"tableId\\\":178,\\\"columnName\\\":\\\"name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型名称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":2,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"name\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"AI-Fusion\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2335,\\\"tableId\\\":178,\\\"columnName\\\":\\\"api_key\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"模型ApiKey\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":3,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"apiKey\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2336,\\\"tableId\\\":178,\\\"columnName\\\":\\\"model_name\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"英文名称\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":4,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"modelName\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"AI-Fusion\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"LIKE\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2337,\\\"tableId\\\":178,\\\"columnName\\\":\\\"model_type\\\",\\\"dataType\\\":\\\"TINYINT\\\",\\\"columnComment\\\":\\\"模型类型\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":5,\\\"javaType\\\":\\\"Integer\\\",\\\"javaField\\\":\\\"modelType\\\",\\\"dictType\\\":\\\"ai_model_type\\\",\\\"example\\\":\\\"1\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"select\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2338,\\\"tableId\\\":178,\\\"columnName\\\":\\\"remark\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"备注\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":6,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"remark\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"\\\",\\\"createOperation\\\":true,\\\"updateOperation\\\":true,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2339,\\\"tableId\\\":178,\\\"columnName\\\":\\\"creator\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"创建者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":7,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"creator\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2340,\\\"tableId\\\":178,\\\"columnName\\\":\\\"create_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"创建时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":8,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"createTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":true,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":true,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2341,\\\"tableId\\\":178,\\\"columnName\\\":\\\"updater\\\",\\\"dataType\\\":\\\"VARCHAR\\\",\\\"columnComment\\\":\\\"更新者\\\",\\\"nullable\\\":true,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":9,\\\"javaType\\\":\\\"String\\\",\\\"javaField\\\":\\\"updater\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2342,\\\"tableId\\\":178,\\\"columnName\\\":\\\"update_time\\\",\\\"dataType\\\":\\\"TIMESTAMP\\\",\\\"columnComment\\\":\\\"更新时间\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":10,\\\"javaType\\\":\\\"LocalDateTime\\\",\\\"javaField\\\":\\\"updateTime\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"BETWEEN\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"datetime\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2343,\\\"tableId\\\":178,\\\"columnName\\\":\\\"deleted\\\",\\\"dataType\\\":\\\"BIT\\\",\\\"columnComment\\\":\\\"是否删除\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":11,\\\"javaType\\\":\\\"Boolean\\\",\\\"javaField\\\":\\\"deleted\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":null,\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"radio\\\",\\\"createTime\\\":1713343419000},{\\\"id\\\":2344,\\\"tableId\\\":178,\\\"columnName\\\":\\\"tenant_id\\\",\\\"dataType\\\":\\\"BIGINT\\\",\\\"columnComment\\\":\\\"租户编号\\\",\\\"nullable\\\":false,\\\"primaryKey\\\":false,\\\"autoIncrement\\\":false,\\\"ordinalPosition\\\":12,\\\"javaType\\\":\\\"Long\\\",\\\"javaField\\\":\\\"tenantId\\\",\\\"dictType\\\":\\\"\\\",\\\"example\\\":\\\"31386\\\",\\\"createOperation\\\":false,\\\"updateOperation\\\":false,\\\"listOperation\\\":false,\\\"listOperationCondition\\\":\\\"=\\\",\\\"listOperationResult\\\":false,\\\"htmlType\\\":\\\"input\\\",\\\"createTime\\\":1713343419000}]}\"}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '更新数据库的表和字段定义', 3, '2024-04-17 17:45:02', '2024-04-17 17:45:02', 173, 0, '', NULL, '2024-04-17 17:45:02', NULL, '2024-04-17 17:45:02', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36424, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/infra/codegen/download', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 代码生成器', '下载生成代码', 1, '2024-04-17 17:45:12', '2024-04-17 17:45:13', 279, 0, '', NULL, '2024-04-17 17:45:13', NULL, '2024-04-17 17:45:13', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36425, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-17 17:45:54', '2024-04-17 17:45:54', 123, 0, '', NULL, '2024-04-17 17:45:54', NULL, '2024-04-17 17:45:54', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36426, '', 1, 2, 'ai-fusion-server', 'DELETE', '/admin-api/system/menu/delete', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '删除菜单', 4, '2024-04-17 17:46:02', '2024-04-17 17:46:03', 305, 0, '', NULL, '2024-04-17 17:46:03', NULL, '2024-04-17 17:46:03', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36427, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-17 17:46:03', '2024-04-17 17:46:03', 133, 0, '', NULL, '2024-04-17 17:46:03', NULL, '2024-04-17 17:46:03', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36428, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:46:15', '2024-04-17 17:46:16', 44, 0, '', NULL, '2024-04-17 17:46:16', NULL, '2024-04-17 17:46:16', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36429, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:46:16', '2024-04-17 17:46:16', 34, 0, '', NULL, '2024-04-17 17:46:16', NULL, '2024-04-17 17:46:16', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36430, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:46:16', '2024-04-17 17:46:16', 31, 0, '', NULL, '2024-04-17 17:46:16', NULL, '2024-04-17 17:46:16', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36431, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:46:17', '2024-04-17 17:46:17', 27, 0, '', NULL, '2024-04-17 17:46:17', NULL, '2024-04-17 17:46:17', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36432, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:46:19', '2024-04-17 17:46:19', 37, 0, '', NULL, '2024-04-17 17:46:19', NULL, '2024-04-17 17:46:19', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36433, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:46:20', '2024-04-17 17:46:20', 28, 0, '', NULL, '2024-04-17 17:46:20', NULL, '2024-04-17 17:46:20', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36434, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:46:22', '2024-04-17 17:46:22', 31, 0, '', NULL, '2024-04-17 17:46:22', NULL, '2024-04-17 17:46:22', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36435, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:46:30', '2024-04-17 17:46:30', 39, 0, '', NULL, '2024-04-17 17:46:30', NULL, '2024-04-17 17:46:30', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36436, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:46:40', '2024-04-17 17:46:40', 33, 0, '', NULL, '2024-04-17 17:46:40', NULL, '2024-04-17 17:46:40', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36437, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/assistant/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI助手分页', 1, '2024-04-17 17:46:41', '2024-04-17 17:46:41', 31, 0, '', NULL, '2024-04-17 17:46:41', NULL, '2024-04-17 17:46:41', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36438, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:46:48', '2024-04-17 17:46:48', 27, 0, '', NULL, '2024-04-17 17:46:48', NULL, '2024-04-17 17:46:48', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36439, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:46:52', '2024-04-17 17:46:52', 28, 0, '', NULL, '2024-04-17 17:46:52', NULL, '2024-04-17 17:46:52', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36440, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:46:54', '2024-04-17 17:46:54', 29, 0, '', NULL, '2024-04-17 17:46:54', NULL, '2024-04-17 17:46:54', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36441, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:47:00', '2024-04-17 17:47:00', 32, 0, '', NULL, '2024-04-17 17:47:00', NULL, '2024-04-17 17:47:00', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36442, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:47:01', '2024-04-17 17:47:01', 28, 0, '', NULL, '2024-04-17 17:47:01', NULL, '2024-04-17 17:47:01', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36443, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:47:02', '2024-04-17 17:47:02', 28, 0, '', NULL, '2024-04-17 17:47:02', NULL, '2024-04-17 17:47:02', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36444, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:47:03', '2024-04-17 17:47:03', 40, 0, '', NULL, '2024-04-17 17:47:03', NULL, '2024-04-17 17:47:03', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36445, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:47:04', '2024-04-17 17:47:04', 34, 0, '', NULL, '2024-04-17 17:47:04', NULL, '2024-04-17 17:47:04', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36446, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/assistant/get', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI助手', 1, '2024-04-17 17:47:06', '2024-04-17 17:47:06', 21, 0, '', NULL, '2024-04-17 17:47:06', NULL, '2024-04-17 17:47:06', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36447, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-data/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典数据', '获得全部字典数据列表', 1, '2024-04-17 17:47:12', '2024-04-17 17:47:12', 88, 0, '', NULL, '2024-04-17 17:47:12', NULL, '2024-04-17 17:47:12', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36448, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:47:14', '2024-04-17 17:47:14', 31, 0, '', NULL, '2024-04-17 17:47:14', NULL, '2024-04-17 17:47:14', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36449, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-17 17:47:17', '2024-04-17 17:47:17', 157, 0, '', NULL, '2024-04-17 17:47:17', NULL, '2024-04-17 17:47:17', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36450, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/auth/get-permission-info', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 认证', '获取登录用户的权限信息', 1, '2024-04-17 17:47:21', '2024-04-17 17:47:21', 662, 0, '', NULL, '2024-04-17 17:47:21', NULL, '2024-04-17 17:47:21', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36451, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-17 17:47:22', '2024-04-17 17:47:22', 126, 0, '', NULL, '2024-04-17 17:47:22', NULL, '2024-04-17 17:47:22', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36452, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/dict-data/simple-list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 字典数据', '获得全部字典数据列表', 1, '2024-04-17 17:49:08', '2024-04-17 17:49:08', 64, 0, '', NULL, '2024-04-17 17:49:08', NULL, '2024-04-17 17:49:08', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36453, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-17 17:49:09', '2024-04-17 17:49:09', 217, 0, '', NULL, '2024-04-17 17:49:09', NULL, '2024-04-17 17:49:09', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36454, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-17 17:49:23', '2024-04-17 17:49:23', 335, 0, '', NULL, '2024-04-17 17:49:23', NULL, '2024-04-17 17:49:23', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36455, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/system/menu/list', '{\"query\":\"{}\",\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - 菜单', '获取菜单列表', 1, '2024-04-17 17:49:40', '2024-04-17 17:49:41', 176, 0, '', NULL, '2024-04-17 17:49:41', NULL, '2024-04-17 17:49:41', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36456, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI模型分页', 1, '2024-04-17 17:49:46', '2024-04-17 17:49:46', 30, 0, '', NULL, '2024-04-17 17:49:46', NULL, '2024-04-17 17:49:46', b'0', 0);
-INSERT INTO `infra_api_access_log` VALUES (36457, '', 1, 2, 'ai-fusion-server', 'GET', '/admin-api/ai/model/assistant/page', '{\"query\":null,\"body\":null}', NULL, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', '管理后台 - AI模型', '获得AI助手分页', 1, '2024-04-17 17:49:48', '2024-04-17 17:49:48', 29, 0, '', NULL, '2024-04-17 17:49:48', NULL, '2024-04-17 17:49:48', b'0', 0);
 
 -- ----------------------------
 -- Table structure for infra_api_error_log
 -- ----------------------------
 DROP TABLE IF EXISTS `infra_api_error_log`;
 CREATE TABLE `infra_api_error_log`  (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `trace_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '链路追踪编号\n     *\n     * 一般来说，通过链路追踪编号，可以将访问日志，错误日志，链路追踪日志，logger 打印日志等，结合在一起，从而进行排错。',
-  `user_id` int NOT NULL DEFAULT 0 COMMENT '用户编号',
-  `user_type` tinyint NOT NULL DEFAULT 0 COMMENT '用户类型',
-  `application_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用名\n     *\n     * 目前读取 spring.application.name',
-  `request_method` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '请求方法名',
-  `request_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '请求地址',
-  `request_params` varchar(8000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '请求参数',
-  `user_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户 IP',
-  `user_agent` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '浏览器 UA',
-  `exception_time` datetime NOT NULL COMMENT '异常发生时间',
-  `exception_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '异常名\n     *\n     * {@link Throwable#getClass()} 的类全名',
-  `exception_message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异常导致的消息\n     *\n     * {@link cn.iocoder.common.framework.util.ExceptionUtil#getMessage(Throwable)}',
-  `exception_root_cause_message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异常导致的根消息\n     *\n     * {@link cn.iocoder.common.framework.util.ExceptionUtil#getRootCauseMessage(Throwable)}',
-  `exception_stack_trace` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异常的栈轨迹\n     *\n     * {@link cn.iocoder.common.framework.util.ExceptionUtil#getServiceException(Exception)}',
-  `exception_class_name` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异常发生的类全名\n     *\n     * {@link StackTraceElement#getClassName()}',
-  `exception_file_name` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异常发生的类文件\n     *\n     * {@link StackTraceElement#getFileName()}',
-  `exception_method_name` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异常发生的方法名\n     *\n     * {@link StackTraceElement#getMethodName()}',
-  `exception_line_number` int NOT NULL COMMENT '异常发生的方法所在行\n     *\n     * {@link StackTraceElement#getLineNumber()}',
-  `process_status` tinyint NOT NULL COMMENT '处理状态',
-  `process_time` datetime NULL DEFAULT NULL COMMENT '处理时间',
-  `process_user_id` int NULL DEFAULT 0 COMMENT '处理用户编号',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16468 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '系统异常日志' ROW_FORMAT = Dynamic;
+                                        `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                        `trace_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '链路追踪编号\n     *\n     * 一般来说，通过链路追踪编号，可以将访问日志，错误日志，链路追踪日志，logger 打印日志等，结合在一起，从而进行排错。',
+                                        `user_id` int NOT NULL DEFAULT 0 COMMENT '用户编号',
+                                        `user_type` tinyint NOT NULL DEFAULT 0 COMMENT '用户类型',
+                                        `application_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用名\n     *\n     * 目前读取 spring.application.name',
+                                        `request_method` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '请求方法名',
+                                        `request_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '请求地址',
+                                        `request_params` varchar(8000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '请求参数',
+                                        `user_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户 IP',
+                                        `user_agent` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '浏览器 UA',
+                                        `exception_time` datetime NOT NULL COMMENT '异常发生时间',
+                                        `exception_name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '异常名\n     *\n     * {@link Throwable#getClass()} 的类全名',
+                                        `exception_message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异常导致的消息\n     *\n     * {@link cn.iocoder.common.framework.util.ExceptionUtil#getMessage(Throwable)}',
+                                        `exception_root_cause_message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异常导致的根消息\n     *\n     * {@link cn.iocoder.common.framework.util.ExceptionUtil#getRootCauseMessage(Throwable)}',
+                                        `exception_stack_trace` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异常的栈轨迹\n     *\n     * {@link cn.iocoder.common.framework.util.ExceptionUtil#getServiceException(Exception)}',
+                                        `exception_class_name` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异常发生的类全名\n     *\n     * {@link StackTraceElement#getClassName()}',
+                                        `exception_file_name` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异常发生的类文件\n     *\n     * {@link StackTraceElement#getFileName()}',
+                                        `exception_method_name` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异常发生的方法名\n     *\n     * {@link StackTraceElement#getMethodName()}',
+                                        `exception_line_number` int NOT NULL COMMENT '异常发生的方法所在行\n     *\n     * {@link StackTraceElement#getLineNumber()}',
+                                        `process_status` tinyint NOT NULL COMMENT '处理状态',
+                                        `process_time` datetime NULL DEFAULT NULL COMMENT '处理时间',
+                                        `process_user_id` int NULL DEFAULT 0 COMMENT '处理用户编号',
+                                        `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                        `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                        `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                        `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                        `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                        `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                        PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 16491 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '系统异常日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infra_api_error_log
@@ -675,32 +152,32 @@ CREATE TABLE `infra_api_error_log`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `infra_codegen_column`;
 CREATE TABLE `infra_codegen_column`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `table_id` bigint NOT NULL COMMENT '表编号',
-  `column_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字段名',
-  `data_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字段类型',
-  `column_comment` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字段描述',
-  `nullable` bit(1) NOT NULL COMMENT '是否允许为空',
-  `primary_key` bit(1) NOT NULL COMMENT '是否主键',
-  `auto_increment` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '是否自增',
-  `ordinal_position` int NOT NULL COMMENT '排序',
-  `java_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Java 属性类型',
-  `java_field` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Java 属性名',
-  `dict_type` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '字典类型',
-  `example` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '数据示例',
-  `create_operation` bit(1) NOT NULL COMMENT '是否为 Create 创建操作的字段',
-  `update_operation` bit(1) NOT NULL COMMENT '是否为 Update 更新操作的字段',
-  `list_operation` bit(1) NOT NULL COMMENT '是否为 List 查询操作的字段',
-  `list_operation_condition` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '=' COMMENT 'List 查询操作的条件类型',
-  `list_operation_result` bit(1) NOT NULL COMMENT '是否为 List 查询操作的返回字段',
-  `html_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '显示类型',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2345 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '代码生成表字段定义' ROW_FORMAT = Dynamic;
+                                         `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                         `table_id` bigint NOT NULL COMMENT '表编号',
+                                         `column_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字段名',
+                                         `data_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字段类型',
+                                         `column_comment` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '字段描述',
+                                         `nullable` bit(1) NOT NULL COMMENT '是否允许为空',
+                                         `primary_key` bit(1) NOT NULL COMMENT '是否主键',
+                                         `auto_increment` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '是否自增',
+                                         `ordinal_position` int NOT NULL COMMENT '排序',
+                                         `java_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Java 属性类型',
+                                         `java_field` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Java 属性名',
+                                         `dict_type` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '字典类型',
+                                         `example` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '数据示例',
+                                         `create_operation` bit(1) NOT NULL COMMENT '是否为 Create 创建操作的字段',
+                                         `update_operation` bit(1) NOT NULL COMMENT '是否为 Update 更新操作的字段',
+                                         `list_operation` bit(1) NOT NULL COMMENT '是否为 List 查询操作的字段',
+                                         `list_operation_condition` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '=' COMMENT 'List 查询操作的条件类型',
+                                         `list_operation_result` bit(1) NOT NULL COMMENT '是否为 List 查询操作的返回字段',
+                                         `html_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '显示类型',
+                                         `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                         `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                         `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                         `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                         `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                         PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2361 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '代码生成表字段定义' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infra_codegen_column
@@ -720,91 +197,108 @@ INSERT INTO `infra_codegen_column` VALUES (2316, 176, 'prompt', 'VARCHAR', '助�
 INSERT INTO `infra_codegen_column` VALUES (2317, 176, 'model_id', 'BIGINT', 'AI模型编号', b'0', b'0', '0', 2, 'Long', 'modelId', '', '6601', b'1', b'1', b'1', '=', b'1', 'input', '1', '2024-04-17 16:42:10', '1', '2024-04-17 08:42:20', b'1');
 INSERT INTO `infra_codegen_column` VALUES (2318, 176, 'notice', 'VARCHAR', '默认打招呼语', b'1', b'0', '0', 3, 'String', 'notice', '', NULL, b'1', b'1', b'1', '=', b'1', 'input', '1', '2024-04-17 16:42:10', '1', '2024-04-17 08:42:20', b'1');
 INSERT INTO `infra_codegen_column` VALUES (2319, 176, 'round', 'TINYINT', '记忆对话轮次', b'0', b'0', '0', 4, 'Integer', 'round', '', NULL, b'1', b'1', b'1', '=', b'1', 'input', '1', '2024-04-17 16:42:10', '1', '2024-04-17 08:42:20', b'1');
-INSERT INTO `infra_codegen_column` VALUES (2320, 177, 'id', 'BIGINT', '编号', b'0', b'1', '1', 1, 'Long', 'id', '', '14878', b'0', b'1', b'0', '=', b'1', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-17 17:40:55', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2321, 177, 'name', 'VARCHAR', '助手名称', b'0', b'0', '0', 2, 'String', 'name', '', '张三', b'1', b'1', b'1', 'LIKE', b'1', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-17 17:40:55', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2322, 177, 'prompt', 'VARCHAR', '初始prompt', b'1', b'0', '0', 3, 'String', 'prompt', '', NULL, b'1', b'1', b'0', '=', b'1', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-17 17:40:55', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2323, 177, 'model_id', 'BIGINT', 'AI模型编号', b'0', b'0', '0', 4, 'Long', 'modelId', '', '13287', b'1', b'1', b'1', '=', b'1', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-17 17:40:55', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2324, 177, 'notice', 'VARCHAR', '打招呼语', b'1', b'0', '0', 5, 'String', 'notice', '', NULL, b'1', b'1', b'0', '=', b'1', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-17 17:40:55', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2325, 177, 'round', 'TINYINT', '对话轮次', b'0', b'0', '0', 6, 'Integer', 'round', '', NULL, b'1', b'1', b'0', '=', b'1', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-17 17:40:55', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2326, 177, 'remark', 'VARCHAR', '备注', b'1', b'0', '0', 7, 'String', 'remark', '', '', b'1', b'1', b'0', '=', b'1', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-17 17:40:55', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2327, 177, 'creator', 'VARCHAR', '创建者', b'1', b'0', '0', 8, 'String', 'creator', '', NULL, b'0', b'0', b'0', '=', b'0', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-17 17:40:55', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2328, 177, 'create_time', 'TIMESTAMP', '创建时间', b'0', b'0', '0', 9, 'LocalDateTime', 'createTime', '', NULL, b'0', b'0', b'1', 'BETWEEN', b'1', 'datetime', '1', '2024-04-17 16:42:25', '1', '2024-04-17 17:40:55', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2329, 177, 'updater', 'VARCHAR', '更新者', b'1', b'0', '0', 10, 'String', 'updater', '', NULL, b'0', b'0', b'0', '=', b'0', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-17 17:40:55', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2330, 177, 'update_time', 'TIMESTAMP', '更新时间', b'0', b'0', '0', 11, 'LocalDateTime', 'updateTime', '', NULL, b'0', b'0', b'0', 'BETWEEN', b'0', 'datetime', '1', '2024-04-17 16:42:25', '1', '2024-04-17 17:40:55', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2331, 177, 'deleted', 'BIT', '是否删除', b'0', b'0', '0', 12, 'Boolean', 'deleted', '', NULL, b'0', b'0', b'0', '=', b'0', 'radio', '1', '2024-04-17 16:42:25', '1', '2024-04-17 17:40:55', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2332, 177, 'tenant_id', 'BIGINT', '租户编号', b'0', b'0', '0', 13, 'Long', 'tenantId', '', '16461', b'0', b'0', b'0', '=', b'0', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-17 17:40:55', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2333, 178, 'id', 'BIGINT', '编号', b'0', b'1', '1', 1, 'Long', 'id', '', '21093', b'0', b'1', b'0', '=', b'1', 'input', '1', '2024-04-17 16:43:39', '1', '2024-04-17 17:45:02', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2334, 178, 'name', 'VARCHAR', '模型名称', b'0', b'0', '0', 2, 'String', 'name', '', 'AI-Fusion', b'1', b'1', b'1', 'LIKE', b'1', 'input', '1', '2024-04-17 16:43:39', '1', '2024-04-17 17:45:02', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2335, 178, 'api_key', 'VARCHAR', '模型ApiKey', b'1', b'0', '0', 3, 'String', 'apiKey', '', NULL, b'1', b'1', b'0', '=', b'0', 'input', '1', '2024-04-17 16:43:39', '1', '2024-04-17 17:45:02', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2336, 178, 'model_name', 'VARCHAR', '英文名称', b'0', b'0', '0', 4, 'String', 'modelName', '', 'AI-Fusion', b'1', b'1', b'1', 'LIKE', b'1', 'input', '1', '2024-04-17 16:43:39', '1', '2024-04-17 17:45:02', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2337, 178, 'model_type', 'TINYINT', '模型类型', b'0', b'0', '0', 5, 'Integer', 'modelType', 'ai_model_type', '1', b'1', b'1', b'1', '=', b'1', 'select', '1', '2024-04-17 16:43:39', '1', '2024-04-17 17:45:02', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2338, 178, 'remark', 'VARCHAR', '备注', b'1', b'0', '0', 6, 'String', 'remark', '', '', b'1', b'1', b'0', '=', b'1', 'input', '1', '2024-04-17 16:43:39', '1', '2024-04-17 17:45:02', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2339, 178, 'creator', 'VARCHAR', '创建者', b'1', b'0', '0', 7, 'String', 'creator', '', NULL, b'0', b'0', b'0', '=', b'0', 'input', '1', '2024-04-17 16:43:39', '1', '2024-04-17 17:45:02', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2340, 178, 'create_time', 'TIMESTAMP', '创建时间', b'0', b'0', '0', 8, 'LocalDateTime', 'createTime', '', NULL, b'0', b'0', b'1', 'BETWEEN', b'1', 'datetime', '1', '2024-04-17 16:43:39', '1', '2024-04-17 17:45:02', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2341, 178, 'updater', 'VARCHAR', '更新者', b'1', b'0', '0', 9, 'String', 'updater', '', NULL, b'0', b'0', b'0', '=', b'0', 'input', '1', '2024-04-17 16:43:39', '1', '2024-04-17 17:45:02', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2342, 178, 'update_time', 'TIMESTAMP', '更新时间', b'0', b'0', '0', 10, 'LocalDateTime', 'updateTime', '', NULL, b'0', b'0', b'0', 'BETWEEN', b'0', 'datetime', '1', '2024-04-17 16:43:39', '1', '2024-04-17 17:45:02', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2343, 178, 'deleted', 'BIT', '是否删除', b'0', b'0', '0', 11, 'Boolean', 'deleted', '', NULL, b'0', b'0', b'0', '=', b'0', 'radio', '1', '2024-04-17 16:43:39', '1', '2024-04-17 17:45:02', b'0');
-INSERT INTO `infra_codegen_column` VALUES (2344, 178, 'tenant_id', 'BIGINT', '租户编号', b'0', b'0', '0', 12, 'Long', 'tenantId', '', '31386', b'0', b'0', b'0', '=', b'0', 'input', '1', '2024-04-17 16:43:39', '1', '2024-04-17 17:45:02', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2320, 177, 'id', 'BIGINT', '编号', b'0', b'1', '1', 1, 'Long', 'id', '', '14878', b'0', b'1', b'0', '=', b'1', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-23 10:20:57', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2321, 177, 'name', 'VARCHAR', '助手名称', b'0', b'0', '0', 2, 'String', 'name', '', '张三', b'1', b'1', b'1', 'LIKE', b'1', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-23 10:20:57', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2322, 177, 'prompt', 'VARCHAR', '初始prompt', b'1', b'0', '0', 3, 'String', 'prompt', '', NULL, b'1', b'1', b'0', '=', b'1', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-23 10:20:57', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2323, 177, 'model_id', 'BIGINT', 'AI模型编号', b'0', b'0', '0', 4, 'Long', 'modelId', '', '13287', b'1', b'1', b'1', '=', b'1', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-23 10:20:57', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2324, 177, 'notice', 'VARCHAR', '打招呼语', b'1', b'0', '0', 5, 'String', 'notice', '', NULL, b'1', b'1', b'0', '=', b'1', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-23 10:20:57', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2325, 177, 'round', 'TINYINT', '对话轮次', b'0', b'0', '0', 6, 'Integer', 'round', '', NULL, b'1', b'1', b'0', '=', b'1', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-23 10:20:57', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2326, 177, 'remark', 'VARCHAR', '备注', b'1', b'0', '0', 7, 'String', 'remark', '', '', b'1', b'1', b'0', '=', b'1', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-23 10:20:57', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2327, 177, 'creator', 'VARCHAR', '创建者', b'1', b'0', '0', 8, 'String', 'creator', '', NULL, b'0', b'0', b'0', '=', b'0', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-23 10:20:57', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2328, 177, 'create_time', 'TIMESTAMP', '创建时间', b'0', b'0', '0', 9, 'LocalDateTime', 'createTime', '', NULL, b'0', b'0', b'1', 'BETWEEN', b'1', 'datetime', '1', '2024-04-17 16:42:25', '1', '2024-04-23 10:20:57', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2329, 177, 'updater', 'VARCHAR', '更新者', b'1', b'0', '0', 10, 'String', 'updater', '', NULL, b'0', b'0', b'0', '=', b'0', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-23 10:20:57', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2330, 177, 'update_time', 'TIMESTAMP', '更新时间', b'0', b'0', '0', 11, 'LocalDateTime', 'updateTime', '', NULL, b'0', b'0', b'0', 'BETWEEN', b'0', 'datetime', '1', '2024-04-17 16:42:25', '1', '2024-04-23 10:20:57', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2331, 177, 'deleted', 'BIT', '是否删除', b'0', b'0', '0', 12, 'Boolean', 'deleted', '', NULL, b'0', b'0', b'0', '=', b'0', 'radio', '1', '2024-04-17 16:42:25', '1', '2024-04-23 10:20:57', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2332, 177, 'tenant_id', 'BIGINT', '租户编号', b'0', b'0', '0', 13, 'Long', 'tenantId', '', '16461', b'0', b'0', b'0', '=', b'0', 'input', '1', '2024-04-17 16:42:25', '1', '2024-04-23 10:20:57', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2333, 178, 'id', 'BIGINT', '编号', b'0', b'1', '1', 1, 'Long', 'id', '', '21093', b'0', b'1', b'0', '=', b'1', 'input', '1', '2024-04-17 16:43:39', '1', '2024-04-23 02:20:21', b'1');
+INSERT INTO `infra_codegen_column` VALUES (2334, 178, 'name', 'VARCHAR', '模型名称', b'0', b'0', '0', 2, 'String', 'name', '', 'AI-Fusion', b'1', b'1', b'1', 'LIKE', b'1', 'input', '1', '2024-04-17 16:43:39', '1', '2024-04-23 02:20:21', b'1');
+INSERT INTO `infra_codegen_column` VALUES (2335, 178, 'api_key', 'VARCHAR', '模型ApiKey', b'1', b'0', '0', 3, 'String', 'apiKey', '', NULL, b'1', b'1', b'0', '=', b'0', 'input', '1', '2024-04-17 16:43:39', '1', '2024-04-23 02:20:21', b'1');
+INSERT INTO `infra_codegen_column` VALUES (2336, 178, 'model_name', 'VARCHAR', '英文名称', b'0', b'0', '0', 4, 'String', 'modelName', '', 'AI-Fusion', b'1', b'1', b'1', 'LIKE', b'1', 'input', '1', '2024-04-17 16:43:39', '1', '2024-04-23 02:18:23', b'1');
+INSERT INTO `infra_codegen_column` VALUES (2337, 178, 'model_type', 'TINYINT', '模型类型', b'0', b'0', '0', 5, 'Integer', 'modelType', 'ai_model_type', '1', b'1', b'1', b'1', '=', b'1', 'select', '1', '2024-04-17 16:43:39', '1', '2024-04-23 02:18:23', b'1');
+INSERT INTO `infra_codegen_column` VALUES (2338, 178, 'remark', 'VARCHAR', '备注', b'1', b'0', '0', 6, 'String', 'remark', '', '', b'1', b'1', b'0', '=', b'1', 'input', '1', '2024-04-17 16:43:39', '1', '2024-04-23 02:20:21', b'1');
+INSERT INTO `infra_codegen_column` VALUES (2339, 178, 'creator', 'VARCHAR', '创建者', b'1', b'0', '0', 7, 'String', 'creator', '', NULL, b'0', b'0', b'0', '=', b'0', 'input', '1', '2024-04-17 16:43:39', '1', '2024-04-23 02:20:21', b'1');
+INSERT INTO `infra_codegen_column` VALUES (2340, 178, 'create_time', 'TIMESTAMP', '创建时间', b'0', b'0', '0', 8, 'LocalDateTime', 'createTime', '', NULL, b'0', b'0', b'1', 'BETWEEN', b'1', 'datetime', '1', '2024-04-17 16:43:39', '1', '2024-04-23 02:20:21', b'1');
+INSERT INTO `infra_codegen_column` VALUES (2341, 178, 'updater', 'VARCHAR', '更新者', b'1', b'0', '0', 9, 'String', 'updater', '', NULL, b'0', b'0', b'0', '=', b'0', 'input', '1', '2024-04-17 16:43:39', '1', '2024-04-23 02:20:21', b'1');
+INSERT INTO `infra_codegen_column` VALUES (2342, 178, 'update_time', 'TIMESTAMP', '更新时间', b'0', b'0', '0', 10, 'LocalDateTime', 'updateTime', '', NULL, b'0', b'0', b'0', 'BETWEEN', b'0', 'datetime', '1', '2024-04-17 16:43:39', '1', '2024-04-23 02:20:21', b'1');
+INSERT INTO `infra_codegen_column` VALUES (2343, 178, 'deleted', 'BIT', '是否删除', b'0', b'0', '0', 11, 'Boolean', 'deleted', '', NULL, b'0', b'0', b'0', '=', b'0', 'radio', '1', '2024-04-17 16:43:39', '1', '2024-04-23 02:20:21', b'1');
+INSERT INTO `infra_codegen_column` VALUES (2344, 178, 'tenant_id', 'BIGINT', '租户编号', b'0', b'0', '0', 12, 'Long', 'tenantId', '', '31386', b'0', b'0', b'0', '=', b'0', 'input', '1', '2024-04-17 16:43:39', '1', '2024-04-23 02:20:21', b'1');
+INSERT INTO `infra_codegen_column` VALUES (2345, 178, 'model_name', 'VARCHAR', '模型官方英文名称，例：gpt-4、gpt-3.5-turbo', b'0', b'0', '0', 1, 'String', 'modelName', '', '张三', b'1', b'1', b'1', 'LIKE', b'1', 'input', '1', '2024-04-23 10:18:24', '1', '2024-04-23 02:20:21', b'1');
+INSERT INTO `infra_codegen_column` VALUES (2346, 178, 'model_type', 'TINYINT', '模型类型	1.openai	2.google', b'0', b'0', '0', 2, 'Integer', 'modelType', '', '2', b'1', b'1', b'1', '=', b'1', 'select', '1', '2024-04-23 10:18:24', '1', '2024-04-23 02:20:21', b'1');
+INSERT INTO `infra_codegen_column` VALUES (2347, 178, 'model_price', 'DECIMAL', '模型价格/1000 token', b'0', b'0', '0', 3, 'BigDecimal', 'modelPrice', '', '29881', b'1', b'1', b'0', '=', b'1', 'input', '1', '2024-04-23 10:18:24', '1', '2024-04-23 02:20:21', b'1');
+INSERT INTO `infra_codegen_column` VALUES (2348, 179, 'id', 'BIGINT', '编号', b'0', b'1', '1', 1, 'Long', 'id', '', '32077', b'0', b'1', b'0', '=', b'1', 'input', '1', '2024-04-23 10:20:26', '1', '2024-04-23 10:21:56', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2349, 179, 'name', 'VARCHAR', '模型名称', b'0', b'0', '0', 2, 'String', 'name', '', '赵六', b'1', b'1', b'1', 'LIKE', b'1', 'input', '1', '2024-04-23 10:20:26', '1', '2024-04-23 10:21:56', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2350, 179, 'api_key', 'VARCHAR', '模型ApiKey', b'1', b'0', '0', 3, 'String', 'apiKey', '', NULL, b'1', b'1', b'0', '=', b'1', 'input', '1', '2024-04-23 10:20:26', '1', '2024-04-23 10:21:56', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2351, 179, 'model_name', 'VARCHAR', '英文名称', b'0', b'0', '0', 4, 'String', 'modelName', '', '王五', b'1', b'1', b'1', 'LIKE', b'1', 'input', '1', '2024-04-23 10:20:26', '1', '2024-04-23 10:21:56', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2352, 179, 'model_type', 'TINYINT', '模型类型', b'0', b'0', '0', 5, 'Integer', 'modelType', 'ai_model_type', '2', b'1', b'1', b'1', '=', b'1', 'select', '1', '2024-04-23 10:20:26', '1', '2024-04-23 10:21:56', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2353, 179, 'model_price', 'DECIMAL', '模型价格', b'0', b'0', '0', 6, 'BigDecimal', 'modelPrice', '', '23526', b'1', b'1', b'0', '=', b'1', 'input', '1', '2024-04-23 10:20:26', '1', '2024-04-23 10:21:56', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2354, 179, 'remark', 'VARCHAR', '备注', b'1', b'0', '0', 7, 'String', 'remark', '', '', b'1', b'1', b'0', '=', b'1', 'input', '1', '2024-04-23 10:20:26', '1', '2024-04-23 10:21:56', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2355, 179, 'creator', 'VARCHAR', '创建者', b'1', b'0', '0', 8, 'String', 'creator', '', NULL, b'0', b'0', b'0', '=', b'0', 'input', '1', '2024-04-23 10:20:26', '1', '2024-04-23 10:21:56', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2356, 179, 'create_time', 'TIMESTAMP', '创建时间', b'0', b'0', '0', 9, 'LocalDateTime', 'createTime', '', NULL, b'0', b'0', b'1', 'BETWEEN', b'1', 'datetime', '1', '2024-04-23 10:20:26', '1', '2024-04-23 10:21:56', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2357, 179, 'updater', 'VARCHAR', '更新者', b'1', b'0', '0', 10, 'String', 'updater', '', NULL, b'0', b'0', b'0', '=', b'0', 'input', '1', '2024-04-23 10:20:26', '1', '2024-04-23 10:21:56', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2358, 179, 'update_time', 'TIMESTAMP', '更新时间', b'0', b'0', '0', 11, 'LocalDateTime', 'updateTime', '', NULL, b'0', b'0', b'0', 'BETWEEN', b'0', 'datetime', '1', '2024-04-23 10:20:26', '1', '2024-04-23 10:21:56', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2359, 179, 'deleted', 'BIT', '是否删除', b'0', b'0', '0', 12, 'Boolean', 'deleted', '', NULL, b'0', b'0', b'0', '=', b'0', 'radio', '1', '2024-04-23 10:20:26', '1', '2024-04-23 10:21:56', b'0');
+INSERT INTO `infra_codegen_column` VALUES (2360, 179, 'tenant_id', 'BIGINT', '租户编号', b'0', b'0', '0', 13, 'Long', 'tenantId', '', '4852', b'0', b'0', b'0', '=', b'0', 'input', '1', '2024-04-23 10:20:26', '1', '2024-04-23 10:21:56', b'0');
 
 -- ----------------------------
 -- Table structure for infra_codegen_table
 -- ----------------------------
 DROP TABLE IF EXISTS `infra_codegen_table`;
 CREATE TABLE `infra_codegen_table`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `data_source_config_id` bigint NOT NULL COMMENT '数据源配置的编号',
-  `scene` tinyint NOT NULL DEFAULT 1 COMMENT '生成场景',
-  `table_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '表名称',
-  `table_comment` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '表描述',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `module_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模块名',
-  `business_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '业务名',
-  `class_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '类名称',
-  `class_comment` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '类描述',
-  `author` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '作者',
-  `template_type` tinyint NOT NULL DEFAULT 1 COMMENT '模板类型',
-  `front_type` tinyint NOT NULL COMMENT '前端类型',
-  `parent_menu_id` bigint NULL DEFAULT NULL COMMENT '父菜单编号',
-  `master_table_id` bigint NULL DEFAULT NULL COMMENT '主表的编号',
-  `sub_join_column_id` bigint NULL DEFAULT NULL COMMENT '子表关联主表的字段编号',
-  `sub_join_many` bit(1) NULL DEFAULT NULL COMMENT '主表与子表是否一对多',
-  `tree_parent_column_id` bigint NULL DEFAULT NULL COMMENT '树表的父字段编号',
-  `tree_name_column_id` bigint NULL DEFAULT NULL COMMENT '树表的名字字段编号',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 179 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '代码生成表定义' ROW_FORMAT = Dynamic;
+                                        `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                        `data_source_config_id` bigint NOT NULL COMMENT '数据源配置的编号',
+                                        `scene` tinyint NOT NULL DEFAULT 1 COMMENT '生成场景',
+                                        `table_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '表名称',
+                                        `table_comment` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '表描述',
+                                        `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                                        `module_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模块名',
+                                        `business_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '业务名',
+                                        `class_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '类名称',
+                                        `class_comment` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '类描述',
+                                        `author` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '作者',
+                                        `template_type` tinyint NOT NULL DEFAULT 1 COMMENT '模板类型',
+                                        `front_type` tinyint NOT NULL COMMENT '前端类型',
+                                        `parent_menu_id` bigint NULL DEFAULT NULL COMMENT '父菜单编号',
+                                        `master_table_id` bigint NULL DEFAULT NULL COMMENT '主表的编号',
+                                        `sub_join_column_id` bigint NULL DEFAULT NULL COMMENT '子表关联主表的字段编号',
+                                        `sub_join_many` bit(1) NULL DEFAULT NULL COMMENT '主表与子表是否一对多',
+                                        `tree_parent_column_id` bigint NULL DEFAULT NULL COMMENT '树表的父字段编号',
+                                        `tree_name_column_id` bigint NULL DEFAULT NULL COMMENT '树表的名字字段编号',
+                                        `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                        `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                        `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                        `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                        `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                        PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 180 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '代码生成表定义' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infra_codegen_table
 -- ----------------------------
 INSERT INTO `infra_codegen_table` VALUES (176, 0, 1, 'ai_assistant', 'AI助手表', NULL, 'ai', 'assistant', 'Assistant', 'AI助手', 'AiFusion', 1, 10, NULL, NULL, NULL, NULL, NULL, NULL, '1', '2024-04-17 16:31:49', '1', '2024-04-17 08:42:20', b'1');
-INSERT INTO `infra_codegen_table` VALUES (177, 0, 1, 'ai_assistant', 'AI助手表', NULL, 'ai', 'model', 'Assistant', 'AI助手', 'AiFusion', 15, 20, 2760, 178, 2323, b'1', NULL, NULL, '1', '2024-04-17 16:42:25', '1', '2024-04-17 17:40:55', b'0');
-INSERT INTO `infra_codegen_table` VALUES (178, 0, 1, 'ai_model', 'AI模型表', NULL, 'ai', 'model', 'Model', 'AI模型', 'AiFusion', 11, 20, 2760, NULL, NULL, NULL, NULL, NULL, '1', '2024-04-17 16:43:39', '1', '2024-04-17 17:45:02', b'0');
+INSERT INTO `infra_codegen_table` VALUES (177, 0, 1, 'ai_assistant', 'AI助手表', NULL, 'ai', 'model', 'Assistant', 'AI助手', 'AiFusion', 15, 20, 2760, 179, 2323, b'1', NULL, NULL, '1', '2024-04-17 16:42:25', '1', '2024-04-23 10:20:57', b'0');
+INSERT INTO `infra_codegen_table` VALUES (178, 0, 1, 'ai_model', 'AI模型表', NULL, 'ai', 'model', 'Model', 'AI模型', 'AiFusion', 11, 20, 2760, NULL, NULL, NULL, NULL, NULL, '1', '2024-04-17 16:43:39', '1', '2024-04-23 02:20:21', b'1');
+INSERT INTO `infra_codegen_table` VALUES (179, 0, 1, 'ai_model', 'AI模型表', NULL, 'ai', 'model', 'Model', 'AI模型', 'AiFusion', 11, 20, 2760, NULL, NULL, NULL, NULL, NULL, '1', '2024-04-23 10:20:26', '1', '2024-04-23 10:21:56', b'0');
 
 -- ----------------------------
 -- Table structure for infra_config
 -- ----------------------------
 DROP TABLE IF EXISTS `infra_config`;
 CREATE TABLE `infra_config`  (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '参数主键',
-  `category` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '参数分组',
-  `type` tinyint NOT NULL COMMENT '参数类型',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '参数名称',
-  `config_key` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '参数键名',
-  `value` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '参数键值',
-  `visible` bit(1) NOT NULL COMMENT '是否可见',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '参数配置表' ROW_FORMAT = Dynamic;
+                                 `id` int NOT NULL AUTO_INCREMENT COMMENT '参数主键',
+                                 `category` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '参数分组',
+                                 `type` tinyint NOT NULL COMMENT '参数类型',
+                                 `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '参数名称',
+                                 `config_key` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '参数键名',
+                                 `value` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '参数键值',
+                                 `visible` bit(1) NOT NULL COMMENT '是否可见',
+                                 `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                                 `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                 `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                 `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                 `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                 PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '参数配置表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infra_config
@@ -822,18 +316,18 @@ INSERT INTO `infra_config` VALUES (12, 'test2', 2, 'test3', 'test4', 'test5', b'
 -- ----------------------------
 DROP TABLE IF EXISTS `infra_data_source_config`;
 CREATE TABLE `infra_data_source_config`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键编号',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '参数名称',
-  `url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '数据源连接',
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户名',
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '密码',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '数据源配置表' ROW_FORMAT = Dynamic;
+                                             `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键编号',
+                                             `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '参数名称',
+                                             `url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '数据源连接',
+                                             `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户名',
+                                             `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '密码',
+                                             `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                             `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                             `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                             `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                             `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                             PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '数据源配置表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infra_data_source_config
@@ -844,20 +338,20 @@ CREATE TABLE `infra_data_source_config`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `infra_demo01_contact`;
 CREATE TABLE `infra_demo01_contact`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '名字',
-  `sex` tinyint(1) NOT NULL COMMENT '性别',
-  `birthday` datetime NOT NULL COMMENT '出生年',
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '简介',
-  `avatar` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '头像',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '示例联系人表' ROW_FORMAT = Dynamic;
+                                         `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                         `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '名字',
+                                         `sex` tinyint(1) NOT NULL COMMENT '性别',
+                                         `birthday` datetime NOT NULL COMMENT '出生年',
+                                         `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '简介',
+                                         `avatar` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '头像',
+                                         `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                         `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                         `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                         `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                         `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                         `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                         PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '示例联系人表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infra_demo01_contact
@@ -869,17 +363,17 @@ INSERT INTO `infra_demo01_contact` VALUES (1, '土豆', 2, '2023-11-07 00:00:00'
 -- ----------------------------
 DROP TABLE IF EXISTS `infra_demo02_category`;
 CREATE TABLE `infra_demo02_category`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '名字',
-  `parent_id` bigint NOT NULL COMMENT '父级编号',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '示例分类表' ROW_FORMAT = Dynamic;
+                                          `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                          `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '名字',
+                                          `parent_id` bigint NOT NULL COMMENT '父级编号',
+                                          `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                          `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                          `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                          `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                          `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                          `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                          PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '示例分类表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infra_demo02_category
@@ -896,18 +390,18 @@ INSERT INTO `infra_demo02_category` VALUES (6, '11', 3, '1', '2023-11-24 19:29:3
 -- ----------------------------
 DROP TABLE IF EXISTS `infra_demo03_course`;
 CREATE TABLE `infra_demo03_course`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `student_id` bigint NOT NULL COMMENT '学生编号',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '名字',
-  `score` tinyint NOT NULL COMMENT '分数',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '学生课程表' ROW_FORMAT = Dynamic;
+                                        `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                        `student_id` bigint NOT NULL COMMENT '学生编号',
+                                        `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '名字',
+                                        `score` tinyint NOT NULL COMMENT '分数',
+                                        `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                        `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                        `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                        `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                        `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                        `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                        PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '学生课程表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infra_demo03_course
@@ -928,18 +422,18 @@ INSERT INTO `infra_demo03_course` VALUES (13, 9, '滑雪', 12, '1', '2023-11-17 
 -- ----------------------------
 DROP TABLE IF EXISTS `infra_demo03_grade`;
 CREATE TABLE `infra_demo03_grade`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `student_id` bigint NOT NULL COMMENT '学生编号',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '名字',
-  `teacher` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '班主任',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '学生班级表' ROW_FORMAT = Dynamic;
+                                       `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                       `student_id` bigint NOT NULL COMMENT '学生编号',
+                                       `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '名字',
+                                       `teacher` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '班主任',
+                                       `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                       `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                       `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                       `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                       `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                       `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                       PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '学生班级表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infra_demo03_grade
@@ -953,19 +447,19 @@ INSERT INTO `infra_demo03_grade` VALUES (9, 9, '小图', '小娃111', '1', '2023
 -- ----------------------------
 DROP TABLE IF EXISTS `infra_demo03_student`;
 CREATE TABLE `infra_demo03_student`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '名字',
-  `sex` tinyint NOT NULL COMMENT '性别',
-  `birthday` datetime NOT NULL COMMENT '出生日期',
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '简介',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '学生表' ROW_FORMAT = Dynamic;
+                                         `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                         `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '名字',
+                                         `sex` tinyint NOT NULL COMMENT '性别',
+                                         `birthday` datetime NOT NULL COMMENT '出生日期',
+                                         `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '简介',
+                                         `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                         `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                         `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                         `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                         `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                         `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                         PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '学生表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infra_demo03_student
@@ -979,20 +473,20 @@ INSERT INTO `infra_demo03_student` VALUES (9, '小花', 1, '2023-11-07 00:00:00'
 -- ----------------------------
 DROP TABLE IF EXISTS `infra_file`;
 CREATE TABLE `infra_file`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '文件编号',
-  `config_id` bigint NULL DEFAULT NULL COMMENT '配置编号',
-  `name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '文件名',
-  `path` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件路径',
-  `url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件 URL',
-  `type` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '文件类型',
-  `size` int NOT NULL COMMENT '文件大小',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1302 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '文件表' ROW_FORMAT = Dynamic;
+                               `id` bigint NOT NULL AUTO_INCREMENT COMMENT '文件编号',
+                               `config_id` bigint NULL DEFAULT NULL COMMENT '配置编号',
+                               `name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '文件名',
+                               `path` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件路径',
+                               `url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件 URL',
+                               `type` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '文件类型',
+                               `size` int NOT NULL COMMENT '文件大小',
+                               `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                               `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                               `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                               `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                               `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                               PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1302 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '文件表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infra_file
@@ -1003,19 +497,19 @@ CREATE TABLE `infra_file`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `infra_file_config`;
 CREATE TABLE `infra_file_config`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '配置名',
-  `storage` tinyint NOT NULL COMMENT '存储器',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `master` bit(1) NOT NULL COMMENT '是否为主配置',
-  `config` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '存储配置',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '文件配置表' ROW_FORMAT = Dynamic;
+                                      `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                      `name` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '配置名',
+                                      `storage` tinyint NOT NULL COMMENT '存储器',
+                                      `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                                      `master` bit(1) NOT NULL COMMENT '是否为主配置',
+                                      `config` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '存储配置',
+                                      `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                      `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                      `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                      `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                      `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                      PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '文件配置表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infra_file_config
@@ -1028,17 +522,17 @@ INSERT INTO `infra_file_config` VALUES (22, '七牛存储器', 20, '', b'1', '{\
 -- ----------------------------
 DROP TABLE IF EXISTS `infra_file_content`;
 CREATE TABLE `infra_file_content`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `config_id` bigint NOT NULL COMMENT '配置编号',
-  `path` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件路径',
-  `content` mediumblob NOT NULL COMMENT '文件内容',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 283 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '文件表' ROW_FORMAT = Dynamic;
+                                       `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                       `config_id` bigint NOT NULL COMMENT '配置编号',
+                                       `path` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文件路径',
+                                       `content` mediumblob NOT NULL COMMENT '文件内容',
+                                       `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                       `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                       `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                       `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                       `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                       PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 283 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '文件表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infra_file_content
@@ -1049,22 +543,22 @@ CREATE TABLE `infra_file_content`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `infra_job`;
 CREATE TABLE `infra_job`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务编号',
-  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '任务名称',
-  `status` tinyint NOT NULL COMMENT '任务状态',
-  `handler_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '处理器的名字',
-  `handler_param` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '处理器的参数',
-  `cron_expression` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'CRON 表达式',
-  `retry_count` int NOT NULL DEFAULT 0 COMMENT '重试次数',
-  `retry_interval` int NOT NULL DEFAULT 0 COMMENT '重试间隔',
-  `monitor_timeout` int NOT NULL DEFAULT 0 COMMENT '监控超时时间',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '定时任务表' ROW_FORMAT = Dynamic;
+                              `id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务编号',
+                              `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '任务名称',
+                              `status` tinyint NOT NULL COMMENT '任务状态',
+                              `handler_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '处理器的名字',
+                              `handler_param` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '处理器的参数',
+                              `cron_expression` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'CRON 表达式',
+                              `retry_count` int NOT NULL DEFAULT 0 COMMENT '重试次数',
+                              `retry_interval` int NOT NULL DEFAULT 0 COMMENT '重试间隔',
+                              `monitor_timeout` int NOT NULL DEFAULT 0 COMMENT '监控超时时间',
+                              `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                              `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                              `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                              `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                              `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                              PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '定时任务表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infra_job
@@ -1087,23 +581,23 @@ INSERT INTO `infra_job` VALUES (27, '任务日志清理 Job', 2, 'jobLogCleanJob
 -- ----------------------------
 DROP TABLE IF EXISTS `infra_job_log`;
 CREATE TABLE `infra_job_log`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志编号',
-  `job_id` bigint NOT NULL COMMENT '任务编号',
-  `handler_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '处理器的名字',
-  `handler_param` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '处理器的参数',
-  `execute_index` tinyint NOT NULL DEFAULT 1 COMMENT '第几次执行',
-  `begin_time` datetime NOT NULL COMMENT '开始执行时间',
-  `end_time` datetime NULL DEFAULT NULL COMMENT '结束执行时间',
-  `duration` int NULL DEFAULT NULL COMMENT '执行时长',
-  `status` tinyint NOT NULL COMMENT '任务状态',
-  `result` varchar(4000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '结果数据',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 235 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '定时任务日志表' ROW_FORMAT = Dynamic;
+                                  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志编号',
+                                  `job_id` bigint NOT NULL COMMENT '任务编号',
+                                  `handler_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '处理器的名字',
+                                  `handler_param` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '处理器的参数',
+                                  `execute_index` tinyint NOT NULL DEFAULT 1 COMMENT '第几次执行',
+                                  `begin_time` datetime NOT NULL COMMENT '开始执行时间',
+                                  `end_time` datetime NULL DEFAULT NULL COMMENT '结束执行时间',
+                                  `duration` int NULL DEFAULT NULL COMMENT '执行时长',
+                                  `status` tinyint NOT NULL COMMENT '任务状态',
+                                  `result` varchar(4000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '结果数据',
+                                  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 235 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '定时任务日志表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of infra_job_log
@@ -1114,23 +608,23 @@ CREATE TABLE `infra_job_log`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `market_activity`;
 CREATE TABLE `market_activity`  (
-  `id` bigint NOT NULL,
-  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `activity_type` tinyint NOT NULL,
-  `status` tinyint NOT NULL,
-  `start_time` datetime NOT NULL,
-  `end_time` datetime NOT NULL,
-  `invalid_time` datetime NULL DEFAULT NULL,
-  `delete_time` datetime NULL DEFAULT NULL,
-  `time_limited_discount` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `full_privilege` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `deleted` bit(1) NOT NULL DEFAULT b'0',
-  `tenant_id` bigint NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+                                    `id` bigint NOT NULL,
+                                    `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+                                    `activity_type` tinyint NOT NULL,
+                                    `status` tinyint NOT NULL,
+                                    `start_time` datetime NOT NULL,
+                                    `end_time` datetime NOT NULL,
+                                    `invalid_time` datetime NULL DEFAULT NULL,
+                                    `delete_time` datetime NULL DEFAULT NULL,
+                                    `time_limited_discount` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                    `full_privilege` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+                                    `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
+                                    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                    `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
+                                    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                                    `deleted` bit(1) NOT NULL DEFAULT b'0',
+                                    `tenant_id` bigint NOT NULL,
+                                    PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '促销活动' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -1142,22 +636,22 @@ CREATE TABLE `market_activity`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `member_address`;
 CREATE TABLE `member_address`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '收件地址编号',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `name` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '收件人名称',
-  `mobile` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '手机号',
-  `area_id` bigint NOT NULL COMMENT '地区编码',
-  `detail_address` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '收件详细地址',
-  `default_status` bit(1) NOT NULL COMMENT '是否默认',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_userId`(`user_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '用户收件地址' ROW_FORMAT = Dynamic;
+                                   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '收件地址编号',
+                                   `user_id` bigint NOT NULL COMMENT '用户编号',
+                                   `name` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '收件人名称',
+                                   `mobile` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '手机号',
+                                   `area_id` bigint NOT NULL COMMENT '地区编码',
+                                   `detail_address` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '收件详细地址',
+                                   `default_status` bit(1) NOT NULL COMMENT '是否默认',
+                                   `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                   `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                   `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                   PRIMARY KEY (`id`) USING BTREE,
+                                   INDEX `idx_userId`(`user_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '用户收件地址' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of member_address
@@ -1176,48 +670,48 @@ INSERT INTO `member_address` VALUES (28, 247, 'hhh', '15601691203', 230102, '321
 -- ----------------------------
 DROP TABLE IF EXISTS `member_config`;
 CREATE TABLE `member_config`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '自增主键',
-  `point_trade_deduct_enable` bit(1) NOT NULL COMMENT '是否开启积分抵扣',
-  `point_trade_deduct_unit_price` int NOT NULL COMMENT '积分抵扣(单位：分)',
-  `point_trade_deduct_max_price` int NULL DEFAULT NULL COMMENT '积分抵扣最大值',
-  `point_trade_give_point` bigint NULL DEFAULT NULL COMMENT '1 元赠送多少分',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '会员配置表' ROW_FORMAT = Dynamic;
+                                  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+                                  `point_trade_deduct_enable` bit(1) NOT NULL COMMENT '是否开启积分抵扣',
+                                  `point_trade_deduct_unit_price` int NOT NULL COMMENT '积分抵扣(单位：分)',
+                                  `point_trade_deduct_max_price` int NULL DEFAULT NULL COMMENT '积分抵扣最大值',
+                                  `point_trade_give_point` bigint NULL DEFAULT NULL COMMENT '1 元赠送多少分',
+                                  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '会员配置表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of member_config
 -- ----------------------------
-INSERT INTO `member_config` VALUES (5, b'1', 100, 2, 3, '1', '2023-08-20 09:54:42', '1', '2023-10-01 23:44:01', b'0', 1);
+INSERT INTO `member_config` VALUES (5, b'0', 100, 2, 1, '1', '2023-08-20 09:54:42', '1', '2024-04-23 16:03:09', b'0', 1);
 
 -- ----------------------------
 -- Table structure for member_experience_record
 -- ----------------------------
 DROP TABLE IF EXISTS `member_experience_record`;
 CREATE TABLE `member_experience_record`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `user_id` bigint NOT NULL DEFAULT 0 COMMENT '用户编号',
-  `biz_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '业务编号',
-  `biz_type` tinyint NOT NULL DEFAULT 0 COMMENT '业务类型',
-  `title` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
-  `description` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '描述',
-  `experience` int NOT NULL DEFAULT 0 COMMENT '经验',
-  `total_experience` int NOT NULL DEFAULT 0 COMMENT '变更后的经验',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_user_id`(`user_id` ASC) USING BTREE COMMENT '会员经验记录-用户编号',
-  INDEX `idx_user_biz_type`(`user_id` ASC, `biz_type` ASC) USING BTREE COMMENT '会员经验记录-用户业务类型'
-) ENGINE = InnoDB AUTO_INCREMENT = 59 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '会员经验记录' ROW_FORMAT = Dynamic;
+                                             `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                             `user_id` bigint NOT NULL DEFAULT 0 COMMENT '用户编号',
+                                             `biz_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '业务编号',
+                                             `biz_type` tinyint NOT NULL DEFAULT 0 COMMENT '业务类型',
+                                             `title` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
+                                             `description` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '描述',
+                                             `experience` int NOT NULL DEFAULT 0 COMMENT '经验',
+                                             `total_experience` int NOT NULL DEFAULT 0 COMMENT '变更后的经验',
+                                             `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                             `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                             `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                             `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                             `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                             `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                             PRIMARY KEY (`id`) USING BTREE,
+                                             INDEX `idx_user_id`(`user_id` ASC) USING BTREE COMMENT '会员经验记录-用户编号',
+                                             INDEX `idx_user_biz_type`(`user_id` ASC, `biz_type` ASC) USING BTREE COMMENT '会员经验记录-用户业务类型'
+) ENGINE = InnoDB AUTO_INCREMENT = 59 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '会员经验记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of member_experience_record
@@ -1279,18 +773,18 @@ INSERT INTO `member_experience_record` VALUES (58, 247, '155', 13, '下单奖励
 -- ----------------------------
 DROP TABLE IF EXISTS `member_group`;
 CREATE TABLE `member_group`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '名称',
-  `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户分组' ROW_FORMAT = Dynamic;
+                                 `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                 `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '名称',
+                                 `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态',
+                                 `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
+                                 `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                 `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                 `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                 `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                 `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                 PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户分组' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of member_group
@@ -1302,22 +796,22 @@ INSERT INTO `member_group` VALUES (1, '哈哈哈', 0, '你猜', '1', '2023-08-22
 -- ----------------------------
 DROP TABLE IF EXISTS `member_level`;
 CREATE TABLE `member_level`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '等级名称',
-  `level` int NOT NULL DEFAULT 0 COMMENT '等级',
-  `experience` int NOT NULL DEFAULT 0 COMMENT '升级经验',
-  `discount_percent` tinyint NOT NULL DEFAULT 100 COMMENT '享受折扣',
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '等级图标',
-  `background_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '等级背景图',
-  `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '会员等级' ROW_FORMAT = Dynamic;
+                                 `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                 `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '等级名称',
+                                 `level` int NOT NULL DEFAULT 0 COMMENT '等级',
+                                 `experience` int NOT NULL DEFAULT 0 COMMENT '升级经验',
+                                 `discount_percent` tinyint NOT NULL DEFAULT 100 COMMENT '享受折扣',
+                                 `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '等级图标',
+                                 `background_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '等级背景图',
+                                 `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态',
+                                 `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                 `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                 `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                 `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                 `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                 PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '会员等级' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of member_level
@@ -1331,24 +825,24 @@ INSERT INTO `member_level` VALUES (3, '黄金', 3, 50000, 55, '', '', 0, '1', '2
 -- ----------------------------
 DROP TABLE IF EXISTS `member_level_record`;
 CREATE TABLE `member_level_record`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `user_id` bigint NOT NULL DEFAULT 0 COMMENT '用户编号',
-  `level_id` bigint NOT NULL DEFAULT 0 COMMENT '等级编号',
-  `level` int NOT NULL DEFAULT 0 COMMENT '会员等级',
-  `discount_percent` tinyint NOT NULL DEFAULT 100 COMMENT '享受折扣',
-  `experience` int NOT NULL DEFAULT 0 COMMENT '升级经验',
-  `user_experience` int NOT NULL DEFAULT 0 COMMENT '会员此时的经验',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '描述',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_user_id`(`user_id` ASC) USING BTREE COMMENT '会员等级记录-用户编号'
-) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '会员等级记录' ROW_FORMAT = Dynamic;
+                                        `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                        `user_id` bigint NOT NULL DEFAULT 0 COMMENT '用户编号',
+                                        `level_id` bigint NOT NULL DEFAULT 0 COMMENT '等级编号',
+                                        `level` int NOT NULL DEFAULT 0 COMMENT '会员等级',
+                                        `discount_percent` tinyint NOT NULL DEFAULT 100 COMMENT '享受折扣',
+                                        `experience` int NOT NULL DEFAULT 0 COMMENT '升级经验',
+                                        `user_experience` int NOT NULL DEFAULT 0 COMMENT '会员此时的经验',
+                                        `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
+                                        `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '描述',
+                                        `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                        `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                        `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                        `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                        `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                        `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                        PRIMARY KEY (`id`) USING BTREE,
+                                        INDEX `idx_user_id`(`user_id` ASC) USING BTREE COMMENT '会员等级记录-用户编号'
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '会员等级记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of member_level_record
@@ -1385,24 +879,24 @@ INSERT INTO `member_level_record` VALUES (29, 247, 3, 3, 55, 50000, 6688618, '',
 -- ----------------------------
 DROP TABLE IF EXISTS `member_point_record`;
 CREATE TABLE `member_point_record`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '自增主键',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `biz_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '业务编码',
-  `biz_type` tinyint NOT NULL COMMENT '业务类型',
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '积分标题',
-  `description` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '积分描述',
-  `point` int NOT NULL COMMENT '积分',
-  `total_point` int NOT NULL COMMENT '变动后的积分',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `index_userId`(`user_id` ASC) USING BTREE,
-  INDEX `index_title`(`title` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 85 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户积分记录' ROW_FORMAT = Dynamic;
+                                        `id` bigint NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+                                        `user_id` bigint NOT NULL COMMENT '用户编号',
+                                        `biz_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '业务编码',
+                                        `biz_type` tinyint NOT NULL COMMENT '业务类型',
+                                        `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '积分标题',
+                                        `description` varchar(5000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '积分描述',
+                                        `point` int NOT NULL COMMENT '积分',
+                                        `total_point` int NOT NULL COMMENT '变动后的积分',
+                                        `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                        `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                        `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                        `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                        `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                        `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                        PRIMARY KEY (`id`) USING BTREE,
+                                        INDEX `index_userId`(`user_id` ASC) USING BTREE,
+                                        INDEX `index_title`(`title` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 85 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户积分记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of member_point_record
@@ -1490,19 +984,19 @@ INSERT INTO `member_point_record` VALUES (84, 247, '155', 23, '订单积分奖�
 -- ----------------------------
 DROP TABLE IF EXISTS `member_sign_in_config`;
 CREATE TABLE `member_sign_in_config`  (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `day` int NOT NULL COMMENT '第几天',
-  `point` int NOT NULL COMMENT '奖励积分',
-  `experience` int NOT NULL DEFAULT 0 COMMENT '奖励经验',
-  `status` tinyint NOT NULL COMMENT '状态',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '签到规则' ROW_FORMAT = Dynamic;
+                                          `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                          `day` int NOT NULL COMMENT '第几天',
+                                          `point` int NOT NULL COMMENT '奖励积分',
+                                          `experience` int NOT NULL DEFAULT 0 COMMENT '奖励经验',
+                                          `status` tinyint NOT NULL COMMENT '状态',
+                                          `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
+                                          `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                          `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
+                                          `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                          `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                          `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                          PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '签到规则' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of member_sign_in_config
@@ -1525,19 +1019,19 @@ INSERT INTO `member_sign_in_config` VALUES (12, 6, 7, 0, 0, '1', '2023-08-21 20:
 -- ----------------------------
 DROP TABLE IF EXISTS `member_sign_in_record`;
 CREATE TABLE `member_sign_in_record`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '签到自增id',
-  `user_id` int NULL DEFAULT NULL COMMENT '签到用户',
-  `day` int NULL DEFAULT NULL COMMENT '第几天签到',
-  `point` int NOT NULL DEFAULT 0 COMMENT '签到的分数',
-  `experience` int NOT NULL DEFAULT 0 COMMENT '奖励经验',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '签到记录' ROW_FORMAT = Dynamic;
+                                          `id` bigint NOT NULL AUTO_INCREMENT COMMENT '签到自增id',
+                                          `user_id` int NULL DEFAULT NULL COMMENT '签到用户',
+                                          `day` int NULL DEFAULT NULL COMMENT '第几天签到',
+                                          `point` int NOT NULL DEFAULT 0 COMMENT '签到的分数',
+                                          `experience` int NOT NULL DEFAULT 0 COMMENT '奖励经验',
+                                          `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                          `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                          `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                          `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                          `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                          `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                          PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '签到记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of member_sign_in_record
@@ -1558,16 +1052,16 @@ INSERT INTO `member_sign_in_record` VALUES (11, 247, 4, 5, 0, '247', '2024-01-04
 -- ----------------------------
 DROP TABLE IF EXISTS `member_tag`;
 CREATE TABLE `member_tag`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '标签名称',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '会员标签' ROW_FORMAT = Dynamic;
+                               `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                               `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '标签名称',
+                               `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                               `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                               `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                               `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                               `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                               `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                               PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '会员标签' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of member_tag
@@ -1580,38 +1074,39 @@ INSERT INTO `member_tag` VALUES (2, '黄色', '1', '2023-08-20 09:21:27', '1', '
 -- ----------------------------
 DROP TABLE IF EXISTS `member_user`;
 CREATE TABLE `member_user`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `mobile` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '手机号',
-  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '密码',
-  `status` tinyint NOT NULL COMMENT '状态',
-  `register_ip` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '注册 IP',
-  `register_terminal` tinyint NULL DEFAULT NULL COMMENT '注册终端',
-  `login_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '最后登录IP',
-  `login_date` datetime NULL DEFAULT NULL COMMENT '最后登录时间',
-  `nickname` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '用户昵称',
-  `avatar` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '头像',
-  `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '真实名字',
-  `sex` tinyint NULL DEFAULT 0 COMMENT '用户性别',
-  `area_id` bigint NULL DEFAULT NULL COMMENT '所在地',
-  `birthday` datetime NULL DEFAULT NULL COMMENT '出生日期',
-  `mark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '会员备注',
-  `point` int NOT NULL DEFAULT 0 COMMENT '积分',
-  `tag_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户标签编号列表，以逗号分隔',
-  `level_id` bigint NULL DEFAULT NULL COMMENT '等级编号',
-  `experience` int NOT NULL DEFAULT 0 COMMENT '经验',
-  `group_id` bigint NULL DEFAULT NULL COMMENT '用户分组编号',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 283 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '会员用户' ROW_FORMAT = Dynamic;
+                                `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                `mobile` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '手机号',
+                                `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '密码',
+                                `status` tinyint NOT NULL COMMENT '状态',
+                                `register_ip` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '注册 IP',
+                                `register_terminal` tinyint NULL DEFAULT NULL COMMENT '注册终端',
+                                `login_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '最后登录IP',
+                                `login_date` datetime NULL DEFAULT NULL COMMENT '最后登录时间',
+                                `nickname` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '用户昵称',
+                                `avatar` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '头像',
+                                `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '真实名字',
+                                `sex` tinyint NULL DEFAULT 0 COMMENT '用户性别',
+                                `area_id` bigint NULL DEFAULT NULL COMMENT '所在地',
+                                `birthday` datetime NULL DEFAULT NULL COMMENT '出生日期',
+                                `mark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '会员备注',
+                                `point` int NOT NULL DEFAULT 0 COMMENT '积分',
+                                `tag_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户标签编号列表，以逗号分隔',
+                                `level_id` bigint NULL DEFAULT NULL COMMENT '等级编号',
+                                `experience` int NOT NULL DEFAULT 0 COMMENT '经验',
+                                `group_id` bigint NULL DEFAULT NULL COMMENT '用户分组编号',
+                                `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
+                                `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
+                                `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 283 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '会员用户' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of member_user
 -- ----------------------------
+INSERT INTO `member_user` VALUES (1, '18888888888', '$2a$04$7BixfD4z0Xs/pOlILmlmSeEJ0Cy3aKVcpGIi3.xkYWwR5I8EIV/qy', 0, '127.0.0.1', 20, '', NULL, 'stonewu', '', '', 0, 111000, NULL, NULL, 100, NULL, NULL, 0, NULL, '', '2024-04-24 08:42:38', '', '2024-04-24 08:43:00', b'0', 0);
 INSERT INTO `member_user` VALUES (247, '15601691399', '$2a$04$7BixfD4z0Xs/pOlILmlmSeEJ0Cy3aKVcpGIi3.xkYWwR5I8EIV/qy', 0, '127.0.0.1', NULL, '127.0.0.1', '2024-01-17 08:08:34', '啦啦啦', 'http://127.0.0.1:48080/admin-api/infra/file/4/get/f341ff4f7838c29a4978421d0de39ac5d9e18016af124e7ef94a29cb4e8e5a15.jpeg', '啦啦啦', 2, 130102, '2023-08-28 00:00:00', '备注3213123', 32776, '1,2', 3, 6688618, 1, NULL, '2023-10-15 11:23:08', NULL, '2024-01-17 08:08:34', b'0', 1);
 INSERT INTO `member_user` VALUES (248, '15601691499', '$2a$04$uhOkX4y5VkktR0B2KXAQmuAOYbVB3UiJ4smmD6HoIqiu/71kG0pXy', 0, '127.0.0.1', NULL, '127.0.0.1', '2023-12-24 22:38:41', '土豆233', '', '', 0, NULL, NULL, NULL, 21003, NULL, 3, 700100, NULL, '247', '2023-10-14 18:21:04', '247', '2023-12-22 13:54:33', b'0', 1);
 INSERT INTO `member_user` VALUES (249, '15601691388', '$2a$04$bGr1w7v1mz7PSpLYtrgFie/1KU8ytH/7k74naQJx574KXA2UzoB.6', 0, '127.0.0.1', 30, '127.0.0.1', '2024-01-13 17:15:46', '土豆233', '', '', 0, NULL, NULL, NULL, 0, NULL, NULL, 0, NULL, NULL, '2023-10-30 12:49:03', '247', '2024-01-13 17:15:46', b'0', 1);
@@ -1644,24 +1139,24 @@ INSERT INTO `member_user` VALUES (282, '15601691382', '$2a$04$fiRnifjyMsVVnXHatJ
 -- ----------------------------
 DROP TABLE IF EXISTS `mp_account`;
 CREATE TABLE `mp_account`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '公众号名称',
-  `account` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '公众号账号',
-  `app_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '公众号appid',
-  `app_secret` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '公众号密钥',
-  `url` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '公众号url',
-  `token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '公众号token',
-  `aes_key` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '加密密钥',
-  `qr_code_url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '二维码图片URL',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '公众号账号表' ROW_FORMAT = Dynamic;
+                               `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                               `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '公众号名称',
+                               `account` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '公众号账号',
+                               `app_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '公众号appid',
+                               `app_secret` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '公众号密钥',
+                               `url` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '公众号url',
+                               `token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '公众号token',
+                               `aes_key` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '加密密钥',
+                               `qr_code_url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '二维码图片URL',
+                               `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                               `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                               `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                               `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                               `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                               `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                               `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                               PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '公众号账号表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of mp_account
@@ -1674,32 +1169,32 @@ INSERT INTO `mp_account` VALUES (3, '1', '2', '3', '4', NULL, '5', NULL, NULL, N
 -- ----------------------------
 DROP TABLE IF EXISTS `mp_auto_reply`;
 CREATE TABLE `mp_auto_reply`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `account_id` bigint NOT NULL COMMENT '公众号账号的编号',
-  `app_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公众号 appId',
-  `type` tinyint NOT NULL COMMENT '回复类型',
-  `request_keyword` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '请求的关键字',
-  `request_match` tinyint NULL DEFAULT NULL COMMENT '请求的关键字的匹配',
-  `request_message_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '请求的消息类型',
-  `response_message_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '回复的消息类型',
-  `response_content` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的消息内容',
-  `response_media_id` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的媒体文件 id',
-  `response_media_url` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的媒体文件 URL',
-  `response_title` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的标题',
-  `response_description` varchar(256) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的描述',
-  `response_thumb_media_id` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的缩略图的媒体 id',
-  `response_thumb_media_url` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的缩略图的媒体 URL',
-  `response_articles` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的图文消息数组',
-  `response_music_url` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的音乐链接',
-  `response_hq_music_url` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的高质量音乐链接',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '公众号消息自动回复表' ROW_FORMAT = Dynamic;
+                                  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                  `account_id` bigint NOT NULL COMMENT '公众号账号的编号',
+                                  `app_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公众号 appId',
+                                  `type` tinyint NOT NULL COMMENT '回复类型',
+                                  `request_keyword` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求的关键字',
+                                  `request_match` tinyint NULL DEFAULT NULL COMMENT '请求的关键字的匹配',
+                                  `request_message_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求的消息类型',
+                                  `response_message_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '回复的消息类型',
+                                  `response_content` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的消息内容',
+                                  `response_media_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的媒体文件 id',
+                                  `response_media_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的媒体文件 URL',
+                                  `response_title` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的标题',
+                                  `response_description` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的描述',
+                                  `response_thumb_media_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的缩略图的媒体 id',
+                                  `response_thumb_media_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的缩略图的媒体 URL',
+                                  `response_articles` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的图文消息数组',
+                                  `response_music_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的音乐链接',
+                                  `response_hq_music_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的高质量音乐链接',
+                                  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '公众号消息自动回复表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of mp_auto_reply
@@ -1711,25 +1206,25 @@ INSERT INTO `mp_auto_reply` VALUES (44, 1, 'wx5b23ba7a5589ecbb', 3, '你猜', 1,
 -- ----------------------------
 DROP TABLE IF EXISTS `mp_material`;
 CREATE TABLE `mp_material`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `account_id` bigint NOT NULL COMMENT '公众号账号的编号',
-  `app_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公众号 appId',
-  `media_id` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '公众号素材 id',
-  `type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '文件类型',
-  `permanent` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否永久',
-  `url` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '文件服务器的 URL',
-  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '名字',
-  `mp_url` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '公众号文件 URL',
-  `title` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '视频素材的标题',
-  `introduction` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '视频素材的描述',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 98 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '公众号素材表' ROW_FORMAT = Dynamic;
+                                `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                `account_id` bigint NOT NULL COMMENT '公众号账号的编号',
+                                `app_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公众号 appId',
+                                `media_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '公众号素材 id',
+                                `type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '文件类型',
+                                `permanent` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否永久',
+                                `url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文件服务器的 URL',
+                                `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名字',
+                                `mp_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '公众号文件 URL',
+                                `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '视频素材的标题',
+                                `introduction` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '视频素材的描述',
+                                `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 98 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '公众号素材表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of mp_material
@@ -1746,36 +1241,36 @@ INSERT INTO `mp_material` VALUES (90, 4, 'wx01b971b269525c69', 'rdp2FpJLZJb_Z771
 -- ----------------------------
 DROP TABLE IF EXISTS `mp_menu`;
 CREATE TABLE `mp_menu`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `account_id` bigint NOT NULL COMMENT '微信公众号ID',
-  `app_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '微信公众号 appid',
-  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '菜单名称',
-  `menu_key` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '菜单标识',
-  `parent_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '父ID',
-  `type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '' COMMENT '按钮类型',
-  `url` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '网页链接',
-  `mini_program_app_id` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '小程序appid',
-  `mini_program_page_path` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '小程序页面路径',
-  `article_id` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '跳转图文的媒体编号',
-  `reply_message_type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '消息类型',
-  `reply_content` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的消息内容',
-  `reply_media_id` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的媒体文件 id',
-  `reply_media_url` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的媒体文件 URL',
-  `reply_title` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的标题',
-  `reply_description` varchar(256) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的描述',
-  `reply_thumb_media_id` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的缩略图的媒体 id',
-  `reply_thumb_media_url` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的缩略图的媒体 URL',
-  `reply_articles` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的图文消息数组',
-  `reply_music_url` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的音乐链接',
-  `reply_hq_music_url` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '回复的高质量音乐链接',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 169 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '公众号菜单表' ROW_FORMAT = Dynamic;
+                            `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+                            `account_id` bigint NOT NULL COMMENT '微信公众号ID',
+                            `app_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '微信公众号 appid',
+                            `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '菜单名称',
+                            `menu_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '菜单标识',
+                            `parent_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '父ID',
+                            `type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '按钮类型',
+                            `url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '网页链接',
+                            `mini_program_app_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '小程序appid',
+                            `mini_program_page_path` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '小程序页面路径',
+                            `article_id` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '跳转图文的媒体编号',
+                            `reply_message_type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '消息类型',
+                            `reply_content` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的消息内容',
+                            `reply_media_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的媒体文件 id',
+                            `reply_media_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的媒体文件 URL',
+                            `reply_title` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的标题',
+                            `reply_description` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的描述',
+                            `reply_thumb_media_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的缩略图的媒体 id',
+                            `reply_thumb_media_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的缩略图的媒体 URL',
+                            `reply_articles` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的图文消息数组',
+                            `reply_music_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的音乐链接',
+                            `reply_hq_music_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '回复的高质量音乐链接',
+                            `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                            `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                            `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                            `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                            `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                            `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                            PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 169 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '公众号菜单表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of mp_menu
@@ -1914,41 +1409,41 @@ INSERT INTO `mp_menu` VALUES (152, 1, 'wx5b23ba7a5589ecbb', '选择地理位置'
 -- ----------------------------
 DROP TABLE IF EXISTS `mp_message`;
 CREATE TABLE `mp_message`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `msg_id` bigint NULL DEFAULT NULL COMMENT '微信公众号的消息编号',
-  `account_id` bigint NOT NULL COMMENT '公众号账号的编号',
-  `app_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公众号 appId',
-  `user_id` bigint NOT NULL COMMENT '公众号粉丝的编号',
-  `openid` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '公众号粉丝标志',
-  `type` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL COMMENT '消息类型',
-  `send_from` tinyint NOT NULL COMMENT '消息来源',
-  `content` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '消息内容',
-  `media_id` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '媒体文件 id',
-  `media_url` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '媒体文件 URL',
-  `recognition` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '语音识别后文本',
-  `format` varchar(16) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '语音格式',
-  `title` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '标题',
-  `description` varchar(256) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '描述',
-  `thumb_media_id` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '缩略图的媒体 id',
-  `thumb_media_url` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '缩略图的媒体 URL',
-  `url` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '点击图文消息跳转链接',
-  `location_x` double NULL DEFAULT NULL COMMENT '地理位置维度',
-  `location_y` double NULL DEFAULT NULL COMMENT '地理位置经度',
-  `scale` double NULL DEFAULT NULL COMMENT '地图缩放大小',
-  `label` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '详细地址',
-  `articles` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '图文消息数组',
-  `music_url` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '音乐链接',
-  `hq_music_url` varchar(1024) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '高质量音乐链接',
-  `event` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '事件类型',
-  `event_key` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '事件 Key',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 407 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '公众号消息表 ' ROW_FORMAT = Dynamic;
+                               `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+                               `msg_id` bigint NULL DEFAULT NULL COMMENT '微信公众号的消息编号',
+                               `account_id` bigint NOT NULL COMMENT '公众号账号的编号',
+                               `app_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公众号 appId',
+                               `user_id` bigint NOT NULL COMMENT '公众号粉丝的编号',
+                               `openid` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '公众号粉丝标志',
+                               `type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '消息类型',
+                               `send_from` tinyint NOT NULL COMMENT '消息来源',
+                               `content` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '消息内容',
+                               `media_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '媒体文件 id',
+                               `media_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '媒体文件 URL',
+                               `recognition` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '语音识别后文本',
+                               `format` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '语音格式',
+                               `title` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标题',
+                               `description` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述',
+                               `thumb_media_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '缩略图的媒体 id',
+                               `thumb_media_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '缩略图的媒体 URL',
+                               `url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '点击图文消息跳转链接',
+                               `location_x` double NULL DEFAULT NULL COMMENT '地理位置维度',
+                               `location_y` double NULL DEFAULT NULL COMMENT '地理位置经度',
+                               `scale` double NULL DEFAULT NULL COMMENT '地图缩放大小',
+                               `label` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '详细地址',
+                               `articles` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '图文消息数组',
+                               `music_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '音乐链接',
+                               `hq_music_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '高质量音乐链接',
+                               `event` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '事件类型',
+                               `event_key` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '事件 Key',
+                               `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                               `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                               `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                               `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                               `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                               `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                               PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 407 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '公众号消息表 ' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of mp_message
@@ -1959,20 +1454,20 @@ CREATE TABLE `mp_message`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `mp_tag`;
 CREATE TABLE `mp_tag`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `tag_id` bigint NULL DEFAULT NULL COMMENT '公众号标签 id',
-  `name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL COMMENT '标签名称',
-  `count` int NULL DEFAULT 0 COMMENT '粉丝数量',
-  `account_id` bigint NOT NULL COMMENT '公众号账号的编号',
-  `app_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公众号 appId',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb3 COLLATE = utf8mb3_general_ci COMMENT = '公众号标签表' ROW_FORMAT = Dynamic;
+                           `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+                           `tag_id` bigint NULL DEFAULT NULL COMMENT '公众号标签 id',
+                           `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '标签名称',
+                           `count` int NULL DEFAULT 0 COMMENT '粉丝数量',
+                           `account_id` bigint NOT NULL COMMENT '公众号账号的编号',
+                           `app_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公众号 appId',
+                           `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                           `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                           `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                           `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                           `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                           `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                           PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '公众号标签表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of mp_tag
@@ -1986,29 +1481,29 @@ INSERT INTO `mp_tag` VALUES (7, 102, '搞起来', 0, 1, 'wx5b23ba7a5589ecbb', '1
 -- ----------------------------
 DROP TABLE IF EXISTS `mp_user`;
 CREATE TABLE `mp_user`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `openid` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户标识',
-  `subscribe_status` tinyint NOT NULL COMMENT '关注状态',
-  `subscribe_time` datetime NOT NULL COMMENT '关注时间',
-  `nickname` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '昵称',
-  `head_image_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '头像地址',
-  `unsubscribe_time` datetime NULL DEFAULT NULL COMMENT '取消关注时间',
-  `language` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '语言',
-  `country` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '国家',
-  `province` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '省份',
-  `city` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '城市',
-  `remark` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `tag_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '标签编号数组',
-  `account_id` bigint NOT NULL COMMENT '微信公众号ID',
-  `app_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '微信公众号 appid',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '公众号粉丝表' ROW_FORMAT = Dynamic;
+                            `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                            `openid` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户标识',
+                            `subscribe_status` tinyint NOT NULL COMMENT '关注状态',
+                            `subscribe_time` datetime NOT NULL COMMENT '关注时间',
+                            `nickname` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '昵称',
+                            `head_image_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '头像地址',
+                            `unsubscribe_time` datetime NULL DEFAULT NULL COMMENT '取消关注时间',
+                            `language` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '语言',
+                            `country` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '国家',
+                            `province` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '省份',
+                            `city` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '城市',
+                            `remark` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                            `tag_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '标签编号数组',
+                            `account_id` bigint NOT NULL COMMENT '微信公众号ID',
+                            `app_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '微信公众号 appid',
+                            `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                            `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                            `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                            `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                            `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                            `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                            PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '公众号粉丝表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of mp_user
@@ -2019,21 +1514,21 @@ CREATE TABLE `mp_user`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `pay_app`;
 CREATE TABLE `pay_app`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '应用编号',
-  `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用名',
-  `status` tinyint NOT NULL COMMENT '开启状态',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `order_notify_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '支付结果的回调地址',
-  `refund_notify_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '退款结果的回调地址',
-  `transfer_notify_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '转账结果的回调地址',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '支付应用信息' ROW_FORMAT = Dynamic;
+                            `id` bigint NOT NULL AUTO_INCREMENT COMMENT '应用编号',
+                            `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用名',
+                            `status` tinyint NOT NULL COMMENT '开启状态',
+                            `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                            `order_notify_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '支付结果的回调地址',
+                            `refund_notify_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '退款结果的回调地址',
+                            `transfer_notify_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '转账结果的回调地址',
+                            `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                            `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                            `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                            `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                            `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                            `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                            PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '支付应用信息' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pay_app
@@ -2047,82 +1542,88 @@ INSERT INTO `pay_app` VALUES (8, '会员钱包', 0, NULL, 'http://127.0.0.1:4808
 -- ----------------------------
 DROP TABLE IF EXISTS `pay_channel`;
 CREATE TABLE `pay_channel`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '商户编号',
-  `code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '渠道编码',
-  `status` tinyint NOT NULL COMMENT '开启状态',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `fee_rate` double NOT NULL DEFAULT 0 COMMENT '渠道费率，单位：百分比',
-  `app_id` bigint NOT NULL COMMENT '应用编号',
-  `config` varchar(8192) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '支付渠道配置',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '支付渠道\n' ROW_FORMAT = Dynamic;
+                                `id` bigint NOT NULL AUTO_INCREMENT COMMENT '商户编号',
+                                `code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '渠道编码',
+                                `status` tinyint NOT NULL COMMENT '开启状态',
+                                `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                                `fee_rate` double NOT NULL DEFAULT 0 COMMENT '渠道费率，单位：百分比',
+                                `app_id` bigint NOT NULL COMMENT '应用编号',
+                                `config` varchar(8192) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '支付渠道配置',
+                                `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '支付渠道\n' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pay_channel
 -- ----------------------------
-INSERT INTO `pay_channel` VALUES (38, 'mock', 1, '', 0, 8, '{\"@class\":\"com.stonewu.aifusion.framework.pay.core.client.impl.NonePayClientConfig\",\"name\":\"mock-conf\"}', '1', '2024-04-15 16:46:11', '1', '2024-04-15 16:46:14', b'0', 1);
+INSERT INTO `pay_channel` VALUES (38, 'mock', 0, '', 0, 8, '{\"@class\":\"com.stonewu.aifusion.framework.pay.core.client.impl.NonePayClientConfig\",\"name\":\"mock-conf\"}', '1', '2024-04-15 16:46:11', '1', '2024-04-23 16:05:48', b'0', 1);
+INSERT INTO `pay_channel` VALUES (39, 'wallet', 0, '', 0, 8, '{\"@class\":\"com.stonewu.aifusion.framework.pay.core.client.impl.NonePayClientConfig\",\"name\":\"mock-conf\"}', '1', '2024-04-23 15:53:00', '1', '2024-04-23 15:53:00', b'0', 1);
+INSERT INTO `pay_channel` VALUES (40, 'wallet', 0, '', 0, 7, '{\"@class\":\"com.stonewu.aifusion.framework.pay.core.client.impl.NonePayClientConfig\",\"name\":\"mock-conf\"}', '1', '2024-04-23 16:04:24', '1', '2024-04-23 16:04:24', b'0', 1);
+INSERT INTO `pay_channel` VALUES (41, 'wallet', 0, '', 0, 1, '{\"@class\":\"com.stonewu.aifusion.framework.pay.core.client.impl.NonePayClientConfig\",\"name\":\"mock-conf\"}', '1', '2024-04-23 16:04:27', '1', '2024-04-23 16:04:27', b'0', 1);
+INSERT INTO `pay_channel` VALUES (42, 'mock', 0, '', 0, 7, '{\"@class\":\"com.stonewu.aifusion.framework.pay.core.client.impl.NonePayClientConfig\",\"name\":\"mock-conf\"}', '1', '2024-04-23 16:05:50', '1', '2024-04-23 16:05:50', b'0', 1);
+INSERT INTO `pay_channel` VALUES (43, 'mock', 0, '', 0, 1, '{\"@class\":\"com.stonewu.aifusion.framework.pay.core.client.impl.NonePayClientConfig\",\"name\":\"mock-conf\"}', '1', '2024-04-23 16:05:52', '1', '2024-04-23 16:05:52', b'0', 1);
 
 -- ----------------------------
 -- Table structure for pay_demo_order
 -- ----------------------------
 DROP TABLE IF EXISTS `pay_demo_order`;
 CREATE TABLE `pay_demo_order`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '订单编号',
-  `user_id` bigint UNSIGNED NOT NULL COMMENT '用户编号',
-  `spu_id` bigint NOT NULL COMMENT '商品编号',
-  `spu_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商品名字',
-  `price` int NOT NULL COMMENT '价格，单位：分',
-  `pay_status` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否已支付：[0:未支付 1:已经支付过]',
-  `pay_order_id` bigint NULL DEFAULT NULL COMMENT '支付订单编号',
-  `pay_channel_code` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '支付成功的支付渠道',
-  `pay_time` datetime NULL DEFAULT NULL COMMENT '订单支付时间',
-  `pay_refund_id` bigint NULL DEFAULT NULL COMMENT '退款订单编号',
-  `refund_price` int NOT NULL DEFAULT 0 COMMENT '退款金额，单位：分',
-  `refund_time` datetime NULL DEFAULT NULL COMMENT '退款时间',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 181 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '示例订单\n' ROW_FORMAT = Dynamic;
+                                   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '订单编号',
+                                   `user_id` bigint UNSIGNED NOT NULL COMMENT '用户编号',
+                                   `spu_id` bigint NOT NULL COMMENT '商品编号',
+                                   `spu_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商品名字',
+                                   `price` int NOT NULL COMMENT '价格，单位：分',
+                                   `pay_status` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否已支付：[0:未支付 1:已经支付过]',
+                                   `pay_order_id` bigint NULL DEFAULT NULL COMMENT '支付订单编号',
+                                   `pay_channel_code` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '支付成功的支付渠道',
+                                   `pay_time` datetime NULL DEFAULT NULL COMMENT '订单支付时间',
+                                   `pay_refund_id` bigint NULL DEFAULT NULL COMMENT '退款订单编号',
+                                   `refund_price` int NOT NULL DEFAULT 0 COMMENT '退款金额，单位：分',
+                                   `refund_time` datetime NULL DEFAULT NULL COMMENT '退款时间',
+                                   `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '创建者',
+                                   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                   `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '更新者',
+                                   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                   `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                   PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 182 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '示例订单\n' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pay_demo_order
 -- ----------------------------
 INSERT INTO `pay_demo_order` VALUES (180, 1, 1, '华为手机', 1, b'0', 394, NULL, NULL, NULL, 0, NULL, '1', '2024-04-15 16:46:39', '1', '2024-04-15 16:46:39', b'0', 1);
+INSERT INTO `pay_demo_order` VALUES (181, 1, 5, '蔚来汽车', 200000, b'1', 395, 'mock', '2024-04-23 16:06:13', 97, 200000, '2024-04-23 16:06:54', '1', '2024-04-23 16:03:48', '1', '2024-04-23 16:06:54', b'0', 1);
 
 -- ----------------------------
 -- Table structure for pay_demo_transfer
 -- ----------------------------
 DROP TABLE IF EXISTS `pay_demo_transfer`;
 CREATE TABLE `pay_demo_transfer`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '订单编号',
-  `app_id` bigint NOT NULL COMMENT '应用编号',
-  `type` int NOT NULL COMMENT '转账类型',
-  `price` int NOT NULL COMMENT '转账金额，单位：分',
-  `user_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '收款人姓名',
-  `alipay_logon_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '支付宝登录号',
-  `openid` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '微信 openId',
-  `transfer_status` tinyint NOT NULL DEFAULT 0 COMMENT '转账状态',
-  `pay_transfer_id` bigint NULL DEFAULT NULL COMMENT '转账订单编号',
-  `pay_channel_code` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '转账支付成功渠道',
-  `transfer_time` datetime NULL DEFAULT NULL COMMENT '转账支付时间',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '示例业务转账订单' ROW_FORMAT = Dynamic;
+                                      `id` bigint NOT NULL AUTO_INCREMENT COMMENT '订单编号',
+                                      `app_id` bigint NOT NULL COMMENT '应用编号',
+                                      `type` int NOT NULL COMMENT '转账类型',
+                                      `price` int NOT NULL COMMENT '转账金额，单位：分',
+                                      `user_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '收款人姓名',
+                                      `alipay_logon_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '支付宝登录号',
+                                      `openid` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '微信 openId',
+                                      `transfer_status` tinyint NOT NULL DEFAULT 0 COMMENT '转账状态',
+                                      `pay_transfer_id` bigint NULL DEFAULT NULL COMMENT '转账订单编号',
+                                      `pay_channel_code` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '转账支付成功渠道',
+                                      `transfer_time` datetime NULL DEFAULT NULL COMMENT '转账支付时间',
+                                      `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '创建者',
+                                      `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                      `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '更新者',
+                                      `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                      `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                      `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                      PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '示例业务转账订单' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pay_demo_transfer
@@ -2133,20 +1634,20 @@ CREATE TABLE `pay_demo_transfer`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `pay_merchant`;
 CREATE TABLE `pay_merchant`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '商户编号',
-  `no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商户号',
-  `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商户全称',
-  `short_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商户简称',
-  `status` tinyint NOT NULL COMMENT '开启状态',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '支付商户信息' ROW_FORMAT = Dynamic;
+                                 `id` bigint NOT NULL AUTO_INCREMENT COMMENT '商户编号',
+                                 `no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商户号',
+                                 `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商户全称',
+                                 `short_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商户简称',
+                                 `status` tinyint NOT NULL COMMENT '开启状态',
+                                 `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                                 `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                 `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                 `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                 `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                 `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                 PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '支付商户信息' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pay_merchant
@@ -2157,195 +1658,202 @@ CREATE TABLE `pay_merchant`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `pay_notify_log`;
 CREATE TABLE `pay_notify_log`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志编号',
-  `task_id` bigint NOT NULL COMMENT '通知任务编号',
-  `notify_times` tinyint NOT NULL COMMENT '第几次被通知',
-  `response` varchar(2048) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '请求参数',
-  `status` tinyint NOT NULL COMMENT '通知状态',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 372148 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '支付通知 App 的日志' ROW_FORMAT = Dynamic;
+                                   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志编号',
+                                   `task_id` bigint NOT NULL COMMENT '通知任务编号',
+                                   `notify_times` tinyint NOT NULL COMMENT '第几次被通知',
+                                   `response` varchar(2048) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '请求参数',
+                                   `status` tinyint NOT NULL COMMENT '通知状态',
+                                   `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                   `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                   `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                   PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 372150 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '支付通知 App 的日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pay_notify_log
 -- ----------------------------
+INSERT INTO `pay_notify_log` VALUES (372148, 328, 1, '{\"code\":0,\"data\":true,\"msg\":\"\"}', 10, '1', '2024-04-23 16:06:13', '1', '2024-04-23 16:06:13', b'0', 1);
+INSERT INTO `pay_notify_log` VALUES (372149, 329, 1, '{\"code\":0,\"data\":true,\"msg\":\"\"}', 10, '1', '2024-04-23 16:06:54', '1', '2024-04-23 16:06:54', b'0', 1);
 
 -- ----------------------------
 -- Table structure for pay_notify_task
 -- ----------------------------
 DROP TABLE IF EXISTS `pay_notify_task`;
 CREATE TABLE `pay_notify_task`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务编号',
-  `app_id` bigint NOT NULL COMMENT '应用编号',
-  `type` tinyint NOT NULL COMMENT '通知类型',
-  `data_id` bigint NOT NULL COMMENT '数据编号',
-  `status` tinyint NOT NULL COMMENT '通知状态',
-  `merchant_order_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '商户订单编号',
-  `merchant_transfer_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '商户转账单编号',
-  `next_notify_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '下一次通知时间',
-  `last_execute_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后一次执行时间',
-  `notify_times` tinyint NOT NULL COMMENT '当前通知次数',
-  `max_notify_times` tinyint NOT NULL COMMENT '最大可通知次数',
-  `notify_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异步通知地址',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 328 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '商户支付、退款等的通知\n' ROW_FORMAT = Dynamic;
+                                    `id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务编号',
+                                    `app_id` bigint NOT NULL COMMENT '应用编号',
+                                    `type` tinyint NOT NULL COMMENT '通知类型',
+                                    `data_id` bigint NOT NULL COMMENT '数据编号',
+                                    `status` tinyint NOT NULL COMMENT '通知状态',
+                                    `merchant_order_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '商户订单编号',
+                                    `merchant_transfer_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '商户转账单编号',
+                                    `next_notify_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '下一次通知时间',
+                                    `last_execute_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '最后一次执行时间',
+                                    `notify_times` tinyint NOT NULL COMMENT '当前通知次数',
+                                    `max_notify_times` tinyint NOT NULL COMMENT '最大可通知次数',
+                                    `notify_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异步通知地址',
+                                    `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                    `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                    `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                    `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 330 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '商户支付、退款等的通知\n' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pay_notify_task
 -- ----------------------------
+INSERT INTO `pay_notify_task` VALUES (328, 7, 1, 395, 10, '181', NULL, '2024-04-23 16:06:13', '2024-04-23 16:06:13', 1, 9, 'http://127.0.0.1:48080/admin-api/pay/demo-order/update-paid', '1', '2024-04-23 16:06:13', '1', '2024-04-23 16:06:13', b'0', 1);
+INSERT INTO `pay_notify_task` VALUES (329, 7, 2, 97, 10, '181', NULL, '2024-04-23 16:06:54', '2024-04-23 16:06:54', 1, 9, 'http://127.0.0.1:48080/admin-api/pay/demo-order/update-refunded', '1', '2024-04-23 16:06:54', '1', '2024-04-23 16:06:54', b'0', 1);
 
 -- ----------------------------
 -- Table structure for pay_order
 -- ----------------------------
 DROP TABLE IF EXISTS `pay_order`;
 CREATE TABLE `pay_order`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '支付订单编号',
-  `app_id` bigint NOT NULL COMMENT '应用编号',
-  `channel_id` bigint NULL DEFAULT NULL COMMENT '渠道编号',
-  `channel_code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '渠道编码',
-  `merchant_order_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商户订单编号',
-  `subject` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品标题',
-  `body` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品描述',
-  `notify_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异步通知地址',
-  `price` bigint NOT NULL COMMENT '支付金额，单位：分',
-  `channel_fee_rate` double NULL DEFAULT 0 COMMENT '渠道手续费，单位：百分比',
-  `channel_fee_price` bigint NULL DEFAULT 0 COMMENT '渠道手续金额，单位：分',
-  `status` tinyint NOT NULL COMMENT '支付状态',
-  `user_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户 IP',
-  `expire_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单失效时间',
-  `success_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单支付成功时间',
-  `extension_id` bigint NULL DEFAULT NULL COMMENT '支付成功的订单拓展单编号',
-  `no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '支付订单号',
-  `refund_price` bigint NOT NULL COMMENT '退款总金额，单位：分',
-  `channel_user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '渠道用户编号',
-  `channel_order_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '渠道订单号',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 395 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '支付订单\n' ROW_FORMAT = Dynamic;
+                              `id` bigint NOT NULL AUTO_INCREMENT COMMENT '支付订单编号',
+                              `app_id` bigint NOT NULL COMMENT '应用编号',
+                              `channel_id` bigint NULL DEFAULT NULL COMMENT '渠道编号',
+                              `channel_code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '渠道编码',
+                              `merchant_order_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商户订单编号',
+                              `subject` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品标题',
+                              `body` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品描述',
+                              `notify_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异步通知地址',
+                              `price` bigint NOT NULL COMMENT '支付金额，单位：分',
+                              `channel_fee_rate` double NULL DEFAULT 0 COMMENT '渠道手续费，单位：百分比',
+                              `channel_fee_price` bigint NULL DEFAULT 0 COMMENT '渠道手续金额，单位：分',
+                              `status` tinyint NOT NULL COMMENT '支付状态',
+                              `user_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户 IP',
+                              `expire_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单失效时间',
+                              `success_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单支付成功时间',
+                              `extension_id` bigint NULL DEFAULT NULL COMMENT '支付成功的订单拓展单编号',
+                              `no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '支付订单号',
+                              `refund_price` bigint NOT NULL COMMENT '退款总金额，单位：分',
+                              `channel_user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '渠道用户编号',
+                              `channel_order_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '渠道订单号',
+                              `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                              `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                              `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                              `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                              `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                              `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                              PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 396 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '支付订单\n' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pay_order
 -- ----------------------------
 INSERT INTO `pay_order` VALUES (394, 7, NULL, NULL, '180', '华为手机', '', 'http://127.0.0.1:48080/admin-api/pay/demo-order/update-paid', 1, 0, 0, 0, '0:0:0:0:0:0:0:1', '2024-04-15 18:46:39', '2024-04-15 08:46:39', NULL, NULL, 0, NULL, NULL, '1', '2024-04-15 16:46:39', '1', '2024-04-15 16:46:39', b'0', 1);
+INSERT INTO `pay_order` VALUES (395, 7, 42, 'mock', '181', '蔚来汽车', '', 'http://127.0.0.1:48080/admin-api/pay/demo-order/update-paid', 200000, 0, 0, 20, '0:0:0:0:0:0:0:1', '2024-04-23 18:03:48', '2024-04-23 16:06:13', 950, 'P202404231606121', 200000, '', 'MOCK-P-P202404231606121', '1', '2024-04-23 16:03:49', '1', '2024-04-23 16:06:54', b'0', 1);
 
 -- ----------------------------
 -- Table structure for pay_order_extension
 -- ----------------------------
 DROP TABLE IF EXISTS `pay_order_extension`;
 CREATE TABLE `pay_order_extension`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '支付订单编号',
-  `no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '支付订单号',
-  `order_id` bigint NOT NULL COMMENT '支付订单编号',
-  `channel_id` bigint NOT NULL COMMENT '渠道编号',
-  `channel_code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '渠道编码',
-  `user_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户 IP',
-  `status` tinyint NOT NULL COMMENT '支付状态',
-  `channel_extras` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '支付渠道的额外参数',
-  `channel_error_code` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '渠道调用报错时，错误码',
-  `channel_error_msg` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '渠道调用报错时，错误信息',
-  `channel_notify_data` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '支付渠道异步通知的内容',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 950 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '支付订单\n' ROW_FORMAT = Dynamic;
+                                        `id` bigint NOT NULL AUTO_INCREMENT COMMENT '支付订单编号',
+                                        `no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '支付订单号',
+                                        `order_id` bigint NOT NULL COMMENT '支付订单编号',
+                                        `channel_id` bigint NOT NULL COMMENT '渠道编号',
+                                        `channel_code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '渠道编码',
+                                        `user_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户 IP',
+                                        `status` tinyint NOT NULL COMMENT '支付状态',
+                                        `channel_extras` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '支付渠道的额外参数',
+                                        `channel_error_code` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '渠道调用报错时，错误码',
+                                        `channel_error_msg` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '渠道调用报错时，错误信息',
+                                        `channel_notify_data` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '支付渠道异步通知的内容',
+                                        `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                        `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                        `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                        `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                        `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                        `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                        PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 951 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '支付订单\n' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pay_order_extension
 -- ----------------------------
+INSERT INTO `pay_order_extension` VALUES (950, 'P202404231606121', 395, 42, 'mock', '0:0:0:0:0:0:0:1', 10, NULL, NULL, NULL, '{\"status\":10,\"outTradeNo\":\"P202404231606121\",\"channelOrderNo\":\"MOCK-P-P202404231606121\",\"channelUserId\":\"\",\"successTime\":1713859572997,\"rawData\":\"MOCK_SUCCESS\",\"displayMode\":null,\"displayContent\":null,\"channelErrorCode\":null,\"channelErrorMsg\":null}', '1', '2024-04-23 16:06:13', '1', '2024-04-23 16:06:13', b'0', 1);
 
 -- ----------------------------
 -- Table structure for pay_refund
 -- ----------------------------
 DROP TABLE IF EXISTS `pay_refund`;
 CREATE TABLE `pay_refund`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '支付退款编号',
-  `no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '退款单号',
-  `app_id` bigint NOT NULL COMMENT '应用编号',
-  `channel_id` bigint NOT NULL COMMENT '渠道编号',
-  `channel_code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '渠道编码',
-  `order_id` bigint NOT NULL COMMENT '支付订单编号 pay_order 表id',
-  `order_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '支付订单 no',
-  `merchant_order_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商户订单编号（商户系统生成）',
-  `merchant_refund_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商户退款订单号（商户系统生成）',
-  `notify_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异步通知商户地址',
-  `status` tinyint NOT NULL COMMENT '退款状态',
-  `pay_price` bigint NOT NULL COMMENT '支付金额,单位分',
-  `refund_price` bigint NOT NULL COMMENT '退款金额,单位分',
-  `reason` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '退款原因',
-  `user_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '用户 IP',
-  `channel_order_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '渠道订单号，pay_order 中的 channel_order_no 对应',
-  `channel_refund_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '渠道退款单号，渠道返回',
-  `success_time` datetime NULL DEFAULT NULL COMMENT '退款成功时间',
-  `channel_error_code` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '渠道调用报错时，错误码',
-  `channel_error_msg` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '渠道调用报错时，错误信息',
-  `channel_notify_data` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '支付渠道异步通知的内容',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 97 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '退款订单' ROW_FORMAT = Dynamic;
+                               `id` bigint NOT NULL AUTO_INCREMENT COMMENT '支付退款编号',
+                               `no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '退款单号',
+                               `app_id` bigint NOT NULL COMMENT '应用编号',
+                               `channel_id` bigint NOT NULL COMMENT '渠道编号',
+                               `channel_code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '渠道编码',
+                               `order_id` bigint NOT NULL COMMENT '支付订单编号 pay_order 表id',
+                               `order_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '支付订单 no',
+                               `merchant_order_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商户订单编号（商户系统生成）',
+                               `merchant_refund_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商户退款订单号（商户系统生成）',
+                               `notify_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '异步通知商户地址',
+                               `status` tinyint NOT NULL COMMENT '退款状态',
+                               `pay_price` bigint NOT NULL COMMENT '支付金额,单位分',
+                               `refund_price` bigint NOT NULL COMMENT '退款金额,单位分',
+                               `reason` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '退款原因',
+                               `user_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '用户 IP',
+                               `channel_order_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '渠道订单号，pay_order 中的 channel_order_no 对应',
+                               `channel_refund_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '渠道退款单号，渠道返回',
+                               `success_time` datetime NULL DEFAULT NULL COMMENT '退款成功时间',
+                               `channel_error_code` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '渠道调用报错时，错误码',
+                               `channel_error_msg` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '渠道调用报错时，错误信息',
+                               `channel_notify_data` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '支付渠道异步通知的内容',
+                               `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                               `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                               `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                               `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                               `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                               `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                               PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 98 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '退款订单' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pay_refund
 -- ----------------------------
+INSERT INTO `pay_refund` VALUES (97, 'R202404231606541', 7, 42, 'mock', 395, 'P202404231606121', '181', '181-refund', 'http://127.0.0.1:48080/admin-api/pay/demo-order/update-refunded', 10, 200000, 200000, '想退钱', '0:0:0:0:0:0:0:1', 'MOCK-P-P202404231606121', 'MOCK-R-R202404231606541', '2024-04-23 16:06:54', NULL, NULL, '{\"status\":10,\"outRefundNo\":\"R202404231606541\",\"channelRefundNo\":\"MOCK-R-R202404231606541\",\"successTime\":1713859614227,\"rawData\":\"MOCK_SUCCESS\",\"channelErrorCode\":null,\"channelErrorMsg\":null}', '1', '2024-04-23 16:06:54', '1', '2024-04-23 16:06:54', b'0', 1);
 
 -- ----------------------------
 -- Table structure for pay_transfer
 -- ----------------------------
 DROP TABLE IF EXISTS `pay_transfer`;
 CREATE TABLE `pay_transfer`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '转账单号',
-  `app_id` bigint NOT NULL COMMENT '应用编号',
-  `channel_id` bigint NOT NULL COMMENT '转账渠道编号',
-  `channel_code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '转账渠道编码',
-  `merchant_transfer_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '商户转账单编号',
-  `type` int NOT NULL COMMENT '类型',
-  `status` tinyint NOT NULL COMMENT '转账状态',
-  `success_time` datetime NULL DEFAULT NULL COMMENT '转账成功时间',
-  `price` int NOT NULL COMMENT '转账金额，单位：分',
-  `subject` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '转账标题',
-  `user_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '收款人姓名',
-  `alipay_logon_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '支付宝登录号',
-  `openid` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '微信 openId',
-  `notify_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '异步通知商户地址',
-  `user_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户 IP',
-  `channel_extras` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '渠道的额外参数',
-  `channel_transfer_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '渠道转账单号',
-  `channel_error_code` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '调用渠道的错误码',
-  `channel_error_msg` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '调用渠道的错误提示',
-  `channel_notify_data` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '渠道的同步/异步通知的内容',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '转账单表' ROW_FORMAT = Dynamic;
+                                 `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                 `no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '转账单号',
+                                 `app_id` bigint NOT NULL COMMENT '应用编号',
+                                 `channel_id` bigint NOT NULL COMMENT '转账渠道编号',
+                                 `channel_code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '转账渠道编码',
+                                 `merchant_transfer_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '商户转账单编号',
+                                 `type` int NOT NULL COMMENT '类型',
+                                 `status` tinyint NOT NULL COMMENT '转账状态',
+                                 `success_time` datetime NULL DEFAULT NULL COMMENT '转账成功时间',
+                                 `price` int NOT NULL COMMENT '转账金额，单位：分',
+                                 `subject` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '转账标题',
+                                 `user_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '收款人姓名',
+                                 `alipay_logon_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '支付宝登录号',
+                                 `openid` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '微信 openId',
+                                 `notify_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '异步通知商户地址',
+                                 `user_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户 IP',
+                                 `channel_extras` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '渠道的额外参数',
+                                 `channel_transfer_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '渠道转账单号',
+                                 `channel_error_code` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '调用渠道的错误码',
+                                 `channel_error_msg` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '调用渠道的错误提示',
+                                 `channel_notify_data` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '渠道的同步/异步通知的内容',
+                                 `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                 `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                 `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                 `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                 `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                 PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '转账单表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pay_transfer
@@ -2356,55 +1864,56 @@ CREATE TABLE `pay_transfer`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `pay_wallet`;
 CREATE TABLE `pay_wallet`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `user_type` tinyint NOT NULL DEFAULT 0 COMMENT '用户类型',
-  `balance` int NOT NULL DEFAULT 0 COMMENT '余额，单位分',
-  `total_expense` int NOT NULL DEFAULT 0 COMMENT '累计支出，单位分',
-  `total_recharge` int NOT NULL DEFAULT 0 COMMENT '累计充值，单位分',
-  `freeze_price` int NOT NULL DEFAULT 0 COMMENT '冻结金额，单位分',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '会员钱包表' ROW_FORMAT = Dynamic;
+                               `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                               `user_id` bigint NOT NULL COMMENT '用户编号',
+                               `user_type` tinyint NOT NULL DEFAULT 0 COMMENT '用户类型',
+                               `balance` int NOT NULL DEFAULT 0 COMMENT '余额，单位分',
+                               `total_expense` int NOT NULL DEFAULT 0 COMMENT '累计支出，单位分',
+                               `total_recharge` int NOT NULL DEFAULT 0 COMMENT '累计充值，单位分',
+                               `freeze_price` int NOT NULL DEFAULT 0 COMMENT '冻结金额，单位分',
+                               `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                               `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                               `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                               `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                               `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                               `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                               PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '会员钱包表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pay_wallet
 -- ----------------------------
+INSERT INTO `pay_wallet` VALUES (6, 282, 1, 0, 0, 0, 0, '1', '2024-04-23 14:26:54', '1', '2024-04-23 14:26:54', b'0', 1);
 
 -- ----------------------------
 -- Table structure for pay_wallet_recharge
 -- ----------------------------
 DROP TABLE IF EXISTS `pay_wallet_recharge`;
 CREATE TABLE `pay_wallet_recharge`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `wallet_id` bigint NOT NULL COMMENT '会员钱包 id',
-  `total_price` int NOT NULL COMMENT '用户实际到账余额，例如充 100 送 20，则该值是 120',
-  `pay_price` int NOT NULL COMMENT '实际支付金额',
-  `bonus_price` int NOT NULL COMMENT '钱包赠送金额',
-  `package_id` bigint NULL DEFAULT NULL COMMENT '充值套餐编号',
-  `pay_status` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否已支付：[0:未支付 1:已经支付过]',
-  `pay_order_id` bigint NULL DEFAULT NULL COMMENT '支付订单编号',
-  `pay_channel_code` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '支付成功的支付渠道',
-  `pay_time` datetime NULL DEFAULT NULL COMMENT '订单支付时间',
-  `pay_refund_id` bigint NULL DEFAULT NULL COMMENT '支付退款单编号',
-  `refund_total_price` int NOT NULL DEFAULT 0 COMMENT '退款金额，包含赠送金额',
-  `refund_pay_price` int NOT NULL DEFAULT 0 COMMENT '退款支付金额',
-  `refund_bonus_price` int NOT NULL DEFAULT 0 COMMENT '退款钱包赠送金额',
-  `refund_time` datetime NULL DEFAULT NULL COMMENT '退款时间',
-  `refund_status` int NOT NULL DEFAULT 0 COMMENT '退款状态',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '会员钱包充值' ROW_FORMAT = Dynamic;
+                                        `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                        `wallet_id` bigint NOT NULL COMMENT '会员钱包 id',
+                                        `total_price` int NOT NULL COMMENT '用户实际到账余额，例如充 100 送 20，则该值是 120',
+                                        `pay_price` int NOT NULL COMMENT '实际支付金额',
+                                        `bonus_price` int NOT NULL COMMENT '钱包赠送金额',
+                                        `package_id` bigint NULL DEFAULT NULL COMMENT '充值套餐编号',
+                                        `pay_status` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否已支付：[0:未支付 1:已经支付过]',
+                                        `pay_order_id` bigint NULL DEFAULT NULL COMMENT '支付订单编号',
+                                        `pay_channel_code` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '支付成功的支付渠道',
+                                        `pay_time` datetime NULL DEFAULT NULL COMMENT '订单支付时间',
+                                        `pay_refund_id` bigint NULL DEFAULT NULL COMMENT '支付退款单编号',
+                                        `refund_total_price` int NOT NULL DEFAULT 0 COMMENT '退款金额，包含赠送金额',
+                                        `refund_pay_price` int NOT NULL DEFAULT 0 COMMENT '退款支付金额',
+                                        `refund_bonus_price` int NOT NULL DEFAULT 0 COMMENT '退款钱包赠送金额',
+                                        `refund_time` datetime NULL DEFAULT NULL COMMENT '退款时间',
+                                        `refund_status` int NOT NULL DEFAULT 0 COMMENT '退款状态',
+                                        `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                        `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                        `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                        `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                        `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                        `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                        PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '会员钱包充值' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pay_wallet_recharge
@@ -2415,45 +1924,46 @@ CREATE TABLE `pay_wallet_recharge`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `pay_wallet_recharge_package`;
 CREATE TABLE `pay_wallet_recharge_package`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '套餐名',
-  `pay_price` int NOT NULL COMMENT '支付金额',
-  `bonus_price` int NOT NULL COMMENT '赠送金额',
-  `status` tinyint NOT NULL COMMENT '状态',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '充值套餐表' ROW_FORMAT = Dynamic;
+                                                `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                                `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '套餐名',
+                                                `pay_price` int NOT NULL COMMENT '支付金额',
+                                                `bonus_price` int NOT NULL COMMENT '赠送金额',
+                                                `status` tinyint NOT NULL COMMENT '状态',
+                                                `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '创建者',
+                                                `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                                `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                                `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                                `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                                `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '充值套餐表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pay_wallet_recharge_package
 -- ----------------------------
+INSERT INTO `pay_wallet_recharge_package` VALUES (3, '套餐1', 10000, 1000, 0, '1', '2024-04-23 15:51:11', '1', '2024-04-23 15:51:11', b'0', 1);
 
 -- ----------------------------
 -- Table structure for pay_wallet_transaction
 -- ----------------------------
 DROP TABLE IF EXISTS `pay_wallet_transaction`;
 CREATE TABLE `pay_wallet_transaction`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `wallet_id` bigint NOT NULL COMMENT '会员钱包 id',
-  `biz_type` tinyint NOT NULL COMMENT '关联类型',
-  `biz_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '关联业务编号',
-  `no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '流水号',
-  `title` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '流水标题',
-  `price` int NOT NULL COMMENT '交易金额, 单位分',
-  `balance` int NOT NULL COMMENT '余额, 单位分',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '会员钱包流水表' ROW_FORMAT = Dynamic;
+                                           `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                           `wallet_id` bigint NOT NULL COMMENT '会员钱包 id',
+                                           `biz_type` tinyint NOT NULL COMMENT '关联类型',
+                                           `biz_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '关联业务编号',
+                                           `no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '流水号',
+                                           `title` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '流水标题',
+                                           `price` int NOT NULL COMMENT '交易金额, 单位分',
+                                           `balance` int NOT NULL COMMENT '余额, 单位分',
+                                           `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                           `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                           `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                           `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                           `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                           `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                           PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '会员钱包流水表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pay_wallet_transaction
@@ -2464,20 +1974,20 @@ CREATE TABLE `pay_wallet_transaction`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `product_brand`;
 CREATE TABLE `product_brand`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '品牌编号',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '品牌名称',
-  `pic_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '品牌图片',
-  `sort` int NULL DEFAULT 0 COMMENT '品牌排序',
-  `description` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '品牌描述',
-  `status` tinyint NOT NULL COMMENT '状态',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '商品品牌' ROW_FORMAT = Dynamic;
+                                  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '品牌编号',
+                                  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '品牌名称',
+                                  `pic_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '品牌图片',
+                                  `sort` int NULL DEFAULT 0 COMMENT '品牌排序',
+                                  `description` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '品牌描述',
+                                  `status` tinyint NOT NULL COMMENT '状态',
+                                  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '商品品牌' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product_brand
@@ -2491,20 +2001,20 @@ INSERT INTO `product_brand` VALUES (3, '索尼', 'http://127.0.0.1:48080/admin-a
 -- ----------------------------
 DROP TABLE IF EXISTS `product_browse_history`;
 CREATE TABLE `product_browse_history`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '记录编号',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `spu_id` bigint NOT NULL COMMENT '商品 SPU 编号',
-  `user_deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '用户是否删除',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_spuId`(`spu_id` ASC) USING BTREE,
-  INDEX `idx_userId`(`user_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '商品浏览记录表' ROW_FORMAT = Dynamic;
+                                           `id` bigint NOT NULL AUTO_INCREMENT COMMENT '记录编号',
+                                           `user_id` bigint NOT NULL COMMENT '用户编号',
+                                           `spu_id` bigint NOT NULL COMMENT '商品 SPU 编号',
+                                           `user_deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '用户是否删除',
+                                           `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                           `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                           `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                           `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                           `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                           `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                           PRIMARY KEY (`id`) USING BTREE,
+                                           INDEX `idx_spuId`(`spu_id` ASC) USING BTREE,
+                                           INDEX `idx_userId`(`user_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '商品浏览记录表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product_browse_history
@@ -2552,20 +2062,20 @@ INSERT INTO `product_browse_history` VALUES (37, 247, 633, b'0', NULL, '2024-01-
 -- ----------------------------
 DROP TABLE IF EXISTS `product_category`;
 CREATE TABLE `product_category`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '分类编号',
-  `parent_id` bigint NOT NULL COMMENT '父分类编号',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '分类名称',
-  `pic_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '移动端分类图',
-  `sort` int NULL DEFAULT 0 COMMENT '分类排序',
-  `status` tinyint NOT NULL COMMENT '开启状态',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 84 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '商品分类' ROW_FORMAT = Dynamic;
+                                     `id` bigint NOT NULL AUTO_INCREMENT COMMENT '分类编号',
+                                     `parent_id` bigint NOT NULL COMMENT '父分类编号',
+                                     `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '分类名称',
+                                     `pic_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '移动端分类图',
+                                     `sort` int NULL DEFAULT 0 COMMENT '分类排序',
+                                     `status` tinyint NOT NULL COMMENT '开启状态',
+                                     `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                     `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                     `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                     `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                     PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 84 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '商品分类' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product_category
@@ -2645,36 +2155,36 @@ INSERT INTO `product_category` VALUES (83, 47, '婴儿推车', 'http://test.yuda
 -- ----------------------------
 DROP TABLE IF EXISTS `product_comment`;
 CREATE TABLE `product_comment`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '评论编号，主键自增',
-  `user_id` bigint NOT NULL COMMENT '评价人的用户编号，关联 MemberUserDO 的 id 编号',
-  `user_nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评价人名称',
-  `user_avatar` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评价人头像',
-  `anonymous` bit(1) NOT NULL COMMENT '是否匿名',
-  `order_id` bigint NULL DEFAULT 0 COMMENT '交易订单编号，关联 TradeOrderDO 的 id 编号',
-  `order_item_id` bigint NULL DEFAULT 0 COMMENT '交易订单项编号，关联 TradeOrderItemDO 的 id 编号',
-  `spu_id` bigint NOT NULL COMMENT '商品 SPU 编号，关联 ProductSpuDO 的 id',
-  `spu_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '商品 SPU 名称',
-  `sku_id` bigint NOT NULL COMMENT '商品 SKU 编号，关联 ProductSkuDO 的 id 编号',
-  `sku_pic_url` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '图片地址',
-  `sku_properties` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '属性数组，JSON 格式 [{propertId: , valueId: }, {propertId: , valueId: }]',
-  `visible` bit(1) NULL DEFAULT NULL COMMENT '是否可见，true:显示false:隐藏',
-  `scores` tinyint NOT NULL COMMENT '评分星级1-5分',
-  `description_scores` tinyint NOT NULL COMMENT '描述星级 1-5 星',
-  `benefit_scores` tinyint NOT NULL COMMENT '服务星级 1-5 星',
-  `content` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '评论内容',
-  `pic_urls` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评论图片地址数组',
-  `reply_status` bit(1) NULL DEFAULT b'0' COMMENT '商家是否回复',
-  `reply_user_id` bigint NULL DEFAULT NULL COMMENT '回复管理员编号，关联 AdminUserDO 的 id 编号',
-  `reply_content` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '商家回复内容',
-  `reply_time` datetime NULL DEFAULT NULL COMMENT '商家回复时间',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品评论' ROW_FORMAT = Dynamic;
+                                    `id` bigint NOT NULL AUTO_INCREMENT COMMENT '评论编号，主键自增',
+                                    `user_id` bigint NOT NULL COMMENT '评价人的用户编号，关联 MemberUserDO 的 id 编号',
+                                    `user_nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评价人名称',
+                                    `user_avatar` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评价人头像',
+                                    `anonymous` bit(1) NOT NULL COMMENT '是否匿名',
+                                    `order_id` bigint NULL DEFAULT 0 COMMENT '交易订单编号，关联 TradeOrderDO 的 id 编号',
+                                    `order_item_id` bigint NULL DEFAULT 0 COMMENT '交易订单项编号，关联 TradeOrderItemDO 的 id 编号',
+                                    `spu_id` bigint NOT NULL COMMENT '商品 SPU 编号，关联 ProductSpuDO 的 id',
+                                    `spu_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '商品 SPU 名称',
+                                    `sku_id` bigint NOT NULL COMMENT '商品 SKU 编号，关联 ProductSkuDO 的 id 编号',
+                                    `sku_pic_url` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '图片地址',
+                                    `sku_properties` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '属性数组，JSON 格式 [{propertId: , valueId: }, {propertId: , valueId: }]',
+                                    `visible` bit(1) NULL DEFAULT NULL COMMENT '是否可见，true:显示false:隐藏',
+                                    `scores` tinyint NOT NULL COMMENT '评分星级1-5分',
+                                    `description_scores` tinyint NOT NULL COMMENT '描述星级 1-5 星',
+                                    `benefit_scores` tinyint NOT NULL COMMENT '服务星级 1-5 星',
+                                    `content` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '评论内容',
+                                    `pic_urls` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评论图片地址数组',
+                                    `reply_status` bit(1) NULL DEFAULT b'0' COMMENT '商家是否回复',
+                                    `reply_user_id` bigint NULL DEFAULT NULL COMMENT '回复管理员编号，关联 AdminUserDO 的 id 编号',
+                                    `reply_content` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '商家回复内容',
+                                    `reply_time` datetime NULL DEFAULT NULL COMMENT '商家回复时间',
+                                    `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
+                                    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                    `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
+                                    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                    `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                    `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品评论' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product_comment
@@ -2690,18 +2200,18 @@ INSERT INTO `product_comment` VALUES (13, 0, '测试名字', 'http://test.yudao.
 -- ----------------------------
 DROP TABLE IF EXISTS `product_favorite`;
 CREATE TABLE `product_favorite`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '收藏编号',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `spu_id` bigint NOT NULL COMMENT '商品 SPU 编号',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_userId`(`user_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '商品收藏表' ROW_FORMAT = Dynamic;
+                                     `id` bigint NOT NULL AUTO_INCREMENT COMMENT '收藏编号',
+                                     `user_id` bigint NOT NULL COMMENT '用户编号',
+                                     `spu_id` bigint NOT NULL COMMENT '商品 SPU 编号',
+                                     `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                     `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                     `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                     `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                     PRIMARY KEY (`id`) USING BTREE,
+                                     INDEX `idx_userId`(`user_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '商品收藏表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product_favorite
@@ -2719,19 +2229,19 @@ INSERT INTO `product_favorite` VALUES (27, 247, 633, '247', '2023-12-15 09:41:24
 -- ----------------------------
 DROP TABLE IF EXISTS `product_property`;
 CREATE TABLE `product_property`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
-  `status` tinyint NULL DEFAULT NULL COMMENT '状态',
-  `remark` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
-  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_name`(`name`(32) ASC) USING BTREE COMMENT '规格名称索引'
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品属性项' ROW_FORMAT = Dynamic;
+                                     `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                     `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
+                                     `status` tinyint NULL DEFAULT NULL COMMENT '状态',
+                                     `remark` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+                                     `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                     `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                     `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+                                     `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+                                     `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                     `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                     PRIMARY KEY (`id`) USING BTREE,
+                                     INDEX `idx_name`(`name`(32) ASC) USING BTREE COMMENT '规格名称索引'
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品属性项' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product_property
@@ -2755,19 +2265,19 @@ INSERT INTO `product_property` VALUES (13, 'xxx', NULL, NULL, '2024-01-11 22:09:
 -- ----------------------------
 DROP TABLE IF EXISTS `product_property_value`;
 CREATE TABLE `product_property_value`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `property_id` bigint NULL DEFAULT NULL COMMENT '属性项的编号',
-  `name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
-  `status` tinyint NULL DEFAULT NULL COMMENT '状态',
-  `remark` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
-  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品属性值' ROW_FORMAT = Dynamic;
+                                           `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                           `property_id` bigint NULL DEFAULT NULL COMMENT '属性项的编号',
+                                           `name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
+                                           `status` tinyint NULL DEFAULT NULL COMMENT '状态',
+                                           `remark` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+                                           `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                           `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                           `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+                                           `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+                                           `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                           `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                           PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品属性值' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product_property_value
@@ -2803,28 +2313,28 @@ INSERT INTO `product_property_value` VALUES (25, 9, '咧咧', NULL, '', '2024-01
 -- ----------------------------
 DROP TABLE IF EXISTS `product_sku`;
 CREATE TABLE `product_sku`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `spu_id` bigint NOT NULL COMMENT 'spu编号',
-  `properties` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '属性数组，JSON 格式 [{propertId: , valueId: }, {propertId: , valueId: }]',
-  `price` int NOT NULL DEFAULT -1 COMMENT '商品价格，单位：分',
-  `market_price` int NULL DEFAULT NULL COMMENT '市场价，单位：分',
-  `cost_price` int NOT NULL DEFAULT -1 COMMENT '成本价，单位： 分',
-  `bar_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT 'SKU 的条形码',
-  `pic_url` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '图片地址',
-  `stock` int NULL DEFAULT NULL COMMENT '库存',
-  `weight` double NULL DEFAULT NULL COMMENT '商品重量，单位：kg 千克',
-  `volume` double NULL DEFAULT NULL COMMENT '商品体积，单位：m^3 平米',
-  `first_brokerage_price` int NULL DEFAULT NULL COMMENT '一级分销的佣金，单位：分',
-  `second_brokerage_price` int NULL DEFAULT NULL COMMENT '二级分销的佣金，单位：分',
-  `sales_count` int NULL DEFAULT NULL COMMENT '商品销量',
-  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '创建人',
-  `updater` double(64, 0) NULL DEFAULT NULL COMMENT '更新人',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '商品sku' ROW_FORMAT = Dynamic;
+                                `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                `spu_id` bigint NOT NULL COMMENT 'spu编号',
+                                `properties` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '属性数组，JSON 格式 [{propertId: , valueId: }, {propertId: , valueId: }]',
+                                `price` int NOT NULL DEFAULT -1 COMMENT '商品价格，单位：分',
+                                `market_price` int NULL DEFAULT NULL COMMENT '市场价，单位：分',
+                                `cost_price` int NOT NULL DEFAULT -1 COMMENT '成本价，单位： 分',
+                                `bar_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT 'SKU 的条形码',
+                                `pic_url` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '图片地址',
+                                `stock` int NULL DEFAULT NULL COMMENT '库存',
+                                `weight` double NULL DEFAULT NULL COMMENT '商品重量，单位：kg 千克',
+                                `volume` double NULL DEFAULT NULL COMMENT '商品体积，单位：m^3 平米',
+                                `first_brokerage_price` int NULL DEFAULT NULL COMMENT '一级分销的佣金，单位：分',
+                                `second_brokerage_price` int NULL DEFAULT NULL COMMENT '二级分销的佣金，单位：分',
+                                `sales_count` int NULL DEFAULT NULL COMMENT '商品销量',
+                                `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '创建人',
+                                `updater` double(64, 0) NULL DEFAULT NULL COMMENT '更新人',
+                                `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '商品sku' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product_sku
@@ -2858,37 +2368,37 @@ INSERT INTO `product_sku` VALUES (29, 639, '[{\"propertyId\":0,\"propertyName\":
 -- ----------------------------
 DROP TABLE IF EXISTS `product_spu`;
 CREATE TABLE `product_spu`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '商品 SPU 编号，自增',
-  `name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品名称',
-  `keyword` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '关键字',
-  `introduction` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '商品简介',
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '商品详情',
-  `category_id` bigint NOT NULL COMMENT '商品分类编号',
-  `brand_id` int NULL DEFAULT NULL COMMENT '商品品牌编号',
-  `pic_url` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品封面图',
-  `slider_pic_urls` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '商品轮播图地址\n 数组，以逗号分隔\n 最多上传15张',
-  `sort` int NOT NULL DEFAULT 0 COMMENT '排序字段',
-  `status` tinyint NOT NULL COMMENT '商品状态: 0 上架（开启） 1 下架（禁用）-1 回收',
-  `spec_type` bit(1) NULL DEFAULT NULL COMMENT '规格类型：0 单规格 1 多规格',
-  `price` int NOT NULL DEFAULT -1 COMMENT '商品价格，单位使用：分',
-  `market_price` int NULL DEFAULT NULL COMMENT '市场价，单位使用：分',
-  `cost_price` int NOT NULL DEFAULT -1 COMMENT '成本价，单位： 分',
-  `stock` int NOT NULL DEFAULT 0 COMMENT '库存',
-  `delivery_types` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '配送方式数组',
-  `delivery_template_id` bigint NULL DEFAULT NULL COMMENT '物流配置模板编号',
-  `give_integral` int NOT NULL DEFAULT 0 COMMENT '赠送积分',
-  `sub_commission_type` bit(1) NULL DEFAULT NULL COMMENT '分销类型',
-  `sales_count` int NULL DEFAULT 0 COMMENT '商品销量',
-  `virtual_sales_count` int NULL DEFAULT 0 COMMENT '虚拟销量',
-  `browse_count` int NULL DEFAULT 0 COMMENT '商品点击量',
-  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '创建人',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '更新人',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 640 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '商品spu' ROW_FORMAT = Dynamic;
+                                `id` bigint NOT NULL AUTO_INCREMENT COMMENT '商品 SPU 编号，自增',
+                                `name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品名称',
+                                `keyword` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '关键字',
+                                `introduction` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '商品简介',
+                                `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '商品详情',
+                                `category_id` bigint NOT NULL COMMENT '商品分类编号',
+                                `brand_id` int NULL DEFAULT NULL COMMENT '商品品牌编号',
+                                `pic_url` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品封面图',
+                                `slider_pic_urls` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '商品轮播图地址\n 数组，以逗号分隔\n 最多上传15张',
+                                `sort` int NOT NULL DEFAULT 0 COMMENT '排序字段',
+                                `status` tinyint NOT NULL COMMENT '商品状态: 0 上架（开启） 1 下架（禁用）-1 回收',
+                                `spec_type` bit(1) NULL DEFAULT NULL COMMENT '规格类型：0 单规格 1 多规格',
+                                `price` int NOT NULL DEFAULT -1 COMMENT '商品价格，单位使用：分',
+                                `market_price` int NULL DEFAULT NULL COMMENT '市场价，单位使用：分',
+                                `cost_price` int NOT NULL DEFAULT -1 COMMENT '成本价，单位： 分',
+                                `stock` int NOT NULL DEFAULT 0 COMMENT '库存',
+                                `delivery_types` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '配送方式数组',
+                                `delivery_template_id` bigint NULL DEFAULT NULL COMMENT '物流配置模板编号',
+                                `give_integral` int NOT NULL DEFAULT 0 COMMENT '赠送积分',
+                                `sub_commission_type` bit(1) NULL DEFAULT NULL COMMENT '分销类型',
+                                `sales_count` int NULL DEFAULT 0 COMMENT '商品销量',
+                                `virtual_sales_count` int NULL DEFAULT 0 COMMENT '虚拟销量',
+                                `browse_count` int NULL DEFAULT 0 COMMENT '商品点击量',
+                                `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '创建人',
+                                `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '更新人',
+                                `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 640 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '商品spu' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product_spu
@@ -2910,29 +2420,29 @@ INSERT INTO `product_spu` VALUES (639, '旧的界面', '1024', '2048', '<p>qq</p
 -- ----------------------------
 DROP TABLE IF EXISTS `product_statistics`;
 CREATE TABLE `product_statistics`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号，主键自增',
-  `time` date NOT NULL COMMENT '统计日期',
-  `spu_id` bigint NOT NULL COMMENT '商品 SPU 编号',
-  `browse_count` int NOT NULL DEFAULT 0 COMMENT '浏览量',
-  `browse_user_count` int NOT NULL DEFAULT 0 COMMENT '访客量',
-  `favorite_count` int NOT NULL DEFAULT 0 COMMENT '收藏数量',
-  `cart_count` int NOT NULL DEFAULT 0 COMMENT '加购数量',
-  `order_count` int NOT NULL DEFAULT 0 COMMENT '下单件数',
-  `order_pay_count` int NOT NULL DEFAULT 0 COMMENT '支付件数',
-  `order_pay_price` int NOT NULL DEFAULT 0 COMMENT '支付金额，单位：分',
-  `after_sale_count` int NOT NULL DEFAULT 0 COMMENT '退款件数',
-  `after_sale_refund_price` int NOT NULL DEFAULT 0 COMMENT '退款金额，单位：分',
-  `browse_convert_percent` int NOT NULL DEFAULT 0 COMMENT '访客支付转化率（百分比）',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_time`(`time` ASC) USING BTREE,
-  INDEX `idx_spu_id`(`spu_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '商品统计表' ROW_FORMAT = Dynamic;
+                                       `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号，主键自增',
+                                       `time` date NOT NULL COMMENT '统计日期',
+                                       `spu_id` bigint NOT NULL COMMENT '商品 SPU 编号',
+                                       `browse_count` int NOT NULL DEFAULT 0 COMMENT '浏览量',
+                                       `browse_user_count` int NOT NULL DEFAULT 0 COMMENT '访客量',
+                                       `favorite_count` int NOT NULL DEFAULT 0 COMMENT '收藏数量',
+                                       `cart_count` int NOT NULL DEFAULT 0 COMMENT '加购数量',
+                                       `order_count` int NOT NULL DEFAULT 0 COMMENT '下单件数',
+                                       `order_pay_count` int NOT NULL DEFAULT 0 COMMENT '支付件数',
+                                       `order_pay_price` int NOT NULL DEFAULT 0 COMMENT '支付金额，单位：分',
+                                       `after_sale_count` int NOT NULL DEFAULT 0 COMMENT '退款件数',
+                                       `after_sale_refund_price` int NOT NULL DEFAULT 0 COMMENT '退款金额，单位：分',
+                                       `browse_convert_percent` int NOT NULL DEFAULT 0 COMMENT '访客支付转化率（百分比）',
+                                       `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                       `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                       `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                       `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                       `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                       `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                       PRIMARY KEY (`id`) USING BTREE,
+                                       INDEX `idx_time`(`time` ASC) USING BTREE,
+                                       INDEX `idx_spu_id`(`spu_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '商品统计表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of product_statistics
@@ -2943,27 +2453,27 @@ CREATE TABLE `product_statistics`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_article`;
 CREATE TABLE `promotion_article`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文章管理编号',
-  `category_id` bigint NOT NULL COMMENT '分类编号',
-  `spu_id` bigint NOT NULL DEFAULT 0 COMMENT '关联商品编号',
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文章标题',
-  `author` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '文章作者',
-  `pic_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文章封面图片地址',
-  `introduction` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '文章简介',
-  `browse_count` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '浏览次数',
-  `sort` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '排序',
-  `status` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '状态',
-  `recommend_hot` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否热门(小程序)',
-  `recommend_banner` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否轮播图(小程序)',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文章内容',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '文章管理表' ROW_FORMAT = Dynamic;
+                                      `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '文章管理编号',
+                                      `category_id` bigint NOT NULL COMMENT '分类编号',
+                                      `spu_id` bigint NOT NULL DEFAULT 0 COMMENT '关联商品编号',
+                                      `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文章标题',
+                                      `author` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '文章作者',
+                                      `pic_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文章封面图片地址',
+                                      `introduction` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '文章简介',
+                                      `browse_count` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '浏览次数',
+                                      `sort` int UNSIGNED NOT NULL DEFAULT 0 COMMENT '排序',
+                                      `status` tinyint UNSIGNED NOT NULL DEFAULT 0 COMMENT '状态',
+                                      `recommend_hot` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否热门(小程序)',
+                                      `recommend_banner` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否轮播图(小程序)',
+                                      `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '文章内容',
+                                      `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                      `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                      `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                      `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                      `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                      `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                      PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '文章管理表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_article
@@ -2979,19 +2489,19 @@ INSERT INTO `promotion_article` VALUES (5, 3, 0, '常见问题', '', 'http://127
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_article_category`;
 CREATE TABLE `promotion_article_category`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '文章分类编号',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '分类名称',
-  `pic_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '图标地址',
-  `status` tinyint NOT NULL DEFAULT 1 COMMENT '状态',
-  `sort` int NOT NULL DEFAULT 99999 COMMENT '排序',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '文章分类表' ROW_FORMAT = Dynamic;
+                                               `id` bigint NOT NULL AUTO_INCREMENT COMMENT '文章分类编号',
+                                               `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '分类名称',
+                                               `pic_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '图标地址',
+                                               `status` tinyint NOT NULL DEFAULT 1 COMMENT '状态',
+                                               `sort` int NOT NULL DEFAULT 99999 COMMENT '排序',
+                                               `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                               `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                               `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                               `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                               `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                               `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                               PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '文章分类表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_article_category
@@ -3005,23 +2515,23 @@ INSERT INTO `promotion_article_category` VALUES (3, '系统分类', '', 0, 0, '1
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_banner`;
 CREATE TABLE `promotion_banner`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'Banner 编号',
-  `title` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Banner 标题',
-  `pic_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '图片 URL',
-  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '跳转地址',
-  `status` tinyint NOT NULL DEFAULT -1 COMMENT '活动状态',
-  `sort` int NULL DEFAULT NULL COMMENT '排序',
-  `position` tinyint NOT NULL COMMENT '位置',
-  `memo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '描述',
-  `browse_count` int NULL DEFAULT NULL COMMENT 'Banner 点击次数',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'Banner 广告位' ROW_FORMAT = Dynamic;
+                                     `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'Banner 编号',
+                                     `title` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Banner 标题',
+                                     `pic_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '图片 URL',
+                                     `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '跳转地址',
+                                     `status` tinyint NOT NULL DEFAULT -1 COMMENT '活动状态',
+                                     `sort` int NULL DEFAULT NULL COMMENT '排序',
+                                     `position` tinyint NOT NULL COMMENT '位置',
+                                     `memo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '描述',
+                                     `browse_count` int NULL DEFAULT NULL COMMENT 'Banner 点击次数',
+                                     `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                     `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                     `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                     `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                     PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'Banner 广告位' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_banner
@@ -3033,30 +2543,30 @@ INSERT INTO `promotion_banner` VALUES (4, '测试', 'http://127.0.0.1:48080/admi
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_bargain_activity`;
 CREATE TABLE `promotion_bargain_activity`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '砍价活动编号',
-  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '砍价活动名称',
-  `start_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '活动开始时间',
-  `end_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '活动结束时间',
-  `status` int NOT NULL DEFAULT 0 COMMENT '活动状态',
-  `spu_id` bigint NOT NULL DEFAULT 0 COMMENT '商品 SPU 编号',
-  `sku_id` bigint NOT NULL COMMENT '商品 SKU 编号',
-  `bargain_first_price` int NOT NULL DEFAULT 0 COMMENT '砍价起始价格，单位分',
-  `bargain_min_price` int NOT NULL DEFAULT 0 COMMENT '砍价底价，单位：分',
-  `stock` int NOT NULL DEFAULT 0 COMMENT '砍价库存',
-  `total_stock` int NOT NULL DEFAULT 0 COMMENT '砍价总库存',
-  `help_max_count` int NOT NULL DEFAULT 0 COMMENT '砍价人数',
-  `bargain_count` int NOT NULL DEFAULT 0 COMMENT '最大帮砍次数',
-  `total_limit_count` int NOT NULL DEFAULT 0 COMMENT '总限购数量',
-  `random_min_price` int NOT NULL DEFAULT 0 COMMENT '用户每次砍价的最小金额，单位：分',
-  `random_max_price` int NOT NULL DEFAULT 0 COMMENT '用户每次砍价的最大金额，单位：分',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '砍价活动' ROW_FORMAT = Dynamic;
+                                               `id` bigint NOT NULL AUTO_INCREMENT COMMENT '砍价活动编号',
+                                               `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '砍价活动名称',
+                                               `start_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '活动开始时间',
+                                               `end_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '活动结束时间',
+                                               `status` int NOT NULL DEFAULT 0 COMMENT '活动状态',
+                                               `spu_id` bigint NOT NULL DEFAULT 0 COMMENT '商品 SPU 编号',
+                                               `sku_id` bigint NOT NULL COMMENT '商品 SKU 编号',
+                                               `bargain_first_price` int NOT NULL DEFAULT 0 COMMENT '砍价起始价格，单位分',
+                                               `bargain_min_price` int NOT NULL DEFAULT 0 COMMENT '砍价底价，单位：分',
+                                               `stock` int NOT NULL DEFAULT 0 COMMENT '砍价库存',
+                                               `total_stock` int NOT NULL DEFAULT 0 COMMENT '砍价总库存',
+                                               `help_max_count` int NOT NULL DEFAULT 0 COMMENT '砍价人数',
+                                               `bargain_count` int NOT NULL DEFAULT 0 COMMENT '最大帮砍次数',
+                                               `total_limit_count` int NOT NULL DEFAULT 0 COMMENT '总限购数量',
+                                               `random_min_price` int NOT NULL DEFAULT 0 COMMENT '用户每次砍价的最小金额，单位：分',
+                                               `random_max_price` int NOT NULL DEFAULT 0 COMMENT '用户每次砍价的最大金额，单位：分',
+                                               `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
+                                               `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                               `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
+                                               `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                               `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                               `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                               PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '砍价活动' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_bargain_activity
@@ -3068,19 +2578,19 @@ INSERT INTO `promotion_bargain_activity` VALUES (1, '测试活动', '2023-08-13 
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_bargain_help`;
 CREATE TABLE `promotion_bargain_help`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '砍价助力编号',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `activity_id` bigint NOT NULL COMMENT '砍价活动名称',
-  `record_id` bigint NOT NULL DEFAULT 0 COMMENT '砍价记录编号',
-  `reduce_price` int NOT NULL DEFAULT 0 COMMENT '减少砍价，单位：分',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '砍价助力表' ROW_FORMAT = Dynamic;
+                                           `id` bigint NOT NULL AUTO_INCREMENT COMMENT '砍价助力编号',
+                                           `user_id` bigint NOT NULL COMMENT '用户编号',
+                                           `activity_id` bigint NOT NULL COMMENT '砍价活动名称',
+                                           `record_id` bigint NOT NULL DEFAULT 0 COMMENT '砍价记录编号',
+                                           `reduce_price` int NOT NULL DEFAULT 0 COMMENT '减少砍价，单位：分',
+                                           `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
+                                           `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                           `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
+                                           `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                           `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                           `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                           PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '砍价助力表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_bargain_help
@@ -3095,24 +2605,24 @@ INSERT INTO `promotion_bargain_help` VALUES (36, 247, 1, 31, 25, '247', '2023-10
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_bargain_record`;
 CREATE TABLE `promotion_bargain_record`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '砍价记录编号',
-  `activity_id` bigint NOT NULL COMMENT '砍价活动名称',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `spu_id` bigint NOT NULL DEFAULT 0 COMMENT '商品 SPU 编号',
-  `sku_id` bigint NOT NULL COMMENT '商品 SKU 编号',
-  `bargain_first_price` int NOT NULL DEFAULT 0 COMMENT '砍价起始价格，单位：分',
-  `bargain_price` int NOT NULL DEFAULT 0 COMMENT '当前砍价，单位：分',
-  `status` int NOT NULL DEFAULT 0 COMMENT '砍价状态',
-  `order_id` bigint NULL DEFAULT NULL COMMENT '订单编号',
-  `end_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '结束时间',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '砍价记录表' ROW_FORMAT = Dynamic;
+                                             `id` bigint NOT NULL AUTO_INCREMENT COMMENT '砍价记录编号',
+                                             `activity_id` bigint NOT NULL COMMENT '砍价活动名称',
+                                             `user_id` bigint NOT NULL COMMENT '用户编号',
+                                             `spu_id` bigint NOT NULL DEFAULT 0 COMMENT '商品 SPU 编号',
+                                             `sku_id` bigint NOT NULL COMMENT '商品 SKU 编号',
+                                             `bargain_first_price` int NOT NULL DEFAULT 0 COMMENT '砍价起始价格，单位：分',
+                                             `bargain_price` int NOT NULL DEFAULT 0 COMMENT '当前砍价，单位：分',
+                                             `status` int NOT NULL DEFAULT 0 COMMENT '砍价状态',
+                                             `order_id` bigint NULL DEFAULT NULL COMMENT '订单编号',
+                                             `end_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '结束时间',
+                                             `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
+                                             `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                             `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
+                                             `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                             `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                             `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                             PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '砍价记录表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_bargain_record
@@ -3128,25 +2638,25 @@ INSERT INTO `promotion_bargain_record` VALUES (32, 1, 248, 633, 1, 100, 100, 1, 
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_combination_activity`;
 CREATE TABLE `promotion_combination_activity`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '活动编号',
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '拼团名称',
-  `spu_id` bigint NOT NULL COMMENT '商品 SPU ID',
-  `total_limit_count` int NOT NULL COMMENT '总限购数量',
-  `single_limit_count` int NOT NULL COMMENT '单次限购数量',
-  `start_time` datetime NOT NULL COMMENT '开始时间',
-  `end_time` datetime NOT NULL COMMENT '结束时间',
-  `user_size` int NULL DEFAULT NULL COMMENT '购买人数',
-  `virtual_group` int NOT NULL COMMENT '虚拟成团',
-  `status` tinyint NOT NULL DEFAULT 0 COMMENT '活动状态：0开启 1关闭',
-  `limit_duration` int NOT NULL COMMENT '限制时长（小时）',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '拼团活动' ROW_FORMAT = Dynamic;
+                                                   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '活动编号',
+                                                   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '拼团名称',
+                                                   `spu_id` bigint NOT NULL COMMENT '商品 SPU ID',
+                                                   `total_limit_count` int NOT NULL COMMENT '总限购数量',
+                                                   `single_limit_count` int NOT NULL COMMENT '单次限购数量',
+                                                   `start_time` datetime NOT NULL COMMENT '开始时间',
+                                                   `end_time` datetime NOT NULL COMMENT '结束时间',
+                                                   `user_size` int NULL DEFAULT NULL COMMENT '购买人数',
+                                                   `virtual_group` int NOT NULL COMMENT '虚拟成团',
+                                                   `status` tinyint NOT NULL DEFAULT 0 COMMENT '活动状态：0开启 1关闭',
+                                                   `limit_duration` int NOT NULL COMMENT '限制时长（小时）',
+                                                   `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
+                                                   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                                   `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
+                                                   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                                   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                                   `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                                   PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '拼团活动' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_combination_activity
@@ -3159,22 +2669,22 @@ INSERT INTO `promotion_combination_activity` VALUES (8, '一个新的拼团活�
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_combination_product`;
 CREATE TABLE `promotion_combination_product`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `activity_id` bigint NULL DEFAULT NULL COMMENT '拼团活动编号',
-  `spu_id` bigint NULL DEFAULT NULL COMMENT '商品 SPU 编号',
-  `sku_id` bigint NULL DEFAULT NULL COMMENT '商品 SKU 编号',
-  `activity_status` tinyint NOT NULL DEFAULT 0 COMMENT '拼团商品状态',
-  `activity_start_time` datetime NOT NULL COMMENT '活动开始时间点',
-  `activity_end_time` datetime NOT NULL COMMENT '活动结束时间点',
-  `combination_price` int NOT NULL DEFAULT 0 COMMENT '拼团价格，单位分',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '拼团商品' ROW_FORMAT = Dynamic;
+                                                  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                                  `activity_id` bigint NULL DEFAULT NULL COMMENT '拼团活动编号',
+                                                  `spu_id` bigint NULL DEFAULT NULL COMMENT '商品 SPU 编号',
+                                                  `sku_id` bigint NULL DEFAULT NULL COMMENT '商品 SKU 编号',
+                                                  `activity_status` tinyint NOT NULL DEFAULT 0 COMMENT '拼团商品状态',
+                                                  `activity_start_time` datetime NOT NULL COMMENT '活动开始时间点',
+                                                  `activity_end_time` datetime NOT NULL COMMENT '活动结束时间点',
+                                                  `combination_price` int NOT NULL DEFAULT 0 COMMENT '拼团价格，单位分',
+                                                  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
+                                                  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                                  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
+                                                  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                                  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                                  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                                  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '拼团商品' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_combination_product
@@ -3192,34 +2702,34 @@ INSERT INTO `promotion_combination_product` VALUES (31, 8, 633, 3, 0, '2024-01-1
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_combination_record`;
 CREATE TABLE `promotion_combination_record`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `activity_id` bigint NULL DEFAULT NULL COMMENT '拼团活动编号',
-  `spu_id` bigint NULL DEFAULT NULL COMMENT '商品 SPU 编号',
-  `pic_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '商品图片',
-  `spu_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '商品名称',
-  `sku_id` bigint NULL DEFAULT NULL COMMENT '商品 SKU 编号',
-  `count` int NULL DEFAULT NULL COMMENT '购买的商品数量',
-  `user_id` bigint NULL DEFAULT NULL COMMENT '用户编号',
-  `nickname` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '用户昵称',
-  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '用户头像',
-  `head_id` bigint NULL DEFAULT NULL COMMENT '团长编号',
-  `order_id` bigint NULL DEFAULT NULL COMMENT '订单编号',
-  `user_size` int NOT NULL COMMENT '可参团人数',
-  `user_count` int NOT NULL COMMENT '已参团人数',
-  `virtual_group` bit(1) NULL DEFAULT NULL COMMENT '是否虚拟拼团',
-  `status` tinyint NOT NULL DEFAULT 0 COMMENT '参与状态：1进行中 2已完成 3未完成',
-  `combination_price` int NOT NULL COMMENT '拼团商品单价，单位分',
-  `expire_time` datetime NOT NULL COMMENT '过期时间',
-  `start_time` datetime NULL DEFAULT NULL COMMENT '开始时间 (订单付款后开始的时间)',
-  `end_time` datetime NULL DEFAULT NULL COMMENT '结束时间（成团时间/失败时间）',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '拼团记录' ROW_FORMAT = Dynamic;
+                                                 `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                                 `activity_id` bigint NULL DEFAULT NULL COMMENT '拼团活动编号',
+                                                 `spu_id` bigint NULL DEFAULT NULL COMMENT '商品 SPU 编号',
+                                                 `pic_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '商品图片',
+                                                 `spu_name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '商品名称',
+                                                 `sku_id` bigint NULL DEFAULT NULL COMMENT '商品 SKU 编号',
+                                                 `count` int NULL DEFAULT NULL COMMENT '购买的商品数量',
+                                                 `user_id` bigint NULL DEFAULT NULL COMMENT '用户编号',
+                                                 `nickname` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '用户昵称',
+                                                 `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '用户头像',
+                                                 `head_id` bigint NULL DEFAULT NULL COMMENT '团长编号',
+                                                 `order_id` bigint NULL DEFAULT NULL COMMENT '订单编号',
+                                                 `user_size` int NOT NULL COMMENT '可参团人数',
+                                                 `user_count` int NOT NULL COMMENT '已参团人数',
+                                                 `virtual_group` bit(1) NULL DEFAULT NULL COMMENT '是否虚拟拼团',
+                                                 `status` tinyint NOT NULL DEFAULT 0 COMMENT '参与状态：1进行中 2已完成 3未完成',
+                                                 `combination_price` int NOT NULL COMMENT '拼团商品单价，单位分',
+                                                 `expire_time` datetime NOT NULL COMMENT '过期时间',
+                                                 `start_time` datetime NULL DEFAULT NULL COMMENT '开始时间 (订单付款后开始的时间)',
+                                                 `end_time` datetime NULL DEFAULT NULL COMMENT '结束时间（成团时间/失败时间）',
+                                                 `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
+                                                 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                                 `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
+                                                 `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                                 `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                                 `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                                 PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '拼团记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_combination_record
@@ -3233,31 +2743,31 @@ INSERT INTO `promotion_combination_record` VALUES (11, 8, 633, 'https://static.i
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_coupon`;
 CREATE TABLE `promotion_coupon`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '优惠劵编号',
-  `template_id` bigint NOT NULL COMMENT '优惠劵模板编号',
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '优惠劵名',
-  `status` tinyint NOT NULL COMMENT '优惠码状态\n     *\n     * 1-未使用\n     * 2-已使用\n     * 3-已失效',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `take_type` tinyint NOT NULL COMMENT '领取类型\n     *\n     * 1 - 用户主动领取\n     * 2 - 后台自动发放',
-  `use_price` int NOT NULL COMMENT '是否设置满多少金额可用，单位：分',
-  `valid_start_time` datetime NOT NULL COMMENT '生效开始时间',
-  `valid_end_time` datetime NOT NULL COMMENT '生效结束时间',
-  `product_scope` tinyint NOT NULL COMMENT '商品范围',
-  `product_scope_values` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '商品范围编号的数组',
-  `discount_type` tinyint NOT NULL COMMENT '折扣类型',
-  `discount_percent` tinyint NULL DEFAULT NULL COMMENT '折扣百分比',
-  `discount_price` int NULL DEFAULT NULL COMMENT '优惠金额，单位：分',
-  `discount_limit_price` int NULL DEFAULT NULL COMMENT '折扣上限',
-  `use_order_id` bigint NULL DEFAULT NULL COMMENT '使用订单号',
-  `use_time` datetime NULL DEFAULT NULL COMMENT '使用时间',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '优惠劵' ROW_FORMAT = Dynamic;
+                                     `id` bigint NOT NULL AUTO_INCREMENT COMMENT '优惠劵编号',
+                                     `template_id` bigint NOT NULL COMMENT '优惠劵模板编号',
+                                     `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '优惠劵名',
+                                     `status` tinyint NOT NULL COMMENT '优惠码状态\n     *\n     * 1-未使用\n     * 2-已使用\n     * 3-已失效',
+                                     `user_id` bigint NOT NULL COMMENT '用户编号',
+                                     `take_type` tinyint NOT NULL COMMENT '领取类型\n     *\n     * 1 - 用户主动领取\n     * 2 - 后台自动发放',
+                                     `use_price` int NOT NULL COMMENT '是否设置满多少金额可用，单位：分',
+                                     `valid_start_time` datetime NOT NULL COMMENT '生效开始时间',
+                                     `valid_end_time` datetime NOT NULL COMMENT '生效结束时间',
+                                     `product_scope` tinyint NOT NULL COMMENT '商品范围',
+                                     `product_scope_values` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '商品范围编号的数组',
+                                     `discount_type` tinyint NOT NULL COMMENT '折扣类型',
+                                     `discount_percent` tinyint NULL DEFAULT NULL COMMENT '折扣百分比',
+                                     `discount_price` int NULL DEFAULT NULL COMMENT '优惠金额，单位：分',
+                                     `discount_limit_price` int NULL DEFAULT NULL COMMENT '折扣上限',
+                                     `use_order_id` bigint NULL DEFAULT NULL COMMENT '使用订单号',
+                                     `use_time` datetime NULL DEFAULT NULL COMMENT '使用时间',
+                                     `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                     `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                     `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                     `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                     PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '优惠劵' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_coupon
@@ -3281,34 +2791,34 @@ INSERT INTO `promotion_coupon` VALUES (17, 1, '优惠劵AAA', 1, 247, 1, 1000, '
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_coupon_template`;
 CREATE TABLE `promotion_coupon_template`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '模板编号，自增唯一。',
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '优惠劵名',
-  `status` tinyint NOT NULL COMMENT '状态',
-  `total_count` int NOT NULL COMMENT '发放数量, -1 - 则表示不限制',
-  `take_limit_count` tinyint NOT NULL COMMENT '每人限领个数, -1 - 则表示不限制',
-  `take_type` tinyint NOT NULL COMMENT '领取方式',
-  `use_price` int NOT NULL COMMENT '是否设置满多少金额可用，单位：分',
-  `product_scope` tinyint NOT NULL COMMENT '商品范围',
-  `product_scope_values` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '商品范围编号的数组',
-  `validity_type` tinyint NOT NULL COMMENT '生效日期类型',
-  `valid_start_time` datetime NULL DEFAULT NULL COMMENT '固定日期-生效开始时间',
-  `valid_end_time` datetime NULL DEFAULT NULL COMMENT '固定日期-生效结束时间',
-  `fixed_start_term` int NULL DEFAULT NULL COMMENT '领取日期-开始天数',
-  `fixed_end_term` int NULL DEFAULT NULL COMMENT '领取日期-结束天数',
-  `discount_type` int NOT NULL COMMENT '优惠类型\n     *\n     * 1-代金卷\n     * 2-折扣卷',
-  `discount_percent` tinyint NULL DEFAULT NULL COMMENT '折扣百分比',
-  `discount_price` int NULL DEFAULT NULL COMMENT '优惠金额，单位：分',
-  `discount_limit_price` int NULL DEFAULT NULL COMMENT '折扣上限，仅在 {@link #preferentialType} 等于 2 时生效。\n     *\n     * 例如，折扣上限为 20 元，当使用 8 折优惠券，订单金额为 1000 元时，最高只可折扣 20 元，而非 80  元。',
-  `take_count` int NOT NULL DEFAULT 0 COMMENT '领取优惠券的数量',
-  `use_count` int NOT NULL DEFAULT 0 COMMENT '使用优惠券的次数',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '优惠劵模板' ROW_FORMAT = Dynamic;
+                                              `id` bigint NOT NULL AUTO_INCREMENT COMMENT '模板编号，自增唯一。',
+                                              `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '优惠劵名',
+                                              `status` tinyint NOT NULL COMMENT '状态',
+                                              `total_count` int NOT NULL COMMENT '发放数量, -1 - 则表示不限制',
+                                              `take_limit_count` tinyint NOT NULL COMMENT '每人限领个数, -1 - 则表示不限制',
+                                              `take_type` tinyint NOT NULL COMMENT '领取方式',
+                                              `use_price` int NOT NULL COMMENT '是否设置满多少金额可用，单位：分',
+                                              `product_scope` tinyint NOT NULL COMMENT '商品范围',
+                                              `product_scope_values` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '商品范围编号的数组',
+                                              `validity_type` tinyint NOT NULL COMMENT '生效日期类型',
+                                              `valid_start_time` datetime NULL DEFAULT NULL COMMENT '固定日期-生效开始时间',
+                                              `valid_end_time` datetime NULL DEFAULT NULL COMMENT '固定日期-生效结束时间',
+                                              `fixed_start_term` int NULL DEFAULT NULL COMMENT '领取日期-开始天数',
+                                              `fixed_end_term` int NULL DEFAULT NULL COMMENT '领取日期-结束天数',
+                                              `discount_type` int NOT NULL COMMENT '优惠类型\n     *\n     * 1-代金卷\n     * 2-折扣卷',
+                                              `discount_percent` tinyint NULL DEFAULT NULL COMMENT '折扣百分比',
+                                              `discount_price` int NULL DEFAULT NULL COMMENT '优惠金额，单位：分',
+                                              `discount_limit_price` int NULL DEFAULT NULL COMMENT '折扣上限，仅在 {@link #preferentialType} 等于 2 时生效。\n     *\n     * 例如，折扣上限为 20 元，当使用 8 折优惠券，订单金额为 1000 元时，最高只可折扣 20 元，而非 80  元。',
+                                              `take_count` int NOT NULL DEFAULT 0 COMMENT '领取优惠券的数量',
+                                              `use_count` int NOT NULL DEFAULT 0 COMMENT '使用优惠券的次数',
+                                              `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                              `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                              `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                              `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                              `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                              `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                              PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '优惠劵模板' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_coupon_template
@@ -3324,20 +2834,20 @@ INSERT INTO `promotion_coupon_template` VALUES (16, '1', 0, 1, 2, 1, 300, 1, '',
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_discount_activity`;
 CREATE TABLE `promotion_discount_activity`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '活动编号',
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '活动标题',
-  `status` tinyint NOT NULL DEFAULT -1 COMMENT '活动状态',
-  `start_time` datetime NOT NULL COMMENT '开始时间',
-  `end_time` datetime NOT NULL COMMENT '结束时间',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '限时折扣活动' ROW_FORMAT = Dynamic;
+                                                `id` bigint NOT NULL AUTO_INCREMENT COMMENT '活动编号',
+                                                `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '活动标题',
+                                                `status` tinyint NOT NULL DEFAULT -1 COMMENT '活动状态',
+                                                `start_time` datetime NOT NULL COMMENT '开始时间',
+                                                `end_time` datetime NOT NULL COMMENT '结束时间',
+                                                `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '备注',
+                                                `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                                `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                                `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                                `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                                `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                                `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '限时折扣活动' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_discount_activity
@@ -3349,24 +2859,24 @@ INSERT INTO `promotion_discount_activity` VALUES (12, '2024普陀活动', 0, '20
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_discount_product`;
 CREATE TABLE `promotion_discount_product`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号，主键自增',
-  `activity_id` bigint NOT NULL COMMENT '活动编号',
-  `spu_id` bigint NOT NULL DEFAULT -1 COMMENT '商品 SPU 编号',
-  `sku_id` bigint NOT NULL COMMENT '商品 SKU 编号',
-  `discount_type` int NOT NULL COMMENT '优惠类型\n     *\n     * 1-代金卷\n     * 2-折扣卷',
-  `discount_percent` tinyint NULL DEFAULT NULL COMMENT '折扣百分比',
-  `discount_price` int NULL DEFAULT NULL COMMENT '优惠金额，单位：分',
-  `activity_status` tinyint NOT NULL DEFAULT 0 COMMENT '秒杀商品状态',
-  `activity_start_time` datetime NOT NULL COMMENT '活动开始时间点',
-  `activity_end_time` datetime NOT NULL COMMENT '活动结束时间点',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '限时折扣商品\n' ROW_FORMAT = Dynamic;
+                                               `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号，主键自增',
+                                               `activity_id` bigint NOT NULL COMMENT '活动编号',
+                                               `spu_id` bigint NOT NULL DEFAULT -1 COMMENT '商品 SPU 编号',
+                                               `sku_id` bigint NOT NULL COMMENT '商品 SKU 编号',
+                                               `discount_type` int NOT NULL COMMENT '优惠类型\n     *\n     * 1-代金卷\n     * 2-折扣卷',
+                                               `discount_percent` tinyint NULL DEFAULT NULL COMMENT '折扣百分比',
+                                               `discount_price` int NULL DEFAULT NULL COMMENT '优惠金额，单位：分',
+                                               `activity_status` tinyint NOT NULL DEFAULT 0 COMMENT '秒杀商品状态',
+                                               `activity_start_time` datetime NOT NULL COMMENT '活动开始时间点',
+                                               `activity_end_time` datetime NOT NULL COMMENT '活动结束时间点',
+                                               `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                               `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                               `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                               `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                               `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                               `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                               PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '限时折扣商品\n' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_discount_product
@@ -3378,20 +2888,20 @@ INSERT INTO `promotion_discount_product` VALUES (21, 12, 633, 1, 1, 10, 20, 0, '
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_diy_page`;
 CREATE TABLE `promotion_diy_page`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '装修页面编号',
-  `template_id` bigint NULL DEFAULT NULL COMMENT '装修模板编号',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '页面名称',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
-  `preview_pic_urls` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '预览图，多个逗号分隔',
-  `property` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '页面属性，JSON 格式',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '装修页面' ROW_FORMAT = Dynamic;
+                                       `id` bigint NOT NULL AUTO_INCREMENT COMMENT '装修页面编号',
+                                       `template_id` bigint NULL DEFAULT NULL COMMENT '装修模板编号',
+                                       `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '页面名称',
+                                       `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+                                       `preview_pic_urls` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '预览图，多个逗号分隔',
+                                       `property` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '页面属性，JSON 格式',
+                                       `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
+                                       `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                       `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
+                                       `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                       `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                       `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                       PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '装修页面' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_diy_page
@@ -3411,21 +2921,21 @@ INSERT INTO `promotion_diy_page` VALUES (9, NULL, '活动页', NULL, '', '{\"pag
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_diy_template`;
 CREATE TABLE `promotion_diy_template`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '装修模板编号',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '模板名称',
-  `used` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否使用',
-  `used_time` datetime NULL DEFAULT NULL COMMENT '使用时间',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
-  `preview_pic_urls` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '预览图',
-  `property` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '模板属性，JSON 格式',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '装修模板' ROW_FORMAT = Dynamic;
+                                           `id` bigint NOT NULL AUTO_INCREMENT COMMENT '装修模板编号',
+                                           `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '模板名称',
+                                           `used` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否使用',
+                                           `used_time` datetime NULL DEFAULT NULL COMMENT '使用时间',
+                                           `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+                                           `preview_pic_urls` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '预览图',
+                                           `property` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '模板属性，JSON 格式',
+                                           `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
+                                           `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                           `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
+                                           `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                           `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                           `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                           PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '装修模板' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_diy_template
@@ -3441,24 +2951,24 @@ INSERT INTO `promotion_diy_template` VALUES (5, 'test1', b'1', '2023-11-03 10:18
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_reward_activity`;
 CREATE TABLE `promotion_reward_activity`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '活动编号',
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '活动标题',
-  `status` tinyint NOT NULL DEFAULT -1 COMMENT '活动状态',
-  `start_time` datetime NOT NULL COMMENT '开始时间',
-  `end_time` datetime NOT NULL COMMENT '结束时间',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '备注',
-  `condition_type` tinyint NOT NULL DEFAULT -1 COMMENT '条件类型',
-  `product_scope` tinyint NOT NULL COMMENT '商品范围',
-  `product_spu_ids` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '商品 SPU 编号的数组',
-  `rules` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '优惠规则的数组',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '满减送活动' ROW_FORMAT = Dynamic;
+                                              `id` bigint NOT NULL AUTO_INCREMENT COMMENT '活动编号',
+                                              `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '活动标题',
+                                              `status` tinyint NOT NULL DEFAULT -1 COMMENT '活动状态',
+                                              `start_time` datetime NOT NULL COMMENT '开始时间',
+                                              `end_time` datetime NOT NULL COMMENT '结束时间',
+                                              `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '备注',
+                                              `condition_type` tinyint NOT NULL DEFAULT -1 COMMENT '条件类型',
+                                              `product_scope` tinyint NOT NULL COMMENT '商品范围',
+                                              `product_spu_ids` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '商品 SPU 编号的数组',
+                                              `rules` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '优惠规则的数组',
+                                              `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                              `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                              `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                              `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                              `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                              `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                              PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '满减送活动' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_reward_activity
@@ -3470,27 +2980,27 @@ INSERT INTO `promotion_reward_activity` VALUES (4, '普陀满减送活动', 20, 
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_seckill_activity`;
 CREATE TABLE `promotion_seckill_activity`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '秒杀活动编号',
-  `spu_id` bigint NOT NULL DEFAULT 0 COMMENT '秒杀活动商品',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '秒杀活动名称',
-  `status` tinyint NOT NULL DEFAULT 0 COMMENT '活动状态',
-  `remark` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '备注',
-  `start_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '活动开始时间',
-  `end_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '活动结束时间',
-  `sort` int NOT NULL DEFAULT 0 COMMENT '排序',
-  `config_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0' COMMENT '秒杀时段 id 数组',
-  `total_limit_count` int NULL DEFAULT 0 COMMENT '总限购数量',
-  `single_limit_count` int NULL DEFAULT 0 COMMENT '单次限够数量',
-  `stock` int NULL DEFAULT 0 COMMENT '秒杀库存',
-  `total_stock` int NULL DEFAULT 0 COMMENT '秒杀总库存',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '秒杀活动' ROW_FORMAT = Dynamic;
+                                               `id` bigint NOT NULL AUTO_INCREMENT COMMENT '秒杀活动编号',
+                                               `spu_id` bigint NOT NULL DEFAULT 0 COMMENT '秒杀活动商品',
+                                               `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '秒杀活动名称',
+                                               `status` tinyint NOT NULL DEFAULT 0 COMMENT '活动状态',
+                                               `remark` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '备注',
+                                               `start_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '活动开始时间',
+                                               `end_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '活动结束时间',
+                                               `sort` int NOT NULL DEFAULT 0 COMMENT '排序',
+                                               `config_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0' COMMENT '秒杀时段 id 数组',
+                                               `total_limit_count` int NULL DEFAULT 0 COMMENT '总限购数量',
+                                               `single_limit_count` int NULL DEFAULT 0 COMMENT '单次限够数量',
+                                               `stock` int NULL DEFAULT 0 COMMENT '秒杀库存',
+                                               `total_stock` int NULL DEFAULT 0 COMMENT '秒杀总库存',
+                                               `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
+                                               `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                               `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
+                                               `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                               `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                               `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                               PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '秒杀活动' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_seckill_activity
@@ -3503,20 +3013,20 @@ INSERT INTO `promotion_seckill_activity` VALUES (41, 634, '遥遥领先', 0, '',
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_seckill_config`;
 CREATE TABLE `promotion_seckill_config`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '秒杀时段名称',
-  `start_time` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '开始时间点',
-  `end_time` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '结束时间点',
-  `slider_pic_urls` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '秒杀主图',
-  `status` tinyint NOT NULL DEFAULT 0 COMMENT '活动状态',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '秒杀时段' ROW_FORMAT = Dynamic;
+                                             `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                             `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '秒杀时段名称',
+                                             `start_time` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '开始时间点',
+                                             `end_time` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '结束时间点',
+                                             `slider_pic_urls` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '秒杀主图',
+                                             `status` tinyint NOT NULL DEFAULT 0 COMMENT '活动状态',
+                                             `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
+                                             `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                             `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
+                                             `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                             `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                             `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                             PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '秒杀时段' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_seckill_config
@@ -3539,24 +3049,24 @@ INSERT INTO `promotion_seckill_config` VALUES (37, '休闲时刻', '15:00:00', '
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion_seckill_product`;
 CREATE TABLE `promotion_seckill_product`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '秒杀参与商品编号',
-  `activity_id` bigint NOT NULL DEFAULT 0 COMMENT '秒杀活动 id',
-  `config_ids` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0' COMMENT '秒杀时段 id 数组',
-  `spu_id` bigint NOT NULL DEFAULT 0 COMMENT '商品 spu_id',
-  `sku_id` bigint NOT NULL DEFAULT 0 COMMENT '商品 sku_id',
-  `seckill_price` int NOT NULL DEFAULT 0 COMMENT '秒杀金额，单位：分',
-  `stock` int NOT NULL DEFAULT 0 COMMENT '秒杀库存',
-  `activity_status` tinyint NOT NULL DEFAULT 0 COMMENT '秒杀商品状态',
-  `activity_start_time` datetime NOT NULL COMMENT '活动开始时间点',
-  `activity_end_time` datetime NOT NULL COMMENT '活动结束时间点',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 81 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '秒杀参与商品' ROW_FORMAT = Dynamic;
+                                              `id` bigint NOT NULL AUTO_INCREMENT COMMENT '秒杀参与商品编号',
+                                              `activity_id` bigint NOT NULL DEFAULT 0 COMMENT '秒杀活动 id',
+                                              `config_ids` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0' COMMENT '秒杀时段 id 数组',
+                                              `spu_id` bigint NOT NULL DEFAULT 0 COMMENT '商品 spu_id',
+                                              `sku_id` bigint NOT NULL DEFAULT 0 COMMENT '商品 sku_id',
+                                              `seckill_price` int NOT NULL DEFAULT 0 COMMENT '秒杀金额，单位：分',
+                                              `stock` int NOT NULL DEFAULT 0 COMMENT '秒杀库存',
+                                              `activity_status` tinyint NOT NULL DEFAULT 0 COMMENT '秒杀商品状态',
+                                              `activity_start_time` datetime NOT NULL COMMENT '活动开始时间点',
+                                              `activity_end_time` datetime NOT NULL COMMENT '活动结束时间点',
+                                              `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
+                                              `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                              `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
+                                              `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                              `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                              `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                              PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 81 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '秒杀参与商品' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of promotion_seckill_product
@@ -3575,14 +3085,14 @@ INSERT INTO `promotion_seckill_product` VALUES (80, 41, '30,31,32,33,36,34,35,37
 -- ----------------------------
 DROP TABLE IF EXISTS `QRTZ_BLOB_TRIGGERS`;
 CREATE TABLE `QRTZ_BLOB_TRIGGERS`  (
-  `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TRIGGER_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TRIGGER_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `BLOB_DATA` blob NULL,
-  PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
-  INDEX `SCHED_NAME`(`SCHED_NAME` ASC, `TRIGGER_NAME` ASC, `TRIGGER_GROUP` ASC) USING BTREE,
-  CONSTRAINT `qrtz_blob_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `QRTZ_TRIGGERS` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+                                       `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                       `TRIGGER_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                       `TRIGGER_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                       `BLOB_DATA` blob NULL,
+                                       PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
+                                       INDEX `SCHED_NAME`(`SCHED_NAME` ASC, `TRIGGER_NAME` ASC, `TRIGGER_GROUP` ASC) USING BTREE,
+                                       CONSTRAINT `qrtz_blob_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `QRTZ_TRIGGERS` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of QRTZ_BLOB_TRIGGERS
@@ -3593,11 +3103,11 @@ CREATE TABLE `QRTZ_BLOB_TRIGGERS`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `QRTZ_CALENDARS`;
 CREATE TABLE `QRTZ_CALENDARS`  (
-  `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `CALENDAR_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `CALENDAR` blob NOT NULL,
-  PRIMARY KEY (`SCHED_NAME`, `CALENDAR_NAME`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+                                   `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                   `CALENDAR_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                   `CALENDAR` blob NOT NULL,
+                                   PRIMARY KEY (`SCHED_NAME`, `CALENDAR_NAME`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of QRTZ_CALENDARS
@@ -3608,14 +3118,14 @@ CREATE TABLE `QRTZ_CALENDARS`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `QRTZ_CRON_TRIGGERS`;
 CREATE TABLE `QRTZ_CRON_TRIGGERS`  (
-  `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TRIGGER_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TRIGGER_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `CRON_EXPRESSION` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TIME_ZONE_ID` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
-  CONSTRAINT `qrtz_cron_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `QRTZ_TRIGGERS` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+                                       `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                       `TRIGGER_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                       `TRIGGER_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                       `CRON_EXPRESSION` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                       `TIME_ZONE_ID` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+                                       PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
+                                       CONSTRAINT `qrtz_cron_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `QRTZ_TRIGGERS` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of QRTZ_CRON_TRIGGERS
@@ -3638,27 +3148,27 @@ INSERT INTO `QRTZ_CRON_TRIGGERS` VALUES ('schedulerName', 'tradeOrderAutoReceive
 -- ----------------------------
 DROP TABLE IF EXISTS `QRTZ_FIRED_TRIGGERS`;
 CREATE TABLE `QRTZ_FIRED_TRIGGERS`  (
-  `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ENTRY_ID` varchar(95) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TRIGGER_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TRIGGER_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `INSTANCE_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `FIRED_TIME` bigint NOT NULL,
-  `SCHED_TIME` bigint NOT NULL,
-  `PRIORITY` int NOT NULL,
-  `STATE` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `JOB_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `JOB_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `IS_NONCONCURRENT` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `REQUESTS_RECOVERY` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`SCHED_NAME`, `ENTRY_ID`) USING BTREE,
-  INDEX `IDX_QRTZ_FT_TRIG_INST_NAME`(`SCHED_NAME` ASC, `INSTANCE_NAME` ASC) USING BTREE,
-  INDEX `IDX_QRTZ_FT_INST_JOB_REQ_RCVRY`(`SCHED_NAME` ASC, `INSTANCE_NAME` ASC, `REQUESTS_RECOVERY` ASC) USING BTREE,
-  INDEX `IDX_QRTZ_FT_J_G`(`SCHED_NAME` ASC, `JOB_NAME` ASC, `JOB_GROUP` ASC) USING BTREE,
-  INDEX `IDX_QRTZ_FT_JG`(`SCHED_NAME` ASC, `JOB_GROUP` ASC) USING BTREE,
-  INDEX `IDX_QRTZ_FT_T_G`(`SCHED_NAME` ASC, `TRIGGER_NAME` ASC, `TRIGGER_GROUP` ASC) USING BTREE,
-  INDEX `IDX_QRTZ_FT_TG`(`SCHED_NAME` ASC, `TRIGGER_GROUP` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+                                        `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                        `ENTRY_ID` varchar(95) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                        `TRIGGER_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                        `TRIGGER_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                        `INSTANCE_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                        `FIRED_TIME` bigint NOT NULL,
+                                        `SCHED_TIME` bigint NOT NULL,
+                                        `PRIORITY` int NOT NULL,
+                                        `STATE` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                        `JOB_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+                                        `JOB_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+                                        `IS_NONCONCURRENT` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+                                        `REQUESTS_RECOVERY` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+                                        PRIMARY KEY (`SCHED_NAME`, `ENTRY_ID`) USING BTREE,
+                                        INDEX `IDX_QRTZ_FT_TRIG_INST_NAME`(`SCHED_NAME` ASC, `INSTANCE_NAME` ASC) USING BTREE,
+                                        INDEX `IDX_QRTZ_FT_INST_JOB_REQ_RCVRY`(`SCHED_NAME` ASC, `INSTANCE_NAME` ASC, `REQUESTS_RECOVERY` ASC) USING BTREE,
+                                        INDEX `IDX_QRTZ_FT_J_G`(`SCHED_NAME` ASC, `JOB_NAME` ASC, `JOB_GROUP` ASC) USING BTREE,
+                                        INDEX `IDX_QRTZ_FT_JG`(`SCHED_NAME` ASC, `JOB_GROUP` ASC) USING BTREE,
+                                        INDEX `IDX_QRTZ_FT_T_G`(`SCHED_NAME` ASC, `TRIGGER_NAME` ASC, `TRIGGER_GROUP` ASC) USING BTREE,
+                                        INDEX `IDX_QRTZ_FT_TG`(`SCHED_NAME` ASC, `TRIGGER_GROUP` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of QRTZ_FIRED_TRIGGERS
@@ -3669,20 +3179,20 @@ CREATE TABLE `QRTZ_FIRED_TRIGGERS`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `QRTZ_JOB_DETAILS`;
 CREATE TABLE `QRTZ_JOB_DETAILS`  (
-  `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `JOB_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `JOB_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `DESCRIPTION` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `JOB_CLASS_NAME` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `IS_DURABLE` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `IS_NONCONCURRENT` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `IS_UPDATE_DATA` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `REQUESTS_RECOVERY` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `JOB_DATA` blob NULL,
-  PRIMARY KEY (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) USING BTREE,
-  INDEX `IDX_QRTZ_J_REQ_RECOVERY`(`SCHED_NAME` ASC, `REQUESTS_RECOVERY` ASC) USING BTREE,
-  INDEX `IDX_QRTZ_J_GRP`(`SCHED_NAME` ASC, `JOB_GROUP` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+                                     `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                     `JOB_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                     `JOB_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                     `DESCRIPTION` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+                                     `JOB_CLASS_NAME` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                     `IS_DURABLE` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                     `IS_NONCONCURRENT` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                     `IS_UPDATE_DATA` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                     `REQUESTS_RECOVERY` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                     `JOB_DATA` blob NULL,
+                                     PRIMARY KEY (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) USING BTREE,
+                                     INDEX `IDX_QRTZ_J_REQ_RECOVERY`(`SCHED_NAME` ASC, `REQUESTS_RECOVERY` ASC) USING BTREE,
+                                     INDEX `IDX_QRTZ_J_GRP`(`SCHED_NAME` ASC, `JOB_GROUP` ASC) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of QRTZ_JOB_DETAILS
@@ -3705,10 +3215,10 @@ INSERT INTO `QRTZ_JOB_DETAILS` VALUES ('schedulerName', 'tradeOrderAutoReceiveJo
 -- ----------------------------
 DROP TABLE IF EXISTS `QRTZ_LOCKS`;
 CREATE TABLE `QRTZ_LOCKS`  (
-  `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `LOCK_NAME` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`SCHED_NAME`, `LOCK_NAME`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+                               `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                               `LOCK_NAME` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                               PRIMARY KEY (`SCHED_NAME`, `LOCK_NAME`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of QRTZ_LOCKS
@@ -3721,10 +3231,10 @@ INSERT INTO `QRTZ_LOCKS` VALUES ('schedulerName', 'TRIGGER_ACCESS');
 -- ----------------------------
 DROP TABLE IF EXISTS `QRTZ_PAUSED_TRIGGER_GRPS`;
 CREATE TABLE `QRTZ_PAUSED_TRIGGER_GRPS`  (
-  `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TRIGGER_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`SCHED_NAME`, `TRIGGER_GROUP`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+                                             `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                             `TRIGGER_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                             PRIMARY KEY (`SCHED_NAME`, `TRIGGER_GROUP`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of QRTZ_PAUSED_TRIGGER_GRPS
@@ -3735,12 +3245,12 @@ CREATE TABLE `QRTZ_PAUSED_TRIGGER_GRPS`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `QRTZ_SCHEDULER_STATE`;
 CREATE TABLE `QRTZ_SCHEDULER_STATE`  (
-  `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `INSTANCE_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `LAST_CHECKIN_TIME` bigint NOT NULL,
-  `CHECKIN_INTERVAL` bigint NOT NULL,
-  PRIMARY KEY (`SCHED_NAME`, `INSTANCE_NAME`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+                                         `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                         `INSTANCE_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                         `LAST_CHECKIN_TIME` bigint NOT NULL,
+                                         `CHECKIN_INTERVAL` bigint NOT NULL,
+                                         PRIMARY KEY (`SCHED_NAME`, `INSTANCE_NAME`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of QRTZ_SCHEDULER_STATE
@@ -3752,15 +3262,15 @@ INSERT INTO `QRTZ_SCHEDULER_STATE` VALUES ('schedulerName', 'MacBook-Pro.local17
 -- ----------------------------
 DROP TABLE IF EXISTS `QRTZ_SIMPLE_TRIGGERS`;
 CREATE TABLE `QRTZ_SIMPLE_TRIGGERS`  (
-  `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TRIGGER_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TRIGGER_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `REPEAT_COUNT` bigint NOT NULL,
-  `REPEAT_INTERVAL` bigint NOT NULL,
-  `TIMES_TRIGGERED` bigint NOT NULL,
-  PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
-  CONSTRAINT `qrtz_simple_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `QRTZ_TRIGGERS` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+                                         `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                         `TRIGGER_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                         `TRIGGER_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                         `REPEAT_COUNT` bigint NOT NULL,
+                                         `REPEAT_INTERVAL` bigint NOT NULL,
+                                         `TIMES_TRIGGERED` bigint NOT NULL,
+                                         PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
+                                         CONSTRAINT `qrtz_simple_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `QRTZ_TRIGGERS` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of QRTZ_SIMPLE_TRIGGERS
@@ -3771,23 +3281,23 @@ CREATE TABLE `QRTZ_SIMPLE_TRIGGERS`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `QRTZ_SIMPROP_TRIGGERS`;
 CREATE TABLE `QRTZ_SIMPROP_TRIGGERS`  (
-  `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TRIGGER_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TRIGGER_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `STR_PROP_1` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `STR_PROP_2` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `STR_PROP_3` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `INT_PROP_1` int NULL DEFAULT NULL,
-  `INT_PROP_2` int NULL DEFAULT NULL,
-  `LONG_PROP_1` bigint NULL DEFAULT NULL,
-  `LONG_PROP_2` bigint NULL DEFAULT NULL,
-  `DEC_PROP_1` decimal(13, 4) NULL DEFAULT NULL,
-  `DEC_PROP_2` decimal(13, 4) NULL DEFAULT NULL,
-  `BOOL_PROP_1` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `BOOL_PROP_2` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
-  CONSTRAINT `qrtz_simprop_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `QRTZ_TRIGGERS` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+                                          `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                          `TRIGGER_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                          `TRIGGER_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                          `STR_PROP_1` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+                                          `STR_PROP_2` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+                                          `STR_PROP_3` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+                                          `INT_PROP_1` int NULL DEFAULT NULL,
+                                          `INT_PROP_2` int NULL DEFAULT NULL,
+                                          `LONG_PROP_1` bigint NULL DEFAULT NULL,
+                                          `LONG_PROP_2` bigint NULL DEFAULT NULL,
+                                          `DEC_PROP_1` decimal(13, 4) NULL DEFAULT NULL,
+                                          `DEC_PROP_2` decimal(13, 4) NULL DEFAULT NULL,
+                                          `BOOL_PROP_1` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+                                          `BOOL_PROP_2` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+                                          PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
+                                          CONSTRAINT `qrtz_simprop_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) REFERENCES `QRTZ_TRIGGERS` (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of QRTZ_SIMPROP_TRIGGERS
@@ -3798,37 +3308,37 @@ CREATE TABLE `QRTZ_SIMPROP_TRIGGERS`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `QRTZ_TRIGGERS`;
 CREATE TABLE `QRTZ_TRIGGERS`  (
-  `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TRIGGER_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TRIGGER_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `JOB_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `JOB_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `DESCRIPTION` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `NEXT_FIRE_TIME` bigint NULL DEFAULT NULL,
-  `PREV_FIRE_TIME` bigint NULL DEFAULT NULL,
-  `PRIORITY` int NULL DEFAULT NULL,
-  `TRIGGER_STATE` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TRIGGER_TYPE` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `START_TIME` bigint NOT NULL,
-  `END_TIME` bigint NULL DEFAULT NULL,
-  `CALENDAR_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `MISFIRE_INSTR` smallint NULL DEFAULT NULL,
-  `JOB_DATA` blob NULL,
-  PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
-  INDEX `IDX_QRTZ_T_J`(`SCHED_NAME` ASC, `JOB_NAME` ASC, `JOB_GROUP` ASC) USING BTREE,
-  INDEX `IDX_QRTZ_T_JG`(`SCHED_NAME` ASC, `JOB_GROUP` ASC) USING BTREE,
-  INDEX `IDX_QRTZ_T_C`(`SCHED_NAME` ASC, `CALENDAR_NAME` ASC) USING BTREE,
-  INDEX `IDX_QRTZ_T_G`(`SCHED_NAME` ASC, `TRIGGER_GROUP` ASC) USING BTREE,
-  INDEX `IDX_QRTZ_T_STATE`(`SCHED_NAME` ASC, `TRIGGER_STATE` ASC) USING BTREE,
-  INDEX `IDX_QRTZ_T_N_STATE`(`SCHED_NAME` ASC, `TRIGGER_NAME` ASC, `TRIGGER_GROUP` ASC, `TRIGGER_STATE` ASC) USING BTREE,
-  INDEX `IDX_QRTZ_T_N_G_STATE`(`SCHED_NAME` ASC, `TRIGGER_GROUP` ASC, `TRIGGER_STATE` ASC) USING BTREE,
-  INDEX `IDX_QRTZ_T_NEXT_FIRE_TIME`(`SCHED_NAME` ASC, `NEXT_FIRE_TIME` ASC) USING BTREE,
-  INDEX `IDX_QRTZ_T_NFT_ST`(`SCHED_NAME` ASC, `TRIGGER_STATE` ASC, `NEXT_FIRE_TIME` ASC) USING BTREE,
-  INDEX `IDX_QRTZ_T_NFT_MISFIRE`(`SCHED_NAME` ASC, `MISFIRE_INSTR` ASC, `NEXT_FIRE_TIME` ASC) USING BTREE,
-  INDEX `IDX_QRTZ_T_NFT_ST_MISFIRE`(`SCHED_NAME` ASC, `MISFIRE_INSTR` ASC, `NEXT_FIRE_TIME` ASC, `TRIGGER_STATE` ASC) USING BTREE,
-  INDEX `IDX_QRTZ_T_NFT_ST_MISFIRE_GRP`(`SCHED_NAME` ASC, `MISFIRE_INSTR` ASC, `NEXT_FIRE_TIME` ASC, `TRIGGER_GROUP` ASC, `TRIGGER_STATE` ASC) USING BTREE,
-  CONSTRAINT `qrtz_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) REFERENCES `QRTZ_JOB_DETAILS` (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+                                  `SCHED_NAME` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                  `TRIGGER_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                  `TRIGGER_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                  `JOB_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                  `JOB_GROUP` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                  `DESCRIPTION` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+                                  `NEXT_FIRE_TIME` bigint NULL DEFAULT NULL,
+                                  `PREV_FIRE_TIME` bigint NULL DEFAULT NULL,
+                                  `PRIORITY` int NULL DEFAULT NULL,
+                                  `TRIGGER_STATE` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                  `TRIGGER_TYPE` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+                                  `START_TIME` bigint NOT NULL,
+                                  `END_TIME` bigint NULL DEFAULT NULL,
+                                  `CALENDAR_NAME` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+                                  `MISFIRE_INSTR` smallint NULL DEFAULT NULL,
+                                  `JOB_DATA` blob NULL,
+                                  PRIMARY KEY (`SCHED_NAME`, `TRIGGER_NAME`, `TRIGGER_GROUP`) USING BTREE,
+                                  INDEX `IDX_QRTZ_T_J`(`SCHED_NAME` ASC, `JOB_NAME` ASC, `JOB_GROUP` ASC) USING BTREE,
+                                  INDEX `IDX_QRTZ_T_JG`(`SCHED_NAME` ASC, `JOB_GROUP` ASC) USING BTREE,
+                                  INDEX `IDX_QRTZ_T_C`(`SCHED_NAME` ASC, `CALENDAR_NAME` ASC) USING BTREE,
+                                  INDEX `IDX_QRTZ_T_G`(`SCHED_NAME` ASC, `TRIGGER_GROUP` ASC) USING BTREE,
+                                  INDEX `IDX_QRTZ_T_STATE`(`SCHED_NAME` ASC, `TRIGGER_STATE` ASC) USING BTREE,
+                                  INDEX `IDX_QRTZ_T_N_STATE`(`SCHED_NAME` ASC, `TRIGGER_NAME` ASC, `TRIGGER_GROUP` ASC, `TRIGGER_STATE` ASC) USING BTREE,
+                                  INDEX `IDX_QRTZ_T_N_G_STATE`(`SCHED_NAME` ASC, `TRIGGER_GROUP` ASC, `TRIGGER_STATE` ASC) USING BTREE,
+                                  INDEX `IDX_QRTZ_T_NEXT_FIRE_TIME`(`SCHED_NAME` ASC, `NEXT_FIRE_TIME` ASC) USING BTREE,
+                                  INDEX `IDX_QRTZ_T_NFT_ST`(`SCHED_NAME` ASC, `TRIGGER_STATE` ASC, `NEXT_FIRE_TIME` ASC) USING BTREE,
+                                  INDEX `IDX_QRTZ_T_NFT_MISFIRE`(`SCHED_NAME` ASC, `MISFIRE_INSTR` ASC, `NEXT_FIRE_TIME` ASC) USING BTREE,
+                                  INDEX `IDX_QRTZ_T_NFT_ST_MISFIRE`(`SCHED_NAME` ASC, `MISFIRE_INSTR` ASC, `NEXT_FIRE_TIME` ASC, `TRIGGER_STATE` ASC) USING BTREE,
+                                  INDEX `IDX_QRTZ_T_NFT_ST_MISFIRE_GRP`(`SCHED_NAME` ASC, `MISFIRE_INSTR` ASC, `NEXT_FIRE_TIME` ASC, `TRIGGER_GROUP` ASC, `TRIGGER_STATE` ASC) USING BTREE,
+                                  CONSTRAINT `qrtz_triggers_ibfk_1` FOREIGN KEY (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) REFERENCES `QRTZ_JOB_DETAILS` (`SCHED_NAME`, `JOB_NAME`, `JOB_GROUP`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of QRTZ_TRIGGERS
@@ -3851,22 +3361,22 @@ INSERT INTO `QRTZ_TRIGGERS` VALUES ('schedulerName', 'tradeOrderAutoReceiveJob',
 -- ----------------------------
 DROP TABLE IF EXISTS `system_dept`;
 CREATE TABLE `system_dept`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '部门id',
-  `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '部门名称',
-  `parent_id` bigint NOT NULL DEFAULT 0 COMMENT '父部门id',
-  `sort` int NOT NULL DEFAULT 0 COMMENT '显示顺序',
-  `leader_user_id` bigint NULL DEFAULT NULL COMMENT '负责人',
-  `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '联系电话',
-  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '邮箱',
-  `status` tinyint NOT NULL COMMENT '部门状态（0正常 1停用）',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 114 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '部门表' ROW_FORMAT = Dynamic;
+                                `id` bigint NOT NULL AUTO_INCREMENT COMMENT '部门id',
+                                `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '部门名称',
+                                `parent_id` bigint NOT NULL DEFAULT 0 COMMENT '父部门id',
+                                `sort` int NOT NULL DEFAULT 0 COMMENT '显示顺序',
+                                `leader_user_id` bigint NULL DEFAULT NULL COMMENT '负责人',
+                                `phone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '联系电话',
+                                `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '邮箱',
+                                `status` tinyint NOT NULL COMMENT '部门状态（0正常 1停用）',
+                                `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 114 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '部门表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_dept
@@ -3891,21 +3401,21 @@ INSERT INTO `system_dept` VALUES (113, '支持部门', 102, 3, 104, NULL, NULL, 
 -- ----------------------------
 DROP TABLE IF EXISTS `system_dict_data`;
 CREATE TABLE `system_dict_data`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '字典编码',
-  `sort` int NOT NULL DEFAULT 0 COMMENT '字典排序',
-  `label` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '字典标签',
-  `value` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '字典键值',
-  `dict_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '字典类型',
-  `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态（0正常 1停用）',
-  `color_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '颜色类型',
-  `css_class` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT 'css 样式',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
+                                     `id` bigint NOT NULL AUTO_INCREMENT COMMENT '字典编码',
+                                     `sort` int NOT NULL DEFAULT 0 COMMENT '字典排序',
+                                     `label` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '字典标签',
+                                     `value` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '字典键值',
+                                     `dict_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '字典类型',
+                                     `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态（0正常 1停用）',
+                                     `color_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '颜色类型',
+                                     `css_class` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT 'css 样式',
+                                     `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                                     `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                     `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                     `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1536 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '字典数据表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -4292,19 +3802,19 @@ INSERT INTO `system_dict_data` VALUES (1535, 2, 'Google', '2', 'ai_model_type', 
 -- ----------------------------
 DROP TABLE IF EXISTS `system_dict_type`;
 CREATE TABLE `system_dict_type`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '字典主键',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '字典名称',
-  `type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '字典类型',
-  `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态（0正常 1停用）',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `deleted_time` datetime NULL DEFAULT NULL COMMENT '删除时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `dict_type`(`type` ASC) USING BTREE
+                                     `id` bigint NOT NULL AUTO_INCREMENT COMMENT '字典主键',
+                                     `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '字典名称',
+                                     `type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '字典类型',
+                                     `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态（0正常 1停用）',
+                                     `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                                     `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                     `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                     `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                     `deleted_time` datetime NULL DEFAULT NULL COMMENT '删除时间',
+                                     PRIMARY KEY (`id`) USING BTREE,
+                                     UNIQUE INDEX `dict_type`(`type` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 620 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '字典类型表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -4401,19 +3911,19 @@ INSERT INTO `system_dict_type` VALUES (619, 'AI模型类型', 'ai_model_type', 0
 -- ----------------------------
 DROP TABLE IF EXISTS `system_error_code`;
 CREATE TABLE `system_error_code`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '错误码编号',
-  `type` tinyint NOT NULL DEFAULT 0 COMMENT '错误码类型',
-  `application_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用名',
-  `code` int NOT NULL DEFAULT 0 COMMENT '错误码编码',
-  `message` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '错误码错误提示',
-  `memo` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6039 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '错误码表' ROW_FORMAT = Dynamic;
+                                      `id` bigint NOT NULL AUTO_INCREMENT COMMENT '错误码编号',
+                                      `type` tinyint NOT NULL DEFAULT 0 COMMENT '错误码类型',
+                                      `application_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用名',
+                                      `code` int NOT NULL DEFAULT 0 COMMENT '错误码编码',
+                                      `message` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '错误码错误提示',
+                                      `memo` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '备注',
+                                      `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                      `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                      `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                      `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                      `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                      PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6039 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '错误码表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_error_code
@@ -4424,48 +3934,56 @@ CREATE TABLE `system_error_code`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `system_login_log`;
 CREATE TABLE `system_login_log`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '访问ID',
-  `log_type` bigint NOT NULL COMMENT '日志类型',
-  `trace_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '链路追踪编号',
-  `user_id` bigint NOT NULL DEFAULT 0 COMMENT '用户编号',
-  `user_type` tinyint NOT NULL DEFAULT 0 COMMENT '用户类型',
-  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户账号',
-  `result` tinyint NOT NULL COMMENT '登陆结果',
-  `user_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户 IP',
-  `user_agent` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '浏览器 UA',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3082 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
+                                     `id` bigint NOT NULL AUTO_INCREMENT COMMENT '访问ID',
+                                     `log_type` bigint NOT NULL COMMENT '日志类型',
+                                     `trace_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '链路追踪编号',
+                                     `user_id` bigint NOT NULL DEFAULT 0 COMMENT '用户编号',
+                                     `user_type` tinyint NOT NULL DEFAULT 0 COMMENT '用户类型',
+                                     `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户账号',
+                                     `result` tinyint NOT NULL COMMENT '登陆结果',
+                                     `user_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户 IP',
+                                     `user_agent` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '浏览器 UA',
+                                     `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                     `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                     `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                     `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                     PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3090 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_login_log
 -- ----------------------------
 INSERT INTO `system_login_log` VALUES (3081, 100, '', 1, 2, 'admin', 0, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, '2024-04-15 15:48:40', NULL, '2024-04-15 15:48:40', b'0', 1);
+INSERT INTO `system_login_log` VALUES (3082, 103, '', 0, 1, '15601691300', 10, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, '2024-04-23 14:25:54', NULL, '2024-04-23 14:25:54', b'0', 1);
+INSERT INTO `system_login_log` VALUES (3083, 103, '', 0, 1, '15601691300', 10, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, '2024-04-23 14:28:21', NULL, '2024-04-23 14:28:21', b'0', 1);
+INSERT INTO `system_login_log` VALUES (3084, 103, '', 0, 1, '15601691300', 10, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, '2024-04-23 14:35:48', NULL, '2024-04-23 14:35:48', b'0', 1);
+INSERT INTO `system_login_log` VALUES (3085, 103, '', 0, 1, '15601691300', 10, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, '2024-04-23 14:35:49', NULL, '2024-04-23 14:35:49', b'0', 1);
+INSERT INTO `system_login_log` VALUES (3086, 103, '', 249, 1, '15601691388', 10, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, '2024-04-23 14:37:34', NULL, '2024-04-23 14:37:34', b'0', 1);
+INSERT INTO `system_login_log` VALUES (3087, 103, '', 249, 1, '15601691388', 10, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, '2024-04-23 14:37:35', NULL, '2024-04-23 14:37:35', b'0', 1);
+INSERT INTO `system_login_log` VALUES (3088, 103, '', 247, 1, '15601691399', 10, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, '2024-04-23 14:37:42', NULL, '2024-04-23 14:37:42', b'0', 1);
+INSERT INTO `system_login_log` VALUES (3089, 103, '', 248, 1, '15601691499', 10, '0:0:0:0:0:0:0:1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0', NULL, '2024-04-23 14:37:50', NULL, '2024-04-23 14:37:50', b'0', 1);
 
 -- ----------------------------
 -- Table structure for system_mail_account
 -- ----------------------------
 DROP TABLE IF EXISTS `system_mail_account`;
 CREATE TABLE `system_mail_account`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `mail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '邮箱',
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户名',
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '密码',
-  `host` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'SMTP 服务器域名',
-  `port` int NOT NULL COMMENT 'SMTP 服务器端口',
-  `ssl_enable` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否开启 SSL',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '邮箱账号表' ROW_FORMAT = Dynamic;
+                                        `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                        `mail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '邮箱',
+                                        `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户名',
+                                        `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '密码',
+                                        `host` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'SMTP 服务器域名',
+                                        `port` int NOT NULL COMMENT 'SMTP 服务器端口',
+                                        `ssl_enable` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否开启 SSL',
+                                        `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                        `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                        `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                        `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                        `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                        PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '邮箱账号表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_mail_account
@@ -4480,29 +3998,29 @@ INSERT INTO `system_mail_account` VALUES (4, '7685413x@qq.com', '2', '3', '4', 5
 -- ----------------------------
 DROP TABLE IF EXISTS `system_mail_log`;
 CREATE TABLE `system_mail_log`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `user_id` bigint NULL DEFAULT NULL COMMENT '用户编号',
-  `user_type` tinyint NULL DEFAULT NULL COMMENT '用户类型',
-  `to_mail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '接收邮箱地址',
-  `account_id` bigint NOT NULL COMMENT '邮箱账号编号',
-  `from_mail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '发送邮箱地址',
-  `template_id` bigint NOT NULL COMMENT '模板编号',
-  `template_code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板编码',
-  `template_nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '模版发送人名称',
-  `template_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '邮件标题',
-  `template_content` varchar(10240) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '邮件内容',
-  `template_params` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '邮件参数',
-  `send_status` tinyint NOT NULL DEFAULT 0 COMMENT '发送状态',
-  `send_time` datetime NULL DEFAULT NULL COMMENT '发送时间',
-  `send_message_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '发送返回的消息 ID',
-  `send_exception` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '发送异常',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 356 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '邮件日志表' ROW_FORMAT = Dynamic;
+                                    `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                    `user_id` bigint NULL DEFAULT NULL COMMENT '用户编号',
+                                    `user_type` tinyint NULL DEFAULT NULL COMMENT '用户类型',
+                                    `to_mail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '接收邮箱地址',
+                                    `account_id` bigint NOT NULL COMMENT '邮箱账号编号',
+                                    `from_mail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '发送邮箱地址',
+                                    `template_id` bigint NOT NULL COMMENT '模板编号',
+                                    `template_code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板编码',
+                                    `template_nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '模版发送人名称',
+                                    `template_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '邮件标题',
+                                    `template_content` varchar(10240) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '邮件内容',
+                                    `template_params` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '邮件参数',
+                                    `send_status` tinyint NOT NULL DEFAULT 0 COMMENT '发送状态',
+                                    `send_time` datetime NULL DEFAULT NULL COMMENT '发送时间',
+                                    `send_message_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '发送返回的消息 ID',
+                                    `send_exception` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '发送异常',
+                                    `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                    `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                    `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 356 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '邮件日志表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_mail_log
@@ -4513,23 +4031,23 @@ CREATE TABLE `system_mail_log`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `system_mail_template`;
 CREATE TABLE `system_mail_template`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板名称',
-  `code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板编码',
-  `account_id` bigint NOT NULL COMMENT '发送的邮箱账号编号',
-  `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '发送人名称',
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板标题',
-  `content` varchar(10240) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板内容',
-  `params` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '参数数组',
-  `status` tinyint NOT NULL COMMENT '开启状态',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '邮件模版表' ROW_FORMAT = Dynamic;
+                                         `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                         `name` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板名称',
+                                         `code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板编码',
+                                         `account_id` bigint NOT NULL COMMENT '发送的邮箱账号编号',
+                                         `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '发送人名称',
+                                         `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板标题',
+                                         `content` varchar(10240) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板内容',
+                                         `params` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '参数数组',
+                                         `status` tinyint NOT NULL COMMENT '开启状态',
+                                         `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                                         `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                         `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                         `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                         `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                         `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                         PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '邮件模版表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_mail_template
@@ -4543,26 +4061,26 @@ INSERT INTO `system_mail_template` VALUES (15, '3', '2', 2, '7', '4', '<p>45</p>
 -- ----------------------------
 DROP TABLE IF EXISTS `system_menu`;
 CREATE TABLE `system_menu`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '菜单名称',
-  `permission` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '权限标识',
-  `type` tinyint NOT NULL COMMENT '菜单类型',
-  `sort` int NOT NULL DEFAULT 0 COMMENT '显示顺序',
-  `parent_id` bigint NOT NULL DEFAULT 0 COMMENT '父菜单ID',
-  `path` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '路由地址',
-  `icon` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '#' COMMENT '菜单图标',
-  `component` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '组件路径',
-  `component_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '组件名',
-  `status` tinyint NOT NULL DEFAULT 0 COMMENT '菜单状态',
-  `visible` bit(1) NOT NULL DEFAULT b'1' COMMENT '是否可见',
-  `keep_alive` bit(1) NOT NULL DEFAULT b'1' COMMENT '是否缓存',
-  `always_show` bit(1) NOT NULL DEFAULT b'1' COMMENT '是否总是显示',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
+                                `id` bigint NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
+                                `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '菜单名称',
+                                `permission` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '权限标识',
+                                `type` tinyint NOT NULL COMMENT '菜单类型',
+                                `sort` int NOT NULL DEFAULT 0 COMMENT '显示顺序',
+                                `parent_id` bigint NOT NULL DEFAULT 0 COMMENT '父菜单ID',
+                                `path` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '路由地址',
+                                `icon` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '#' COMMENT '菜单图标',
+                                `component` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '组件路径',
+                                `component_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '组件名',
+                                `status` tinyint NOT NULL DEFAULT 0 COMMENT '菜单状态',
+                                `visible` bit(1) NOT NULL DEFAULT b'1' COMMENT '是否可见',
+                                `keep_alive` bit(1) NOT NULL DEFAULT b'1' COMMENT '是否缓存',
+                                `always_show` bit(1) NOT NULL DEFAULT b'1' COMMENT '是否总是显示',
+                                `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2774 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '菜单权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -5370,19 +4888,19 @@ INSERT INTO `system_menu` VALUES (2773, 'AI助手导出', 'ai:assistant:export',
 -- ----------------------------
 DROP TABLE IF EXISTS `system_notice`;
 CREATE TABLE `system_notice`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '公告ID',
-  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公告标题',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公告内容',
-  `type` tinyint NOT NULL COMMENT '公告类型（1通知 2公告）',
-  `status` tinyint NOT NULL DEFAULT 0 COMMENT '公告状态（0正常 1关闭）',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '通知公告表' ROW_FORMAT = Dynamic;
+                                  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '公告ID',
+                                  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公告标题',
+                                  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '公告内容',
+                                  `type` tinyint NOT NULL COMMENT '公告类型（1通知 2公告）',
+                                  `status` tinyint NOT NULL DEFAULT 0 COMMENT '公告状态（0正常 1关闭）',
+                                  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '通知公告表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_notice
@@ -5396,25 +4914,25 @@ INSERT INTO `system_notice` VALUES (4, '我是测试标题', '<p>哈哈哈哈123
 -- ----------------------------
 DROP TABLE IF EXISTS `system_notify_message`;
 CREATE TABLE `system_notify_message`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-  `user_id` bigint NOT NULL COMMENT '用户id',
-  `user_type` tinyint NOT NULL COMMENT '用户类型',
-  `template_id` bigint NOT NULL COMMENT '模版编号',
-  `template_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板编码',
-  `template_nickname` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模版发送人名称',
-  `template_content` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模版内容',
-  `template_type` int NOT NULL COMMENT '模版类型',
-  `template_params` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模版参数',
-  `read_status` bit(1) NOT NULL COMMENT '是否已读',
-  `read_time` datetime NULL DEFAULT NULL COMMENT '阅读时间',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '站内信消息表' ROW_FORMAT = Dynamic;
+                                          `id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+                                          `user_id` bigint NOT NULL COMMENT '用户id',
+                                          `user_type` tinyint NOT NULL COMMENT '用户类型',
+                                          `template_id` bigint NOT NULL COMMENT '模版编号',
+                                          `template_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板编码',
+                                          `template_nickname` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模版发送人名称',
+                                          `template_content` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模版内容',
+                                          `template_type` int NOT NULL COMMENT '模版类型',
+                                          `template_params` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模版参数',
+                                          `read_status` bit(1) NOT NULL COMMENT '是否已读',
+                                          `read_time` datetime NULL DEFAULT NULL COMMENT '阅读时间',
+                                          `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                          `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                          `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                          `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                          `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                          `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                          PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '站内信消息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_notify_message
@@ -5434,22 +4952,22 @@ INSERT INTO `system_notify_message` VALUES (10, 247, 1, 4, 'brokerage_withdraw_a
 -- ----------------------------
 DROP TABLE IF EXISTS `system_notify_template`;
 CREATE TABLE `system_notify_template`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板名称',
-  `code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模版编码',
-  `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '发送人名称',
-  `content` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模版内容',
-  `type` tinyint NOT NULL COMMENT '类型',
-  `params` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '参数数组',
-  `status` tinyint NOT NULL COMMENT '状态',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '站内信模板表' ROW_FORMAT = Dynamic;
+                                           `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                           `name` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板名称',
+                                           `code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模版编码',
+                                           `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '发送人名称',
+                                           `content` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模版内容',
+                                           `type` tinyint NOT NULL COMMENT '类型',
+                                           `params` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '参数数组',
+                                           `status` tinyint NOT NULL COMMENT '状态',
+                                           `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                                           `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                           `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                           `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                           `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                           `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                           PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '站内信模板表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_notify_template
@@ -5460,25 +4978,25 @@ CREATE TABLE `system_notify_template`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `system_oauth2_access_token`;
 CREATE TABLE `system_oauth2_access_token`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `user_type` tinyint NOT NULL COMMENT '用户类型',
-  `user_info` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户信息',
-  `access_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '访问令牌',
-  `refresh_token` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '刷新令牌',
-  `client_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客户端编号',
-  `scopes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '授权范围',
-  `expires_time` datetime NOT NULL COMMENT '过期时间',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_access_token`(`access_token` ASC) USING BTREE,
-  INDEX `idx_refresh_token`(`refresh_token` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6446 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'OAuth2 访问令牌' ROW_FORMAT = Dynamic;
+                                               `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                               `user_id` bigint NOT NULL COMMENT '用户编号',
+                                               `user_type` tinyint NOT NULL COMMENT '用户类型',
+                                               `user_info` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户信息',
+                                               `access_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '访问令牌',
+                                               `refresh_token` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '刷新令牌',
+                                               `client_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客户端编号',
+                                               `scopes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '授权范围',
+                                               `expires_time` datetime NOT NULL COMMENT '过期时间',
+                                               `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                               `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                               `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                               `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                               `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                               `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                               PRIMARY KEY (`id`) USING BTREE,
+                                               INDEX `idx_access_token`(`access_token` ASC) USING BTREE,
+                                               INDEX `idx_refresh_token`(`refresh_token` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6470 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'OAuth2 访问令牌' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_oauth2_access_token
@@ -5489,28 +5007,52 @@ INSERT INTO `system_oauth2_access_token` VALUES (6441, 1, 2, '{\"nickname\":\"Ai
 INSERT INTO `system_oauth2_access_token` VALUES (6442, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', 'bca4a6e7b65f45e4a9f835e417184dcc', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-15 17:51:57', NULL, '2024-04-15 17:21:57', NULL, '2024-04-17 08:31:28', b'1', 1);
 INSERT INTO `system_oauth2_access_token` VALUES (6443, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', '18b6ea61c8f343d3800e0ea565fad5ef', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-17 17:01:29', NULL, '2024-04-17 16:31:29', NULL, '2024-04-17 09:02:06', b'1', 1);
 INSERT INTO `system_oauth2_access_token` VALUES (6444, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', '91c4ec4d3a1f460eb3ce94702b09dd60', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-17 17:32:06', NULL, '2024-04-17 17:02:06', NULL, '2024-04-17 09:32:10', b'1', 1);
-INSERT INTO `system_oauth2_access_token` VALUES (6445, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', 'b59dcbb95ba548c4b880e4046c9560fd', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-17 18:02:11', NULL, '2024-04-17 17:32:11', NULL, '2024-04-17 17:32:11', b'0', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6445, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', 'b59dcbb95ba548c4b880e4046c9560fd', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-17 18:02:11', NULL, '2024-04-17 17:32:11', NULL, '2024-04-19 07:42:25', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6446, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', '58af9c683e5b4d5ab0795c4412ca515b', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-19 16:12:26', NULL, '2024-04-19 15:42:26', NULL, '2024-04-19 08:13:26', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6447, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', 'd5f0780bcdca4e1cbbdf6f7173bc0dcb', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-19 16:43:27', NULL, '2024-04-19 16:13:27', NULL, '2024-04-19 08:45:26', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6448, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', '9f3e485ca1e54b29a5b3c8f2d3624073', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-19 17:15:27', NULL, '2024-04-19 16:45:27', NULL, '2024-04-19 09:17:26', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6449, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', '68f2ff66edc34932a78b856acc7d8fa2', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-19 17:47:27', NULL, '2024-04-19 17:17:27', NULL, '2024-04-19 09:49:26', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6450, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', 'e8fca80db40b4c5c8dec818a361e9bb3', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-19 18:19:27', NULL, '2024-04-19 17:49:27', NULL, '2024-04-23 02:18:09', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6451, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', 'ebf816b30f5f443ca6a6bf606ff50530', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-23 10:48:09', NULL, '2024-04-23 10:18:09', NULL, '2024-04-23 02:48:18', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6452, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', '794066899b5e4cb7a7ba88430adfd80b', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-23 11:18:19', NULL, '2024-04-23 10:48:19', NULL, '2024-04-23 03:20:19', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6453, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', '64028fdcf2484e82865411892030ce81', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-23 11:50:19', NULL, '2024-04-23 11:20:19', NULL, '2024-04-23 03:52:18', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6454, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', '1cbbaa52d49b42b5a4ee294b7d9ee223', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-23 12:22:19', NULL, '2024-04-23 11:52:19', NULL, '2024-04-23 04:24:18', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6455, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', 'b056274aac2c4241ab087aaed00633e3', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-23 12:54:19', NULL, '2024-04-23 12:24:19', NULL, '2024-04-23 04:56:18', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6456, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', 'af556e4284f64add82ee147b7ddf6cff', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-23 13:26:19', NULL, '2024-04-23 12:56:19', NULL, '2024-04-23 05:28:18', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6457, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', 'f067511b9fd240ffabecd46bd17a2e50', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-23 13:58:19', NULL, '2024-04-23 13:28:19', NULL, '2024-04-23 06:00:18', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6458, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', '7d5f97dfc71d47a3a8a71f27b2df8397', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-23 14:30:19', NULL, '2024-04-23 14:00:19', NULL, '2024-04-23 06:32:18', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6459, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', '88ec37e9fac143209f28c6955e3986f8', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-23 15:02:19', NULL, '2024-04-23 14:32:19', NULL, '2024-04-23 07:04:18', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6460, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', '2501330914da4a80ac54d83bf5a8f061', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-23 15:34:19', NULL, '2024-04-23 15:04:19', NULL, '2024-04-23 07:36:18', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6461, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', '6f50728867284ec7b2ef92c38caf9299', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-23 16:06:19', NULL, '2024-04-23 15:36:19', NULL, '2024-04-23 08:06:20', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6462, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', '54e8197da50e40169b32c29b50bc006a', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-23 16:36:20', NULL, '2024-04-23 16:06:20', NULL, '2024-04-23 08:42:41', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6463, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', '3187fbf7d1844dc3a4f0cbb6a29414b1', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-23 17:12:42', NULL, '2024-04-23 16:42:42', NULL, '2024-04-23 09:14:16', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6464, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', '5785a9d1f518406cb5069f032ef6029d', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-23 17:44:17', NULL, '2024-04-23 17:14:17', NULL, '2024-04-23 09:45:16', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6465, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', 'f659df77eafc4c02b2fb3ee474ed6b8c', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-23 18:15:17', NULL, '2024-04-23 17:45:17', NULL, '2024-04-24 08:08:47', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6466, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', 'd362746787f4490eba9b27b8ceec66a9', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-24 16:38:47', NULL, '2024-04-24 16:08:47', NULL, '2024-04-24 08:39:15', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6467, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', 'be3dfc81cd2d4e3e89c9275af571d02b', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-24 17:09:15', NULL, '2024-04-24 16:39:15', NULL, '2024-04-24 09:09:15', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6468, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', '052c23132e5740939d057c646cdbaa0c', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-24 17:39:15', NULL, '2024-04-24 17:09:15', NULL, '2024-04-24 09:41:17', b'1', 1);
+INSERT INTO `system_oauth2_access_token` VALUES (6469, 1, 2, '{\"nickname\":\"AiFusion\",\"deptId\":\"103\"}', 'e2f8ed1cadf545ef8f3d15504b937c26', '0a0e9f35d3af418aa59f04699df97b44', 'default', NULL, '2024-04-24 18:11:17', NULL, '2024-04-24 17:41:17', NULL, '2024-04-24 17:41:17', b'0', 1);
 
 -- ----------------------------
 -- Table structure for system_oauth2_approve
 -- ----------------------------
 DROP TABLE IF EXISTS `system_oauth2_approve`;
 CREATE TABLE `system_oauth2_approve`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `user_type` tinyint NOT NULL COMMENT '用户类型',
-  `client_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客户端编号',
-  `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '授权范围',
-  `approved` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否接受',
-  `expires_time` datetime NOT NULL COMMENT '过期时间',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 82 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'OAuth2 批准表' ROW_FORMAT = Dynamic;
+                                          `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                          `user_id` bigint NOT NULL COMMENT '用户编号',
+                                          `user_type` tinyint NOT NULL COMMENT '用户类型',
+                                          `client_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客户端编号',
+                                          `scope` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '授权范围',
+                                          `approved` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否接受',
+                                          `expires_time` datetime NOT NULL COMMENT '过期时间',
+                                          `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                          `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                          `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                          `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                          `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                          `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                          PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 82 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'OAuth2 批准表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_oauth2_approve
@@ -5521,29 +5063,29 @@ CREATE TABLE `system_oauth2_approve`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `system_oauth2_client`;
 CREATE TABLE `system_oauth2_client`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `client_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客户端编号',
-  `secret` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客户端密钥',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用名',
-  `logo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用图标',
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '应用描述',
-  `status` tinyint NOT NULL COMMENT '状态',
-  `access_token_validity_seconds` int NOT NULL COMMENT '访问令牌的有效期',
-  `refresh_token_validity_seconds` int NOT NULL COMMENT '刷新令牌的有效期',
-  `redirect_uris` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '可重定向的 URI 地址',
-  `authorized_grant_types` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '授权类型',
-  `scopes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '授权范围',
-  `auto_approve_scopes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '自动通过的授权范围',
-  `authorities` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '权限',
-  `resource_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '资源',
-  `additional_information` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '附加信息',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'OAuth2 客户端表' ROW_FORMAT = Dynamic;
+                                         `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                         `client_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客户端编号',
+                                         `secret` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客户端密钥',
+                                         `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用名',
+                                         `logo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用图标',
+                                         `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '应用描述',
+                                         `status` tinyint NOT NULL COMMENT '状态',
+                                         `access_token_validity_seconds` int NOT NULL COMMENT '访问令牌的有效期',
+                                         `refresh_token_validity_seconds` int NOT NULL COMMENT '刷新令牌的有效期',
+                                         `redirect_uris` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '可重定向的 URI 地址',
+                                         `authorized_grant_types` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '授权类型',
+                                         `scopes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '授权范围',
+                                         `auto_approve_scopes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '自动通过的授权范围',
+                                         `authorities` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '权限',
+                                         `resource_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '资源',
+                                         `additional_information` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '附加信息',
+                                         `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                         `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                         `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                         `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                         `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                         PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'OAuth2 客户端表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_oauth2_client
@@ -5558,23 +5100,23 @@ INSERT INTO `system_oauth2_client` VALUES (42, 'ai-fusion-sso-demo-by-password',
 -- ----------------------------
 DROP TABLE IF EXISTS `system_oauth2_code`;
 CREATE TABLE `system_oauth2_code`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `user_type` tinyint NOT NULL COMMENT '用户类型',
-  `code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '授权码',
-  `client_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客户端编号',
-  `scopes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '授权范围',
-  `expires_time` datetime NOT NULL COMMENT '过期时间',
-  `redirect_uri` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '可重定向的 URI 地址',
-  `state` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '状态',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 147 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'OAuth2 授权码表' ROW_FORMAT = Dynamic;
+                                       `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                       `user_id` bigint NOT NULL COMMENT '用户编号',
+                                       `user_type` tinyint NOT NULL COMMENT '用户类型',
+                                       `code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '授权码',
+                                       `client_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客户端编号',
+                                       `scopes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '授权范围',
+                                       `expires_time` datetime NOT NULL COMMENT '过期时间',
+                                       `redirect_uri` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '可重定向的 URI 地址',
+                                       `state` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '状态',
+                                       `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                       `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                       `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                       `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                       `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                       `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                       PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 147 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'OAuth2 授权码表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_oauth2_code
@@ -5585,21 +5127,21 @@ CREATE TABLE `system_oauth2_code`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `system_oauth2_refresh_token`;
 CREATE TABLE `system_oauth2_refresh_token`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `refresh_token` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '刷新令牌',
-  `user_type` tinyint NOT NULL COMMENT '用户类型',
-  `client_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客户端编号',
-  `scopes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '授权范围',
-  `expires_time` datetime NOT NULL COMMENT '过期时间',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1464 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'OAuth2 刷新令牌' ROW_FORMAT = Dynamic;
+                                                `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                                `user_id` bigint NOT NULL COMMENT '用户编号',
+                                                `refresh_token` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '刷新令牌',
+                                                `user_type` tinyint NOT NULL COMMENT '用户类型',
+                                                `client_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客户端编号',
+                                                `scopes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '授权范围',
+                                                `expires_time` datetime NOT NULL COMMENT '过期时间',
+                                                `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                                `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                                `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                                `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                                `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                                `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1464 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'OAuth2 刷新令牌' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_oauth2_refresh_token
@@ -5611,27 +5153,27 @@ INSERT INTO `system_oauth2_refresh_token` VALUES (1463, 1, '0a0e9f35d3af418aa59f
 -- ----------------------------
 DROP TABLE IF EXISTS `system_operate_log`;
 CREATE TABLE `system_operate_log`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志主键',
-  `trace_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '链路追踪编号',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `user_type` tinyint NOT NULL DEFAULT 0 COMMENT '用户类型',
-  `type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '操作模块类型',
-  `sub_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '操作名',
-  `biz_id` bigint NOT NULL COMMENT '操作数据模块编号',
-  `action` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '操作内容',
-  `extra` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '拓展字段',
-  `request_method` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '请求方法名',
-  `request_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '请求地址',
-  `user_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '用户 IP',
-  `user_agent` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '浏览器 UA',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9043 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '操作日志记录 V2 版本' ROW_FORMAT = Dynamic;
+                                       `id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志主键',
+                                       `trace_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '链路追踪编号',
+                                       `user_id` bigint NOT NULL COMMENT '用户编号',
+                                       `user_type` tinyint NOT NULL DEFAULT 0 COMMENT '用户类型',
+                                       `type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '操作模块类型',
+                                       `sub_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '操作名',
+                                       `biz_id` bigint NOT NULL COMMENT '操作数据模块编号',
+                                       `action` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '操作内容',
+                                       `extra` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '拓展字段',
+                                       `request_method` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '请求方法名',
+                                       `request_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '请求地址',
+                                       `user_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '用户 IP',
+                                       `user_agent` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '浏览器 UA',
+                                       `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                       `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                       `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                       `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                       `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                       `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                       PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 9043 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '操作日志记录 V2 版本' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_operate_log
@@ -5650,20 +5192,20 @@ INSERT INTO `system_operate_log` VALUES (9042, '', 1, 2, 'SYSTEM 用户', '删�
 -- ----------------------------
 DROP TABLE IF EXISTS `system_post`;
 CREATE TABLE `system_post`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '岗位ID',
-  `code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '岗位编码',
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '岗位名称',
-  `sort` int NOT NULL COMMENT '显示顺序',
-  `status` tinyint NOT NULL COMMENT '状态（0正常 1停用）',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '岗位信息表' ROW_FORMAT = Dynamic;
+                                `id` bigint NOT NULL AUTO_INCREMENT COMMENT '岗位ID',
+                                `code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '岗位编码',
+                                `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '岗位名称',
+                                `sort` int NOT NULL COMMENT '显示顺序',
+                                `status` tinyint NOT NULL COMMENT '状态（0正常 1停用）',
+                                `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                                `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '岗位信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_post
@@ -5678,23 +5220,23 @@ INSERT INTO `system_post` VALUES (5, 'HR', '人力资源', 5, 0, '', '1', '2024-
 -- ----------------------------
 DROP TABLE IF EXISTS `system_role`;
 CREATE TABLE `system_role`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '角色ID',
-  `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '角色名称',
-  `code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '角色权限字符串',
-  `sort` int NOT NULL COMMENT '显示顺序',
-  `data_scope` tinyint NOT NULL DEFAULT 1 COMMENT '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）',
-  `data_scope_dept_ids` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '数据范围(指定部门数组)',
-  `status` tinyint NOT NULL COMMENT '角色状态（0正常 1停用）',
-  `type` tinyint NOT NULL COMMENT '角色类型',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 146 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色信息表' ROW_FORMAT = Dynamic;
+                                `id` bigint NOT NULL AUTO_INCREMENT COMMENT '角色ID',
+                                `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '角色名称',
+                                `code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '角色权限字符串',
+                                `sort` int NOT NULL COMMENT '显示顺序',
+                                `data_scope` tinyint NOT NULL DEFAULT 1 COMMENT '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）',
+                                `data_scope_dept_ids` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '数据范围(指定部门数组)',
+                                `status` tinyint NOT NULL COMMENT '角色状态（0正常 1停用）',
+                                `type` tinyint NOT NULL COMMENT '角色类型',
+                                `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                                `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 146 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_role
@@ -5725,17 +5267,17 @@ INSERT INTO `system_role` VALUES (144, '租户管理员', 'tenant_admin', 0, 1, 
 -- ----------------------------
 DROP TABLE IF EXISTS `system_role_menu`;
 CREATE TABLE `system_role_menu`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '自增编号',
-  `role_id` bigint NOT NULL COMMENT '角色ID',
-  `menu_id` bigint NOT NULL COMMENT '菜单ID',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4715 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色和菜单关联表' ROW_FORMAT = Dynamic;
+                                     `id` bigint NOT NULL AUTO_INCREMENT COMMENT '自增编号',
+                                     `role_id` bigint NOT NULL COMMENT '角色ID',
+                                     `menu_id` bigint NOT NULL COMMENT '菜单ID',
+                                     `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                     `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                     `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                     `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                     PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4715 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色和菜单关联表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_role_menu
@@ -8371,18 +7913,18 @@ INSERT INTO `system_role_menu` VALUES (4714, 1, 2766, '1', '2024-04-15 15:51:52'
 -- ----------------------------
 DROP TABLE IF EXISTS `system_sensitive_word`;
 CREATE TABLE `system_sensitive_word`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '敏感词',
-  `description` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '描述',
-  `tags` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '标签数组',
-  `status` tinyint NOT NULL COMMENT '状态',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '敏感词' ROW_FORMAT = Dynamic;
+                                          `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                          `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '敏感词',
+                                          `description` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '描述',
+                                          `tags` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '标签数组',
+                                          `status` tinyint NOT NULL COMMENT '状态',
+                                          `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                          `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                          `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                          `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                          `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                          PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '敏感词' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_sensitive_word
@@ -8396,21 +7938,21 @@ INSERT INTO `system_sensitive_word` VALUES (5, '白痴', 'lll', '测试', 0, '1'
 -- ----------------------------
 DROP TABLE IF EXISTS `system_sms_channel`;
 CREATE TABLE `system_sms_channel`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `signature` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '短信签名',
-  `code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '渠道编码',
-  `status` tinyint NOT NULL COMMENT '开启状态',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `api_key` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '短信 API 的账号',
-  `api_secret` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '短信 API 的秘钥',
-  `callback_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '短信发送回调 URL',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '短信渠道' ROW_FORMAT = Dynamic;
+                                       `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                       `signature` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '短信签名',
+                                       `code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '渠道编码',
+                                       `status` tinyint NOT NULL COMMENT '开启状态',
+                                       `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                                       `api_key` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '短信 API 的账号',
+                                       `api_secret` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '短信 API 的秘钥',
+                                       `callback_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '短信发送回调 URL',
+                                       `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                       `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                       `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                       `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                       `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                       PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '短信渠道' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_sms_channel
@@ -8424,24 +7966,24 @@ INSERT INTO `system_sms_channel` VALUES (6, '测试演示', 'DEBUG_DING_TALK', 0
 -- ----------------------------
 DROP TABLE IF EXISTS `system_sms_code`;
 CREATE TABLE `system_sms_code`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `mobile` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '手机号',
-  `code` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '验证码',
-  `create_ip` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '创建 IP',
-  `scene` tinyint NOT NULL COMMENT '发送场景',
-  `today_index` tinyint NOT NULL COMMENT '今日发送的第几条',
-  `used` tinyint NOT NULL COMMENT '是否使用',
-  `used_time` datetime NULL DEFAULT NULL COMMENT '使用时间',
-  `used_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '使用 IP',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_mobile`(`mobile` ASC) USING BTREE COMMENT '手机号'
-) ENGINE = InnoDB AUTO_INCREMENT = 614 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '手机验证码' ROW_FORMAT = Dynamic;
+                                    `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                    `mobile` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '手机号',
+                                    `code` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '验证码',
+                                    `create_ip` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '创建 IP',
+                                    `scene` tinyint NOT NULL COMMENT '发送场景',
+                                    `today_index` tinyint NOT NULL COMMENT '今日发送的第几条',
+                                    `used` tinyint NOT NULL COMMENT '是否使用',
+                                    `used_time` datetime NULL DEFAULT NULL COMMENT '使用时间',
+                                    `used_ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '使用 IP',
+                                    `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                    `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                    `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                    `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                    PRIMARY KEY (`id`) USING BTREE,
+                                    INDEX `idx_mobile`(`mobile` ASC) USING BTREE COMMENT '手机号'
+) ENGINE = InnoDB AUTO_INCREMENT = 614 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '手机验证码' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_sms_code
@@ -8452,35 +7994,35 @@ CREATE TABLE `system_sms_code`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `system_sms_log`;
 CREATE TABLE `system_sms_log`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `channel_id` bigint NOT NULL COMMENT '短信渠道编号',
-  `channel_code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '短信渠道编码',
-  `template_id` bigint NOT NULL COMMENT '模板编号',
-  `template_code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板编码',
-  `template_type` tinyint NOT NULL COMMENT '短信类型',
-  `template_content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '短信内容',
-  `template_params` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '短信参数',
-  `api_template_id` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '短信 API 的模板编号',
-  `mobile` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '手机号',
-  `user_id` bigint NULL DEFAULT NULL COMMENT '用户编号',
-  `user_type` tinyint NULL DEFAULT NULL COMMENT '用户类型',
-  `send_status` tinyint NOT NULL DEFAULT 0 COMMENT '发送状态',
-  `send_time` datetime NULL DEFAULT NULL COMMENT '发送时间',
-  `api_send_code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '短信 API 发送结果的编码',
-  `api_send_msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '短信 API 发送失败的提示',
-  `api_request_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '短信 API 发送返回的唯一请求 ID',
-  `api_serial_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '短信 API 发送返回的序号',
-  `receive_status` tinyint NOT NULL DEFAULT 0 COMMENT '接收状态',
-  `receive_time` datetime NULL DEFAULT NULL COMMENT '接收时间',
-  `api_receive_code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT 'API 接收结果的编码',
-  `api_receive_msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT 'API 接收结果的说明',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 948 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '短信日志' ROW_FORMAT = Dynamic;
+                                   `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                   `channel_id` bigint NOT NULL COMMENT '短信渠道编号',
+                                   `channel_code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '短信渠道编码',
+                                   `template_id` bigint NOT NULL COMMENT '模板编号',
+                                   `template_code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板编码',
+                                   `template_type` tinyint NOT NULL COMMENT '短信类型',
+                                   `template_content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '短信内容',
+                                   `template_params` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '短信参数',
+                                   `api_template_id` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '短信 API 的模板编号',
+                                   `mobile` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '手机号',
+                                   `user_id` bigint NULL DEFAULT NULL COMMENT '用户编号',
+                                   `user_type` tinyint NULL DEFAULT NULL COMMENT '用户类型',
+                                   `send_status` tinyint NOT NULL DEFAULT 0 COMMENT '发送状态',
+                                   `send_time` datetime NULL DEFAULT NULL COMMENT '发送时间',
+                                   `api_send_code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '短信 API 发送结果的编码',
+                                   `api_send_msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '短信 API 发送失败的提示',
+                                   `api_request_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '短信 API 发送返回的唯一请求 ID',
+                                   `api_serial_no` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '短信 API 发送返回的序号',
+                                   `receive_status` tinyint NOT NULL DEFAULT 0 COMMENT '接收状态',
+                                   `receive_time` datetime NULL DEFAULT NULL COMMENT '接收时间',
+                                   `api_receive_code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT 'API 接收结果的编码',
+                                   `api_receive_msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT 'API 接收结果的说明',
+                                   `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                   `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                   PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 948 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '短信日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_sms_log
@@ -8491,24 +8033,24 @@ CREATE TABLE `system_sms_log`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `system_sms_template`;
 CREATE TABLE `system_sms_template`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `type` tinyint NOT NULL COMMENT '短信签名',
-  `status` tinyint NOT NULL COMMENT '开启状态',
-  `code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板编码',
-  `name` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板名称',
-  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板内容',
-  `params` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '参数数组',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `api_template_id` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '短信 API 的模板编号',
-  `channel_id` bigint NOT NULL COMMENT '短信渠道编号',
-  `channel_code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '短信渠道编码',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '短信模板' ROW_FORMAT = Dynamic;
+                                        `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                        `type` tinyint NOT NULL COMMENT '短信签名',
+                                        `status` tinyint NOT NULL COMMENT '开启状态',
+                                        `code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板编码',
+                                        `name` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板名称',
+                                        `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板内容',
+                                        `params` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '参数数组',
+                                        `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                                        `api_template_id` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '短信 API 的模板编号',
+                                        `channel_id` bigint NOT NULL COMMENT '短信渠道编号',
+                                        `channel_code` varchar(63) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '短信渠道编码',
+                                        `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                        `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                        `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                        `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                        `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                        PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '短信模板' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_sms_template
@@ -8531,22 +8073,22 @@ INSERT INTO `system_sms_template` VALUES (16, 1, 0, 'user-reset-password', '会�
 -- ----------------------------
 DROP TABLE IF EXISTS `system_social_client`;
 CREATE TABLE `system_social_client`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用名',
-  `social_type` tinyint NOT NULL COMMENT '社交平台的类型',
-  `user_type` tinyint NOT NULL COMMENT '用户类型',
-  `client_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客户端编号',
-  `client_secret` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客户端密钥',
-  `agent_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '代理编号',
-  `status` tinyint NOT NULL COMMENT '状态',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '社交客户端表' ROW_FORMAT = Dynamic;
+                                         `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                         `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '应用名',
+                                         `social_type` tinyint NOT NULL COMMENT '社交平台的类型',
+                                         `user_type` tinyint NOT NULL COMMENT '用户类型',
+                                         `client_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客户端编号',
+                                         `client_secret` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '客户端密钥',
+                                         `agent_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '代理编号',
+                                         `status` tinyint NOT NULL COMMENT '状态',
+                                         `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                         `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                         `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                         `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                         `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                         `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                         PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '社交客户端表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_social_client
@@ -8561,24 +8103,24 @@ INSERT INTO `system_social_client` VALUES (43, '微信小程序', 34, 1, 'wx63c2
 -- ----------------------------
 DROP TABLE IF EXISTS `system_social_user`;
 CREATE TABLE `system_social_user`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键(自增策略)',
-  `type` tinyint NOT NULL COMMENT '社交平台的类型',
-  `openid` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '社交 openid',
-  `token` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '社交 token',
-  `raw_token_info` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '原始 Token 数据，一般是 JSON 格式',
-  `nickname` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户昵称',
-  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '用户头像',
-  `raw_user_info` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '原始用户数据，一般是 JSON 格式',
-  `code` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '最后一次的认证 code',
-  `state` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '最后一次的认证 state',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 36 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '社交用户表' ROW_FORMAT = Dynamic;
+                                       `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键(自增策略)',
+                                       `type` tinyint NOT NULL COMMENT '社交平台的类型',
+                                       `openid` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '社交 openid',
+                                       `token` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '社交 token',
+                                       `raw_token_info` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '原始 Token 数据，一般是 JSON 格式',
+                                       `nickname` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户昵称',
+                                       `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '用户头像',
+                                       `raw_user_info` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '原始用户数据，一般是 JSON 格式',
+                                       `code` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '最后一次的认证 code',
+                                       `state` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '最后一次的认证 state',
+                                       `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                       `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                       `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                       `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                       `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                       `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                       PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 36 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '社交用户表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_social_user
@@ -8589,19 +8131,19 @@ CREATE TABLE `system_social_user`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `system_social_user_bind`;
 CREATE TABLE `system_social_user_bind`  (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键(自增策略)',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `user_type` tinyint NOT NULL COMMENT '用户类型',
-  `social_type` tinyint NOT NULL COMMENT '社交平台的类型',
-  `social_user_id` bigint NOT NULL COMMENT '社交用户的编号',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 119 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '社交绑定表' ROW_FORMAT = Dynamic;
+                                            `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键(自增策略)',
+                                            `user_id` bigint NOT NULL COMMENT '用户编号',
+                                            `user_type` tinyint NOT NULL COMMENT '用户类型',
+                                            `social_type` tinyint NOT NULL COMMENT '社交平台的类型',
+                                            `social_user_id` bigint NOT NULL COMMENT '社交用户的编号',
+                                            `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                            `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                            `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                            `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                            `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                            `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                            PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 119 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '社交绑定表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_social_user_bind
@@ -8612,23 +8154,23 @@ CREATE TABLE `system_social_user_bind`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `system_tenant`;
 CREATE TABLE `system_tenant`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '租户编号',
-  `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '租户名',
-  `contact_user_id` bigint NULL DEFAULT NULL COMMENT '联系人的用户编号',
-  `contact_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '联系人',
-  `contact_mobile` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '联系手机',
-  `status` tinyint NOT NULL DEFAULT 0 COMMENT '租户状态（0正常 1停用）',
-  `website` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '绑定域名',
-  `package_id` bigint NOT NULL COMMENT '租户套餐编号',
-  `expire_time` datetime NOT NULL COMMENT '过期时间',
-  `account_count` int NOT NULL COMMENT '账号数量',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 155 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '租户表' ROW_FORMAT = Dynamic;
+                                  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '租户编号',
+                                  `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '租户名',
+                                  `contact_user_id` bigint NULL DEFAULT NULL COMMENT '联系人的用户编号',
+                                  `contact_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '联系人',
+                                  `contact_mobile` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '联系手机',
+                                  `status` tinyint NOT NULL DEFAULT 0 COMMENT '租户状态（0正常 1停用）',
+                                  `website` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '绑定域名',
+                                  `package_id` bigint NOT NULL COMMENT '租户套餐编号',
+                                  `expire_time` datetime NOT NULL COMMENT '过期时间',
+                                  `account_count` int NOT NULL COMMENT '账号数量',
+                                  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '创建者',
+                                  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 155 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '租户表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_tenant
@@ -8646,18 +8188,18 @@ INSERT INTO `system_tenant` VALUES (154, 'hh', 129, 'hh', NULL, 0, 'http://hh.io
 -- ----------------------------
 DROP TABLE IF EXISTS `system_tenant_package`;
 CREATE TABLE `system_tenant_package`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '套餐编号',
-  `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '套餐名',
-  `status` tinyint NOT NULL DEFAULT 0 COMMENT '租户状态（0正常 1停用）',
-  `remark` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '备注',
-  `menu_ids` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '关联的菜单编号',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 112 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '租户套餐表' ROW_FORMAT = Dynamic;
+                                          `id` bigint NOT NULL AUTO_INCREMENT COMMENT '套餐编号',
+                                          `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '套餐名',
+                                          `status` tinyint NOT NULL DEFAULT 0 COMMENT '租户状态（0正常 1停用）',
+                                          `remark` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '备注',
+                                          `menu_ids` varchar(4096) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '关联的菜单编号',
+                                          `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '创建者',
+                                          `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                          `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                          `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                          `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                          PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 112 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '租户套餐表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_tenant_package
@@ -8669,17 +8211,17 @@ INSERT INTO `system_tenant_package` VALUES (111, '普通套餐', 0, '小功能',
 -- ----------------------------
 DROP TABLE IF EXISTS `system_user_post`;
 CREATE TABLE `system_user_post`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `user_id` bigint NOT NULL DEFAULT 0 COMMENT '用户ID',
-  `post_id` bigint NOT NULL DEFAULT 0 COMMENT '岗位ID',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 125 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户岗位表' ROW_FORMAT = Dynamic;
+                                     `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
+                                     `user_id` bigint NOT NULL DEFAULT 0 COMMENT '用户ID',
+                                     `post_id` bigint NOT NULL DEFAULT 0 COMMENT '岗位ID',
+                                     `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                     `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                     `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                     `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                     PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 125 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户岗位表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_user_post
@@ -8698,17 +8240,17 @@ INSERT INTO `system_user_post` VALUES (124, 115, 2, '1', '2024-04-04 09:37:14', 
 -- ----------------------------
 DROP TABLE IF EXISTS `system_user_role`;
 CREATE TABLE `system_user_role`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '自增编号',
-  `user_id` bigint NOT NULL COMMENT '用户ID',
-  `role_id` bigint NOT NULL COMMENT '角色ID',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户和角色关联表' ROW_FORMAT = Dynamic;
+                                     `id` bigint NOT NULL AUTO_INCREMENT COMMENT '自增编号',
+                                     `user_id` bigint NOT NULL COMMENT '用户ID',
+                                     `role_id` bigint NOT NULL COMMENT '角色ID',
+                                     `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                     `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                     `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                     `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                     `deleted` bit(1) NULL DEFAULT b'0' COMMENT '是否删除',
+                                     `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                     PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户和角色关联表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_user_role
@@ -8750,29 +8292,29 @@ INSERT INTO `system_user_role` VALUES (39, 129, 144, '1', '2024-03-30 17:52:59',
 -- ----------------------------
 DROP TABLE IF EXISTS `system_users`;
 CREATE TABLE `system_users`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-  `username` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户账号',
-  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '密码',
-  `nickname` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户昵称',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `dept_id` bigint NULL DEFAULT NULL COMMENT '部门ID',
-  `post_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '岗位编号数组',
-  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '用户邮箱',
-  `mobile` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '手机号码',
-  `sex` tinyint NULL DEFAULT 0 COMMENT '用户性别',
-  `avatar` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '头像地址',
-  `status` tinyint NOT NULL DEFAULT 0 COMMENT '帐号状态（0正常 1停用）',
-  `login_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '最后登录IP',
-  `login_date` datetime NULL DEFAULT NULL COMMENT '最后登录时间',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `idx_username`(`username` ASC, `update_time` ASC, `tenant_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 131 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
+                                 `id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+                                 `username` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户账号',
+                                 `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '密码',
+                                 `nickname` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户昵称',
+                                 `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                                 `dept_id` bigint NULL DEFAULT NULL COMMENT '部门ID',
+                                 `post_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '岗位编号数组',
+                                 `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '用户邮箱',
+                                 `mobile` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '手机号码',
+                                 `sex` tinyint NULL DEFAULT 0 COMMENT '用户性别',
+                                 `avatar` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '头像地址',
+                                 `status` tinyint NOT NULL DEFAULT 0 COMMENT '帐号状态（0正常 1停用）',
+                                 `login_ip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '最后登录IP',
+                                 `login_date` datetime NULL DEFAULT NULL COMMENT '最后登录时间',
+                                 `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                 `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                 `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                 `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                 `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                 PRIMARY KEY (`id`) USING BTREE,
+                                 UNIQUE INDEX `idx_username`(`username` ASC, `update_time` ASC, `tenant_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 131 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of system_users
@@ -8800,43 +8342,43 @@ INSERT INTO `system_users` VALUES (129, 'hh123456', '$2a$04$8mHJM7n03bcNjtaw.Ilf
 -- ----------------------------
 DROP TABLE IF EXISTS `trade_after_sale`;
 CREATE TABLE `trade_after_sale`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '售后编号',
-  `no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '售后单号',
-  `type` tinyint NULL DEFAULT NULL COMMENT '售后类型',
-  `status` int NOT NULL DEFAULT 0 COMMENT '售后状态',
-  `way` tinyint NOT NULL COMMENT '售后方式',
-  `user_id` bigint UNSIGNED NOT NULL COMMENT '用户编号',
-  `apply_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '申请原因',
-  `apply_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '补充描述',
-  `apply_pic_urls` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '补充凭证图片',
-  `order_id` bigint UNSIGNED NOT NULL COMMENT '订单编号',
-  `order_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '订单流水号',
-  `order_item_Id` bigint UNSIGNED NOT NULL COMMENT '订单项编号',
-  `spu_id` bigint UNSIGNED NOT NULL COMMENT '商品 SPU 编号',
-  `spu_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商品 SPU 名称',
-  `sku_id` bigint UNSIGNED NOT NULL COMMENT '商品 SKU 编号',
-  `properties` json NULL COMMENT '商品属性数组，JSON 格式',
-  `pic_url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '商品图片',
-  `count` int NOT NULL COMMENT '购买数量',
-  `audit_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '审批时间',
-  `audit_user_id` bigint UNSIGNED NULL DEFAULT NULL COMMENT '审批人',
-  `audit_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '审批备注',
-  `refund_price` int NOT NULL DEFAULT 0 COMMENT '退款金额，单位：分',
-  `pay_refund_id` bigint UNSIGNED NULL DEFAULT NULL COMMENT '支付退款编号',
-  `refund_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '退款时间',
-  `logistics_id` bigint NULL DEFAULT NULL COMMENT '退货物流公司编号',
-  `logistics_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '退货物流单号',
-  `delivery_time` datetime NULL DEFAULT NULL COMMENT '退货时间',
-  `receive_time` datetime NULL DEFAULT NULL COMMENT '收货时间',
-  `receive_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '收货备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '售后订单' ROW_FORMAT = Dynamic;
+                                     `id` bigint NOT NULL AUTO_INCREMENT COMMENT '售后编号',
+                                     `no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '售后单号',
+                                     `type` tinyint NULL DEFAULT NULL COMMENT '售后类型',
+                                     `status` int NOT NULL DEFAULT 0 COMMENT '售后状态',
+                                     `way` tinyint NOT NULL COMMENT '售后方式',
+                                     `user_id` bigint UNSIGNED NOT NULL COMMENT '用户编号',
+                                     `apply_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '申请原因',
+                                     `apply_description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '补充描述',
+                                     `apply_pic_urls` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '补充凭证图片',
+                                     `order_id` bigint UNSIGNED NOT NULL COMMENT '订单编号',
+                                     `order_no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '订单流水号',
+                                     `order_item_Id` bigint UNSIGNED NOT NULL COMMENT '订单项编号',
+                                     `spu_id` bigint UNSIGNED NOT NULL COMMENT '商品 SPU 编号',
+                                     `spu_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商品 SPU 名称',
+                                     `sku_id` bigint UNSIGNED NOT NULL COMMENT '商品 SKU 编号',
+                                     `properties` json NULL COMMENT '商品属性数组，JSON 格式',
+                                     `pic_url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '商品图片',
+                                     `count` int NOT NULL COMMENT '购买数量',
+                                     `audit_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '审批时间',
+                                     `audit_user_id` bigint UNSIGNED NULL DEFAULT NULL COMMENT '审批人',
+                                     `audit_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '审批备注',
+                                     `refund_price` int NOT NULL DEFAULT 0 COMMENT '退款金额，单位：分',
+                                     `pay_refund_id` bigint UNSIGNED NULL DEFAULT NULL COMMENT '支付退款编号',
+                                     `refund_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '退款时间',
+                                     `logistics_id` bigint NULL DEFAULT NULL COMMENT '退货物流公司编号',
+                                     `logistics_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '退货物流单号',
+                                     `delivery_time` datetime NULL DEFAULT NULL COMMENT '退货时间',
+                                     `receive_time` datetime NULL DEFAULT NULL COMMENT '收货时间',
+                                     `receive_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '收货备注',
+                                     `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '创建者',
+                                     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                     `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '更新者',
+                                     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                     `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                     `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                     PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '售后订单' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of trade_after_sale
@@ -8865,22 +8407,22 @@ INSERT INTO `trade_after_sale` VALUES (23, 'r202401161952581', 20, 40, 20, 247, 
 -- ----------------------------
 DROP TABLE IF EXISTS `trade_after_sale_log`;
 CREATE TABLE `trade_after_sale_log`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `user_type` tinyint NOT NULL COMMENT '用户类型',
-  `after_sale_id` bigint NOT NULL COMMENT '售后编号',
-  `before_status` tinyint NULL DEFAULT NULL COMMENT '售后状态（之前）',
-  `after_status` tinyint NOT NULL COMMENT '售后状态（之后）',
-  `operate_type` tinyint NOT NULL COMMENT '操作类型',
-  `content` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '操作明细',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '售后订单日志' ROW_FORMAT = Dynamic;
+                                         `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                         `user_id` bigint NOT NULL COMMENT '用户编号',
+                                         `user_type` tinyint NOT NULL COMMENT '用户类型',
+                                         `after_sale_id` bigint NOT NULL COMMENT '售后编号',
+                                         `before_status` tinyint NULL DEFAULT NULL COMMENT '售后状态（之前）',
+                                         `after_status` tinyint NOT NULL COMMENT '售后状态（之后）',
+                                         `operate_type` tinyint NOT NULL COMMENT '操作类型',
+                                         `content` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '操作明细',
+                                         `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '创建者',
+                                         `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                         `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '更新者',
+                                         `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                         `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                         `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                         PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '售后订单日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of trade_after_sale_log
@@ -8928,30 +8470,30 @@ INSERT INTO `trade_after_sale_log` VALUES (37, 1, 2, 23, 30, 40, 21, '商家收�
 -- ----------------------------
 DROP TABLE IF EXISTS `trade_brokerage_record`;
 CREATE TABLE `trade_brokerage_record`  (
-  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `biz_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '业务编号',
-  `biz_type` tinyint NOT NULL DEFAULT 0 COMMENT '业务类型：1-订单，2-提现',
-  `title` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
-  `price` int NOT NULL DEFAULT 0 COMMENT '金额',
-  `total_price` int NOT NULL DEFAULT 0 COMMENT '当前总佣金',
-  `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '说明',
-  `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态：0-待结算，1-已结算，2-已取消',
-  `frozen_days` int NOT NULL DEFAULT 0 COMMENT '冻结时间（天）',
-  `unfreeze_time` datetime NULL DEFAULT NULL COMMENT '解冻时间',
-  `source_user_level` int NOT NULL DEFAULT 0 COMMENT '来源用户等级',
-  `source_user_id` bigint NOT NULL DEFAULT 0 COMMENT '来源用户编号',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_user_id`(`user_id` ASC) USING BTREE COMMENT '用户编号',
-  INDEX `idx_biz`(`biz_type` ASC, `biz_id` ASC) USING BTREE COMMENT '业务',
-  INDEX `idx_status`(`status` ASC) USING BTREE COMMENT '状态'
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '佣金记录' ROW_FORMAT = Dynamic;
+                                           `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                           `user_id` bigint NOT NULL COMMENT '用户编号',
+                                           `biz_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '业务编号',
+                                           `biz_type` tinyint NOT NULL DEFAULT 0 COMMENT '业务类型：1-订单，2-提现',
+                                           `title` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '标题',
+                                           `price` int NOT NULL DEFAULT 0 COMMENT '金额',
+                                           `total_price` int NOT NULL DEFAULT 0 COMMENT '当前总佣金',
+                                           `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '说明',
+                                           `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态：0-待结算，1-已结算，2-已取消',
+                                           `frozen_days` int NOT NULL DEFAULT 0 COMMENT '冻结时间（天）',
+                                           `unfreeze_time` datetime NULL DEFAULT NULL COMMENT '解冻时间',
+                                           `source_user_level` int NOT NULL DEFAULT 0 COMMENT '来源用户等级',
+                                           `source_user_id` bigint NOT NULL DEFAULT 0 COMMENT '来源用户编号',
+                                           `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                           `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                           `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                           `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                           `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                           `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                           PRIMARY KEY (`id`) USING BTREE,
+                                           INDEX `idx_user_id`(`user_id` ASC) USING BTREE COMMENT '用户编号',
+                                           INDEX `idx_biz`(`biz_type` ASC, `biz_id` ASC) USING BTREE COMMENT '业务',
+                                           INDEX `idx_status`(`status` ASC) USING BTREE COMMENT '状态'
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '佣金记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of trade_brokerage_record
@@ -8969,21 +8511,21 @@ INSERT INTO `trade_brokerage_record` VALUES (7, 247, '10', 2, '提现申请', -2
 -- ----------------------------
 DROP TABLE IF EXISTS `trade_brokerage_user`;
 CREATE TABLE `trade_brokerage_user`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户编号',
-  `bind_user_id` bigint NULL DEFAULT NULL COMMENT '推广员编号',
-  `bind_user_time` datetime NULL DEFAULT NULL COMMENT '推广员绑定时间',
-  `brokerage_enabled` bit(1) NOT NULL DEFAULT b'1' COMMENT '是否成为推广员',
-  `brokerage_time` datetime NULL DEFAULT NULL COMMENT '成为分销员时间',
-  `brokerage_price` int NOT NULL DEFAULT 0 COMMENT '可用佣金',
-  `frozen_price` int NOT NULL DEFAULT 0 COMMENT '冻结佣金',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 249 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '分销用户' ROW_FORMAT = Dynamic;
+                                         `id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户编号',
+                                         `bind_user_id` bigint NULL DEFAULT NULL COMMENT '推广员编号',
+                                         `bind_user_time` datetime NULL DEFAULT NULL COMMENT '推广员绑定时间',
+                                         `brokerage_enabled` bit(1) NOT NULL DEFAULT b'1' COMMENT '是否成为推广员',
+                                         `brokerage_time` datetime NULL DEFAULT NULL COMMENT '成为分销员时间',
+                                         `brokerage_price` int NOT NULL DEFAULT 0 COMMENT '可用佣金',
+                                         `frozen_price` int NOT NULL DEFAULT 0 COMMENT '冻结佣金',
+                                         `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                         `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                         `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                         `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                         `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                         `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                         PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 249 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '分销用户' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of trade_brokerage_user
@@ -8996,31 +8538,31 @@ INSERT INTO `trade_brokerage_user` VALUES (248, 247, '2023-12-25 11:28:23', b'1'
 -- ----------------------------
 DROP TABLE IF EXISTS `trade_brokerage_withdraw`;
 CREATE TABLE `trade_brokerage_withdraw`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `price` int NOT NULL DEFAULT 0 COMMENT '提现金额',
-  `fee_price` int NOT NULL DEFAULT 0 COMMENT '提现手续费',
-  `total_price` int NOT NULL DEFAULT 0 COMMENT '当前总佣金',
-  `type` tinyint NOT NULL DEFAULT 0 COMMENT '提现类型：1-钱包；2-银行卡；3-微信；4-支付宝',
-  `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '真实姓名',
-  `account_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '账号',
-  `bank_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '银行名称',
-  `bank_address` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '开户地址',
-  `account_qr_code_url` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '收款码',
-  `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态：0-审核中，10-审核通过 20-审核不通过；预留：11 - 提现成功；21-提现失败',
-  `audit_reason` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '审核驳回原因',
-  `audit_time` datetime NULL DEFAULT NULL COMMENT '审核时间',
-  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `idx_user_id`(`user_id` ASC) USING BTREE COMMENT '用户编号',
-  INDEX `idx_audit_status`(`status` ASC) USING BTREE COMMENT '状态'
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '佣金提现' ROW_FORMAT = Dynamic;
+                                             `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                             `user_id` bigint NOT NULL COMMENT '用户编号',
+                                             `price` int NOT NULL DEFAULT 0 COMMENT '提现金额',
+                                             `fee_price` int NOT NULL DEFAULT 0 COMMENT '提现手续费',
+                                             `total_price` int NOT NULL DEFAULT 0 COMMENT '当前总佣金',
+                                             `type` tinyint NOT NULL DEFAULT 0 COMMENT '提现类型：1-钱包；2-银行卡；3-微信；4-支付宝',
+                                             `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '真实姓名',
+                                             `account_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '账号',
+                                             `bank_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '银行名称',
+                                             `bank_address` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '开户地址',
+                                             `account_qr_code_url` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '收款码',
+                                             `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态：0-审核中，10-审核通过 20-审核不通过；预留：11 - 提现成功；21-提现失败',
+                                             `audit_reason` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '审核驳回原因',
+                                             `audit_time` datetime NULL DEFAULT NULL COMMENT '审核时间',
+                                             `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                                             `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                             `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                             `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                             `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                             `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                             `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                             PRIMARY KEY (`id`) USING BTREE,
+                                             INDEX `idx_user_id`(`user_id` ASC) USING BTREE COMMENT '用户编号',
+                                             INDEX `idx_audit_status`(`status` ASC) USING BTREE COMMENT '状态'
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '佣金提现' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of trade_brokerage_withdraw
@@ -9037,20 +8579,20 @@ INSERT INTO `trade_brokerage_withdraw` VALUES (10, 247, 22300, 0, 0, 3, NULL, '1
 -- ----------------------------
 DROP TABLE IF EXISTS `trade_cart`;
 CREATE TABLE `trade_cart`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号，唯一自增。',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `spu_id` bigint NOT NULL COMMENT '商品 SPU 编号',
-  `sku_id` bigint NOT NULL COMMENT '商品 SKU 编号',
-  `count` int NOT NULL COMMENT '商品购买数量',
-  `selected` bit(1) NOT NULL DEFAULT b'1' COMMENT '是否选中',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 92 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '购物车的商品信息' ROW_FORMAT = Dynamic;
+                               `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号，唯一自增。',
+                               `user_id` bigint NOT NULL COMMENT '用户编号',
+                               `spu_id` bigint NOT NULL COMMENT '商品 SPU 编号',
+                               `sku_id` bigint NOT NULL COMMENT '商品 SKU 编号',
+                               `count` int NOT NULL COMMENT '商品购买数量',
+                               `selected` bit(1) NOT NULL DEFAULT b'1' COMMENT '是否选中',
+                               `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                               `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                               `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                               `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                               `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                               `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                               PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 92 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '购物车的商品信息' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of trade_cart
@@ -9098,30 +8640,30 @@ INSERT INTO `trade_cart` VALUES (91, 247, 634, 15, 1, b'1', '247', '2024-01-15 2
 -- ----------------------------
 DROP TABLE IF EXISTS `trade_config`;
 CREATE TABLE `trade_config`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '自增主键',
-  `after_sale_refund_reasons` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '售后退款理由',
-  `after_sale_return_reasons` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '售后退货理由',
-  `delivery_express_free_enabled` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否启用全场包邮',
-  `delivery_express_free_price` int NOT NULL DEFAULT 0 COMMENT '全场包邮的最小金额，单位：分',
-  `delivery_pick_up_enabled` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否开启自提',
-  `brokerage_enabled` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否启用分佣',
-  `brokerage_enabled_condition` tinyint NOT NULL DEFAULT 1 COMMENT '分佣模式：1-人人分销 2-指定分销',
-  `brokerage_bind_mode` tinyint NOT NULL DEFAULT 1 COMMENT '分销关系绑定模式: 1-没有推广人，2-新用户, 3-扫码覆盖',
-  `brokerage_poster_urls` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '分销海报图地址数组',
-  `brokerage_first_percent` int NOT NULL DEFAULT 0 COMMENT '一级返佣比例',
-  `brokerage_second_percent` int NOT NULL DEFAULT 0 COMMENT '二级返佣比例',
-  `brokerage_withdraw_min_price` int NOT NULL DEFAULT 0 COMMENT '用户提现最低金额',
-  `brokerage_withdraw_fee_percent` int NOT NULL DEFAULT 0 COMMENT '提现手续费百分比',
-  `brokerage_frozen_days` int NOT NULL DEFAULT 7 COMMENT '佣金冻结时间(天)',
-  `brokerage_withdraw_types` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1,2,3,4' COMMENT '提现方式：1-钱包；2-银行卡；3-微信；4-支付宝',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '交易中心配置' ROW_FORMAT = Dynamic;
+                                 `id` bigint NOT NULL AUTO_INCREMENT COMMENT '自增主键',
+                                 `after_sale_refund_reasons` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '售后退款理由',
+                                 `after_sale_return_reasons` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '售后退货理由',
+                                 `delivery_express_free_enabled` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否启用全场包邮',
+                                 `delivery_express_free_price` int NOT NULL DEFAULT 0 COMMENT '全场包邮的最小金额，单位：分',
+                                 `delivery_pick_up_enabled` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否开启自提',
+                                 `brokerage_enabled` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否启用分佣',
+                                 `brokerage_enabled_condition` tinyint NOT NULL DEFAULT 1 COMMENT '分佣模式：1-人人分销 2-指定分销',
+                                 `brokerage_bind_mode` tinyint NOT NULL DEFAULT 1 COMMENT '分销关系绑定模式: 1-没有推广人，2-新用户, 3-扫码覆盖',
+                                 `brokerage_poster_urls` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '分销海报图地址数组',
+                                 `brokerage_first_percent` int NOT NULL DEFAULT 0 COMMENT '一级返佣比例',
+                                 `brokerage_second_percent` int NOT NULL DEFAULT 0 COMMENT '二级返佣比例',
+                                 `brokerage_withdraw_min_price` int NOT NULL DEFAULT 0 COMMENT '用户提现最低金额',
+                                 `brokerage_withdraw_fee_percent` int NOT NULL DEFAULT 0 COMMENT '提现手续费百分比',
+                                 `brokerage_frozen_days` int NOT NULL DEFAULT 7 COMMENT '佣金冻结时间(天)',
+                                 `brokerage_withdraw_types` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1,2,3,4' COMMENT '提现方式：1-钱包；2-银行卡；3-微信；4-支付宝',
+                                 `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                 `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                 `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                 `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                 `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                 PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '交易中心配置' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of trade_config
@@ -9133,20 +8675,20 @@ INSERT INTO `trade_config` VALUES (2, '[\"不想要了\",\"商品质量问题\",
 -- ----------------------------
 DROP TABLE IF EXISTS `trade_delivery_express`;
 CREATE TABLE `trade_delivery_express`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '快递公司编码',
-  `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '快递公司名称',
-  `logo` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '快递公司 logo',
-  `sort` int NOT NULL DEFAULT 0 COMMENT '排序',
-  `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '快递公司' ROW_FORMAT = Dynamic;
+                                           `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                           `code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '快递公司编码',
+                                           `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '快递公司名称',
+                                           `logo` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '快递公司 logo',
+                                           `sort` int NOT NULL DEFAULT 0 COMMENT '排序',
+                                           `status` tinyint NOT NULL DEFAULT 0 COMMENT '状态',
+                                           `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                           `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                           `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                           `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                           `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                           `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                           PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '快递公司' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of trade_delivery_express
@@ -9161,18 +8703,18 @@ INSERT INTO `trade_delivery_express` VALUES (4, 'YD', '韵达快递', 'http://12
 -- ----------------------------
 DROP TABLE IF EXISTS `trade_delivery_express_template`;
 CREATE TABLE `trade_delivery_express_template`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板名称',
-  `charge_mode` tinyint NOT NULL COMMENT '配送计费方式',
-  `sort` int NOT NULL DEFAULT 0 COMMENT '排序',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '快递运费模板' ROW_FORMAT = Dynamic;
+                                                    `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                                    `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '模板名称',
+                                                    `charge_mode` tinyint NOT NULL COMMENT '配送计费方式',
+                                                    `sort` int NOT NULL DEFAULT 0 COMMENT '排序',
+                                                    `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                                    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                                    `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                                    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                                    `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                                    `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                                    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '快递运费模板' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of trade_delivery_express_template
@@ -9185,22 +8727,22 @@ INSERT INTO `trade_delivery_express_template` VALUES (4, '测试模版', 2, 0, '
 -- ----------------------------
 DROP TABLE IF EXISTS `trade_delivery_express_template_charge`;
 CREATE TABLE `trade_delivery_express_template_charge`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号，自增',
-  `template_id` bigint NOT NULL COMMENT '快递运费模板编号',
-  `area_ids` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '配送区域 id',
-  `charge_mode` tinyint NOT NULL COMMENT '配送计费方式',
-  `start_count` double NOT NULL COMMENT '首件数量',
-  `start_price` int NOT NULL COMMENT '起步价，单位：分',
-  `extra_count` double NOT NULL COMMENT '续件数量',
-  `extra_price` int NOT NULL COMMENT '额外价，单位：分',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '快递运费模板计费配置' ROW_FORMAT = Dynamic;
+                                                           `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号，自增',
+                                                           `template_id` bigint NOT NULL COMMENT '快递运费模板编号',
+                                                           `area_ids` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '配送区域 id',
+                                                           `charge_mode` tinyint NOT NULL COMMENT '配送计费方式',
+                                                           `start_count` double NOT NULL COMMENT '首件数量',
+                                                           `start_price` int NOT NULL COMMENT '起步价，单位：分',
+                                                           `extra_count` double NOT NULL COMMENT '续件数量',
+                                                           `extra_price` int NOT NULL COMMENT '额外价，单位：分',
+                                                           `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                                           `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                                           `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                                           `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                                           `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                                           `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                                           PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '快递运费模板计费配置' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of trade_delivery_express_template_charge
@@ -9225,19 +8767,19 @@ INSERT INTO `trade_delivery_express_template_charge` VALUES (14, 4, '110101,1101
 -- ----------------------------
 DROP TABLE IF EXISTS `trade_delivery_express_template_free`;
 CREATE TABLE `trade_delivery_express_template_free`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `template_id` bigint NOT NULL COMMENT '快递运费模板编号',
-  `area_ids` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '包邮区域 id',
-  `free_price` int NOT NULL COMMENT '包邮金额，单位：分',
-  `free_count` int NOT NULL DEFAULT 0 COMMENT '包邮件数,',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '快递运费模板包邮配置' ROW_FORMAT = Dynamic;
+                                                         `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                                         `template_id` bigint NOT NULL COMMENT '快递运费模板编号',
+                                                         `area_ids` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '包邮区域 id',
+                                                         `free_price` int NOT NULL COMMENT '包邮金额，单位：分',
+                                                         `free_count` int NOT NULL DEFAULT 0 COMMENT '包邮件数,',
+                                                         `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                                         `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                                         `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                                         `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                                         `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                                         `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                                         PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '快递运费模板包邮配置' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of trade_delivery_express_template_free
@@ -9268,26 +8810,26 @@ INSERT INTO `trade_delivery_express_template_free` VALUES (20, 4, '110101,110102
 -- ----------------------------
 DROP TABLE IF EXISTS `trade_delivery_pick_up_store`;
 CREATE TABLE `trade_delivery_pick_up_store`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '门店名称',
-  `introduction` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '门店简介',
-  `phone` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '门店手机',
-  `area_id` int NOT NULL COMMENT '区域编号',
-  `detail_address` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '门店详细地址',
-  `logo` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '门店 logo',
-  `opening_time` time NOT NULL COMMENT '营业开始时间',
-  `closing_time` time NOT NULL COMMENT '营业结束时间',
-  `latitude` double NOT NULL COMMENT '纬度',
-  `longitude` double NOT NULL COMMENT '经度',
-  `status` tinyint NOT NULL DEFAULT 0 COMMENT '门店状态',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '自提门店' ROW_FORMAT = Dynamic;
+                                                 `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                                                 `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '门店名称',
+                                                 `introduction` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '门店简介',
+                                                 `phone` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '门店手机',
+                                                 `area_id` int NOT NULL COMMENT '区域编号',
+                                                 `detail_address` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '门店详细地址',
+                                                 `logo` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '门店 logo',
+                                                 `opening_time` time NOT NULL COMMENT '营业开始时间',
+                                                 `closing_time` time NOT NULL COMMENT '营业结束时间',
+                                                 `latitude` double NOT NULL COMMENT '纬度',
+                                                 `longitude` double NOT NULL COMMENT '经度',
+                                                 `status` tinyint NOT NULL DEFAULT 0 COMMENT '门店状态',
+                                                 `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                                 `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                                 `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                                 `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                                 `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                                 `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                                 PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '自提门店' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of trade_delivery_pick_up_store
@@ -9299,64 +8841,64 @@ INSERT INTO `trade_delivery_pick_up_store` VALUES (1, '测试自提点', NULL, '
 -- ----------------------------
 DROP TABLE IF EXISTS `trade_order`;
 CREATE TABLE `trade_order`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '订单编号',
-  `no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '订单流水号',
-  `type` int NOT NULL DEFAULT 0 COMMENT '订单类型',
-  `terminal` int NOT NULL COMMENT '订单来源终端',
-  `user_id` bigint UNSIGNED NOT NULL COMMENT '用户编号',
-  `user_ip` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '用户 IP',
-  `user_remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '用户备注',
-  `status` int NOT NULL DEFAULT 0 COMMENT '订单状态',
-  `product_count` int NOT NULL COMMENT '购买的商品数量',
-  `cancel_type` int NULL DEFAULT NULL COMMENT '取消类型',
-  `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '商家备注',
-  `comment_status` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否评价',
-  `brokerage_user_id` bigint NULL DEFAULT NULL COMMENT '推广人编号',
-  `pay_order_id` bigint NULL DEFAULT NULL COMMENT '支付订单编号',
-  `pay_status` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否已支付：[0:未支付 1:已经支付过]',
-  `pay_time` datetime NULL DEFAULT NULL COMMENT '订单支付时间',
-  `pay_channel_code` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '支付成功的支付渠道',
-  `finish_time` datetime NULL DEFAULT NULL COMMENT '订单完成时间',
-  `cancel_time` datetime NULL DEFAULT NULL COMMENT '订单取消时间',
-  `total_price` int NOT NULL DEFAULT 0 COMMENT '商品原价（总），单位：分',
-  `discount_price` int NOT NULL DEFAULT 0 COMMENT '订单优惠（总），单位：分',
-  `delivery_price` int NOT NULL DEFAULT 0 COMMENT '运费金额，单位：分',
-  `adjust_price` int NOT NULL DEFAULT 0 COMMENT '订单调价（总），单位：分',
-  `pay_price` int NOT NULL DEFAULT 0 COMMENT '应付金额（总），单位：分',
-  `delivery_type` tinyint NOT NULL COMMENT '配送类型',
-  `logistics_id` bigint NULL DEFAULT NULL COMMENT '发货物流公司编号',
-  `logistics_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '物流公司单号',
-  `delivery_time` datetime NULL DEFAULT NULL COMMENT '发货时间',
-  `receive_time` datetime NULL DEFAULT NULL COMMENT '收货时间',
-  `receiver_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '收件人名称',
-  `receiver_mobile` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '收件人手机',
-  `receiver_area_id` int NULL DEFAULT NULL COMMENT '收件人地区编号',
-  `receiver_detail_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '收件人详细地址',
-  `pick_up_store_id` bigint NULL DEFAULT NULL COMMENT '自提门店编号',
-  `pick_up_verify_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '自提核销码',
-  `refund_status` tinyint NOT NULL DEFAULT 0 COMMENT '售后状态',
-  `refund_price` int NOT NULL DEFAULT 0 COMMENT '退款金额，单位：分',
-  `coupon_id` bigint UNSIGNED NULL DEFAULT NULL COMMENT '优惠劵编号',
-  `coupon_price` int NOT NULL DEFAULT 0 COMMENT '优惠劵减免金额，单位：分',
-  `use_point` int NOT NULL DEFAULT 0 COMMENT '使用的积分',
-  `point_price` int NOT NULL DEFAULT 0 COMMENT '积分抵扣的金额',
-  `give_point` int NOT NULL DEFAULT 0 COMMENT '赠送的积分',
-  `refund_point` int NOT NULL DEFAULT 0 COMMENT '退还的使用的积分',
-  `vip_price` int NOT NULL DEFAULT 0 COMMENT 'VIP 减免金额，单位：分',
-  `seckill_activity_id` bigint NULL DEFAULT NULL COMMENT '秒杀活动编号',
-  `bargain_activity_id` bigint NULL DEFAULT NULL COMMENT '砍价活动编号',
-  `bargain_record_id` bigint NULL DEFAULT NULL COMMENT '砍价记录编号',
-  `combination_activity_id` bigint NULL DEFAULT NULL COMMENT '拼团活动编号',
-  `combination_head_id` bigint NULL DEFAULT NULL COMMENT '拼团团长编号',
-  `combination_record_id` bigint NULL DEFAULT NULL COMMENT '拼团记录编号',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 162 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '交易订单表' ROW_FORMAT = Dynamic;
+                                `id` bigint NOT NULL AUTO_INCREMENT COMMENT '订单编号',
+                                `no` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '订单流水号',
+                                `type` int NOT NULL DEFAULT 0 COMMENT '订单类型',
+                                `terminal` int NOT NULL COMMENT '订单来源终端',
+                                `user_id` bigint UNSIGNED NOT NULL COMMENT '用户编号',
+                                `user_ip` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT '用户 IP',
+                                `user_remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '用户备注',
+                                `status` int NOT NULL DEFAULT 0 COMMENT '订单状态',
+                                `product_count` int NOT NULL COMMENT '购买的商品数量',
+                                `cancel_type` int NULL DEFAULT NULL COMMENT '取消类型',
+                                `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '商家备注',
+                                `comment_status` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否评价',
+                                `brokerage_user_id` bigint NULL DEFAULT NULL COMMENT '推广人编号',
+                                `pay_order_id` bigint NULL DEFAULT NULL COMMENT '支付订单编号',
+                                `pay_status` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否已支付：[0:未支付 1:已经支付过]',
+                                `pay_time` datetime NULL DEFAULT NULL COMMENT '订单支付时间',
+                                `pay_channel_code` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '支付成功的支付渠道',
+                                `finish_time` datetime NULL DEFAULT NULL COMMENT '订单完成时间',
+                                `cancel_time` datetime NULL DEFAULT NULL COMMENT '订单取消时间',
+                                `total_price` int NOT NULL DEFAULT 0 COMMENT '商品原价（总），单位：分',
+                                `discount_price` int NOT NULL DEFAULT 0 COMMENT '订单优惠（总），单位：分',
+                                `delivery_price` int NOT NULL DEFAULT 0 COMMENT '运费金额，单位：分',
+                                `adjust_price` int NOT NULL DEFAULT 0 COMMENT '订单调价（总），单位：分',
+                                `pay_price` int NOT NULL DEFAULT 0 COMMENT '应付金额（总），单位：分',
+                                `delivery_type` tinyint NOT NULL COMMENT '配送类型',
+                                `logistics_id` bigint NULL DEFAULT NULL COMMENT '发货物流公司编号',
+                                `logistics_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '物流公司单号',
+                                `delivery_time` datetime NULL DEFAULT NULL COMMENT '发货时间',
+                                `receive_time` datetime NULL DEFAULT NULL COMMENT '收货时间',
+                                `receiver_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '收件人名称',
+                                `receiver_mobile` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '收件人手机',
+                                `receiver_area_id` int NULL DEFAULT NULL COMMENT '收件人地区编号',
+                                `receiver_detail_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '收件人详细地址',
+                                `pick_up_store_id` bigint NULL DEFAULT NULL COMMENT '自提门店编号',
+                                `pick_up_verify_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '自提核销码',
+                                `refund_status` tinyint NOT NULL DEFAULT 0 COMMENT '售后状态',
+                                `refund_price` int NOT NULL DEFAULT 0 COMMENT '退款金额，单位：分',
+                                `coupon_id` bigint UNSIGNED NULL DEFAULT NULL COMMENT '优惠劵编号',
+                                `coupon_price` int NOT NULL DEFAULT 0 COMMENT '优惠劵减免金额，单位：分',
+                                `use_point` int NOT NULL DEFAULT 0 COMMENT '使用的积分',
+                                `point_price` int NOT NULL DEFAULT 0 COMMENT '积分抵扣的金额',
+                                `give_point` int NOT NULL DEFAULT 0 COMMENT '赠送的积分',
+                                `refund_point` int NOT NULL DEFAULT 0 COMMENT '退还的使用的积分',
+                                `vip_price` int NOT NULL DEFAULT 0 COMMENT 'VIP 减免金额，单位：分',
+                                `seckill_activity_id` bigint NULL DEFAULT NULL COMMENT '秒杀活动编号',
+                                `bargain_activity_id` bigint NULL DEFAULT NULL COMMENT '砍价活动编号',
+                                `bargain_record_id` bigint NULL DEFAULT NULL COMMENT '砍价记录编号',
+                                `combination_activity_id` bigint NULL DEFAULT NULL COMMENT '拼团活动编号',
+                                `combination_head_id` bigint NULL DEFAULT NULL COMMENT '拼团团长编号',
+                                `combination_record_id` bigint NULL DEFAULT NULL COMMENT '拼团记录编号',
+                                `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '创建者',
+                                `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '更新者',
+                                `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 162 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '交易订单表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of trade_order
@@ -9493,37 +9035,37 @@ INSERT INTO `trade_order` VALUES (161, 'o202401160804331', 0, 20, 247, '127.0.0.
 -- ----------------------------
 DROP TABLE IF EXISTS `trade_order_item`;
 CREATE TABLE `trade_order_item`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '订单项编号',
-  `user_id` bigint UNSIGNED NOT NULL COMMENT '用户编号',
-  `order_id` bigint UNSIGNED NOT NULL COMMENT '订单编号',
-  `cart_id` bigint UNSIGNED NULL DEFAULT NULL COMMENT '购物车项编号',
-  `spu_id` bigint UNSIGNED NOT NULL COMMENT '商品 SPU 编号',
-  `spu_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商品 SPU 名称',
-  `sku_id` bigint UNSIGNED NOT NULL COMMENT '商品 SKU 编号',
-  `properties` json NULL COMMENT '商品属性数组，JSON 格式',
-  `pic_url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '商品图片',
-  `count` int NOT NULL COMMENT '购买数量',
-  `comment_status` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否评价',
-  `price` int NOT NULL DEFAULT 0 COMMENT '商品原价（单），单位：分',
-  `discount_price` int NOT NULL DEFAULT 0 COMMENT '商品级优惠（总），单位：分',
-  `delivery_price` int NOT NULL DEFAULT 0 COMMENT '运费金额，单位：分',
-  `adjust_price` int NOT NULL DEFAULT 0 COMMENT '订单调价（总），单位：分',
-  `pay_price` int NOT NULL DEFAULT 0 COMMENT '子订单实付金额（总），不算主订单分摊金额，单位：分',
-  `coupon_price` int NOT NULL DEFAULT 0 COMMENT '优惠劵减免金额，单位：分',
-  `point_price` int NOT NULL DEFAULT 0 COMMENT '积分抵扣的金额',
-  `use_point` int NOT NULL DEFAULT 0 COMMENT '使用的积分',
-  `give_point` int NOT NULL DEFAULT 0 COMMENT '赠送的积分',
-  `vip_price` int NOT NULL DEFAULT 0 COMMENT 'VIP 减免金额，单位：分',
-  `after_sale_id` bigint UNSIGNED NULL DEFAULT NULL COMMENT '售后订单编号',
-  `after_sale_status` int NOT NULL DEFAULT 0 COMMENT '售后状态',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 157 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '交易订单明细表' ROW_FORMAT = Dynamic;
+                                     `id` bigint NOT NULL AUTO_INCREMENT COMMENT '订单项编号',
+                                     `user_id` bigint UNSIGNED NOT NULL COMMENT '用户编号',
+                                     `order_id` bigint UNSIGNED NOT NULL COMMENT '订单编号',
+                                     `cart_id` bigint UNSIGNED NULL DEFAULT NULL COMMENT '购物车项编号',
+                                     `spu_id` bigint UNSIGNED NOT NULL COMMENT '商品 SPU 编号',
+                                     `spu_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '商品 SPU 名称',
+                                     `sku_id` bigint UNSIGNED NOT NULL COMMENT '商品 SKU 编号',
+                                     `properties` json NULL COMMENT '商品属性数组，JSON 格式',
+                                     `pic_url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL COMMENT '商品图片',
+                                     `count` int NOT NULL COMMENT '购买数量',
+                                     `comment_status` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否评价',
+                                     `price` int NOT NULL DEFAULT 0 COMMENT '商品原价（单），单位：分',
+                                     `discount_price` int NOT NULL DEFAULT 0 COMMENT '商品级优惠（总），单位：分',
+                                     `delivery_price` int NOT NULL DEFAULT 0 COMMENT '运费金额，单位：分',
+                                     `adjust_price` int NOT NULL DEFAULT 0 COMMENT '订单调价（总），单位：分',
+                                     `pay_price` int NOT NULL DEFAULT 0 COMMENT '子订单实付金额（总），不算主订单分摊金额，单位：分',
+                                     `coupon_price` int NOT NULL DEFAULT 0 COMMENT '优惠劵减免金额，单位：分',
+                                     `point_price` int NOT NULL DEFAULT 0 COMMENT '积分抵扣的金额',
+                                     `use_point` int NOT NULL DEFAULT 0 COMMENT '使用的积分',
+                                     `give_point` int NOT NULL DEFAULT 0 COMMENT '赠送的积分',
+                                     `vip_price` int NOT NULL DEFAULT 0 COMMENT 'VIP 减免金额，单位：分',
+                                     `after_sale_id` bigint UNSIGNED NULL DEFAULT NULL COMMENT '售后订单编号',
+                                     `after_sale_status` int NOT NULL DEFAULT 0 COMMENT '售后状态',
+                                     `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '创建者',
+                                     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                     `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT '' COMMENT '更新者',
+                                     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                     `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                     `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                     PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 157 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin COMMENT = '交易订单明细表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of trade_order_item
@@ -9673,22 +9215,22 @@ INSERT INTO `trade_order_item` VALUES (156, 247, 161, NULL, 633, '索尼（SONY�
 -- ----------------------------
 DROP TABLE IF EXISTS `trade_order_log`;
 CREATE TABLE `trade_order_log`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志主键',
-  `user_id` bigint NOT NULL COMMENT '用户编号',
-  `user_type` tinyint NOT NULL DEFAULT 0 COMMENT '用户类型',
-  `order_id` bigint NOT NULL COMMENT '订单号',
-  `before_status` tinyint NULL DEFAULT NULL COMMENT '操作前状态',
-  `after_status` tinyint NULL DEFAULT NULL COMMENT '操作后状态',
-  `operate_type` int NOT NULL DEFAULT 0 COMMENT '操作类型',
-  `content` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '操作内容',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8672 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '交易订单日志' ROW_FORMAT = Dynamic;
+                                    `id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志主键',
+                                    `user_id` bigint NOT NULL COMMENT '用户编号',
+                                    `user_type` tinyint NOT NULL DEFAULT 0 COMMENT '用户类型',
+                                    `order_id` bigint NOT NULL COMMENT '订单号',
+                                    `before_status` tinyint NULL DEFAULT NULL COMMENT '操作前状态',
+                                    `after_status` tinyint NULL DEFAULT NULL COMMENT '操作后状态',
+                                    `operate_type` int NOT NULL DEFAULT 0 COMMENT '操作类型',
+                                    `content` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '操作内容',
+                                    `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                    `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                    `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                    `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                    `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                    `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8672 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '交易订单日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of trade_order_log
@@ -9814,28 +9356,28 @@ INSERT INTO `trade_order_log` VALUES (8671, 247, 1, 161, 20, 30, 30, '用户已�
 -- ----------------------------
 DROP TABLE IF EXISTS `trade_statistics`;
 CREATE TABLE `trade_statistics`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号，主键自增',
-  `time` datetime NOT NULL COMMENT '统计日期',
-  `order_create_count` int NOT NULL DEFAULT 0 COMMENT '创建订单数',
-  `order_pay_count` int NOT NULL DEFAULT 0 COMMENT '支付订单商品数',
-  `order_pay_price` int NOT NULL DEFAULT 0 COMMENT '总支付金额，单位：分',
-  `after_sale_count` int NOT NULL DEFAULT 0 COMMENT '退款订单数',
-  `after_sale_refund_price` int NOT NULL DEFAULT 0 COMMENT '总退款金额，单位：分',
-  `brokerage_settlement_price` int NOT NULL DEFAULT 0 COMMENT '佣金金额（已结算），单位：分',
-  `wallet_pay_price` int NOT NULL DEFAULT 0 COMMENT '总支付金额（余额），单位：分',
-  `recharge_pay_count` int NOT NULL DEFAULT 0 COMMENT '充值订单数',
-  `recharge_pay_price` int NOT NULL DEFAULT 0 COMMENT '充值金额，单位：分',
-  `recharge_refund_count` int NOT NULL DEFAULT 0 COMMENT '充值退款订单数',
-  `recharge_refund_price` int NOT NULL DEFAULT 0 COMMENT '充值退款金额，单位：分',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `trade_statistics_time_index`(`time` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '交易统计表' ROW_FORMAT = Dynamic;
+                                     `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号，主键自增',
+                                     `time` datetime NOT NULL COMMENT '统计日期',
+                                     `order_create_count` int NOT NULL DEFAULT 0 COMMENT '创建订单数',
+                                     `order_pay_count` int NOT NULL DEFAULT 0 COMMENT '支付订单商品数',
+                                     `order_pay_price` int NOT NULL DEFAULT 0 COMMENT '总支付金额，单位：分',
+                                     `after_sale_count` int NOT NULL DEFAULT 0 COMMENT '退款订单数',
+                                     `after_sale_refund_price` int NOT NULL DEFAULT 0 COMMENT '总退款金额，单位：分',
+                                     `brokerage_settlement_price` int NOT NULL DEFAULT 0 COMMENT '佣金金额（已结算），单位：分',
+                                     `wallet_pay_price` int NOT NULL DEFAULT 0 COMMENT '总支付金额（余额），单位：分',
+                                     `recharge_pay_count` int NOT NULL DEFAULT 0 COMMENT '充值订单数',
+                                     `recharge_pay_price` int NOT NULL DEFAULT 0 COMMENT '充值金额，单位：分',
+                                     `recharge_refund_count` int NOT NULL DEFAULT 0 COMMENT '充值退款订单数',
+                                     `recharge_refund_price` int NOT NULL DEFAULT 0 COMMENT '充值退款金额，单位：分',
+                                     `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
+                                     `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                     `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
+                                     `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                     `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                                     `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
+                                     PRIMARY KEY (`id`) USING BTREE,
+                                     INDEX `trade_statistics_time_index`(`time` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '交易统计表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of trade_statistics
