@@ -47,7 +47,7 @@ spring:
 #    # 是否允许无序的迁移，默认false.
 #    out-of-order: true
 #    # 迁移时是否校验，默认为true
-#    validate-on-migrate: false
+    validate-on-migrate: false
 #    # 迁移脚本的位置，默认db/migration.
 #    locations: classpath:sql
 #    # flyway 基线版本号

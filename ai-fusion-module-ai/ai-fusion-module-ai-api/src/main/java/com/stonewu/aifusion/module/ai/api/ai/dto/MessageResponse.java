@@ -15,5 +15,7 @@ public class MessageResponse {
 
     private Integer code;
 
+    private Long chatSessionId;
+
     private Message message;
 }

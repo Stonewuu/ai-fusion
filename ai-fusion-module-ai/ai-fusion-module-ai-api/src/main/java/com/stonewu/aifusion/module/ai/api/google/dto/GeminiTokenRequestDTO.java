@@ -11,13 +11,9 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GeminiRequestDTO {
+public class GeminiTokenRequestDTO {
 
     private List<Content> contents;
-
-    private List<SafetySetting> safetySettings;
-
-    private GenerationConfig generationConfig;
 
 
 }
