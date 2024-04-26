@@ -6,8 +6,11 @@ import com.stonewu.aifusion.module.ai.api.ai.dto.MessageResponse;
 import com.stonewu.aifusion.module.ai.api.ai.dto.ModelDTO;
 import com.stonewu.aifusion.module.ai.api.google.dto.*;
 import com.stonewu.aifusion.module.ai.api.openai.dto.Message;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
@@ -20,12 +23,17 @@ import java.util.List;
 @Slf4j
 public class GoogleAiServiceImpl implements AiService {
 
-    WebClient client = WebClient.builder().baseUrl("https://generativelanguage.googleapis.com/")
-            .defaultHeader("Content-Type","application/json")
+    private String baseUrl = "https://generativelanguage.googleapis.com/";
+
+    WebClient client = WebClient.builder().baseUrl(baseUrl)
+            .defaultHeader("Content-Type", "application/json")
             .defaultHeader("Accept", "text/event-stream")
             .defaultHeader("Cache-Control", "no-cache")
             .defaultHeader("Connection", "keep-alive")
             .build();
+
+    @Resource
+    private RestTemplate restTemplate;
 
 
     @Override
@@ -35,7 +43,7 @@ public class GoogleAiServiceImpl implements AiService {
         GeminiGCRequestDTO geminiGCRequestDTO = new GeminiGCRequestDTO();
         // 将messages转换成contents
         List<Content> contents = messages.stream().map(
-                message ->  Content.builder().role(message.getRole())
+                message -> Content.builder().role(message.getRole())
                         .parts(Collections.singletonList(ContentPart.builder().text(message.getContent()).build()))
                         .build()
         ).toList();
@@ -49,7 +57,7 @@ public class GoogleAiServiceImpl implements AiService {
                         .content(text)
                         .build();
                 return MessageResponse.builder().message(message).code(GlobalErrorCodeConstants.SUCCESS.getCode()).build();
-            }catch (Exception e){
+            } catch (Exception e) {
                 return MessageResponse.builder().message(null).code(GlobalErrorCodeConstants.SUCCESS.getCode()).build();
             }
         });
@@ -59,15 +67,16 @@ public class GoogleAiServiceImpl implements AiService {
     @Override
     public Integer countToken(List<Message> messages, ModelDTO model) {
         List<Content> contents = messages.stream().map(
-                message ->  Content.builder().role(message.getRole())
+                message -> Content.builder().role(message.getRole())
                         .parts(Collections.singletonList(ContentPart.builder().text(message.getContent()).build()))
                         .build()
         ).toList();
         GeminiTokenRequestDTO geminiTokenRequestDTO = GeminiTokenRequestDTO.builder().contents(contents).build();
-        GeminiTokenResponseDTO tokenResponse = client.post().uri("/v1beta/models/" + model.getModelName() + ":countTokens?key=" + model.getApiKey())
-                .bodyValue(geminiTokenRequestDTO).retrieve().bodyToMono(GeminiTokenResponseDTO.class).doOnError(e -> {
-                    log.error("异常：",e);
-                }).block();
+        GeminiTokenResponseDTO tokenResponse = restTemplate.postForObject(
+                baseUrl + "/v1beta/models/" + model.getModelName() + ":countTokens?key=" + model.getApiKey(),
+                geminiTokenRequestDTO, GeminiTokenResponseDTO.class);
+//        GeminiTokenResponseDTO tokenResponse = client.post().uri("/v1beta/models/" + model.getModelName() + ":countTokens?key=" + model.getApiKey())
+//                .bodyValue(geminiTokenRequestDTO).retrieve().bodyToMono(GeminiTokenResponseDTO.class).block();
         if (tokenResponse != null) {
             return tokenResponse.getTotalTokens();
         }

@@ -3,7 +3,7 @@ package com.stonewu.aifusion.module.ai.enums;
 public enum ChatSenderType {
 
     USER(1, "用户"),
-    MODEL(1, "模型");
+    MODEL(2, "模型");
 
     private final Integer code;
     private final String sender;

@@ -24,11 +24,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Nullable;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -72,22 +75,18 @@ public class ChatController {
         if (model == null) {
             return Flux.fromStream(Stream.of(MessageResponse.builder().code(ErrorCodeConstants.MODEL_NOT_EXISTS.getCode()).build()));
         }
-        if(chatSessionID == null){
-            ChatSessionSaveReqVO chatSessionSaveReqVO = new ChatSessionSaveReqVO();
-            chatSessionSaveReqVO.setUserId(loginId);
-            chatSessionSaveReqVO.setAssistantId(assistantID);
-            chatSessionID = chatSessionService.createChatSession(chatSessionSaveReqVO);
+        if (StringUtils.isEmpty(model.getApiKey())) {
+            return Flux.fromStream(Stream.of(MessageResponse.builder().code(ErrorCodeConstants.MODEL_NO_KEYS.getCode()).build()));
         }
         ModelDTO modelDTO = BeanUtils.toBean(model, ModelDTO.class);
 
         Integer requestToken = aiServiceProvider.countTokens(modelDTO, oldMessages);
+        // 创建对话
+        chatSessionID = createChatSession(assistantID, chatSessionID, loginId);
         // 保存对话记录
         saveChatRecord(chatSessionID, message,requestToken, ChatSenderType.USER.getCode(), loginId);
 
         Flux<MessageResponse> chat = aiServiceProvider.streamChat(modelDTO, oldMessages);
-        if (chat == null) {
-            return Flux.fromStream(Stream.of(MessageResponse.builder().code(GlobalErrorCodeConstants.BAD_REQUEST.getCode()).build()));
-        }
 
         List<Message> messagesResponse = new ArrayList<>();
         Long finalChatSessionID = chatSessionID;
@@ -103,21 +102,34 @@ public class ChatController {
             Integer responseToken = aiServiceProvider.countTokens(modelDTO, messagesResponse);
             // 积分计算
             BigDecimal modelPrice = model.getModelPrice();
-            BigDecimal reponseCost = modelPrice.multiply(BigDecimal.valueOf(responseToken).divide(BigDecimal.valueOf(1000)));
-            BigDecimal requestCost = modelPrice.multiply(BigDecimal.valueOf(requestToken).divide(BigDecimal.valueOf(1000)));
-            saveChatRecord(finalChatSessionID, outputMsg.toString(),responseToken, ChatSenderType.MODEL.getCode(), loginId);
-            memberPointApi.reducePoint(loginId, requestCost.add(reponseCost).intValue(), MemberPointBizTypeEnum.TOKEN_USE.getType(), "chat");
+            BigDecimal responseCost = modelPrice.multiply(BigDecimal.valueOf(responseToken).divide(BigDecimal.valueOf(100)));
+            BigDecimal requestCost = modelPrice.multiply(BigDecimal.valueOf(requestToken).divide(BigDecimal.valueOf(100)));
+            Long recordId = saveChatRecord(finalChatSessionID, outputMsg.toString(), responseToken, ChatSenderType.MODEL.getCode(), loginId);
+            memberPointApi.reducePoint(loginId,
+                    requestCost.add(responseCost).round(new MathContext(1, RoundingMode.UP)).intValue(),
+                    MemberPointBizTypeEnum.TOKEN_USE.getType(), recordId.toString());
         });
     }
 
-    private void saveChatRecord(Long chatSessionID, String message, int tokenCount, Integer code, Long loginId) {
+    private Long createChatSession(Long assistantID, Long chatSessionID, Long loginId) {
+        if(chatSessionID == null){
+            ChatSessionSaveReqVO chatSessionSaveReqVO = new ChatSessionSaveReqVO();
+            chatSessionSaveReqVO.setUserId(loginId);
+            chatSessionSaveReqVO.setAssistantId(assistantID);
+            chatSessionID = chatSessionService.createChatSession(chatSessionSaveReqVO);
+        }
+        return chatSessionID;
+    }
+
+    private Long saveChatRecord(Long chatSessionID, String message, int tokenCount, Integer code, Long loginId) {
         ChatRecordDO chatRecordDO = new ChatRecordDO();
         chatRecordDO.setContent(message);
         chatRecordDO.setTokenCount(tokenCount);
         chatRecordDO.setSender(code);
         chatRecordDO.setUserId(loginId);
         chatRecordDO.setSessionId(chatSessionID);
-        chatSessionService.createChatRecord(chatRecordDO);
+        Long recordId = chatSessionService.createChatRecord(chatRecordDO);
+        return recordId;
     }
 
 }

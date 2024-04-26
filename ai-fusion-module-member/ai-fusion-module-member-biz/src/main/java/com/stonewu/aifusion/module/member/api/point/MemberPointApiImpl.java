@@ -24,7 +24,7 @@ public class MemberPointApiImpl implements MemberPointApi {
 
     @Override
     public void addPoint(Long userId, Integer point, Integer bizType, String bizId) {
-        Assert.isTrue(point > 0);
+        Assert.isTrue(point >= 0);
         MemberPointBizTypeEnum bizTypeEnum = MemberPointBizTypeEnum.getByType(bizType);
         if (bizTypeEnum == null) {
             throw exception(POINT_RECORD_BIZ_NOT_SUPPORT);
@@ -34,7 +34,7 @@ public class MemberPointApiImpl implements MemberPointApi {
 
     @Override
     public void reducePoint(Long userId, Integer point, Integer bizType, String bizId) {
-        Assert.isTrue(point > 0);
+        Assert.isTrue(point >= 0);
         MemberPointBizTypeEnum bizTypeEnum = MemberPointBizTypeEnum.getByType(bizType);
         if (bizTypeEnum == null) {
             throw exception(POINT_RECORD_BIZ_NOT_SUPPORT);

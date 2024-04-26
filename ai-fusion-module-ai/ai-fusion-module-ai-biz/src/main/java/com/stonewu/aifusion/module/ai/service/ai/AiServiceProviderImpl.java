@@ -26,10 +26,6 @@ public class AiServiceProviderImpl implements AiServiceProvider {
 
     @Override
     public Flux<MessageResponse> streamChat(ModelDTO model, List<Message> messages) {
-        String apiKey = model.getApiKey();
-        if (StringUtils.isEmpty(apiKey)) {
-            return Flux.fromStream(Stream.of(MessageResponse.builder().code(ErrorCodeConstants.MODEL_NO_KEYS.getCode()).build()));
-        }
         Integer modelType = model.getModelType();
         return getAiService(modelType).streamChat(messages, model);
     }
