@@ -33,10 +33,11 @@ public interface MemberPointRecordService {
     /**
      * 创建用户积分记录
      *
-     * @param userId  用户ID
-     * @param point   变动积分
-     * @param bizType 业务类型
-     * @param bizId   业务编号
+     * @param userId              用户ID
+     * @param point               变动积分
+     * @param bizType             业务类型
+     * @param bizId               业务编号
+     * @param allowResultNegative 允许本次变动积分结果为负数
      */
-    void createPointRecord(Long userId, Integer point, MemberPointBizTypeEnum bizType, String bizId);
+    void createPointRecord(Long userId, Integer point, MemberPointBizTypeEnum bizType, String bizId, boolean allowResultNegative);
 }

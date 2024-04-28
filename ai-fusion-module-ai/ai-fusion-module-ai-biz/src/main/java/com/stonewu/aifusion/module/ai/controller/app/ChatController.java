@@ -1,6 +1,5 @@
 package com.stonewu.aifusion.module.ai.controller.app;
 
-import com.stonewu.aifusion.framework.common.exception.enums.GlobalErrorCodeConstants;
 import com.stonewu.aifusion.framework.common.util.object.BeanUtils;
 import com.stonewu.aifusion.framework.security.core.annotations.PreAuthenticated;
 import com.stonewu.aifusion.module.ai.api.ai.dto.MessageResponse;
@@ -11,7 +10,6 @@ import com.stonewu.aifusion.module.ai.dal.dataobject.chatsession.ChatRecordDO;
 import com.stonewu.aifusion.module.ai.dal.dataobject.model.AssistantDO;
 import com.stonewu.aifusion.module.ai.dal.dataobject.model.ModelDO;
 import com.stonewu.aifusion.module.ai.enums.ChatSenderType;
-import com.stonewu.aifusion.module.ai.enums.ErrorCodeConstants;
 import com.stonewu.aifusion.module.ai.service.ai.AiServiceProvider;
 import com.stonewu.aifusion.module.ai.service.chatsession.ChatSessionService;
 import com.stonewu.aifusion.module.ai.service.model.ModelService;
@@ -37,6 +35,8 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static com.stonewu.aifusion.framework.security.core.util.SecurityFrameworkUtils.*;
+import static com.stonewu.aifusion.module.ai.enums.ErrorCodeConstants.*;
+import static com.stonewu.aifusion.module.member.enums.ErrorCodeConstants.USER_POINT_NOT_ENOUGH;
 
 @Tag(name = "用户 APP - 对话")
 @RestController
@@ -67,16 +67,20 @@ public class ChatController {
                                       @RequestParam("message") String message) {
         Long loginId = getLoginUserId();
         MemberUserRespDTO user = memberUserApi.getUser(loginId);
+        if (user.getPoint() <= 0) {
+            return Flux.fromStream(Stream.of(MessageResponse.builder()
+                    .code(USER_POINT_NOT_ENOUGH.getCode()).msg(USER_POINT_NOT_ENOUGH.getMsg()).build()));
+        }
         AssistantDO assistant = modelService.getAssistant(assistantID);
         if (assistant == null) {
-            return Flux.fromStream(Stream.of(MessageResponse.builder().code(ErrorCodeConstants.ASSISTANT_NOT_EXISTS.getCode()).build()));
+            return Flux.fromStream(Stream.of(MessageResponse.builder().code(ASSISTANT_NOT_EXISTS.getCode()).msg(ASSISTANT_NOT_EXISTS.getMsg()).build()));
         }
         ModelDO model = modelService.getModel(assistant.getModelId());
         if (model == null) {
-            return Flux.fromStream(Stream.of(MessageResponse.builder().code(ErrorCodeConstants.MODEL_NOT_EXISTS.getCode()).build()));
+            return Flux.fromStream(Stream.of(MessageResponse.builder().code(MODEL_NOT_EXISTS.getCode()).msg(MODEL_NOT_EXISTS.getMsg()).build()));
         }
         if (StringUtils.isEmpty(model.getApiKey())) {
-            return Flux.fromStream(Stream.of(MessageResponse.builder().code(ErrorCodeConstants.MODEL_NO_KEYS.getCode()).build()));
+            return Flux.fromStream(Stream.of(MessageResponse.builder().code(MODEL_NO_KEYS.getCode()).msg(MODEL_NO_KEYS.getMsg()).build()));
         }
         ModelDTO modelDTO = BeanUtils.toBean(model, ModelDTO.class);
 
@@ -84,7 +88,7 @@ public class ChatController {
         // 创建对话
         chatSessionID = createChatSession(assistantID, chatSessionID, loginId);
         // 保存对话记录
-        saveChatRecord(chatSessionID, message,requestToken, ChatSenderType.USER.getCode(), loginId);
+        saveChatRecord(chatSessionID, message, requestToken, ChatSenderType.USER.getCode(), loginId);
 
         Flux<MessageResponse> chat = aiServiceProvider.streamChat(modelDTO, oldMessages);
 
@@ -93,10 +97,12 @@ public class ChatController {
         StringBuilder outputMsg = new StringBuilder();
         return chat.map(messageResponse -> {
             messageResponse.setChatSessionId(finalChatSessionID);
-            Message messageSection = messageResponse.getMessage();
+            Message messageSection = messageResponse.getData();
             // 根据content计算token
             messagesResponse.add(messageSection);
-            outputMsg.append(messageSection.getContent());
+            if (messageSection != null) {
+                outputMsg.append(messageSection.getContent());
+            }
             return messageResponse;
         }).doOnComplete(() -> {
             Integer responseToken = aiServiceProvider.countTokens(modelDTO, messagesResponse);
@@ -107,12 +113,12 @@ public class ChatController {
             Long recordId = saveChatRecord(finalChatSessionID, outputMsg.toString(), responseToken, ChatSenderType.MODEL.getCode(), loginId);
             memberPointApi.reducePoint(loginId,
                     requestCost.add(responseCost).round(new MathContext(1, RoundingMode.UP)).intValue(),
-                    MemberPointBizTypeEnum.TOKEN_USE.getType(), recordId.toString());
+                    MemberPointBizTypeEnum.TOKEN_USE.getType(), recordId.toString(), true);
         });
     }
 
     private Long createChatSession(Long assistantID, Long chatSessionID, Long loginId) {
-        if(chatSessionID == null){
+        if (chatSessionID == null) {
             ChatSessionSaveReqVO chatSessionSaveReqVO = new ChatSessionSaveReqVO();
             chatSessionSaveReqVO.setUserId(loginId);
             chatSessionSaveReqVO.setAssistantId(assistantID);

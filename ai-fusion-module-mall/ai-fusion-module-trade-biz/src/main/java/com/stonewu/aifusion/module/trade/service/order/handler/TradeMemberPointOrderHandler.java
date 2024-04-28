@@ -113,7 +113,7 @@ public class TradeMemberPointOrderHandler implements TradeOrderHandler {
 
     protected void reducePoint(Long userId, Integer point, MemberPointBizTypeEnum bizType, Long bizId) {
         if (point != null && point > 0) {
-            memberPointApi.reducePoint(userId, point, bizType.getType(), String.valueOf(bizId));
+            memberPointApi.reducePoint(userId, point, bizType.getType(), String.valueOf(bizId), false);
         }
     }
 

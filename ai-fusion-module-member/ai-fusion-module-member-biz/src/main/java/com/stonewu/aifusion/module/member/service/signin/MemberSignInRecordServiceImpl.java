@@ -123,7 +123,7 @@ public class MemberSignInRecordServiceImpl implements MemberSignInRecordService 
 
         // 4. 增加积分
         if (!ObjectUtils.equalsAny(record.getPoint(), null, 0)) {
-            pointRecordService.createPointRecord(userId, record.getPoint(), MemberPointBizTypeEnum.SIGN, String.valueOf(record.getId()));
+            pointRecordService.createPointRecord(userId, record.getPoint(), MemberPointBizTypeEnum.SIGN, String.valueOf(record.getId()), true);
         }
         // 5. 增加经验
         if (!ObjectUtils.equalsAny(record.getExperience(), null, 0)) {

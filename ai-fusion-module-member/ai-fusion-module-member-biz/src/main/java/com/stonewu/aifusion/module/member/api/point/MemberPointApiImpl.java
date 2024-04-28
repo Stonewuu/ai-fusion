@@ -29,17 +29,17 @@ public class MemberPointApiImpl implements MemberPointApi {
         if (bizTypeEnum == null) {
             throw exception(POINT_RECORD_BIZ_NOT_SUPPORT);
         }
-        memberPointRecordService.createPointRecord(userId, point, bizTypeEnum, bizId);
+        memberPointRecordService.createPointRecord(userId, point, bizTypeEnum, bizId, true);
     }
 
     @Override
-    public void reducePoint(Long userId, Integer point, Integer bizType, String bizId) {
+    public void reducePoint(Long userId, Integer point, Integer bizType, String bizId, boolean allowResultNegative) {
         Assert.isTrue(point >= 0);
         MemberPointBizTypeEnum bizTypeEnum = MemberPointBizTypeEnum.getByType(bizType);
         if (bizTypeEnum == null) {
             throw exception(POINT_RECORD_BIZ_NOT_SUPPORT);
         }
-        memberPointRecordService.createPointRecord(userId, -point, bizTypeEnum, bizId);
+        memberPointRecordService.createPointRecord(userId, -point, bizTypeEnum, bizId, allowResultNegative);
     }
 
 }

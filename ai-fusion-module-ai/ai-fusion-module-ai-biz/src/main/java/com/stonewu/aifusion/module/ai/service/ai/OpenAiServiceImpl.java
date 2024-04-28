@@ -6,7 +6,6 @@ import com.stonewu.aifusion.module.ai.api.ai.dto.ModelDTO;
 import com.stonewu.aifusion.module.ai.api.openai.dto.Message;
 import com.stonewu.aifusion.module.ai.api.openai.dto.OpenAiRequestDTO;
 import com.stonewu.aifusion.module.ai.api.openai.dto.OpenAiResponseDTO;
-import com.stonewu.aifusion.module.ai.dal.dataobject.model.ModelDO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -31,7 +30,7 @@ public class OpenAiServiceImpl implements AiService {
             String content = openAiResponseDTO.getChoices().getFirst().getMessage().getContent();
             Message message = Message.builder().role("assistant")
                     .content(content).build();
-            MessageResponse build = MessageResponse.builder().message(message).code(GlobalErrorCodeConstants.SUCCESS.getCode()).build();
+            MessageResponse build = MessageResponse.builder().data(message).code(GlobalErrorCodeConstants.SUCCESS.getCode()).build();
             return build;
         });
         return responseFlux;

@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 public class FallbackAiServiceImpl implements AiService {
     @Override
     public Flux<MessageResponse> streamChat(List<Message> messages, ModelDTO model) {
-        return Flux.fromStream(Stream.of(MessageResponse.builder().code(ErrorCodeConstants.MODEL_NO_SUCH_TYPE.getCode()).build()));
+        return Flux.fromStream(Stream.of(MessageResponse.builder().code(ErrorCodeConstants.MODEL_NO_SUCH_TYPE.getCode()).msg(ErrorCodeConstants.MODEL_NO_SUCH_TYPE.getMsg()).build()));
     }
 
     @Override

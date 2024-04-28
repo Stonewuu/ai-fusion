@@ -72,7 +72,7 @@ public class MemberUserController {
     @PreAuthorize("@ss.hasPermission('member:user:update-point')")
     public CommonResult<Boolean> updateUserPoint(@Valid @RequestBody MemberUserUpdatePointReqVO updateReqVO) {
         memberPointRecordService.createPointRecord(updateReqVO.getId(), updateReqVO.getPoint(),
-                MemberPointBizTypeEnum.ADMIN, String.valueOf(getLoginUserId()));
+                MemberPointBizTypeEnum.ADMIN, String.valueOf(getLoginUserId()), true);
         return success(true);
     }
 

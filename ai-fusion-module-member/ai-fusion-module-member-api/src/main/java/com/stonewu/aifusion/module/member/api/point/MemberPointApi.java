@@ -24,12 +24,13 @@ public interface MemberPointApi {
     /**
      * 减少用户积分
      *
-     * @param userId  用户编号
-     * @param point   积分
-     * @param bizType 业务类型 {@link MemberPointBizTypeEnum}
-     * @param bizId   业务编号
+     * @param userId              用户编号
+     * @param point               积分
+     * @param bizType             业务类型 {@link MemberPointBizTypeEnum}
+     * @param bizId               业务编号
+     * @param allowResultNegative
      */
     void reducePoint(Long userId, @Min(value = 0L, message = "积分必须是正数") Integer point,
-                     Integer bizType, String bizId);
+                     Integer bizType, String bizId, boolean allowResultNegative);
 
 }
