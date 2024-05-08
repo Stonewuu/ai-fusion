@@ -1,5 +1,7 @@
 <p align="center">
     <img width="800" src="image/aifusion.png" alt="AIFUSION LOGO" />
+</p>
+<p align="center">
     <b>Ai Fusion</b>，基于Java的可商业开源AI应用平台
 </p>
 
