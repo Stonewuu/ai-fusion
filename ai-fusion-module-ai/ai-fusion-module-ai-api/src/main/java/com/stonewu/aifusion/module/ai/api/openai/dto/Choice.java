@@ -13,7 +13,7 @@ public class Choice {
 
     private int index;
 
-    private Message message;
+    private Message delta;
 
     private String finishReason;
 

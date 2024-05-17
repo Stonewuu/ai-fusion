@@ -28,6 +28,10 @@ public class ModelDTO {
      */
     private String modelName;
     /**
+     * 接口基础地址
+     */
+    private String baseApi;
+    /**
      * 模型类型
      *
      */

@@ -94,27 +94,29 @@ CREATE TABLE `ai_chat_session`  (
 -- Table structure for ai_model
 -- ----------------------------
 DROP TABLE IF EXISTS `ai_model`;
-CREATE TABLE `ai_model`  (
-  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '模型名称',
-  `api_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '模型ApiKey',
-  `model_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '模型官方英文名称，例：gpt-4、gpt-3.5-turbo',
-  `model_type` tinyint NOT NULL COMMENT '模型类型\r\n1.openai\r\n2.google',
-  `model_price` decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '模型价格/1000 token',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
-  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '创建者',
-  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT '' COMMENT '更新者',
-  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
-  `tenant_id` bigint NOT NULL DEFAULT 0 COMMENT '租户编号',
-  PRIMARY KEY (`id`) USING BTREE
+
+CREATE TABLE `ai_model` (
+                            `id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+                            `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '模型名称',
+                            `api_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '模型ApiKey',
+                            `model_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '模型官方英文名称，例：gpt-4、gpt-3.5-turbo',
+                            `base_api` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '接口基础地址，如果不填则默认调用官方接口',
+                            `model_type` tinyint NOT NULL COMMENT '模型类型\r\n1.openai\r\n2.google',
+                            `model_price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '模型价格/1000 token',
+                            `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '备注',
+                            `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '创建者',
+                            `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                            `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '更新者',
+                            `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                            `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
+                            `tenant_id` bigint NOT NULL DEFAULT '0' COMMENT '租户编号',
+                            PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'AI模型表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ai_model
 -- ----------------------------
-INSERT INTO `ai_model` VALUES (1, 'gemini-pro', '', 'gemini-pro', 2, 0.00, NULL, '1', '2024-04-10 17:44:21', '1', '2024-04-25 10:16:19', b'0', 1);
+INSERT INTO `ai_model` VALUES (1, 'gemini-pro', '', 'gemini-pro', NULL, 2, 0.00, NULL, '1', '2024-04-10 17:44:21', '1', '2024-04-25 10:16:19', b'0', 1);
 
 -- ----------------------------
 -- Table structure for infra_api_access_log

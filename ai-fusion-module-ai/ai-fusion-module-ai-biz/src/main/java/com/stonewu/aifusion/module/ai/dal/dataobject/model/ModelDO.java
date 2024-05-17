@@ -41,6 +41,11 @@ public class ModelDO extends BaseDO {
      */
     private String modelName;
     /**
+     * 接口基础地址
+     */
+    private String baseApi;
+
+    /**
      * 模型类型
      *
      * 枚举 {@link TODO ai_model_type 对应的类}
