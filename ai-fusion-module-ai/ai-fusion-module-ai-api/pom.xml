@@ -26,6 +26,12 @@
             <groupId>com.stonewu.boot</groupId>
             <artifactId>ai-fusion-spring-boot-starter-web</artifactId>
         </dependency>
+
+        <!-- AI相关 -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-openai</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
