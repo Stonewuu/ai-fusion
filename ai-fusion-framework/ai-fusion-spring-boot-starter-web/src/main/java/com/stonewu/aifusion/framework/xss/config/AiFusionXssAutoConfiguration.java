@@ -7,13 +7,17 @@ import com.stonewu.aifusion.framework.xss.core.clean.JsoupXssCleaner;
 import com.stonewu.aifusion.framework.xss.core.clean.XssCleaner;
 import com.stonewu.aifusion.framework.xss.core.filter.XssFilter;
 import com.stonewu.aifusion.framework.xss.core.json.XssStringJsonDeserializer;
+import org.apache.catalina.connector.Connector;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.PathMatcher;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -58,5 +62,15 @@ public class AiFusionXssAutoConfiguration implements WebMvcConfigurer {
     public FilterRegistrationBean<XssFilter> xssFilter(XssProperties properties, PathMatcher pathMatcher, XssCleaner xssCleaner) {
         return AiFusionWebAutoConfiguration.createFilterBean(new XssFilter(properties, pathMatcher, xssCleaner), WebFilterOrderEnum.XSS_FILTER);
     }
-
+    @Bean
+    public ConfigurableServletWebServerFactory webServerFactory() {
+        TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
+        factory.addConnectorCustomizers(new TomcatConnectorCustomizer() {
+            @Override
+            public void customize(Connector connector) {
+                connector.setProperty("relaxedQueryChars", "|{}[]()\\%?");
+            }
+        });
+        return factory;
+    }
 }

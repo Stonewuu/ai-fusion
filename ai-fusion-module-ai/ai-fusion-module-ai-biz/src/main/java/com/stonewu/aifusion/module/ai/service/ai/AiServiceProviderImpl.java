@@ -3,15 +3,12 @@ package com.stonewu.aifusion.module.ai.service.ai;
 import com.stonewu.aifusion.module.ai.api.ai.dto.MessageResponse;
 import com.stonewu.aifusion.module.ai.api.ai.dto.ModelDTO;
 import com.stonewu.aifusion.module.ai.api.openai.dto.Message;
-import com.stonewu.aifusion.module.ai.enums.ErrorCodeConstants;
 import com.stonewu.aifusion.module.ai.service.model.ModelService;
 import jakarta.annotation.Resource;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class AiServiceProviderImpl implements AiServiceProvider {
